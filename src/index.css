@@ -1,0 +1,68 @@
+@import "tailwindcss";
+
+@theme {
+  --font-sans: "Montserrat", "Inter", ui-sans-serif, system-ui, sans-serif;
+  --font-display: "Montserrat", sans-serif;
+  --font-logo: "Satisfy", "Playball", "Great Vibes", cursive;
+}
+
+@layer base {
+  html {
+    text-rendering: optimizeLegibility;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+    -webkit-text-size-adjust: 100%;
+  }
+
+  body {
+    font-family: var(--font-sans);
+    text-rendering: optimizeLegibility;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+  }
+  
+  h1, h2, h3, h4, h5, h6 {
+    font-family: var(--font-display);
+    font-weight: 800;
+  }
+
+  /* Prevent text blurring/drop in resolution during transforms, transitions, and hover effects */
+  .transition,
+  .transition-all,
+  .transform,
+  .group,
+  [class*="transition"],
+  [class*="duration-"],
+  [class*="hover:-translate"] {
+    -webkit-backface-visibility: hidden;
+    backface-visibility: hidden;
+    -webkit-transform-style: preserve-3d;
+    transform-style: preserve-3d;
+    /* Force high precision rendering */
+    -webkit-perspective: 1000;
+    perspective: 1000;
+  }
+}
+
+/* Custom hide scrollbar */
+.no-scrollbar::-webkit-scrollbar {
+  display: none;
+}
+.no-scrollbar {
+  -ms-overflow-style: none;
+  scrollbar-width: none;
+}
+
+/* Premium gradient borders and pink glowing shadows */
+.glow-pink {
+  box-shadow: 0 0 15px rgba(255, 45, 141, 0.4);
+}
+
+.glow-pink-strong {
+  box-shadow: 0 0 25px rgba(255, 45, 141, 0.7);
+}
+
+.text-glow-pink {
+  text-shadow: 0 0 10px rgba(255, 45, 141, 0.5);
+}
+

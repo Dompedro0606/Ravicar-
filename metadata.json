@@ -1,0 +1,6 @@
+{
+  "name": "RaviCar",
+  "description": "Seu próximo carro está aqui. Site profissional, moderno e luxuoso para a agência de veículos RaviCar, com catálogo completo, filtros de busca, área administrativa e de vendedores.",
+  "requestFramePermissions": [],
+  "majorCapabilities": ["MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"]
+}

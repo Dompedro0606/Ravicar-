@@ -1,0 +1,221 @@
+{
+  "users": [
+    {
+      "id": "admin-1",
+      "email": "gabrielvitor72103@gmail.com",
+      "name": "Gabriel Vitor",
+      "role": "Administrador",
+      "phone": "11983950665",
+      "passwordHash": "63a59023cda0de5a62ef66950d8e7da8a24544e631ba8a784b0e1e817bb8acc0",
+      "createdAt": "2026-07-06T20:00:00.000Z"
+    }
+  ],
+  "vehicles": [
+    {
+      "id": "car-1",
+      "title": "Chevrolet Onix 1.0 Turbo LTZ",
+      "brand": "Chevrolet",
+      "model": "Onix",
+      "year": "2021/2022",
+      "mileage": 45000,
+      "color": "Prata",
+      "fuel": "Flex",
+      "transmission": "Automático",
+      "engine": "1.0 Turbo",
+      "power": "116 cv",
+      "options": [
+        "Ar condicionado",
+        "Direção elétrica",
+        "Vidros elétricos",
+        "Travas elétricas",
+        "Central multimídia MyLink",
+        "Câmera de ré",
+        "Sensor de estacionamento",
+        "Controle de tração",
+        "Assistente de partida em rampa"
+      ],
+      "description": "Excelente estado de conservação, único dono, manual do proprietário, chave reserva, revisões em dia na concessionária. Carro super econômico, com excelente motor turbo que entrega ótima performance com baixíssimo consumo. Pronto para rodar!",
+      "price": 78900,
+      "status": "Disponível",
+      "media": [
+        {
+          "type": "image",
+          "url": "https://images.unsplash.com/photo-1541899481282-d53bffe3c35d?auto=format&fit=crop&q=80&w=800"
+        },
+        {
+          "type": "image",
+          "url": "https://images.unsplash.com/photo-1552519507-da3b142c6e3d?auto=format&fit=crop&q=80&w=800"
+        }
+      ],
+      "featured": true,
+      "newlyArrived": false,
+      "createdAt": "2026-07-01T12:00:00.000Z",
+      "createdBy": "admin-1",
+      "views": 0
+    },
+    {
+      "id": "car-2",
+      "title": "Ford Fiesta 1.6 SE Flex Manual",
+      "brand": "Ford",
+      "model": "Fiesta",
+      "year": "2018/2019",
+      "mileage": 62000,
+      "color": "Vermelho",
+      "fuel": "Flex",
+      "transmission": "Manual",
+      "engine": "1.6 Sigma",
+      "power": "128 cv",
+      "options": [
+        "Ar condicionado",
+        "Direção hidráulica",
+        "Vidros elétricos dianteiros",
+        "Freios ABS",
+        "Airbags frontais",
+        "Rádio com Bluetooth",
+        "Alarme"
+      ],
+      "description": "Visual agressivo e cor marcante. Muito bem cuidado, suspensão revisada, pneus novos, ótimo espaço interno e excelente estabilidade na estrada. Venha fazer um test drive e se apaixonar!",
+      "price": 54900,
+      "status": "Disponível",
+      "media": [
+        {
+          "type": "image",
+          "url": "https://images.unsplash.com/photo-1549399542-7e3f8b79c341?auto=format&fit=crop&q=80&w=800"
+        },
+        {
+          "type": "image",
+          "url": "https://images.unsplash.com/photo-1562591188-12c64b128135?auto=format&fit=crop&q=80&w=800"
+        }
+      ],
+      "featured": false,
+      "newlyArrived": true,
+      "createdAt": "2026-07-05T15:30:00.000Z",
+      "createdBy": "admin-1",
+      "views": 0
+    },
+    {
+      "id": "car-3",
+      "title": "Volkswagen Voyage 1.6 MSI Flex",
+      "brand": "Volkswagen",
+      "model": "Voyage",
+      "year": "2020/2021",
+      "mileage": 51000,
+      "color": "Branco",
+      "fuel": "Flex",
+      "transmission": "Manual",
+      "engine": "1.6",
+      "power": "120 cv",
+      "options": [
+        "Ar condicionado",
+        "Direção hidráulica",
+        "Vidros elétricos",
+        "Sensor de ré",
+        "Chave canivete",
+        "Som integrado",
+        "Porta-malas espaçoso"
+      ],
+      "description": "Sedan ideal para a família ou para trabalho. Porta-malas gigante de 480 litros, consumo baixíssimo na estrada, motor confiável MSI com ótimo torque. Carro robusto com custo-benefício inigualável.",
+      "price": 62900,
+      "status": "Reservado",
+      "media": [
+        {
+          "type": "image",
+          "url": "https://images.unsplash.com/photo-1533473359331-0135ef1b58bf?auto=format&fit=crop&q=80&w=800"
+        }
+      ],
+      "featured": true,
+      "newlyArrived": false,
+      "createdAt": "2026-07-02T10:15:00.000Z",
+      "createdBy": "admin-1",
+      "views": 0
+    }
+  ],
+  "testimonials": [
+    {
+      "id": "test-1",
+      "name": "Carlos Eduardo Souza",
+      "role": "Cliente Satisfeito",
+      "rating": 5,
+      "text": "Excelente atendimento! Comprei meu Onix na RaviCar e o atendimento do início ao fim foi impecável. Equipe transparente e carros de altíssima qualidade.",
+      "createdAt": "2026-06-15T10:00:00.000Z"
+    },
+    {
+      "id": "test-2",
+      "name": "Mariana Mendes",
+      "role": "Proprietária de um Corolla Hybrid",
+      "rating": 5,
+      "text": "Fui muito bem recebida. Avaliaram meu carro usado de forma super justa e facilitaram o financiamento. Recomendo muito a agência!",
+      "createdAt": "2026-06-28T14:20:00.000Z"
+    },
+    {
+      "id": "test-3",
+      "name": "Rodrigo Silva de Oliveira",
+      "role": "Cliente Recorrente",
+      "rating": 5,
+      "text": "Já é o segundo carro que adquiro com o pessoal da RaviCar. Honestidade nas vistorias e agilidade na entrega. Parabéns à equipe pelo trabalho sério.",
+      "createdAt": "2026-07-03T11:05:00.000Z"
+    }
+  ],
+  "banners": [
+    {
+      "id": "banner-1",
+      "title": "Seu próximo carro está aqui",
+      "subtitle": "Veículos seminovos revisados e com garantia de verdade. Realize o seu sonho com as melhores taxas do mercado.",
+      "imageUrl": "https://images.unsplash.com/photo-1503376780353-7e6692767b70?auto=format&fit=crop&q=80&w=1200",
+      "linkUrl": "#catalogo",
+      "active": true,
+      "createdAt": "2026-07-01T00:00:00.000Z"
+    }
+  ],
+  "messages": [
+    {
+      "type": "WhatsAppClick",
+      "name": "Interesse: Toyota Corolla 1.8 Hybrid Altis Premium",
+      "phone": "(11) 95720-6096",
+      "vehicleId": "car-4",
+      "vehicleName": "Toyota Corolla 1.8 Hybrid Altis Premium",
+      "message": "Clique no botão Comprar pelo WhatsApp",
+      "id": "lead-1783395603167",
+      "date": "2026-07-07T03:40:03.167Z",
+      "status": "Atendido"
+    },
+    {
+      "type": "WhatsAppClick",
+      "name": "Interesse Geral (Botão Hero)",
+      "phone": "(11) 95720-6096",
+      "message": "Clique no botão Falar no WhatsApp da Home",
+      "id": "lead-1783426301386",
+      "date": "2026-07-07T12:11:41.386Z",
+      "status": "Pendente"
+    }
+  ],
+  "settings": {
+    "whatsapp": "(11) 95720-6096",
+    "phone": "(11) 95720-6096",
+    "email": "ravi_car@outlook.com",
+    "address": "Avenida Marechal Tito, 2188 - São Miguel Paulista, São Paulo - SP, 08022-000, Brasil",
+    "instagram": "https://instagram.com/ravicar_veiculos",
+    "facebook": "https://facebook.com/ravicar_veiculos",
+    "hoursWeekday": "8h às 18h",
+    "hoursSaturday": "8h às 16h",
+    "pixCnpj": "44.169.920/0001-03",
+    "pixCelular": "11983950665",
+    "pixEmail": "ravi_car@outlook.com",
+    "pixSantander": "ag: 0696 CC: 13004672-2",
+    "pixBradesco": "ag: 0113 CC: 0032823-5",
+    "pixItau": "ag: 6453 CC: 99793-1",
+    "pixInter": "ag: 0001 CC: 22066529-0",
+    "customDomain": "www.ravicar.com"
+  },
+  "clients": [
+    {
+      "id": "client-1",
+      "name": "Guilherme Santos",
+      "phone": "11999998888",
+      "email": "guilherme@gmail.com",
+      "notes": "Interessado em SUV, procurando Compass ou similar.",
+      "createdAt": "2026-07-06T18:00:00.000Z",
+      "createdBy": "admin-1"
+    }
+  ]
+}
