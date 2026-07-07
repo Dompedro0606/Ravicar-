@@ -97,6 +97,22 @@ export function AdminPanel({ currentUser, token, vehicles, onRefreshData, settin
     newlyArrived: true,
   });
 
+  // Gemini AI Analysis State
+  const [aiLoading, setAiLoading] = useState(false);
+  const [aiAnalysis, setAiAnalysis] = useState<{
+    veiculo: string;
+    analise_preco: {
+      status: string;
+      preco_sugerido: number;
+      diferenca_percentual: string;
+    };
+    conteudo: {
+      titulo_seo: string;
+      descricao_persuasiva: string;
+    };
+    score_qualidade: number;
+  } | null>(null);
+
   // Client CRM Form State
   const [clientFormOpen, setClientFormOpen] = useState(false);
   const [editingClientId, setEditingClientId] = useState<string | null>(null);
@@ -313,8 +329,51 @@ export function AdminPanel({ currentUser, token, vehicles, onRefreshData, settin
     }
   };
 
+  const handleTriggerAIAnalysis = async () => {
+    if (!carForm.brand || !carForm.model || !carForm.price) {
+      showToast('Por favor, preencha Marca, Modelo e Preço de Venda antes de realizar a análise com IA.', 'error');
+      return;
+    }
+
+    try {
+      setAiLoading(true);
+      setAiAnalysis(null);
+      const res = await fetch('/api/gemini/analyze-car', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+          'Authorization': `Bearer ${token}`
+        },
+        body: JSON.stringify({
+          brand: carForm.brand,
+          model: carForm.model,
+          year: carForm.year,
+          mileage: carForm.mileage,
+          price: carForm.price,
+          description: carForm.description,
+          optionsText: carForm.optionsText
+        })
+      });
+
+      if (res.ok) {
+        const data = await res.json();
+        setAiAnalysis(data);
+        showToast('Análise de mercado com IA realizada com sucesso!', 'success');
+      } else {
+        const errData = await res.json();
+        showToast(errData.error || 'Erro ao realizar a análise inteligente.', 'error');
+      }
+    } catch (e: any) {
+      console.error(e);
+      showToast('Erro ao conectar com a IA do Gemini.', 'error');
+    } finally {
+      setAiLoading(false);
+    }
+  };
+
   const handleEditCarClick = (vehicle: Vehicle) => {
     setEditingCarId(vehicle.id);
+    setAiAnalysis(null);
     setCarForm({
       title: vehicle.title,
       brand: vehicle.brand,
@@ -638,7 +697,7 @@ export function AdminPanel({ currentUser, token, vehicles, onRefreshData, settin
               </div>
               <div className="space-y-3">
                 <button
-                  onClick={() => { setActiveTab('vehicles'); setCarFormOpen(true); }}
+                  onClick={() => { setActiveTab('vehicles'); setCarFormOpen(true); setAiAnalysis(null); }}
                   className="w-full py-3 rounded-xl bg-[#1A1A1A] hover:bg-[#FF2D8D] hover:text-white transition text-left px-4 text-xs font-bold text-gray-300 border border-neutral-800 hover:border-transparent flex items-center justify-between"
                 >
                   <span>Cadastrar Veículo Novo</span>
@@ -674,7 +733,7 @@ export function AdminPanel({ currentUser, token, vehicles, onRefreshData, settin
               Estoque do Showroom ({vehicles.length})
             </h3>
             <button
-              onClick={() => { setEditingCarId(null); setCarFormOpen(true); }}
+              onClick={() => { setEditingCarId(null); setCarFormOpen(true); setAiAnalysis(null); }}
               className="flex items-center gap-1.5 px-4 py-2 bg-[#FF2D8D] text-white hover:bg-[#FF6FB5] transition font-bold text-xs rounded-xl shadow-lg cursor-pointer"
             >
               <Plus className="w-4 h-4" /> Cadastrar Veículo
@@ -901,6 +960,137 @@ export function AdminPanel({ currentUser, token, vehicles, onRefreshData, settin
                     className="w-full bg-neutral-900 border border-neutral-800 rounded-xl px-3.5 py-2.5 text-white outline-none resize-none"
                     placeholder="Fale sobre o estado de conservação, histórico, garantias, etc."
                   ></textarea>
+                </div>
+
+                {/* IA Market Intelligence Panel */}
+                <div className="p-5 bg-neutral-900 border border-neutral-800 rounded-2xl space-y-4">
+                  <div className="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-3 pb-2 border-b border-neutral-800">
+                    <div>
+                      <h5 className="font-display font-black text-xs text-white uppercase tracking-wider flex items-center gap-1.5">
+                        <RefreshCw className={`w-4 h-4 text-[#FF2D8D] ${aiLoading ? 'animate-spin' : ''}`} />
+                        Inteligência de Mercado IA (Gemini)
+                      </h5>
+                      <p className="text-[10px] text-gray-500 mt-0.5">Audite o preço do veículo e otimize o título para SEO e descrição com 1 clique.</p>
+                    </div>
+                    <button
+                      type="button"
+                      disabled={aiLoading}
+                      onClick={handleTriggerAIAnalysis}
+                      className="px-4 py-2 rounded-xl bg-neutral-800 hover:bg-[#FF2D8D] text-white font-extrabold text-[11px] border border-neutral-700 hover:border-transparent transition flex items-center gap-1.5 disabled:opacity-50 cursor-pointer"
+                    >
+                      {aiLoading ? (
+                        <>
+                          <RefreshCw className="w-3.5 h-3.5 animate-spin" />
+                          Analisando...
+                        </>
+                      ) : (
+                        <>
+                          <span>✨ Otimizar com IA</span>
+                        </>
+                      )}
+                    </button>
+                  </div>
+
+                  {aiAnalysis && (
+                    <div className="space-y-4 text-xs animate-fadeIn">
+                      {/* Quality & Price Grid */}
+                      <div className="grid grid-cols-1 md:grid-cols-12 gap-4">
+                        {/* Quality Score */}
+                        <div className="md:col-span-4 p-4 bg-neutral-950 border border-neutral-800 rounded-xl flex flex-col justify-between">
+                          <div>
+                            <span className="text-[9px] uppercase tracking-wider text-gray-500 font-bold">Score de Qualidade</span>
+                            <div className="flex items-baseline gap-1 mt-2">
+                              <span className="text-3xl font-black text-white">{aiAnalysis.score_qualidade}</span>
+                              <span className="text-gray-600 font-bold">/ 10</span>
+                            </div>
+                          </div>
+                          <div className="w-full bg-neutral-900 h-1.5 rounded-full mt-3 overflow-hidden">
+                            <div 
+                              className="bg-gradient-to-r from-[#FF2D8D] to-[#FF6FB5] h-full rounded-full" 
+                              style={{ width: `${aiAnalysis.score_qualidade * 10}%` }}
+                            />
+                          </div>
+                        </div>
+
+                        {/* Price Audit */}
+                        <div className="md:col-span-8 p-4 bg-neutral-950 border border-neutral-800 rounded-xl space-y-3">
+                          <div className="flex items-center justify-between">
+                            <span className="text-[9px] uppercase tracking-wider text-gray-500 font-bold">Auditoria de Preço (Julho/2026)</span>
+                            <span className={`px-2.5 py-0.5 rounded-full text-[9px] font-black uppercase ${
+                              aiAnalysis.analise_preco.status === 'DENTRO_DO_MERCADO' ? 'bg-emerald-950 text-emerald-400 border border-emerald-900' :
+                              aiAnalysis.analise_preco.status === 'ABAJO_DO_MERCADO' || aiAnalysis.analise_preco.status === 'ABAIXO_DO_MERCADO' ? 'bg-sky-950 text-sky-400 border border-sky-900' :
+                              'bg-amber-950 text-amber-400 border border-amber-900'
+                            }`}>
+                              {aiAnalysis.analise_preco.status.replace(/_/g, ' ')}
+                            </span>
+                          </div>
+
+                          <div className="grid grid-cols-2 gap-2 text-xs">
+                            <div>
+                              <p className="text-gray-500 text-[10px]">Preço Sugerido (FIPE/Margem):</p>
+                              <p className="font-bold text-white mt-0.5">R$ {aiAnalysis.analise_preco.preco_sugerido.toLocaleString('pt-BR')}</p>
+                            </div>
+                            <div>
+                              <p className="text-gray-500 text-[10px]">Diferença vs. Mercado:</p>
+                              <p className="font-bold text-[#FF2D8D] mt-0.5">{aiAnalysis.analise_preco.diferenca_percentual}</p>
+                            </div>
+                          </div>
+
+                          <div className="pt-2 border-t border-neutral-900 flex justify-end">
+                            <button
+                              type="button"
+                              onClick={() => {
+                                setCarForm(prev => ({ ...prev, price: aiAnalysis.analise_preco.preco_sugerido }));
+                                showToast('Preço sugerido aplicado com sucesso!', 'success');
+                              }}
+                              className="px-3 py-1.5 rounded-lg bg-[#FF2D8D]/10 border border-[#FF2D8D]/20 text-[#FF2D8D] hover:bg-[#FF2D8D] hover:text-white transition font-bold text-[10px] flex items-center gap-1 cursor-pointer"
+                            >
+                              <Check className="w-3 h-3" /> Aplicar Preço Sugerido
+                            </button>
+                          </div>
+                        </div>
+                      </div>
+
+                      {/* Content Grid */}
+                      <div className="space-y-3">
+                        {/* Title SEO */}
+                        <div className="p-4 bg-neutral-950 border border-neutral-800 rounded-xl space-y-2">
+                          <div className="flex items-center justify-between">
+                            <span className="text-[9px] uppercase tracking-wider text-gray-500 font-bold">Título Otimizado para SEO</span>
+                            <button
+                              type="button"
+                              onClick={() => {
+                                setCarForm(prev => ({ ...prev, title: aiAnalysis.conteudo.titulo_seo }));
+                                showToast('Título SEO aplicado!', 'success');
+                              }}
+                              className="px-2 py-1 rounded bg-neutral-900 border border-neutral-800 text-gray-300 hover:text-white transition font-bold text-[9px] flex items-center gap-1 cursor-pointer"
+                            >
+                              <Check className="w-2.5 h-2.5" /> Aplicar Título
+                            </button>
+                          </div>
+                          <p className="text-white font-bold text-xs">{aiAnalysis.conteudo.titulo_seo}</p>
+                        </div>
+
+                        {/* Description Persuasiva */}
+                        <div className="p-4 bg-neutral-950 border border-neutral-800 rounded-xl space-y-2">
+                          <div className="flex items-center justify-between">
+                            <span className="text-[9px] uppercase tracking-wider text-gray-500 font-bold">Descrição Curta & Persuasiva</span>
+                            <button
+                              type="button"
+                              onClick={() => {
+                                setCarForm(prev => ({ ...prev, description: aiAnalysis.conteudo.descricao_persuasiva }));
+                                showToast('Descrição persuasiva aplicada!', 'success');
+                              }}
+                              className="px-2 py-1 rounded bg-neutral-900 border border-neutral-800 text-gray-300 hover:text-white transition font-bold text-[9px] flex items-center gap-1 cursor-pointer"
+                            >
+                              <Check className="w-2.5 h-2.5" /> Aplicar Descrição
+                            </button>
+                          </div>
+                          <p className="text-gray-300 leading-relaxed text-[11px] italic">"{aiAnalysis.conteudo.descricao_persuasiva}"</p>
+                        </div>
+                      </div>
+                    </div>
+                  )}
                 </div>
 
                 {/* Flags and Status */}

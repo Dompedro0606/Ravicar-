@@ -3,6 +3,7 @@ import path from 'path';
 import fs from 'fs';
 import crypto from 'crypto';
 import { createServer as createViteServer } from 'vite';
+import { GoogleGenAI, Type } from '@google/genai';
 import { Vehicle, UserProfile, Testimonial, Banner, LeadMessage, SiteSettings } from './src/types';
 import {
   initFirebase,
@@ -62,7 +63,7 @@ function verifyToken(token: string): string | null {
 }
 
 const app = express();
-const PORT = process.env.PORT || 3000;
+const PORT = Number(process.env.PORT) || 3000;
 
 // High limits for image/video base64 uploads
 app.use(express.json({ limit: '50mb' }));
@@ -561,6 +562,126 @@ app.delete('/api/clients/:id', requireAuth, async (req, res) => {
 
   await deleteClient(req.params.id);
   return res.json({ success: true });
+});
+
+// Lazy-initialized Gemini client instance
+let aiInstance: GoogleGenAI | null = null;
+function getGeminiClient(): GoogleGenAI {
+  if (!aiInstance) {
+    const apiKey = process.env.GEMINI_API_KEY;
+    if (!apiKey) {
+      throw new Error('A variável de ambiente GEMINI_API_KEY não foi configurada. Cadastre a chave para habilitar a inteligência de mercado.');
+    }
+    aiInstance = new GoogleGenAI({
+      apiKey,
+      httpOptions: {
+        headers: {
+          'User-Agent': 'aistudio-build',
+        }
+      }
+    });
+  }
+  return aiInstance;
+}
+
+// 15. IA Auto Market Intelligence (Car analysis and price/SEO optimization)
+app.post('/api/gemini/analyze-car', requireAuth, async (req, res) => {
+  try {
+    const { brand, model, year, mileage, price, description, optionsText } = req.body;
+
+    if (!brand || !model || !price) {
+      return res.status(400).json({ error: 'Marca, modelo e preço são obrigatórios para a análise.' });
+    }
+
+    const ai = getGeminiClient();
+
+    const systemInstruction = `Você é um Especialista em Inteligência de Mercado Automotivo. Sua função é processar dados de veículos brutos, auditar o preço comparando com a média de mercado atual (julho/2026) e estruturar o resultado para integração em um site de vendas.
+
+REGRAS DE OURO:
+1. Sempre responda EXCLUSIVAMENTE em formato JSON que segue o schema fornecido.
+2. Não adicione textos explicativos fora do JSON.
+3. Se o preço estiver fora da margem de mercado (média FIPE +/- 10% para o ano de ${year || '2026'}), identifique como "AJUSTE_NECESSARIO" no status e sugira o preço ideal.
+4. Gere um título de anúncio otimizado para SEO (focando em palavras-chave como marca, modelo, ano e diferencial).`;
+
+    const prompt = `Analise este veículo com base nos dados fornecidos:
+Marca: ${brand}
+Modelo: ${model}
+Ano: ${year || 'Não especificado'}
+KM (Quilometragem): ${mileage || 0}
+Preço Atual Informado: R$ ${price}
+Opcionais: ${optionsText || 'Nenhum opcional informado'}
+Descrição Comercial: ${description || 'Nenhuma descrição comercial fornecida'}
+
+Compare com a média estimada de mercado de automóveis para julho/2026 e preencha todos os campos do JSON conforme as regras.`;
+
+    const response = await ai.models.generateContent({
+      model: "gemini-3.5-flash",
+      contents: prompt,
+      config: {
+        systemInstruction,
+        responseMimeType: "application/json",
+        responseSchema: {
+          type: Type.OBJECT,
+          properties: {
+            veiculo: { 
+              type: Type.STRING,
+              description: "Resumo do nome do veículo" 
+            },
+            analise_preco: {
+              type: Type.OBJECT,
+              properties: {
+                status: { 
+                  type: Type.STRING, 
+                  description: "Retorne estritamente um destes valores: DENTRO_DO_MERCADO | ACIMA_DO_MERCADO | ABAIXO_DO_MERCADO" 
+                },
+                preco_sugerido: { 
+                  type: Type.NUMBER, 
+                  description: "Preço recomendado sugerido (valor numérico)" 
+                },
+                diferenca_percentual: { 
+                  type: Type.STRING, 
+                  description: "Diferença percentual formatada, ex: +5% ou -12% ou 0%" 
+                }
+              },
+              required: ["status", "preco_sugerido", "diferenca_percentual"]
+            },
+            conteudo: {
+              type: Type.OBJECT,
+              properties: {
+                titulo_seo: { 
+                  type: Type.STRING, 
+                  description: "Título otimizado para SEO baseado na marca, modelo, ano e diferenciais" 
+                },
+                descricao_persuasiva: { 
+                  type: Type.STRING, 
+                  description: "Uma descrição comercial curta, persuasiva e com forte apelo de vendas (short pitch)" 
+                }
+              },
+              required: ["titulo_seo", "descricao_persuasiva"]
+            },
+            score_qualidade: { 
+              type: Type.NUMBER, 
+              description: "Nota de 0 a 10 atribuída à qualidade do anúncio com base nas informações completas fornecidas" 
+            }
+          },
+          required: ["veiculo", "analise_preco", "conteudo", "score_qualidade"]
+        }
+      }
+    });
+
+    if (!response.text) {
+      return res.status(500).json({ error: 'Nenhum resultado retornado pelo modelo Gemini.' });
+    }
+
+    const jsonResult = JSON.parse(response.text.trim());
+    return res.json(jsonResult);
+
+  } catch (error: any) {
+    console.error('Gemini Car Analysis Error:', error);
+    return res.status(500).json({ 
+      error: error.message || 'Erro interno ao realizar a análise inteligente do veículo com o Gemini.' 
+    });
+  }
 });
 
 // Serve uploads directory statically (Vite and Express will handle this)
