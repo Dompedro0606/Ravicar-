@@ -404,10 +404,10 @@ export function Header({ currentUser, onLogout, onOpenAuth, onNavigate, currentP
 
                   <button
                     onClick={() => changeTheme('branco')}
-                    className={`w-full flex items-center justify-between px-2.5 py-1.5 rounded-lg text-xs transition-all cursor-pointer ${activeTheme === 'branco' ? 'bg-blue-500/10 text-blue-400 font-bold' : 'text-gray-300 hover:bg-neutral-900'}`}
+                    className={`w-full flex items-center justify-between px-2.5 py-1.5 rounded-lg text-xs transition-all cursor-pointer ${activeTheme === 'branco' ? 'bg-[#FF2D8D]/10 text-[#FF2D8D] font-bold' : 'text-gray-300 hover:bg-neutral-900'}`}
                   >
                     <div className="flex items-center gap-2">
-                      <span className="w-2.5 h-2.5 rounded-full bg-white border border-neutral-500"></span>
+                      <span className="w-2.5 h-2.5 rounded-full bg-white border border-[#FF2D8D] shadow-sm"></span>
                       <span>Branco</span>
                     </div>
                     {activeTheme === 'branco' && <span className="text-[10px] font-bold">●</span>}
@@ -574,9 +574,9 @@ export function Header({ currentUser, onLogout, onOpenAuth, onNavigate, currentP
                 
                 <button
                   onClick={() => changeTheme('branco')}
-                  className={`flex flex-col items-center gap-1.5 py-2 px-1 rounded-xl border text-[10px] font-semibold transition-all cursor-pointer ${activeTheme === 'branco' ? 'border-blue-500 bg-blue-500/10 text-blue-400' : 'border-neutral-900 bg-neutral-950 text-gray-400'}`}
+                  className={`flex flex-col items-center gap-1.5 py-2 px-1 rounded-xl border text-[10px] font-semibold transition-all cursor-pointer ${activeTheme === 'branco' ? 'border-[#FF2D8D] bg-[#FF2D8D]/10 text-[#FF2D8D]' : 'border-neutral-900 bg-neutral-950 text-gray-400'}`}
                 >
-                  <span className="w-3 h-3 rounded-full bg-white border border-neutral-500 shadow-sm"></span>
+                  <span className="w-3 h-3 rounded-full bg-white border border-[#FF2D8D] shadow-sm"></span>
                   <span>Branco</span>
                 </button>
 
