@@ -7,7 +7,7 @@ import ravicarLogo from '../assets/images/ravicar_logo_1783395977905.jpg';
 export function Logo({ className = "w-10 h-10", showText = true }: { className?: string; showText?: boolean }) {
   return (
     <div className="flex items-center gap-2.5 cursor-pointer">
-      <div className={`relative bg-neutral-900 flex items-center justify-center rounded-full overflow-hidden border border-[#FF2D8D]/20 transition-all duration-300 hover:scale-105 ${className}`}>
+      <div className={`relative bg-neutral-900 flex items-center justify-center rounded-full overflow-hidden border border-[var(--brand-color)]/20 transition-all duration-300 hover:scale-105 ${className}`}>
         <img
           src={ravicarLogo}
           alt="RaviCar Logo"
@@ -18,7 +18,7 @@ export function Logo({ className = "w-10 h-10", showText = true }: { className?:
       {showText && (
         <div className="flex items-center justify-center pt-0.5">
           <span className="font-logo tracking-wide text-3xl leading-none text-white select-none flex items-center" style={{ fontFamily: '"Satisfy", "Playball", "Great Vibes", cursive' }}>
-            Ravi<span className="text-[#FF2D8D]">Car</span>
+            Ravi<span className="text-[var(--brand-color)]">Car</span>
           </span>
         </div>
       )}
@@ -332,41 +332,37 @@ export function Header({ currentUser, onLogout, onOpenAuth, onNavigate, currentP
           <nav className="hidden md:flex items-center gap-8 text-xs font-semibold uppercase tracking-widest">
             <button 
               onClick={() => handleNav('home')} 
-              className={`transition-all duration-200 cursor-pointer py-1 ${currentPage === 'home' ? 'text-[#FF2D8D] border-b-2 border-[#FF2D8D]' : 'text-gray-400 hover:text-white'}`}
+              className={`transition-all duration-200 cursor-pointer py-1 ${currentPage === 'home' ? 'text-[var(--brand-color)] border-b-2 border-[var(--brand-color)] font-bold' : 'text-gray-400 hover:text-white'}`}
             >
               Início
             </button>
             <button 
               onClick={() => handleNav('catalogo')} 
-              className={`transition-all duration-200 cursor-pointer py-1 ${currentPage === 'catalogo' ? 'text-[#FF2D8D] border-b-2 border-[#FF2D8D]' : 'text-gray-400 hover:text-white'}`}
+              className={`transition-all duration-200 cursor-pointer py-1 ${currentPage === 'catalogo' ? 'text-[var(--brand-color)] border-b-2 border-[var(--brand-color)] font-bold' : 'text-gray-400 hover:text-white'}`}
             >
               Estoque
             </button>
             <button 
               onClick={() => handleNav('financiamento')} 
-              className={`transition-all duration-200 cursor-pointer py-1 ${currentPage === 'financiamento' ? 'text-[#FF2D8D] border-b-2 border-[#FF2D8D]' : 'text-gray-400 hover:text-white'}`}
+              className={`transition-all duration-200 cursor-pointer py-1 ${currentPage === 'financiamento' ? 'text-[var(--brand-color)] border-b-2 border-[var(--brand-color)] font-bold' : 'text-gray-400 hover:text-white'}`}
             >
               Financiamento
             </button>
             <button 
               onClick={() => handleNav('avaliacao')} 
-              className={`transition-all duration-200 cursor-pointer py-1 ${currentPage === 'avaliacao' ? 'text-[#FF2D8D] border-b-2 border-[#FF2D8D]' : 'text-gray-400 hover:text-white'}`}
+              className={`transition-all duration-200 cursor-pointer py-1 ${currentPage === 'avaliacao' ? 'text-[var(--brand-color)] border-b-2 border-[var(--brand-color)] font-bold' : 'text-gray-400 hover:text-white'}`}
             >
               Avalie seu Usado
             </button>
             <button 
               onClick={() => handleNav('combo')} 
-              className={`transition-all duration-200 cursor-pointer py-1 flex items-center gap-1 font-bold ${currentPage === 'combo' ? 'text-[#FF2D8D] border-b-2 border-[#FF2D8D]' : 'text-[#FF6FB5] hover:text-white'}`}
+              className={`transition-all duration-200 cursor-pointer py-1 flex items-center gap-1 ${currentPage === 'combo' ? 'text-[var(--brand-color)] border-b-2 border-[var(--brand-color)] font-bold' : 'text-gray-400 hover:text-white'}`}
             >
-              <span className="relative flex h-2 w-2">
-                <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-[#FF2D8D] opacity-75"></span>
-                <span className="relative inline-flex rounded-full h-2 w-2 bg-[#FF2D8D]"></span>
-              </span>
-              Simulador Combo 🔄
+              Simulador Combo
             </button>
             <button 
               onClick={() => handleNav('termos')} 
-              className={`transition-all duration-200 cursor-pointer py-1 ${currentPage === 'termos' ? 'text-[#FF2D8D] border-b-2 border-[#FF2D8D]' : 'text-gray-400 hover:text-white'}`}
+              className={`transition-all duration-200 cursor-pointer py-1 ${currentPage === 'termos' ? 'text-[var(--brand-color)] border-b-2 border-[var(--brand-color)] font-bold' : 'text-gray-400 hover:text-white'}`}
             >
               Termos de Uso
             </button>
@@ -434,6 +430,17 @@ export function Header({ currentUser, onLogout, onOpenAuth, onNavigate, currentP
                     </div>
                     {activeTheme === 'preto' && <span className="text-[10px] font-bold">●</span>}
                   </button>
+
+                  <button
+                    onClick={() => changeTheme('creme')}
+                    className={`w-full flex items-center justify-between px-2.5 py-1.5 rounded-lg text-xs transition-all cursor-pointer ${activeTheme === 'creme' ? 'bg-[#a67537]/10 text-[#a67537] font-bold' : 'text-[var(--text-secondary)] hover:bg-[var(--bg-card-hover)] hover:text-[var(--text-primary)]'}`}
+                  >
+                    <div className="flex items-center gap-2">
+                      <span className="w-2.5 h-2.5 rounded-full bg-[#faf4e8] border border-[#a67537] shadow-sm"></span>
+                      <span>Creme Imperial</span>
+                    </div>
+                    {activeTheme === 'creme' && <span className="text-[10px] font-bold">●</span>}
+                  </button>
                 </div>
               )}
             </div>
@@ -445,11 +452,10 @@ export function Header({ currentUser, onLogout, onOpenAuth, onNavigate, currentP
                 title="Central de Notificações"
                 className={`p-2 rounded-full border border-[var(--border-color)] hover:bg-[var(--bg-card-hover)] transition-all cursor-pointer relative ${isNotifOpen ? 'text-[var(--brand-color)] border-[var(--brand-color)]/40 bg-[var(--bg-card-hover)]' : 'text-[var(--text-secondary)] hover:text-[var(--text-primary)]'}`}
               >
-                <Bell className={`w-4 h-4 ${notifications.some(n => !n.read) ? 'animate-pulse text-[#FF2D8D]' : ''}`} />
+                <Bell className={`w-4 h-4 ${notifications.some(n => !n.read) ? 'text-[var(--brand-color)]' : ''}`} />
                 {notifications.some(n => !n.read) && (
-                  <span className="absolute -top-1 -right-1 flex h-2.5 w-2.5">
-                    <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-red-400 opacity-75"></span>
-                    <span className="relative inline-flex rounded-full h-2.5 w-2.5 bg-red-500"></span>
+                  <span className="absolute -top-1 -right-1 flex h-2 w-2">
+                    <span className="relative inline-flex rounded-full h-2 w-2 bg-red-500"></span>
                   </span>
                 )}
               </button>
@@ -463,7 +469,7 @@ export function Header({ currentUser, onLogout, onOpenAuth, onNavigate, currentP
                     currentUser.role === 'Cliente' ? 'cliente' : 
                     currentUser.role === 'Administrador' ? 'admin' : 'vendedor'
                   )}
-                  className="px-5 py-2 text-xs border border-[#FF2D8D] text-[#FF2D8D] rounded-full uppercase font-bold hover:bg-[#FF2D8D] hover:text-white transition-all cursor-pointer flex items-center gap-1.5"
+                  className="px-5 py-2 text-xs border border-[var(--brand-color)] text-[var(--brand-color)] rounded-full uppercase font-bold hover:bg-[var(--brand-color)] hover:text-white transition-all cursor-pointer flex items-center gap-1.5"
                 >
                   <User className="w-3.5 h-3.5" />
                   {currentUser.role === 'Cliente' ? 'Área do Cliente' : `Painel ${currentUser.role}`}
@@ -482,7 +488,7 @@ export function Header({ currentUser, onLogout, onOpenAuth, onNavigate, currentP
             ) : (
               <button
                 onClick={onOpenAuth}
-                className="px-5 py-2 text-xs border border-[#FF2D8D] text-[#FF2D8D] rounded-full uppercase font-bold hover:bg-[#FF2D8D] hover:text-white transition-all cursor-pointer flex items-center gap-1.5"
+                className="px-5 py-2 text-xs border border-[var(--brand-color)] text-[var(--brand-color)] rounded-full uppercase font-bold hover:bg-[var(--brand-color)] hover:text-white transition-all cursor-pointer flex items-center gap-1.5"
               >
                 <LogIn className="w-3.5 h-3.5" />
                 Entrar / Cadastrar
@@ -494,12 +500,11 @@ export function Header({ currentUser, onLogout, onOpenAuth, onNavigate, currentP
           <div className="flex md:hidden items-center gap-2">
             <button
               onClick={() => setIsNotifOpen(!isNotifOpen)}
-              className="p-2 rounded-full hover:bg-[#1A1A1A] relative text-gray-400"
+              className="p-2 rounded-full hover:bg-[var(--bg-card-hover)] relative text-gray-400"
             >
-              <Bell className={`w-4 h-4 ${notifications.some(n => !n.read) ? 'text-[#FF2D8D] animate-pulse' : ''}`} />
+              <Bell className={`w-4 h-4 ${notifications.some(n => !n.read) ? 'text-[var(--brand-color)]' : ''}`} />
               {notifications.some(n => !n.read) && (
                 <span className="absolute top-1 right-1 flex h-2 w-2">
-                  <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-red-400 opacity-75"></span>
                   <span className="relative inline-flex rounded-full h-2 w-2 bg-red-500"></span>
                 </span>
               )}
@@ -546,10 +551,9 @@ export function Header({ currentUser, onLogout, onOpenAuth, onNavigate, currentP
               className={`text-left py-2 border-b border-[var(--border-color)] flex items-center gap-2 transition-all ${currentPage === 'combo' ? 'text-[var(--brand-color)] font-extrabold' : 'text-[var(--text-secondary)] hover:text-[var(--text-primary)]'}`}
             >
               <span className="relative flex h-1.5 w-1.5">
-                <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-[var(--brand-color)] opacity-75"></span>
                 <span className="relative inline-flex rounded-full h-1.5 w-1.5 bg-[var(--brand-color)]"></span>
               </span>
-              Simulador Combo 🔄
+              Simulador Combo
             </button>
             <button 
               onClick={() => handleNav('termos')} 
@@ -563,37 +567,45 @@ export function Header({ currentUser, onLogout, onOpenAuth, onNavigate, currentP
               <span className="text-[10px] uppercase tracking-wider font-bold text-[var(--text-secondary)] flex items-center gap-1">
                 <Palette className="w-3.5 h-3.5" /> Tema do App
               </span>
-              <div className="grid grid-cols-4 gap-2">
+              <div className="grid grid-cols-5 gap-1">
                 <button
                   onClick={() => changeTheme('original')}
-                  className={`flex flex-col items-center gap-1.5 py-2 px-1 rounded-xl border text-[10px] font-semibold transition-all cursor-pointer ${activeTheme === 'original' ? 'border-[#FF2D8D] bg-[#FF2D8D]/10 text-[#FF2D8D]' : 'border-[var(--border-color)] bg-[var(--bg-main)] text-[var(--text-secondary)] hover:text-[var(--text-primary)] hover:bg-[var(--bg-card-hover)]'}`}
+                  className={`flex flex-col items-center gap-1.5 py-2 px-0.5 rounded-xl border text-[9px] font-semibold transition-all cursor-pointer ${activeTheme === 'original' ? 'border-[#FF2D8D] bg-[#FF2D8D]/10 text-[#FF2D8D]' : 'border-[var(--border-color)] bg-[var(--bg-main)] text-[var(--text-secondary)] hover:text-[var(--text-primary)] hover:bg-[var(--bg-card-hover)]'}`}
                 >
-                  <span className="w-3 h-3 rounded-full bg-[#FF2D8D] shadow-sm"></span>
+                  <span className="w-2.5 h-2.5 rounded-full bg-[#FF2D8D] shadow-sm"></span>
                   <span>Original</span>
                 </button>
                 
                 <button
                   onClick={() => changeTheme('branco')}
-                  className={`flex flex-col items-center gap-1.5 py-2 px-1 rounded-xl border text-[10px] font-semibold transition-all cursor-pointer ${activeTheme === 'branco' ? 'border-blue-500 bg-blue-500/10 text-blue-500' : 'border-[var(--border-color)] bg-[var(--bg-main)] text-[var(--text-secondary)] hover:text-[var(--text-primary)] hover:bg-[var(--bg-card-hover)]'}`}
+                  className={`flex flex-col items-center gap-1.5 py-2 px-0.5 rounded-xl border text-[9px] font-semibold transition-all cursor-pointer ${activeTheme === 'branco' ? 'border-blue-500 bg-blue-500/10 text-blue-500' : 'border-[var(--border-color)] bg-[var(--bg-main)] text-[var(--text-secondary)] hover:text-[var(--text-primary)] hover:bg-[var(--bg-card-hover)]'}`}
                 >
-                  <span className="w-3 h-3 rounded-full bg-white border border-blue-500 shadow-sm"></span>
-                  <span>Branco e Azul</span>
+                  <span className="w-2.5 h-2.5 rounded-full bg-white border border-blue-500 shadow-sm"></span>
+                  <span>Branco</span>
                 </button>
 
                 <button
                   onClick={() => changeTheme('azul')}
-                  className={`flex flex-col items-center gap-1.5 py-2 px-1 rounded-xl border text-[10px] font-semibold transition-all cursor-pointer ${activeTheme === 'azul' ? 'border-cyan-400 bg-cyan-400/10 text-cyan-400' : 'border-[var(--border-color)] bg-[var(--bg-main)] text-[var(--text-secondary)] hover:text-[var(--text-primary)] hover:bg-[var(--bg-card-hover)]'}`}
+                  className={`flex flex-col items-center gap-1.5 py-2 px-0.5 rounded-xl border text-[9px] font-semibold transition-all cursor-pointer ${activeTheme === 'azul' ? 'border-cyan-400 bg-cyan-400/10 text-cyan-400' : 'border-[var(--border-color)] bg-[var(--bg-main)] text-[var(--text-secondary)] hover:text-[var(--text-primary)] hover:bg-[var(--bg-card-hover)]'}`}
                 >
-                  <span className="w-3 h-3 rounded-full bg-cyan-500 shadow-sm"></span>
+                  <span className="w-2.5 h-2.5 rounded-full bg-cyan-500 shadow-sm"></span>
                   <span>Azul</span>
                 </button>
 
                 <button
                   onClick={() => changeTheme('preto')}
-                  className={`flex flex-col items-center gap-1.5 py-2 px-1 rounded-xl border text-[10px] font-semibold transition-all cursor-pointer ${activeTheme === 'preto' ? 'border-neutral-600 bg-neutral-900 text-white' : 'border-[var(--border-color)] bg-[var(--bg-main)] text-[var(--text-secondary)] hover:text-[var(--text-primary)] hover:bg-[var(--bg-card-hover)]'}`}
+                  className={`flex flex-col items-center gap-1.5 py-2 px-0.5 rounded-xl border text-[9px] font-semibold transition-all cursor-pointer ${activeTheme === 'preto' ? 'border-neutral-600 bg-neutral-900 text-white' : 'border-[var(--border-color)] bg-[var(--bg-main)] text-[var(--text-secondary)] hover:text-[var(--text-primary)] hover:bg-[var(--bg-card-hover)]'}`}
                 >
-                  <span className="w-3 h-3 rounded-full bg-black border border-neutral-700 shadow-sm"></span>
+                  <span className="w-2.5 h-2.5 rounded-full bg-black border border-neutral-700 shadow-sm"></span>
                   <span>Preto</span>
+                </button>
+
+                <button
+                  onClick={() => changeTheme('creme')}
+                  className={`flex flex-col items-center gap-1.5 py-2 px-0.5 rounded-xl border text-[9px] font-semibold transition-all cursor-pointer ${activeTheme === 'creme' ? 'border-[#a67537] bg-[#a67537]/10 text-[#a67537]' : 'border-[var(--border-color)] bg-[var(--bg-main)] text-[var(--text-secondary)] hover:text-[var(--text-primary)] hover:bg-[var(--bg-card-hover)]'}`}
+                >
+                  <span className="w-2.5 h-2.5 rounded-full bg-[#faf4e8] border border-[#a67537] shadow-sm"></span>
+                  <span>Creme</span>
                 </button>
               </div>
             </div>
@@ -601,7 +613,7 @@ export function Header({ currentUser, onLogout, onOpenAuth, onNavigate, currentP
             {currentUser ? (
               <div className="flex flex-col gap-2 pt-2">
                 <div className="flex items-center gap-2 py-1">
-                  <User className="w-4 h-4 text-[#FF2D8D]" />
+                  <User className="w-4 h-4 text-[var(--brand-color)]" />
                   <span className="text-xs text-gray-300">{currentUser.name} ({currentUser.role === 'Cliente' ? 'Cliente' : currentUser.role})</span>
                 </div>
                 <button
@@ -612,7 +624,7 @@ export function Header({ currentUser, onLogout, onOpenAuth, onNavigate, currentP
                       currentUser.role === 'Administrador' ? 'admin' : 'vendedor'
                     );
                   }}
-                  className="w-full text-center py-2 rounded-lg bg-[#1A1A1A] border border-[#FF2D8D]/30 text-[#FF2D8D] font-semibold text-xs"
+                  className="w-full text-center py-2 rounded-lg bg-[#1A1A1A] border border-[var(--brand-color)]/30 text-[var(--brand-color)] font-semibold text-xs animate-fade-in"
                 >
                   {currentUser.role === 'Cliente' ? 'Ir para Área do Cliente' : 'Ir para o Painel'}
                 </button>
@@ -632,7 +644,7 @@ export function Header({ currentUser, onLogout, onOpenAuth, onNavigate, currentP
                   setIsMenuOpen(false);
                   onOpenAuth();
                 }}
-                className="w-full text-center py-2 rounded-lg bg-gradient-to-r from-[#FF2D8D] to-[#FF6FB5] text-white font-semibold text-xs shadow-lg mt-2"
+                className="w-full text-center py-2.5 rounded-xl bg-[var(--brand-color)] text-white font-bold text-xs shadow-lg mt-2 uppercase tracking-wide cursor-pointer hover:opacity-90 transition-all duration-200"
               >
                 Entrar / Cadastrar
               </button>
@@ -643,11 +655,11 @@ export function Header({ currentUser, onLogout, onOpenAuth, onNavigate, currentP
 
       {/* Notification Perm banner */}
       {showNotifBanner && (
-        <div className="bg-[#1A1A1A] border-b border-[#FF2D8D]/30 py-3 px-4 transition-all duration-500">
+        <div className="bg-[#1A1A1A] border-b border-[var(--brand-color)]/30 py-3 px-4 transition-all duration-500">
           <div className="max-w-7xl mx-auto flex flex-col sm:flex-row items-center justify-between gap-3 text-center sm:text-left">
             <div className="flex items-center gap-3">
-              <div className="p-2 rounded-full bg-[#FF2D8D]/10 text-[#FF2D8D]">
-                <Bell className="w-5 h-5 animate-pulse" />
+              <div className="p-2 rounded-full bg-[var(--brand-color)]/10 text-[var(--brand-color)]">
+                <Bell className="w-5 h-5" />
               </div>
               <div>
                 <p className="font-semibold text-sm text-white">RaviCar quer te avisar!</p>
@@ -663,7 +675,7 @@ export function Header({ currentUser, onLogout, onOpenAuth, onNavigate, currentP
               </button>
               <button
                 onClick={handleRequestPermission}
-                className="px-4 py-1.5 rounded-md bg-[#FF2D8D] text-white text-xs font-bold shadow-md transition hover:bg-[#FF6FB5]"
+                className="px-4 py-1.5 rounded-md bg-[var(--brand-color)] text-white text-xs font-bold shadow-md transition hover:opacity-90"
               >
                 Ativar Notificações
               </button>
@@ -682,7 +694,7 @@ export function Header({ currentUser, onLogout, onOpenAuth, onNavigate, currentP
             {/* Header */}
             <div className="p-4 border-b border-[var(--border-color)] flex items-center justify-between bg-[var(--bg-main)]">
               <div className="flex items-center gap-2">
-                <Bell className="w-5 h-5 text-[#FF2D8D]" />
+                <Bell className="w-5 h-5 text-[var(--brand-color)]" />
                 <h3 className="font-display font-bold text-white text-base">Central de Notificações</h3>
               </div>
               <button 
@@ -696,10 +708,10 @@ export function Header({ currentUser, onLogout, onOpenAuth, onNavigate, currentP
             {/* Content List */}
             <div className="flex-1 overflow-y-auto p-4 flex flex-col gap-3">
               {/* Permission Helper Banner */}
-              <div className="p-3.5 bg-[#FF2D8D]/5 border border-[#FF2D8D]/25 rounded-xl flex flex-col gap-3">
+              <div className="p-3.5 bg-[var(--brand-color)]/5 border border-[var(--brand-color)]/25 rounded-xl flex flex-col gap-3">
                 <div className="flex gap-2.5 items-start">
-                  <div className="p-1.5 rounded-full bg-[#FF2D8D]/10 text-[#FF2D8D] shrink-0">
-                    <Bell className="w-4 h-4 animate-pulse" />
+                  <div className="p-1.5 rounded-full bg-[var(--brand-color)]/10 text-[var(--brand-color)] shrink-0">
+                    <Bell className="w-4 h-4" />
                   </div>
                   <div>
                     <h4 className="text-xs font-bold text-white">Alertas no Celular / Navegador</h4>
@@ -730,7 +742,7 @@ export function Header({ currentUser, onLogout, onOpenAuth, onNavigate, currentP
                 <div className="flex items-center justify-between border-t border-neutral-800/60 pt-2.5 mt-0.5">
                   <button
                     onClick={handleRequestPermission}
-                    className="text-[10px] font-bold uppercase tracking-wider text-[#FF2D8D] hover:text-[#FF6FB5] transition cursor-pointer"
+                    className="text-[10px] font-bold uppercase tracking-wider text-[var(--brand-color)] hover:opacity-85 transition cursor-pointer"
                   >
                     {browserPermission === 'granted' ? '✓ Configurado' : 'Ativar Permissão'}
                   </button>
@@ -739,7 +751,7 @@ export function Header({ currentUser, onLogout, onOpenAuth, onNavigate, currentP
 
               {notifications.filter(n => n.type === 'push').length === 0 ? (
                 <div className="flex-1 flex flex-col items-center justify-center py-12 text-center text-gray-500 gap-2">
-                  <BellOff className="w-10 h-10 text-neutral-800 animate-bounce" />
+                  <BellOff className="w-10 h-10 text-neutral-800" />
                   <p className="text-xs font-bold text-white">Nenhuma notificação</p>
                   <p className="text-[11px] text-gray-400 max-w-[240px] mx-auto">Cadastre um novo veículo no Painel Administrativo para ver o alerta celular em tempo real!</p>
                 </div>
@@ -765,7 +777,7 @@ export function Header({ currentUser, onLogout, onOpenAuth, onNavigate, currentP
                             setIsNotifOpen(false);
                             window.location.hash = notif.actionUrl;
                           }}
-                          className="mt-1 self-start text-[10px] font-bold text-[#FF2D8D] uppercase tracking-wider hover:underline cursor-pointer"
+                          className="mt-1 self-start text-[10px] font-bold text-[var(--brand-color)] uppercase tracking-wider hover:underline cursor-pointer"
                         >
                           Ver Veículo no Estoque ➔
                         </button>
@@ -809,17 +821,16 @@ export function Header({ currentUser, onLogout, onOpenAuth, onNavigate, currentP
             }
             setActiveToast(null);
           }}
-          className="fixed top-4 left-4 right-4 md:top-24 md:left-auto md:right-8 z-[9999] max-w-sm bg-black/95 backdrop-blur-md border border-neutral-800 rounded-xl shadow-[0_10px_40px_rgba(255,45,141,0.25)] p-4 flex gap-3.5 border-l-4 border-l-[#FF2D8D] cursor-pointer hover:border-neutral-700 transition-all duration-300 animate-slide-in-right"
+          className="fixed top-4 left-4 right-4 md:top-24 md:left-auto md:right-8 z-[9999] max-w-sm bg-black/95 backdrop-blur-md border border-neutral-800 rounded-xl shadow-[0_10px_40px_rgba(var(--brand-color-rgb),0.25)] p-4 flex gap-3.5 border-l-4 border-l-[var(--brand-color)] cursor-pointer hover:border-neutral-700 transition-all duration-300 animate-slide-in-right"
         >
-          <div className="w-11 h-11 shrink-0 bg-neutral-900 border border-[#FF2D8D]/25 rounded-full flex items-center justify-center overflow-hidden">
+          <div className="w-11 h-11 shrink-0 bg-neutral-900 border border-[var(--brand-color)]/25 rounded-full flex items-center justify-center overflow-hidden">
             <img src={ravicarLogo} alt="RaviCar" className="w-full h-full object-cover" />
           </div>
           <div className="flex-1 min-w-0">
             <div className="flex items-center justify-between gap-2">
-              <span className="text-[10px] font-bold text-[#FF2D8D] uppercase tracking-wider flex items-center gap-1">
+              <span className="text-[10px] font-bold text-[var(--brand-color)] uppercase tracking-wider flex items-center gap-1">
                 <span className="relative flex h-1.5 w-1.5">
-                  <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-[#FF2D8D] opacity-75"></span>
-                  <span className="relative inline-flex rounded-full h-1.5 w-1.5 bg-[#FF2D8D]"></span>
+                  <span className="relative inline-flex rounded-full h-1.5 w-1.5 bg-[var(--brand-color)]"></span>
                 </span>
                 NOVO CADASTRO
               </span>
@@ -837,7 +848,7 @@ export function Header({ currentUser, onLogout, onOpenAuth, onNavigate, currentP
             <p className="text-[11px] text-gray-400 mt-1 leading-relaxed line-clamp-2">{activeToast.message}</p>
             <div className="mt-2.5 flex justify-between items-center">
               <span className="text-[9px] text-gray-500">Agora mesmo</span>
-              <span className="text-[10px] font-bold text-[#FF2D8D] hover:underline uppercase tracking-wider flex items-center gap-1">
+              <span className="text-[10px] font-bold text-[var(--brand-color)] hover:underline uppercase tracking-wider flex items-center gap-1">
                 Ver Estoque ➔
               </span>
             </div>

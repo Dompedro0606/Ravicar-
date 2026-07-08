@@ -159,7 +159,7 @@ Gostaria de agendar a vistoria física para confirmar esses valores e concluir o
               <div className="flex flex-wrap items-center gap-2">
                 <h2 className="font-display font-black text-2xl md:text-3xl text-white tracking-tight">Avaliação de Usado</h2>
                 <span className="px-2.5 py-1 rounded-full text-[9px] font-black uppercase tracking-widest bg-[#FF2D8D]/10 text-[#FF6FB5] border border-[#FF2D8D]/20 flex items-center gap-1">
-                  <Sparkles className="w-3 h-3 text-[#FF6FB5] animate-pulse" /> RaviCar AI Ativa
+                  <Sparkles className="w-3 h-3 text-[#FF6FB5]" /> RaviCar AI Ativa
                 </span>
               </div>
               <p className="text-xs text-gray-400 mt-1.5 max-w-xl leading-relaxed">

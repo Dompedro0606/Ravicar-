@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { ArrowLeft, MessageCircle, Calendar, Landmark, Check, RefreshCw, Eye, ChevronLeft, ChevronRight, Play, Film, Smartphone, Share2, Heart, Maximize2, Minimize2, Gauge, Cog, Fuel, Shield, Award } from 'lucide-react';
+import { ArrowLeft, MessageCircle, Calendar, Landmark, Check, RefreshCw, Eye, ChevronLeft, ChevronRight, Play, Film, Smartphone, Share2, Heart, Maximize2, Minimize2, Gauge, Cog, Fuel, Shield, Award, X } from 'lucide-react';
 import { Vehicle, SiteSettings, UserProfile } from '../types';
 import { VisitBooking } from './VisitBooking';
 import { FinancingRequest } from './FinancingRequest';
@@ -21,6 +21,22 @@ export function VehicleDetails({ vehicle, settings, vehicles, onBack, onNavigate
   const [copied, setCopied] = useState(false);
   const [isFavorite, setIsFavorite] = useState(false);
   const [fitContain, setFitContain] = useState(false);
+  const [isLightboxOpen, setIsLightboxOpen] = useState(false);
+
+  useEffect(() => {
+    if (!isLightboxOpen) return;
+    const handleKeyDown = (e: KeyboardEvent) => {
+      if (e.key === 'Escape') {
+        setIsLightboxOpen(false);
+      } else if (e.key === 'ArrowRight') {
+        nextMedia();
+      } else if (e.key === 'ArrowLeft') {
+        prevMedia();
+      }
+    };
+    window.addEventListener('keydown', handleKeyDown);
+    return () => window.removeEventListener('keydown', handleKeyDown);
+  }, [isLightboxOpen, activeMediaIndex, vehicle.media]);
 
   useEffect(() => {
     const checkFavorite = () => {
@@ -230,11 +246,14 @@ Gostaria de falar com um consultor para negociar ou simular financiamento!`;
                   poster={vehicle.media.find(m => m.type === 'image')?.url}
                 />
               ) : (
-                <div className="relative w-full h-full">
+                <div 
+                  className="relative w-full h-full cursor-zoom-in"
+                  onClick={() => setIsLightboxOpen(true)}
+                >
                   <img
                     src={currentMedia.url}
                     alt={vehicle.title}
-                    className={`w-full h-full transition-all duration-350 ${fitContain ? 'object-contain' : 'object-cover object-center'}`}
+                    className={`w-full h-full transition-all duration-350 ${fitContain ? 'object-contain' : 'object-cover object-center'} hover:brightness-110`}
                   />
                   <button
                     type="button"
@@ -616,6 +635,77 @@ Gostaria de falar com um consultor para negociar ou simular financiamento!`;
               )}
             </div>
           </div>
+        </div>
+      )}
+
+      {/* Lightbox / Fullscreen Image & Video Viewer */}
+      {isLightboxOpen && currentMedia && (
+        <div 
+          className="fixed inset-0 z-[200] flex flex-col items-center justify-center bg-black/98 backdrop-blur-md select-none animate-fade-in"
+          onClick={() => setIsLightboxOpen(false)}
+        >
+          {/* Close Button */}
+          <button
+            onClick={() => setIsLightboxOpen(false)}
+            className="absolute top-6 right-6 p-3 rounded-full bg-neutral-900/90 border border-neutral-800 text-white hover:text-[var(--brand-color)] hover:bg-neutral-800 hover:scale-105 transition-all duration-200 cursor-pointer shadow-2xl z-[210] flex items-center justify-center"
+            title="Fechar"
+          >
+            <X className="w-6 h-6" />
+          </button>
+
+          {/* Navigation Arrows inside Lightbox */}
+          {vehicle.media.length > 1 && (
+            <>
+              <button
+                onClick={(e) => {
+                  e.stopPropagation();
+                  prevMedia();
+                }}
+                className="absolute left-6 top-1/2 -translate-y-1/2 p-3 rounded-full bg-neutral-900/90 border border-neutral-800 text-white hover:bg-neutral-800 hover:text-[var(--brand-color)] transition-all duration-200 z-[210] cursor-pointer flex items-center justify-center active:scale-95"
+              >
+                <ChevronLeft className="w-6 h-6" />
+              </button>
+              <button
+                onClick={(e) => {
+                  e.stopPropagation();
+                  nextMedia();
+                }}
+                className="absolute right-6 top-1/2 -translate-y-1/2 p-3 rounded-full bg-neutral-900/90 border border-neutral-800 text-white hover:bg-neutral-800 hover:text-[var(--brand-color)] transition-all duration-200 z-[210] cursor-pointer flex items-center justify-center active:scale-95"
+              >
+                <ChevronRight className="w-6 h-6" />
+              </button>
+            </>
+          )}
+
+          {/* Main Large Media */}
+          <div 
+            className="relative w-full h-full max-w-5xl max-h-[85vh] p-4 flex items-center justify-center"
+            onClick={() => setIsLightboxOpen(false)}
+          >
+            {currentMedia.type === 'video' ? (
+              <video
+                src={currentMedia.url}
+                controls
+                autoPlay
+                className="max-w-full max-h-full object-contain rounded-lg shadow-2xl animate-zoom-in"
+                onClick={(e) => e.stopPropagation()}
+              />
+            ) : (
+              <img
+                src={currentMedia.url}
+                alt={vehicle.title}
+                className="max-w-full max-h-full object-contain rounded-lg shadow-2xl animate-zoom-in"
+                onClick={(e) => e.stopPropagation()}
+              />
+            )}
+          </div>
+
+          {/* Media Counter Indicator */}
+          {vehicle.media.length > 1 && (
+            <div className="absolute bottom-6 px-4 py-1.5 rounded-full bg-neutral-900/90 border border-neutral-800 text-xs text-gray-400 font-bold tracking-wider z-[210]">
+              {activeMediaIndex + 1} / {vehicle.media.length}
+            </div>
+          )}
         </div>
       )}
     </div>

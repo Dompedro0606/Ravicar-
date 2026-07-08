@@ -221,7 +221,7 @@ Por favor, analisem meu cadastro no banco de preferência para confirmar a aprov
 
         {/* Dynamic Fast Pre-Approval Badge */}
         <div className="flex items-center gap-2.5 px-4 py-2.5 bg-black/60 border border-neutral-800 rounded-2xl z-10 shrink-0">
-          <Clock className="w-4 h-4 text-[#FF6FB5] animate-pulse" />
+          <Clock className="w-4 h-4 text-[#FF6FB5]" />
           <div className="text-[10px] md:text-xs">
             <span className="text-gray-400 block font-bold leading-none">Tempo de Resposta</span>
             <strong className="text-white font-extrabold block mt-0.5 font-mono">~ 40 segundos</strong>
@@ -265,7 +265,7 @@ Por favor, analisem meu cadastro no banco de preferência para confirmar a aprov
               </span>
               {bank.promo && (
                 <span className="absolute bottom-1 right-1.5 text-[7px] font-black uppercase tracking-wider text-emerald-400 flex items-center gap-0.5">
-                  <span className="w-1 h-1 rounded-full bg-emerald-400 animate-pulse"></span>
+                  <span className="w-1 h-1 rounded-full bg-emerald-400"></span>
                   Taxa Vip
                 </span>
               )}

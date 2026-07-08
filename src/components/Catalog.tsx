@@ -1,5 +1,5 @@
 import React, { useState, useMemo, useEffect } from 'react';
-import { Search, Fuel, Settings2, SlidersHorizontal, Eye, ArrowUpDown, Tag, Check, Calendar, ChevronDown, Heart, X } from 'lucide-react';
+import { Search, Fuel, Settings2, SlidersHorizontal, Eye, ArrowUpDown, Tag, Check, Calendar, ChevronDown, Heart, X, Gauge, Wrench } from 'lucide-react';
 import { Vehicle, FuelType, TransmissionType, VehicleStatus, UserProfile } from '../types';
 
 interface CatalogProps {
@@ -649,18 +649,22 @@ export function Catalog({ vehicles, onSelectVehicle, currentUser }: CatalogProps
                         </h4>
                         
                         {/* Tags list */}
-                        <div className="grid grid-cols-2 gap-y-1.5 gap-x-2 mt-3 text-[12.5px] leading-normal text-gray-300">
-                          <span className="flex items-center gap-1 truncate py-0.5">
-                            📅 {v.year}
+                        <div className="grid grid-cols-2 gap-y-1.5 gap-x-2 mt-3 text-[12px] leading-normal text-gray-400">
+                          <span className="flex items-center gap-1.5 truncate py-0.5">
+                            <Calendar className="w-3.5 h-3.5 text-[#FF2D8D] shrink-0" />
+                            <span>{v.year}</span>
                           </span>
-                          <span className="flex items-center gap-1 truncate py-0.5">
-                            ⚙️ {v.transmission}
+                          <span className="flex items-center gap-1.5 truncate py-0.5">
+                            <Wrench className="w-3.5 h-3.5 text-[#FF2D8D] shrink-0" />
+                            <span className="truncate">{v.transmission}</span>
                           </span>
-                          <span className="flex items-center gap-1 truncate py-0.5">
-                            📍 {v.mileage === 0 ? 'Zero KM' : `${v.mileage.toLocaleString('pt-BR')} KM`}
+                          <span className="flex items-center gap-1.5 truncate py-0.5">
+                            <Gauge className="w-3.5 h-3.5 text-[#FF2D8D] shrink-0" />
+                            <span>{v.mileage === 0 ? 'Zero KM' : `${v.mileage.toLocaleString('pt-BR')} KM`}</span>
                           </span>
-                          <span className="flex items-center gap-1 truncate py-0.5">
-                            ⛽ {v.fuel}
+                          <span className="flex items-center gap-1.5 truncate py-0.5">
+                            <Fuel className="w-3.5 h-3.5 text-[#FF2D8D] shrink-0" />
+                            <span className="truncate">{v.fuel}</span>
                           </span>
                         </div>
                       </div>

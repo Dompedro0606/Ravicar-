@@ -18,7 +18,7 @@ import {
 } from './types';
 import { 
   Star, MapPin, Phone, MessageCircle, Calendar, Landmark, 
-  HelpCircle, ShieldCheck, ChevronRight, AlertCircle, Sparkles, CheckCircle2, DollarSign, Clock
+  HelpCircle, ShieldCheck, ChevronRight, AlertCircle, Sparkles, CheckCircle2, DollarSign, Clock, Wrench, Gauge, Fuel
 } from 'lucide-react';
 
 export default function App() {
@@ -228,7 +228,7 @@ export default function App() {
         {/* Loading Indicator */}
         {loading && currentPage === 'home' && (
           <div className="flex items-center justify-center py-20">
-            <span className="w-10 h-10 border-4 border-[#FF2D8D] border-t-transparent rounded-full animate-spin"></span>
+            <span className="w-10 h-10 border-4 border-[var(--brand-color)] border-t-transparent rounded-full animate-spin"></span>
           </div>
         )}
 
@@ -242,7 +242,7 @@ export default function App() {
             <section className="max-w-7xl mx-auto px-4">
               <div className="flex flex-col sm:flex-row items-start sm:items-center justify-between mb-8 gap-3">
                 <div>
-                  <div className="flex items-center gap-2 text-xs font-extrabold uppercase tracking-widest text-[#FF2D8D]">
+                  <div className="flex items-center gap-2 text-xs font-extrabold uppercase tracking-widest text-[var(--brand-color)]">
                     <Sparkles className="w-4 h-4" />
                     Destaques RaviCar
                   </div>
@@ -252,7 +252,7 @@ export default function App() {
                 </div>
                 <button
                   onClick={() => handleNavigate('catalogo')}
-                  className="px-5 py-2.5 rounded-xl border border-neutral-800 hover:border-[#FF2D8D] bg-neutral-950 text-xs font-bold text-gray-300 hover:text-[#FF2D8D] transition duration-300 flex items-center gap-1 cursor-pointer"
+                  className="px-5 py-2.5 rounded-xl border border-neutral-800 hover:border-[var(--brand-color)] bg-neutral-950 text-xs font-bold text-gray-300 hover:text-[var(--brand-color)] transition duration-300 flex items-center gap-1 cursor-pointer"
                 >
                   Ver Estoque Completo
                   <ChevronRight className="w-4 h-4" />
@@ -268,7 +268,7 @@ export default function App() {
                     <div
                       key={v.id}
                       onClick={() => handleNavigate('detalhes', v.id)}
-                      className="group bg-neutral-950 border border-neutral-900 rounded-2xl overflow-hidden shadow-lg hover:border-[#FF2D8D]/30 transition transform hover:-translate-y-1 cursor-pointer flex flex-col justify-between"
+                      className="group bg-neutral-950 border border-neutral-900 rounded-2xl overflow-hidden shadow-lg hover:border-[var(--brand-color)]/30 transition transform hover:-translate-y-1 cursor-pointer flex flex-col justify-between"
                     >
                       <div className="relative aspect-[16/10] w-full overflow-hidden bg-[#1A1A1A]">
                         {v.media && v.media.length > 0 ? (
@@ -286,16 +286,37 @@ export default function App() {
                       </div>
                       <div className="p-4 flex-grow flex flex-col justify-between">
                         <div>
-                          <span className="text-[12px] leading-normal text-gray-400 uppercase tracking-widest font-extrabold">{v.brand}</span>
-                          <h4 className="font-display font-bold text-white text-sm truncate leading-relaxed py-1 mt-0.5 group-hover:text-[#FF2D8D] transition-colors">{v.title}</h4>
-                          <p className="text-[12.5px] leading-normal text-gray-300 mt-2">📅 {v.year} • 📍 {v.mileage.toLocaleString('pt-BR')} KM • ⚙️ {v.transmission}</p>
+                          <span className="text-[11px] leading-normal text-gray-500 uppercase tracking-widest font-black">{v.brand}</span>
+                          <h4 className="font-display font-bold text-white text-sm truncate leading-relaxed py-1 mt-0.5 group-hover:text-[var(--brand-color)] transition-colors">
+                            {v.title}
+                          </h4>
+                          
+                          {/* Tags list (matching high-fidelity Catalog style) */}
+                          <div className="grid grid-cols-2 gap-y-1.5 gap-x-2 mt-3 text-[11px] leading-normal text-gray-400">
+                            <span className="flex items-center gap-1.5 truncate py-0.5">
+                              <Calendar className="w-3.5 h-3.5 text-[var(--brand-color)] shrink-0" />
+                              <span>{v.year}</span>
+                            </span>
+                            <span className="flex items-center gap-1.5 truncate py-0.5">
+                              <Wrench className="w-3.5 h-3.5 text-[var(--brand-color)] shrink-0" />
+                              <span className="truncate">{v.transmission}</span>
+                            </span>
+                            <span className="flex items-center gap-1.5 truncate py-0.5">
+                              <Gauge className="w-3.5 h-3.5 text-[var(--brand-color)] shrink-0" />
+                              <span className="truncate">{v.mileage === 0 ? 'Zero KM' : `${v.mileage.toLocaleString('pt-BR')} KM`}</span>
+                            </span>
+                            <span className="flex items-center gap-1.5 truncate py-0.5">
+                              <Fuel className="w-3.5 h-3.5 text-[var(--brand-color)] shrink-0" />
+                              <span className="truncate">{v.fuel || 'Flex'}</span>
+                            </span>
+                          </div>
                         </div>
                         <div className="mt-4 pt-3 border-t border-neutral-900/60 flex items-end justify-between">
                           <div>
-                            <p className="text-[11.5px] leading-normal text-gray-400 uppercase font-bold py-0.5">Preço</p>
-                            <p className="font-display font-black text-[#FF2D8D] text-[15px] mt-0.5 py-1">R$ {v.price.toLocaleString('pt-BR')}</p>
+                            <p className="text-[10px] leading-normal text-gray-500 uppercase font-black py-0.5">Valor Especial</p>
+                            <p className="font-display font-black text-[var(--brand-color)] text-[16px] mt-0.5 py-1">R$ {v.price.toLocaleString('pt-BR')}</p>
                           </div>
-                          <span className="text-[12px] leading-normal font-bold text-gray-400 group-hover:text-[#FF6FB5] transition">Ver Ficha →</span>
+                          <span className="text-[11.5px] leading-normal font-bold text-gray-400 group-hover:text-[var(--brand-color)] transition flex items-center gap-0.5">Ver Ficha ➔</span>
                         </div>
                       </div>
                     </div>
@@ -307,35 +328,35 @@ export default function App() {
             {/* Quick action buttons with high fidelity illustrations and links */}
             <section className="bg-neutral-950 border-y border-neutral-900/60 py-12">
               <div className="max-w-7xl mx-auto px-4 grid grid-cols-1 md:grid-cols-3 gap-6">
-                <div className="p-6 rounded-2xl bg-black border border-neutral-900 hover:border-[#FF2D8D]/30 transition duration-300 flex flex-col justify-between">
+                <div className="p-6 rounded-2xl bg-black border border-neutral-900 hover:border-[var(--brand-color)]/30 transition duration-300 flex flex-col justify-between hover-lift">
                   <div>
-                    <Landmark className="w-8 h-8 text-[#FF2D8D] mb-4" />
+                    <Landmark className="w-8 h-8 text-[var(--brand-color)] mb-4" />
                     <h3 className="font-display font-bold text-white text-base mb-1">Simular Financiamento</h3>
                     <p className="text-xs text-gray-400 leading-relaxed">Taxas exclusivas em até 60 parcelas com o respaldo de 13 bancos líderes de mercado.</p>
                   </div>
-                  <button onClick={() => handleNavigate('financiamento')} className="mt-6 text-xs font-bold text-[#FF6FB5] flex items-center gap-1 hover:underline cursor-pointer">
+                  <button onClick={() => handleNavigate('financiamento')} className="mt-6 text-xs font-bold text-[var(--brand-color)] flex items-center gap-1 hover:underline cursor-pointer">
                     Iniciar Simulação de Crédito <ChevronRight className="w-4 h-4" />
                   </button>
                 </div>
 
-                <div className="p-6 rounded-2xl bg-black border border-neutral-900 hover:border-[#FF2D8D]/30 transition duration-300 flex flex-col justify-between">
+                <div className="p-6 rounded-2xl bg-black border border-neutral-900 hover:border-[var(--brand-color)]/30 transition duration-300 flex flex-col justify-between hover-lift">
                   <div>
-                    <Sparkles className="w-8 h-8 text-[#FF6FB5] mb-4" />
+                    <Sparkles className="w-8 h-8 text-[var(--brand-color)] mb-4" />
                     <h3 className="font-display font-bold text-white text-base mb-1">Avaliar Veículo Usado</h3>
                     <p className="text-xs text-gray-400 leading-relaxed">Faremos a avaliação mais justa do seu veículo seminovo para dar de entrada na troca.</p>
                   </div>
-                  <button onClick={() => handleNavigate('avaliacao')} className="mt-6 text-xs font-bold text-[#FF6FB5] flex items-center gap-1 hover:underline cursor-pointer">
+                  <button onClick={() => handleNavigate('avaliacao')} className="mt-6 text-xs font-bold text-[var(--brand-color)] flex items-center gap-1 hover:underline cursor-pointer">
                     Solicitar Avaliação Física <ChevronRight className="w-4 h-4" />
                   </button>
                 </div>
 
-                <div className="p-6 rounded-2xl bg-black border border-neutral-900 hover:border-[#FF2D8D]/30 transition duration-300 flex flex-col justify-between">
+                <div className="p-6 rounded-2xl bg-black border border-neutral-900 hover:border-[var(--brand-color)]/30 transition duration-300 flex flex-col justify-between hover-lift">
                   <div>
                     <Calendar className="w-8 h-8 text-emerald-400 mb-4" />
                     <h3 className="font-display font-bold text-white text-base mb-1">Agendar Test Drive</h3>
                     <p className="text-xs text-gray-400 leading-relaxed">Escolha o dia, horário e veículo de interesse para conhecer nossa equipe pessoalmente.</p>
                   </div>
-                  <button onClick={() => handleNavigate('catalogo')} className="mt-6 text-xs font-bold text-[#FF6FB5] flex items-center gap-1 hover:underline cursor-pointer">
+                  <button onClick={() => handleNavigate('catalogo')} className="mt-6 text-xs font-bold text-[var(--brand-color)] flex items-center gap-1 hover:underline cursor-pointer">
                     Ver Veículos Disponíveis <ChevronRight className="w-4 h-4" />
                   </button>
                 </div>
@@ -345,8 +366,8 @@ export default function App() {
             {/* Testimonials section */}
             <section className="max-w-7xl mx-auto px-4">
               <div className="text-center max-w-xl mx-auto mb-10">
-                <div className="inline-flex items-center gap-1 text-xs font-bold text-[#FF2D8D] uppercase tracking-wider mb-2">
-                  <Star className="w-4 h-4 fill-[#FF2D8D]" /> Opinião de Clientes
+                <div className="inline-flex items-center gap-1 text-xs font-bold text-[var(--brand-color)] uppercase tracking-wider mb-2">
+                  <Star className="w-4 h-4 fill-[var(--brand-color)]" /> Opinião de Clientes
                 </div>
                 <h2 className="font-display font-black text-2xl md:text-3xl text-white">Quem Compra na RaviCar, Recomenda!</h2>
                 <p className="text-xs text-gray-500 mt-1">Transparência e foco total na satisfação do início ao fim da negociação.</p>
@@ -358,10 +379,10 @@ export default function App() {
                   { id: '2', name: 'Amanda Ramos', role: 'Proprietária de Voyage', rating: 5, text: 'Facilidade de crédito incrível. Fiz a simulação de manhã e à tarde já estava de Voyage novo!' },
                   { id: '3', name: 'Bruno Mendes', role: 'Cliente Recorrente', rating: 5, text: 'Segunda vez que compro na RaviCar e recomendo. Confiança total e carros realmente periciados.' }
                 ]).map((t, idx) => (
-                  <div key={t.id || idx} className="p-6 rounded-2xl bg-neutral-950 border border-neutral-900 relative">
+                  <div key={t.id || idx} className="p-6 rounded-2xl bg-neutral-950 border border-neutral-900 relative hover-lift transition-all duration-300">
                     <div className="flex gap-1 mb-4">
                       {Array.from({ length: t.rating }).map((_, i) => (
-                        <Star key={i} className="w-4 h-4 fill-[#FF2D8D] text-[#FF2D8D]" />
+                        <Star key={i} className="w-4 h-4 fill-[var(--brand-color)] text-[var(--brand-color)]" />
                       ))}
                     </div>
                     <p className="text-xs text-gray-400 leading-relaxed italic mb-6">"{t.text}"</p>
@@ -376,14 +397,14 @@ export default function App() {
 
             {/* PIX RESERVA OPTIONS BANNER */}
             <section className="max-w-4xl mx-auto px-4">
-              <div className="bg-neutral-950 border border-[#FF2D8D]/30 rounded-2xl p-6 md:p-8 relative overflow-hidden shadow-xl">
-                <div className="absolute right-0 bottom-0 translate-y-1/4 translate-x-1/4 opacity-10 text-[#FF2D8D]">
+              <div className="bg-neutral-950 border border-[var(--brand-color)]/30 rounded-2xl p-6 md:p-8 relative overflow-hidden shadow-xl">
+                <div className="absolute right-0 bottom-0 translate-y-1/4 translate-x-1/4 opacity-10 text-[var(--brand-color)]">
                   <DollarSign className="w-72 h-72" />
                 </div>
                 
                 <div className="relative z-10 space-y-6">
                   <div className="flex items-center gap-3">
-                    <div className="p-2.5 rounded-full bg-[#FF2D8D]/10 text-[#FF2D8D]">
+                    <div className="p-2.5 rounded-full bg-[var(--brand-color)]/10 text-[var(--brand-color)]">
                       <DollarSign className="w-6 h-6" />
                     </div>
                     <div>
@@ -399,7 +420,7 @@ export default function App() {
                       <p><strong>Pix E-mail:</strong> <span className="text-white font-mono">{settings.pixEmail}</span></p>
                     </div>
                     <div className="space-y-2 border-t sm:border-t-0 sm:border-l border-neutral-900 sm:pl-4 pt-2 sm:pt-0">
-                      <p className="font-bold text-[#FF6FB5]">Contas para Transferência Direta:</p>
+                      <p className="font-bold text-[var(--brand-color)]">Contas para Transferência Direta:</p>
                       <p className="text-[10px]">🏦 <strong>Santander:</strong> {settings.pixSantander}</p>
                       <p className="text-[10px]">🏦 <strong>Bradesco:</strong> {settings.pixBradesco}</p>
                       <p className="text-[10px]">🏦 <strong>Itaú:</strong> {settings.pixItau}</p>
@@ -417,8 +438,8 @@ export default function App() {
             {/* Visit card & working hours */}
             <section id="location_section" className="max-w-7xl mx-auto px-4 grid grid-cols-1 lg:grid-cols-12 gap-8 items-center pt-12 border-t border-neutral-900/60">
               <div className="lg:col-span-5 space-y-5 text-xs text-gray-400">
-                <div className="inline-flex items-center gap-1.5 px-3 py-1 bg-[#FF2D8D]/10 border border-[#FF2D8D]/20 text-[#FF2D8D] rounded-full text-[10px] font-extrabold uppercase tracking-widest">
-                  <span className="w-1.5 h-1.5 rounded-full bg-[#FF2D8D] animate-ping"></span>
+                <div className="inline-flex items-center gap-1.5 px-3 py-1 bg-[var(--brand-color)]/10 border border-[var(--brand-color)]/20 text-[var(--brand-color)] rounded-full text-[10px] font-extrabold uppercase tracking-widest">
+                  <span className="w-1.5 h-1.5 rounded-full bg-[var(--brand-color)]"></span>
                   Showroom Físico
                 </div>
                 <h3 className="font-display font-black text-2xl md:text-3xl text-white tracking-tight">
@@ -430,7 +451,7 @@ export default function App() {
                 
                 <div className="space-y-3.5 pt-2">
                   <div className="flex items-start gap-3">
-                    <div className="p-2 bg-neutral-900 border border-neutral-800 rounded-xl text-[#FF2D8D]">
+                    <div className="p-2 bg-neutral-900 border border-neutral-800 rounded-xl text-[var(--brand-color)]">
                       <MapPin className="w-4 h-4 shrink-0" />
                     </div>
                     <div>
@@ -440,7 +461,7 @@ export default function App() {
                   </div>
                   
                   <div className="flex items-start gap-3">
-                    <div className="p-2 bg-neutral-900 border border-neutral-800 rounded-xl text-[#FF2D8D]">
+                    <div className="p-2 bg-neutral-900 border border-neutral-800 rounded-xl text-[var(--brand-color)]">
                       <Clock className="w-4 h-4 shrink-0" />
                     </div>
                     <div>
@@ -453,7 +474,7 @@ export default function App() {
                   </div>
 
                   <div className="flex items-start gap-3">
-                    <div className="p-2 bg-neutral-900 border border-neutral-800 rounded-xl text-[#FF2D8D]">
+                    <div className="p-2 bg-neutral-900 border border-neutral-800 rounded-xl text-[var(--brand-color)]">
                       <Phone className="w-4 h-4 shrink-0" />
                     </div>
                     <div>
@@ -493,8 +514,8 @@ export default function App() {
                 {/* Glassmorphism Navigation Overlay Card */}
                 <div className="absolute top-4 left-4 right-4 bg-black/85 backdrop-blur-md p-4 rounded-2xl border border-neutral-800/80 text-xs flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4 shadow-2xl">
                   <div className="flex items-center gap-3">
-                    <div className="p-2.5 bg-[#FF2D8D]/15 text-[#FF2D8D] rounded-xl shrink-0 border border-[#FF2D8D]/20">
-                      <MapPin className="w-4.5 h-4.5 animate-pulse" />
+                    <div className="p-2.5 bg-[var(--brand-color)]/15 text-[var(--brand-color)] rounded-xl shrink-0 border border-[var(--brand-color)]/20">
+                      <MapPin className="w-4.5 h-4.5" />
                     </div>
                     <div>
                       <p className="font-display font-black text-white text-sm">Showroom RaviCar</p>
@@ -507,7 +528,7 @@ export default function App() {
                       href={`https://maps.google.com/?q=${encodeURIComponent(settings.address)}`}
                       target="_blank"
                       rel="noopener noreferrer"
-                      className="flex-1 sm:flex-initial text-center px-4 py-2 bg-[#FF2D8D] hover:bg-[#FF6FB5] text-white font-black text-[10px] rounded-xl shadow-lg transition uppercase tracking-wider cursor-pointer"
+                      className="flex-1 sm:flex-initial text-center px-4 py-2 bg-[var(--brand-color)] hover:brightness-110 text-white font-black text-[10px] rounded-xl shadow-lg transition uppercase tracking-wider cursor-pointer"
                     >
                       Google Maps
                     </a>
@@ -528,72 +549,88 @@ export default function App() {
 
         {/* PAGE 2: CATALOG STATE */}
         {currentPage === 'catalogo' && !loading && (
-          <Catalog 
-            vehicles={vehicles} 
-            currentUser={currentUser}
-            onSelectVehicle={(id) => handleNavigate('detalhes', id)} 
-          />
+          <div className="animate-fade-in-up">
+            <Catalog 
+              vehicles={vehicles} 
+              currentUser={currentUser}
+              onSelectVehicle={(id) => handleNavigate('detalhes', id)} 
+            />
+          </div>
         )}
 
         {/* PAGE 3: VEHICLE DETAILS STATE */}
         {currentPage === 'detalhes' && selectedVehicle && (
-          <VehicleDetails
-            vehicle={selectedVehicle}
-            settings={settings}
-            vehicles={vehicles}
-            onBack={() => handleNavigate('catalogo')}
-            onNavigate={handleNavigate}
-            currentUser={currentUser}
-          />
+          <div className="animate-fade-in-up">
+            <VehicleDetails
+              vehicle={selectedVehicle}
+              settings={settings}
+              vehicles={vehicles}
+              onBack={() => handleNavigate('catalogo')}
+              onNavigate={handleNavigate}
+              currentUser={currentUser}
+            />
+          </div>
         )}
 
         {/* PAGE 4: FINANCING REQUEST */}
         {currentPage === 'financiamento' && (
-          <FinancingRequest settings={settings} vehicles={vehicles} currentUser={currentUser} />
+          <div className="animate-fade-in-up">
+            <FinancingRequest settings={settings} vehicles={vehicles} currentUser={currentUser} />
+          </div>
         )}
 
         {/* PAGE 5: USED CAR EVALUATION */}
         {currentPage === 'avaliacao' && (
-          <UsedCarEvaluation settings={settings} currentUser={currentUser} />
+          <div className="animate-fade-in-up">
+            <UsedCarEvaluation settings={settings} currentUser={currentUser} />
+          </div>
         )}
 
         {/* PAGE 5B: UNIFIED COMBO SIMULATOR (TRADE-IN + FINANCING combo) */}
         {currentPage === 'combo' && (
-          <ComboSimulator 
-            vehicles={vehicles} 
-            settings={settings} 
-            currentUser={currentUser} 
-            onNavigate={handleNavigate} 
-          />
+          <div className="animate-fade-in-up">
+            <ComboSimulator 
+              vehicles={vehicles} 
+              settings={settings} 
+              currentUser={currentUser} 
+              onNavigate={handleNavigate} 
+            />
+          </div>
         )}
 
         {/* PAGE 6: TERMS OF USE LEGAL PAGE */}
         {currentPage === 'termos' && (
-          <TermsOfUse settings={settings} />
+          <div className="animate-fade-in-up">
+            <TermsOfUse settings={settings} />
+          </div>
         )}
 
         {/* PAGE 6B: CUSTOMER PORTAL */}
         {currentPage === 'cliente' && currentUser && (
-          <ClientPortal
-            currentUser={currentUser}
-            token={token || ''}
-            vehicles={vehicles}
-            settings={settings}
-            onUpdateCurrentUser={(user) => setCurrentUser(user)}
-            onNavigate={handleNavigate}
-          />
+          <div className="animate-fade-in-up">
+            <ClientPortal
+              currentUser={currentUser}
+              token={token || ''}
+              vehicles={vehicles}
+              settings={settings}
+              onUpdateCurrentUser={(user) => setCurrentUser(user)}
+              onNavigate={handleNavigate}
+            />
+          </div>
         )}
 
         {/* PAGE 7: OPERATIONAL ADMIN PANEL */}
         {(currentPage === 'admin' || currentPage === 'vendedor') && currentUser && (
-          <AdminPanel
-            currentUser={currentUser}
-            token={token || ''}
-            vehicles={vehicles}
-            onRefreshData={loadInitialData}
-            settings={settings}
-            onUpdateSettings={handleUpdateSettings}
-          />
+          <div className="animate-fade-in-up">
+            <AdminPanel
+              currentUser={currentUser}
+              token={token || ''}
+              vehicles={vehicles}
+              onRefreshData={loadInitialData}
+              settings={settings}
+              onUpdateSettings={handleUpdateSettings}
+            />
+          </div>
         )}
       </main>
 

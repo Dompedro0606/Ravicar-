@@ -223,7 +223,7 @@ export default function ComboSimulator({ vehicles, settings, currentUser, onNavi
       <div className="flex flex-col md:flex-row md:items-center justify-between gap-4 border-b border-neutral-900 pb-6">
         <div>
           <div className="flex items-center gap-2 text-xs font-black uppercase tracking-widest text-[#FF2D8D]">
-            <Sparkles className="w-4 h-4 animate-pulse" />
+            <Sparkles className="w-4 h-4" />
             Exclusivo RaviCar Motors
           </div>
           <h1 className="font-display font-black text-2xl md:text-4xl text-white tracking-tight mt-1">

@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { User, Phone, Mail, Lock, Heart, ClipboardList, CheckCircle, Clock, Save, Eye, Trash2 } from 'lucide-react';
+import { User, Phone, Mail, Lock, Heart, ClipboardList, CheckCircle, Clock, Save, Eye, Trash2, Calendar, CreditCard, DollarSign, Car, MessageSquare } from 'lucide-react';
 import { UserProfile, Vehicle, LeadMessage, SiteSettings } from '../types';
 
 interface ClientPortalProps {
@@ -393,21 +393,21 @@ export function ClientPortal({ currentUser, token, vehicles, settings, onUpdateC
                         </div>
 
                         {/* Proposal details */}
-                        <div className="bg-neutral-900/40 border border-neutral-900 rounded-xl p-3 text-[11px] text-gray-400 space-y-1">
+                        <div className="bg-neutral-900/40 border border-neutral-900 rounded-xl p-3 text-[11px] text-gray-400 space-y-1.5">
                           {lead.type === 'Agendamento' && lead.details?.visitDate && (
-                            <p>📅 <strong className="text-gray-300">Data sugerida:</strong> {new Date(lead.details.visitDate).toLocaleDateString('pt-BR')} às {lead.details.visitTime || 'horário comercial'}</p>
+                            <p className="flex items-center gap-1.5"><Calendar className="w-3.5 h-3.5 text-[#FF2D8D] shrink-0" /> <span className="text-gray-300">Data sugerida:</span> {new Date(lead.details.visitDate).toLocaleDateString('pt-BR')} às {lead.details.visitTime || 'horário comercial'}</p>
                           )}
                           {lead.type === 'Financiamento' && (
                             <>
-                              {lead.details?.cpf && <p>💳 <strong className="text-gray-300">CPF do titular:</strong> ***.{lead.details.cpf.substring(3,6)}.***-**</p>}
-                              {lead.details?.downPayment && <p>💵 <strong className="text-gray-300">Valor de Entrada:</strong> R$ {parseFloat(lead.details.downPayment).toLocaleString('pt-BR')}</p>}
+                              {lead.details?.cpf && <p className="flex items-center gap-1.5"><CreditCard className="w-3.5 h-3.5 text-[#FF2D8D] shrink-0" /> <span className="text-gray-300">CPF do titular:</span> ***.{lead.details.cpf.substring(3,6)}.***-**</p>}
+                              {lead.details?.downPayment && <p className="flex items-center gap-1.5"><DollarSign className="w-3.5 h-3.5 text-[#FF2D8D] shrink-0" /> <span className="text-gray-300">Valor de Entrada:</span> R$ {parseFloat(lead.details.downPayment).toLocaleString('pt-BR')}</p>}
                             </>
                           )}
                           {lead.type === 'Avaliação' && lead.details?.tradeVehicleBrand && (
-                            <p>🚗 <strong className="text-gray-300">Veículo para troca:</strong> {lead.details.tradeVehicleBrand} {lead.details.tradeVehicleModel} ({lead.details.tradeVehicleYear}) - {lead.details.tradeVehicleKm ? parseInt(lead.details.tradeVehicleKm).toLocaleString('pt-BR') : '0'} KM</p>
+                            <p className="flex items-center gap-1.5"><Car className="w-3.5 h-3.5 text-[#FF2D8D] shrink-0" /> <span className="text-gray-300">Veículo para troca:</span> {lead.details.tradeVehicleBrand} {lead.details.tradeVehicleModel} ({lead.details.tradeVehicleYear}) - {lead.details.tradeVehicleKm ? parseInt(lead.details.tradeVehicleKm).toLocaleString('pt-BR') : '0'} KM</p>
                           )}
                           {lead.message && (
-                            <p className="italic text-gray-400 mt-1 border-t border-neutral-900/60 pt-1">💬 "{lead.message}"</p>
+                            <p className="italic text-gray-400 mt-1.5 border-t border-neutral-900/60 pt-1.5 flex items-start gap-1.5"><MessageSquare className="w-3.5 h-3.5 text-gray-400 shrink-0 mt-0.5" /> "{lead.message}"</p>
                           )}
                         </div>
 
