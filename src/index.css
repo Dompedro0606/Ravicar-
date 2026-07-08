@@ -130,6 +130,9 @@
 [data-theme] .bg-black,
 [data-theme] .bg-\[\#0a0a0a\],
 [data-theme] .bg-\[\#080808\],
+[data-theme] .bg-\[\#040404\],
+[data-theme] .bg-\[\#030303\],
+[data-theme] .bg-\[\#020202\],
 [data-theme] .bg-zinc-950 {
   background-color: var(--bg-main) !important;
 }
@@ -155,6 +158,7 @@
 [data-theme] .bg-neutral-950,
 [data-theme] .bg-zinc-950,
 [data-theme] .bg-\[\#121212\],
+[data-theme] .bg-\[\#050505\],
 [data-theme] .bg-neutral-800,
 [data-theme] .bg-zinc-800 {
   background-color: var(--bg-card) !important;
@@ -171,6 +175,15 @@
 [data-theme] .bg-neutral-900\/30,
 [data-theme] .bg-neutral-900\/40 {
   background-color: rgba(var(--bg-card-rgb), 0.85) !important;
+}
+
+/* Specific small dark background badges or controls (e.g. bg-[#111]) */
+[data-theme] .bg-\[\#111\],
+[data-theme] .bg-\[\#111111\],
+[data-theme] .bg-\[\#1a1a1a\],
+[data-theme] .bg-\[\#1A1A1A\],
+[data-theme] .bg-\[\#222\] {
+  background-color: var(--bg-card-hover) !important;
 }
 
 /* Hover overrides */
@@ -278,6 +291,9 @@
 [data-theme] .border-zinc-800,
 [data-theme] .border-zinc-900,
 [data-theme] .border-\[\#1A1A1A\],
+[data-theme] .border-\[\#111\],
+[data-theme] .border-\[\#111111\],
+[data-theme] .border-\[\#1a1a1a\],
 [data-theme] .border-white\/10,
 [data-theme] .border-neutral-800\/60,
 [data-theme] .border-neutral-800\/50,
