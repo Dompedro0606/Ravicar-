@@ -539,9 +539,9 @@ export function Header({ currentUser, onLogout, onOpenAuth, onNavigate, currentP
 
       {/* Notifications Side Drawer Overlay */}
       {isNotifOpen && (
-        <div className="fixed inset-0 z-[100] flex items-start justify-end p-0 md:p-4 bg-black/60 backdrop-blur-sm" onClick={() => setIsNotifOpen(false)}>
+        <div className="fixed inset-0 z-[100] bg-black/60 backdrop-blur-sm" onClick={() => setIsNotifOpen(false)}>
           <div 
-            className="w-full h-full md:h-[650px] md:max-w-md bg-neutral-950 border-l md:border border-neutral-800 md:rounded-2xl shadow-2xl flex flex-col overflow-hidden"
+            className="fixed inset-y-0 right-0 w-full md:max-w-md bg-neutral-950 border-l border-neutral-800 shadow-2xl flex flex-col h-full overflow-hidden"
             onClick={(e) => e.stopPropagation()}
           >
             {/* Header */}
