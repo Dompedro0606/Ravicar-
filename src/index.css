@@ -68,8 +68,8 @@
 }
 
 [data-theme="branco"] {
-  --brand-color-rgb: 255, 45, 141; /* KEEP RAVICAR SIGNATURE PINK */
-  --brand-color: #FF2D8D;          /* KEEP RAVICAR SIGNATURE PINK */
+  --brand-color-rgb: 37, 99, 235;  /* Premium Royal Blue RGB */
+  --brand-color: #2563eb;          /* Premium Royal Blue Hex */
   --bg-main-rgb: 248, 250, 252;   /* Slate 50 - clean, premium modern light gray */
   --bg-main: #f8fafc;
   --bg-card-rgb: 255, 255, 255;   /* Pure White for cards/containers */
@@ -373,8 +373,8 @@
 
 [data-theme="branco"] .bg-neutral-900\/35:hover,
 [data-theme="branco"] .bg-neutral-900\/35.group:hover {
-  background-color: rgba(255, 45, 141, 0.04) !important;
-  border-color: #FF2D8D !important;
+  background-color: rgba(37, 99, 235, 0.04) !important;
+  border-color: #2563eb !important;
 }
 
 [data-theme="branco"] .bg-\[\#1A1A1A\]\/80,
@@ -386,15 +386,15 @@
 
 [data-theme="branco"] .bg-\[\#1A1A1A\]\/80:hover,
 [data-theme="branco"] .bg-\[\#1A1A1A\]:hover {
-  background-color: rgba(255, 45, 141, 0.05) !important;
-  border-color: #FF2D8D !important;
-  color: #FF2D8D !important;
+  background-color: #f1f5f9 !important;
+  border-color: #94a3b8 !important;
+  color: #0f172a !important;
 }
 
 /* Ensure secondary action buttons icons stand out beautifully */
 [data-theme="branco"] .bg-\[\#1A1A1A\]\/80 svg,
 [data-theme="branco"] .bg-\[\#1A1A1A\] svg {
-  color: #FF2D8D !important;
+  color: #2563eb !important;
 }
 
 /* Specific text in spec list items and headings */
@@ -425,11 +425,11 @@
   background-color: #cbd5e1 !important;
 }
 
-/* Keep selected tabs and interactive elements with a beautiful soft pink brand glow */
+/* Keep selected tabs and interactive elements with a beautiful soft blue brand glow */
 [data-theme="branco"] .bg-\[\#FF2D8D\]\/15 {
-  background-color: rgba(255, 45, 141, 0.08) !important;
-  color: #FF2D8D !important;
-  border-color: rgba(255, 45, 141, 0.3) !important;
+  background-color: rgba(37, 99, 235, 0.08) !important;
+  color: #2563eb !important;
+  border-color: rgba(37, 99, 235, 0.3) !important;
 }
 
 /* --- ADAPT FORMS AND INTERACTIVE PANELS FOR THE WHITE THEME --- */
@@ -470,12 +470,12 @@
   color: #0f172a !important;
 }
 
-/* Support interactive bank buttons and cards so they turn gorgeous pink on hover */
+/* Support interactive bank buttons and cards with a clean hover style */
 [data-theme="branco"] .bg-neutral-950\/40:hover,
 [data-theme="branco"] .bg-neutral-900\/40:hover,
 [data-theme="branco"] .bg-neutral-900\/20:hover {
-  background-color: rgba(255, 45, 141, 0.05) !important;
-  border-color: #FF2D8D !important;
+  background-color: #f1f5f9 !important;
+  border-color: #cbd5e1 !important;
 }
 
 /* High-contrast labels for inputs & forms */
@@ -483,13 +483,13 @@
   color: #475569 !important;
 }
 
-/* Beautiful soft pink badge for the pre-approval header badge */
+/* Beautiful soft blue badge for the pre-approval header badge */
 [data-theme="branco"] .bg-black\/60 {
-  background-color: rgba(255, 45, 141, 0.08) !important;
-  border-color: rgba(255, 45, 141, 0.25) !important;
+  background-color: rgba(37, 99, 235, 0.08) !important;
+  border-color: rgba(37, 99, 235, 0.25) !important;
 }
 [data-theme="branco"] .bg-black\/60 * {
-  color: #FF2D8D !important;
+  color: #2563eb !important;
 }
 
 /* Fix progress bars track: prevents the black track from matching white backgrounds and turning invisible */
@@ -499,14 +499,14 @@
   background-color: #e2e8f0 !important;
 }
 
-/* Ensure hover states don't turn white-on-white (unreadable) but instead use a gorgeous brand pink */
+/* Ensure hover states don't turn white-on-white but instead use premium black/dark-gray text */
 [data-theme="branco"] .hover\:text-white:hover {
-  color: #FF2D8D !important;
+  color: #0f172a !important;
 }
 [data-theme="branco"] .group:hover .group-hover\:text-white,
 [data-theme="branco"] .group:hover span,
 [data-theme="branco"] .group:hover p {
-  color: #FF2D8D !important;
+  color: #0f172a !important;
 }
 
 /* Highlight elements on hover with a beautiful pink accent line and subtle glow */
@@ -524,20 +524,20 @@
   color: #FF2D8D !important;
 }
 
-/* Force hover text & icon colors within light buttons/inputs to turn pink */
+/* Maintain high-contrast text and icon colors within light buttons/inputs on hover */
 [data-theme="branco"] .bg-black:hover *,
 [data-theme="branco"] .bg-neutral-950:hover *,
 [data-theme="branco"] .bg-neutral-900:hover *,
 [data-theme="branco"] button.bg-black:hover *,
 [data-theme="branco"] button.bg-neutral-900:hover *,
 [data-theme="branco"] button.bg-neutral-950:hover * {
-  color: #FF2D8D !important;
+  color: #0f172a !important;
 }
 
-/* Form Section Headers with beautiful soft pink circle background for step count */
+/* Form Section Headers with beautiful soft blue circle background for step count */
 [data-theme="branco"] .bg-\[\#FF2D8D\]\/10 {
-  background-color: rgba(255, 45, 141, 0.09) !important;
-  color: #FF2D8D !important;
+  background-color: rgba(37, 99, 235, 0.09) !important;
+  color: #2563eb !important;
 }
 
 /* Beautiful soft styles for success, progress, or caution banners inside forms */
@@ -567,16 +567,16 @@
   color: #92400e !important;
 }
 
-/* Elegant light pink themed background for highlight/important sections */
+/* Elegant light blue themed background for highlight/important sections */
 [data-theme="branco"] .border-\[\#FF2D8D\]\/20,
 [data-theme="branco"] .border-\[\#FF2D8D\]\/30 {
-  border-color: rgba(255, 45, 141, 0.3) !important;
+  border-color: rgba(37, 99, 235, 0.3) !important;
 }
 
 [data-theme="branco"] .bg-gradient-to-r.from-neutral-950.to-neutral-900 {
   background-image: none !important;
-  background-color: rgba(255, 45, 141, 0.02) !important;
-  border-color: rgba(255, 45, 141, 0.25) !important;
+  background-color: rgba(37, 99, 235, 0.02) !important;
+  border-color: rgba(37, 99, 235, 0.25) !important;
 }
 
 /* 
@@ -584,6 +584,30 @@
   Always preserve full dark-theme styling inside genuine dark blocks like the Hero section (section.bg-black)
   so that its sports car background image contrasts with bright white text and statistics!
 */
+[data-theme="branco"] section.bg-black {
+  background-color: #000000 !important;
+}
+
+[data-theme="branco"] section.bg-black .bg-neutral-900 {
+  background-color: #171717 !important;
+  border-color: #262626 !important;
+  color: #ffffff !important;
+}
+
+[data-theme="branco"] section.bg-black .bg-neutral-900:hover {
+  background-color: #262626 !important;
+  border-color: #2563eb !important;
+}
+
+[data-theme="branco"] section.bg-black .bg-neutral-900 * {
+  color: #ffffff !important;
+}
+
+[data-theme="branco"] section.bg-black .bg-neutral-950\/40 {
+  background-color: rgba(10, 10, 10, 0.45) !important;
+  border-color: rgba(38, 38, 38, 0.5) !important;
+}
+
 [data-theme="branco"] section.bg-black .text-white,
 [data-theme="branco"] section.bg-black h1,
 [data-theme="branco"] section.bg-black h2,
