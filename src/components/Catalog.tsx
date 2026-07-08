@@ -122,17 +122,35 @@ export function Catalog({ vehicles, onSelectVehicle, currentUser }: CatalogProps
   const filteredVehicles = useMemo(() => {
     let result = [...vehicles];
 
-    // Search text filter (title, model, brand, engine, color)
+    // Search text filter (intelligent multi-word search: brand, model, title, color, engine, year, transmission, fuel, options, description)
     if (search.trim()) {
-      const q = search.toLowerCase();
-      result = result.filter(
-        v =>
-          v.title.toLowerCase().includes(q) ||
-          v.brand.toLowerCase().includes(q) ||
-          v.model.toLowerCase().includes(q) ||
-          v.color.toLowerCase().includes(q) ||
-          v.engine.toLowerCase().includes(q)
-      );
+      const searchTerms = search.toLowerCase().trim().split(/\s+/).filter(Boolean);
+      result = result.filter(v => {
+        const brand = v.brand.toLowerCase();
+        const model = v.model.toLowerCase();
+        const title = v.title.toLowerCase();
+        const color = v.color.toLowerCase();
+        const engine = v.engine.toLowerCase();
+        const year = v.year.toLowerCase();
+        const fuel = v.fuel.toLowerCase();
+        const transmission = v.transmission.toLowerCase();
+        const options = v.options ? v.options.map(o => o.toLowerCase()).join(' ') : '';
+        const description = v.description ? v.description.toLowerCase() : '';
+
+        // Every search term must be matched in at least one attribute of the vehicle
+        return searchTerms.every(term => 
+          brand.includes(term) ||
+          model.includes(term) ||
+          title.includes(term) ||
+          color.includes(term) ||
+          engine.includes(term) ||
+          year.includes(term) ||
+          fuel.includes(term) ||
+          transmission.includes(term) ||
+          options.includes(term) ||
+          description.includes(term)
+        );
+      });
     }
 
     // Brand filter
@@ -193,17 +211,43 @@ export function Catalog({ vehicles, onSelectVehicle, currentUser }: CatalogProps
       {/* Main Grid: left filters bar (desktop) and right catalog list */}
       <div className="grid grid-cols-1 lg:grid-cols-4 gap-8">
         {/* Filters Panel */}
-        <div className="bg-neutral-950 border border-neutral-900 rounded-3xl p-5 lg:h-fit lg:sticky lg:top-24 transition-all duration-300 shadow-xl">
+        <div className="bg-neutral-950 border border-neutral-900 rounded-3xl p-5 lg:h-fit lg:sticky lg:top-24 transition-all duration-300 shadow-xl space-y-4">
+          {/* Search Input - Always Visible */}
+          <div className="space-y-1.5">
+            <label className="block text-[9px] font-black text-gray-500 uppercase tracking-widest">Busca Inteligente por Texto</label>
+            <div className="relative">
+              <Search className="absolute left-3.5 top-3.5 w-4 h-4 text-gray-500" />
+              <input
+                type="text"
+                value={search}
+                onChange={e => setSearch(e.target.value)}
+                placeholder="Ex: Onix Automático, Flex 2022..."
+                className="w-full bg-black border border-neutral-800 focus:border-[#FF2D8D] rounded-xl pl-10 pr-9 py-2.5 text-xs text-white outline-none transition focus:ring-1 focus:ring-[#FF2D8D]/40 font-sans"
+              />
+              {search && (
+                <button
+                  type="button"
+                  onClick={() => setSearch('')}
+                  className="absolute right-3 top-3 text-gray-500 hover:text-white transition cursor-pointer"
+                >
+                  <X className="w-3.5 h-3.5" />
+                </button>
+              )}
+            </div>
+          </div>
+
+          <div className="border-t border-neutral-900/60 my-3"></div>
+
           {/* Main Clickable Header to Toggle Filters */}
           <button
             type="button"
             onClick={() => setShowFilters(!showFilters)}
-            className="w-full flex items-center justify-between pb-3 border-b border-neutral-900 text-left outline-none focus:outline-none cursor-pointer group"
+            className="w-full flex items-center justify-between pb-1 text-left outline-none focus:outline-none cursor-pointer group"
           >
             <div className="flex items-center gap-2">
               <SlidersHorizontal className="w-4 h-4 text-[#FF2D8D]" />
               <span className="font-display font-black text-xs uppercase tracking-wider text-white group-hover:text-[#FF6FB5] transition">
-                Filtros de Busca
+                Filtros Avançados
               </span>
               {activeFiltersCount > 0 && (
                 <span className="bg-[#FF2D8D]/20 text-[#FF2D8D] text-[9px] font-black px-2 py-0.5 rounded-full border border-[#FF2D8D]/30 font-mono">
@@ -229,30 +273,7 @@ export function Catalog({ vehicles, onSelectVehicle, currentUser }: CatalogProps
           </button>
 
           {showFilters && (
-            <div className="mt-4 space-y-5 animate-fade-in">
-            {/* Search Input - Always Visible */}
-            <div className="space-y-1.5">
-              <label className="block text-[9px] font-black text-gray-500 uppercase tracking-widest">Texto Livre / Buscar</label>
-              <div className="relative">
-                <Search className="absolute left-3.5 top-3 w-4 h-4 text-gray-500" />
-                <input
-                  type="text"
-                  value={search}
-                  onChange={e => setSearch(e.target.value)}
-                  placeholder="Modelo, cor, motor..."
-                  className="w-full bg-black border border-neutral-800 focus:border-[#FF2D8D] rounded-xl pl-10 pr-9 py-2.5 text-xs text-white outline-none transition focus:ring-1 focus:ring-[#FF2D8D]/40 font-sans"
-                />
-                {search && (
-                  <button
-                    type="button"
-                    onClick={() => setSearch('')}
-                    className="absolute right-3 top-3 text-gray-500 hover:text-white transition cursor-pointer"
-                  >
-                    <X className="w-3.5 h-3.5" />
-                  </button>
-                )}
-              </div>
-            </div>
+            <div className="mt-2 space-y-5 animate-fade-in border-t border-neutral-900/40 pt-4">
 
             {/* Brand Collapsible Filter */}
             <div className="space-y-2 border-b border-neutral-900/40 pb-3">
@@ -605,12 +626,19 @@ export function Catalog({ vehicles, onSelectVehicle, currentUser }: CatalogProps
                         </div>
                       )}
 
-                      {/* Featured Tag */}
-                      {v.featured && (
-                        <div className="absolute top-3 left-3 px-2.5 py-1 rounded bg-white text-[10px] font-black uppercase text-neutral-900 tracking-[0.12em] shadow-md">
-                          Destaque
-                        </div>
-                      )}
+                      {/* Badges Container */}
+                      <div className="absolute top-3 left-3 flex flex-row items-center gap-1.5 z-10">
+                        {v.featured && (
+                          <div className="px-2.5 py-1 rounded bg-white text-[10px] font-black uppercase text-neutral-900 tracking-[0.12em] shadow-md">
+                            Destaque
+                          </div>
+                        )}
+                        {v.newlyArrived && (
+                          <div className="px-2.5 py-1 rounded bg-[#FF2D8D] text-white text-[10px] font-black uppercase tracking-[0.12em] shadow-md">
+                            Novo
+                          </div>
+                        )}
+                      </div>
 
                       {/* Favorite Heart Button */}
                       <button
@@ -620,13 +648,6 @@ export function Catalog({ vehicles, onSelectVehicle, currentUser }: CatalogProps
                       >
                         <Heart className={`w-3.5 h-3.5 transition-colors ${favorites.includes(v.id) ? 'fill-[#FF2D8D] text-[#FF2D8D]' : 'text-gray-300'}`} />
                       </button>
-
-                      {/* New Badge (shifted left of the heart button) */}
-                      {v.newlyArrived && (
-                        <div className="absolute top-3 right-11 px-2.5 py-1 bg-[#FF2D8D] rounded text-[11px] font-extrabold uppercase text-white tracking-widest z-10 shadow-md">
-                          Novo
-                        </div>
-                      )}
 
                       {/* Status Overlay */}
                       <div className="absolute bottom-3 left-3">
