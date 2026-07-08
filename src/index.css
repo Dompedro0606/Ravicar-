@@ -196,19 +196,22 @@
   background-color: var(--bg-card-hover) !important;
 }
 
-/* Remove or adapt background gradients so light theme is clean and rich */
-[data-theme] .bg-gradient-to-b,
-[data-theme] .bg-gradient-to-r,
-[data-theme] .bg-gradient-to-t,
-[data-theme] .bg-gradient-to-br,
-[data-theme] .bg-gradient-to-tr {
-  background-image: none !important;
-  background-color: var(--bg-main) !important;
-}
-
-/* Ensure card or header specific gradients also resolve nicely */
+/* Flatten only dark background gradients, preserving colorful, status, or brand gradients */
+[data-theme] .bg-gradient-to-b.from-neutral-950,
+[data-theme] .bg-gradient-to-r.from-neutral-950,
+[data-theme] .bg-gradient-to-br.from-neutral-950,
 [data-theme] .bg-gradient-to-b.from-neutral-900,
+[data-theme] .bg-gradient-to-r.from-neutral-900,
+[data-theme] .bg-gradient-to-br.from-neutral-900,
 [data-theme] .bg-gradient-to-b.from-black,
+[data-theme] .bg-gradient-to-r.from-black,
+[data-theme] .bg-gradient-to-br.from-black,
+[data-theme] .bg-gradient-to-b.from-zinc-950,
+[data-theme] .bg-gradient-to-r.from-zinc-950,
+[data-theme] .bg-gradient-to-br.from-zinc-950,
+[data-theme] .bg-gradient-to-b.from-zinc-900,
+[data-theme] .bg-gradient-to-r.from-zinc-900,
+[data-theme] .bg-gradient-to-br.from-zinc-900,
 [data-theme] .bg-gradient-to-b.from-\[\#121212\] {
   background-image: none !important;
   background-color: var(--bg-card) !important;
@@ -245,7 +248,12 @@
 [data-theme] .text-white,
 [data-theme] .text-neutral-50,
 [data-theme] .text-zinc-50,
-[data-theme] .text-neutral-100 {
+[data-theme] .text-neutral-100,
+[data-theme] .text-gray-100,
+[data-theme] .text-gray-200,
+[data-theme] .text-neutral-200,
+[data-theme] .text-zinc-100,
+[data-theme] .text-zinc-200 {
   color: var(--text-primary) !important;
 }
 
@@ -310,13 +318,18 @@
   border-color: var(--brand-color) !important;
 }
 
-/* Maintain crisp white text on solid colored backgrounds and buttons */
+/* Maintain crisp white text on solid colored backgrounds, buttons, and brand gradients */
 [data-theme] .bg-\[\#FF2D8D\] .text-white,
 [data-theme] .bg-\[\#FF2D8D\] span,
 [data-theme] .bg-\[\#FF2D8D\] svg,
 [data-theme] .bg-\[\#FF2D8D\] p,
 [data-theme] .bg-\[\#FF2D8D\],
+[data-theme] .bg-\[\#FF2D8D\] *,
 [data-theme] .bg-\[\#FF6FB5\] *,
+[data-theme] .bg-gradient-to-r.from-\[\#FF2D8D\] *,
+[data-theme] .bg-gradient-to-r.from-\[\#FF2D8D\],
+[data-theme] .bg-\[\#25D366\] *,
+[data-theme] .bg-\[\#25D366\],
 [data-theme] .bg-emerald-500 *,
 [data-theme] .bg-emerald-600 *,
 [data-theme] .bg-green-500 *,
@@ -402,7 +415,8 @@
 [data-theme="branco"] .border-neutral-900\/40,
 [data-theme="branco"] .border-neutral-900\/60,
 [data-theme="branco"] .border-neutral-900,
-[data-theme="branco"] .border-neutral-800 {
+[data-theme="branco"] .border-neutral-800,
+[data-theme="branco"] .border-neutral-700 {
   border-color: #cbd5e1 !important;
 }
 
@@ -416,6 +430,180 @@
   background-color: rgba(255, 45, 141, 0.08) !important;
   color: #FF2D8D !important;
   border-color: rgba(255, 45, 141, 0.3) !important;
+}
+
+/* --- ADAPT FORMS AND INTERACTIVE PANELS FOR THE WHITE THEME --- */
+
+/* Standard white theme elements: inputs, main background panels, and full dark block overrides */
+[data-theme="branco"] .bg-black,
+[data-theme="branco"] .bg-neutral-950,
+[data-theme="branco"] .bg-neutral-900,
+[data-theme="branco"] .bg-\[\#111\],
+[data-theme="branco"] .bg-\[\#111111\],
+[data-theme="branco"] .bg-\[\#1a1a1a\],
+[data-theme="branco"] .bg-\[\#222\] {
+  background-color: #ffffff !important;
+  color: #0f172a !important;
+  border-color: #cbd5e1 !important;
+}
+
+/* 
+  Secondary nested cards / semi-transparent containers (e.g. step boxes, FIPE cards, bank options grid cards):
+  Styled with a beautiful, soft light-slate background to establish perfect layered visual depth.
+*/
+[data-theme="branco"] .bg-neutral-950\/40,
+[data-theme="branco"] .bg-neutral-950\/20,
+[data-theme="branco"] .bg-neutral-950\/10,
+[data-theme="branco"] .bg-neutral-900\/50,
+[data-theme="branco"] .bg-neutral-900\/40,
+[data-theme="branco"] .bg-neutral-900\/30,
+[data-theme="branco"] .bg-neutral-900\/20,
+[data-theme="branco"] .bg-neutral-900\/15,
+[data-theme="branco"] .bg-neutral-900\/10,
+[data-theme="branco"] .bg-neutral-800\/50,
+[data-theme="branco"] .bg-neutral-800\/30,
+[data-theme="branco"] .bg-neutral-800\/20,
+[data-theme="branco"] .bg-neutral-800\/10,
+[data-theme="branco"] .bg-zinc-900\/50 {
+  background-color: #f8fafc !important;
+  border-color: #cbd5e1 !important;
+  color: #0f172a !important;
+}
+
+/* Support interactive bank buttons and cards so they turn gorgeous pink on hover */
+[data-theme="branco"] .bg-neutral-950\/40:hover,
+[data-theme="branco"] .bg-neutral-900\/40:hover,
+[data-theme="branco"] .bg-neutral-900\/20:hover {
+  background-color: rgba(255, 45, 141, 0.05) !important;
+  border-color: #FF2D8D !important;
+}
+
+/* High-contrast labels for inputs & forms */
+[data-theme="branco"] label {
+  color: #475569 !important;
+}
+
+/* Beautiful soft pink badge for the pre-approval header badge */
+[data-theme="branco"] .bg-black\/60 {
+  background-color: rgba(255, 45, 141, 0.08) !important;
+  border-color: rgba(255, 45, 141, 0.25) !important;
+}
+[data-theme="branco"] .bg-black\/60 * {
+  color: #FF2D8D !important;
+}
+
+/* Fix progress bars track: prevents the black track from matching white backgrounds and turning invisible */
+[data-theme="branco"] .w-full.bg-black,
+[data-theme="branco"] .bg-black.h-1\.5,
+[data-theme="branco"] .bg-black.h-1 {
+  background-color: #e2e8f0 !important;
+}
+
+/* Ensure hover states don't turn white-on-white (unreadable) but instead use a gorgeous brand pink */
+[data-theme="branco"] .hover\:text-white:hover {
+  color: #FF2D8D !important;
+}
+[data-theme="branco"] .group:hover .group-hover\:text-white,
+[data-theme="branco"] .group:hover span,
+[data-theme="branco"] .group:hover p {
+  color: #FF2D8D !important;
+}
+
+/* Highlight elements on hover with a beautiful pink accent line and subtle glow */
+[data-theme="branco"] .bg-black:hover,
+[data-theme="branco"] .bg-neutral-950:hover,
+[data-theme="branco"] .bg-neutral-900:hover,
+[data-theme="branco"] .hover\:bg-neutral-800:hover,
+[data-theme="branco"] .hover\:bg-neutral-900:hover,
+[data-theme="branco"] button.bg-black:hover,
+[data-theme="branco"] button.bg-neutral-900:hover,
+[data-theme="branco"] button.bg-neutral-950:hover,
+[data-theme="branco"] button.bg-\[\#1A1A1A\]:hover {
+  background-color: rgba(255, 45, 141, 0.04) !important;
+  border-color: #FF2D8D !important;
+  color: #FF2D8D !important;
+}
+
+/* Force hover text & icon colors within light buttons/inputs to turn pink */
+[data-theme="branco"] .bg-black:hover *,
+[data-theme="branco"] .bg-neutral-950:hover *,
+[data-theme="branco"] .bg-neutral-900:hover *,
+[data-theme="branco"] button.bg-black:hover *,
+[data-theme="branco"] button.bg-neutral-900:hover *,
+[data-theme="branco"] button.bg-neutral-950:hover * {
+  color: #FF2D8D !important;
+}
+
+/* Form Section Headers with beautiful soft pink circle background for step count */
+[data-theme="branco"] .bg-\[\#FF2D8D\]\/10 {
+  background-color: rgba(255, 45, 141, 0.09) !important;
+  color: #FF2D8D !important;
+}
+
+/* Beautiful soft styles for success, progress, or caution banners inside forms */
+[data-theme="branco"] .bg-emerald-950\/20,
+[data-theme="branco"] .bg-emerald-950\/10,
+[data-theme="branco"] .bg-emerald-950 {
+  background-color: rgba(16, 185, 129, 0.08) !important;
+  border-color: rgba(16, 185, 129, 0.25) !important;
+  color: #065f46 !important;
+}
+[data-theme="branco"] .bg-emerald-950\/20 *,
+[data-theme="branco"] .bg-emerald-950\/10 *,
+[data-theme="branco"] .bg-emerald-950 * {
+  color: #065f46 !important;
+}
+
+[data-theme="branco"] .bg-amber-950\/20,
+[data-theme="branco"] .bg-amber-950\/10,
+[data-theme="branco"] .bg-amber-950 {
+  background-color: rgba(245, 158, 11, 0.08) !important;
+  border-color: rgba(245, 158, 11, 0.25) !important;
+  color: #92400e !important;
+}
+[data-theme="branco"] .bg-amber-950\/20 *,
+[data-theme="branco"] .bg-amber-950\/10 *,
+[data-theme="branco"] .bg-amber-950 * {
+  color: #92400e !important;
+}
+
+/* Elegant light pink themed background for highlight/important sections */
+[data-theme="branco"] .border-\[\#FF2D8D\]\/20,
+[data-theme="branco"] .border-\[\#FF2D8D\]\/30 {
+  border-color: rgba(255, 45, 141, 0.3) !important;
+}
+
+[data-theme="branco"] .bg-gradient-to-r.from-neutral-950.to-neutral-900 {
+  background-image: none !important;
+  background-color: rgba(255, 45, 141, 0.02) !important;
+  border-color: rgba(255, 45, 141, 0.25) !important;
+}
+
+/* 
+  CRITICAL PRESERVATION: 
+  Always preserve full dark-theme styling inside genuine dark blocks like the Hero section (section.bg-black)
+  so that its sports car background image contrasts with bright white text and statistics!
+*/
+[data-theme="branco"] section.bg-black .text-white,
+[data-theme="branco"] section.bg-black h1,
+[data-theme="branco"] section.bg-black h2,
+[data-theme="branco"] section.bg-black h3,
+[data-theme="branco"] section.bg-black h4,
+[data-theme="branco"] section.bg-black p,
+[data-theme="branco"] section.bg-black span,
+[data-theme="branco"] section.bg-black strong,
+[data-theme="branco"] section.bg-black .text-gray-100,
+[data-theme="branco"] section.bg-black .text-gray-200,
+[data-theme="branco"] section.bg-black .text-gray-300,
+[data-theme="branco"] section.bg-black .text-gray-400,
+[data-theme="branco"] section.bg-black .text-neutral-300,
+[data-theme="branco"] section.bg-black .text-neutral-400 {
+  color: #ffffff !important;
+}
+
+[data-theme="branco"] section.bg-black .text-gray-500,
+[data-theme="branco"] section.bg-black .text-neutral-500 {
+  color: #94a3b8 !important;
 }
 
 @keyframes slideInRight {
