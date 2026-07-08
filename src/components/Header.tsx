@@ -379,21 +379,21 @@ export function Header({ currentUser, onLogout, onOpenAuth, onNavigate, currentP
               <button
                 onClick={() => setIsThemeOpen(!isThemeOpen)}
                 title="Escolher Tema"
-                className={`p-2 rounded-full border border-neutral-800 hover:bg-neutral-900 transition-all cursor-pointer relative ${isThemeOpen ? 'text-[#FF2D8D] border-[#FF2D8D]/40 bg-neutral-900' : 'text-gray-400 hover:text-white'}`}
+                className={`p-2 rounded-full border border-[var(--border-color)] hover:bg-[var(--bg-card-hover)] transition-all cursor-pointer relative ${isThemeOpen ? 'text-[var(--brand-color)] border-[var(--brand-color)]/40 bg-[var(--bg-card-hover)]' : 'text-[var(--text-secondary)] hover:text-[var(--text-primary)]'}`}
               >
                 <Palette className="w-4 h-4" />
               </button>
               
               {isThemeOpen && (
-                <div className="absolute right-0 mt-2.5 w-52 bg-neutral-950 border border-neutral-800 rounded-xl shadow-2xl p-2.5 z-[110] flex flex-col gap-1.5">
-                  <div className="px-2 py-1 border-b border-neutral-800/60 mb-1">
-                    <span className="text-[10px] uppercase tracking-wider font-bold text-gray-500">Escolha o Tema</span>
+                <div className="absolute right-0 mt-2.5 w-52 bg-[var(--bg-card)] border border-[var(--border-color)] rounded-xl shadow-2xl p-2.5 z-[110] flex flex-col gap-1.5">
+                  <div className="px-2 py-1 border-b border-[var(--border-color)]/60 mb-1">
+                    <span className="text-[10px] uppercase tracking-wider font-bold text-[var(--text-secondary)]">Escolha o Tema</span>
                   </div>
                   
                   {/* Theme buttons */}
                   <button
                     onClick={() => changeTheme('original')}
-                    className={`w-full flex items-center justify-between px-2.5 py-1.5 rounded-lg text-xs transition-all cursor-pointer ${activeTheme === 'original' ? 'bg-[#FF2D8D]/10 text-[#FF2D8D] font-bold' : 'text-gray-300 hover:bg-neutral-900'}`}
+                    className={`w-full flex items-center justify-between px-2.5 py-1.5 rounded-lg text-xs transition-all cursor-pointer ${activeTheme === 'original' ? 'bg-[#FF2D8D]/10 text-[#FF2D8D] font-bold' : 'text-[var(--text-secondary)] hover:bg-[var(--bg-card-hover)] hover:text-[var(--text-primary)]'}`}
                   >
                     <div className="flex items-center gap-2">
                       <span className="w-2.5 h-2.5 rounded-full bg-[#FF2D8D]"></span>
@@ -404,7 +404,7 @@ export function Header({ currentUser, onLogout, onOpenAuth, onNavigate, currentP
 
                   <button
                     onClick={() => changeTheme('branco')}
-                    className={`w-full flex items-center justify-between px-2.5 py-1.5 rounded-lg text-xs transition-all cursor-pointer ${activeTheme === 'branco' ? 'bg-blue-600/10 text-blue-500 font-bold' : 'text-gray-300 hover:bg-neutral-900'}`}
+                    className={`w-full flex items-center justify-between px-2.5 py-1.5 rounded-lg text-xs transition-all cursor-pointer ${activeTheme === 'branco' ? 'bg-blue-600/10 text-blue-500 font-bold' : 'text-[var(--text-secondary)] hover:bg-[var(--bg-card-hover)] hover:text-[var(--text-primary)]'}`}
                   >
                     <div className="flex items-center gap-2">
                       <span className="w-2.5 h-2.5 rounded-full bg-white border border-blue-500 shadow-sm"></span>
@@ -415,7 +415,7 @@ export function Header({ currentUser, onLogout, onOpenAuth, onNavigate, currentP
 
                   <button
                     onClick={() => changeTheme('azul')}
-                    className={`w-full flex items-center justify-between px-2.5 py-1.5 rounded-lg text-xs transition-all cursor-pointer ${activeTheme === 'azul' ? 'bg-cyan-500/10 text-cyan-400 font-bold' : 'text-gray-300 hover:bg-neutral-900'}`}
+                    className={`w-full flex items-center justify-between px-2.5 py-1.5 rounded-lg text-xs transition-all cursor-pointer ${activeTheme === 'azul' ? 'bg-cyan-500/10 text-cyan-400 font-bold' : 'text-[var(--text-secondary)] hover:bg-[var(--bg-card-hover)] hover:text-[var(--text-primary)]'}`}
                   >
                     <div className="flex items-center gap-2">
                       <span className="w-2.5 h-2.5 rounded-full bg-cyan-500"></span>
@@ -426,7 +426,7 @@ export function Header({ currentUser, onLogout, onOpenAuth, onNavigate, currentP
 
                   <button
                     onClick={() => changeTheme('preto')}
-                    className={`w-full flex items-center justify-between px-2.5 py-1.5 rounded-lg text-xs transition-all cursor-pointer ${activeTheme === 'preto' ? 'bg-neutral-800 text-white font-bold' : 'text-gray-300 hover:bg-neutral-900'}`}
+                    className={`w-full flex items-center justify-between px-2.5 py-1.5 rounded-lg text-xs transition-all cursor-pointer ${activeTheme === 'preto' ? 'bg-neutral-800 text-white font-bold' : 'text-[var(--text-secondary)] hover:bg-[var(--bg-card-hover)] hover:text-[var(--text-primary)]'}`}
                   >
                     <div className="flex items-center gap-2">
                       <span className="w-2.5 h-2.5 rounded-full bg-black border border-neutral-700"></span>
@@ -443,7 +443,7 @@ export function Header({ currentUser, onLogout, onOpenAuth, onNavigate, currentP
               <button
                 onClick={() => setIsNotifOpen(!isNotifOpen)}
                 title="Central de Notificações"
-                className={`p-2 rounded-full border border-[#1A1A1A] hover:bg-[#1A1A1A] transition-all cursor-pointer relative ${isNotifOpen ? 'text-[#FF2D8D] border-[#FF2D8D]/40 bg-[#1A1A1A]' : 'text-gray-400'}`}
+                className={`p-2 rounded-full border border-[var(--border-color)] hover:bg-[var(--bg-card-hover)] transition-all cursor-pointer relative ${isNotifOpen ? 'text-[var(--brand-color)] border-[var(--brand-color)]/40 bg-[var(--bg-card-hover)]' : 'text-[var(--text-secondary)] hover:text-[var(--text-primary)]'}`}
               >
                 <Bell className={`w-4 h-4 ${notifications.some(n => !n.read) ? 'animate-pulse text-[#FF2D8D]' : ''}`} />
                 {notifications.some(n => !n.read) && (
@@ -516,57 +516,57 @@ export function Header({ currentUser, onLogout, onOpenAuth, onNavigate, currentP
 
         {/* Mobile menu drawer */}
         {isMenuOpen && (
-          <div className="md:hidden absolute top-full left-0 w-full bg-black border-b border-[#1A1A1A] py-4 px-4 flex flex-col gap-3 shadow-xl">
+          <div className="md:hidden absolute top-full left-0 w-full bg-[var(--bg-card)] border-b border-[var(--border-color)] py-4 px-4 flex flex-col gap-3 shadow-xl z-50 animate-slide-in-right">
             <button 
               onClick={() => handleNav('home')} 
-              className={`text-left py-2 border-b border-[#1A1A1A] ${currentPage === 'home' ? 'text-[#FF2D8D] font-bold' : 'text-gray-300'}`}
+              className={`text-left py-2 border-b border-[var(--border-color)] transition-all ${currentPage === 'home' ? 'text-[var(--brand-color)] font-extrabold' : 'text-[var(--text-secondary)] hover:text-[var(--text-primary)]'}`}
             >
               Início
             </button>
             <button 
               onClick={() => handleNav('catalogo')} 
-              className={`text-left py-2 border-b border-[#1A1A1A] ${currentPage === 'catalogo' ? 'text-[#FF2D8D] font-bold' : 'text-gray-300'}`}
+              className={`text-left py-2 border-b border-[var(--border-color)] transition-all ${currentPage === 'catalogo' ? 'text-[var(--brand-color)] font-extrabold' : 'text-[var(--text-secondary)] hover:text-[var(--text-primary)]'}`}
             >
               Estoque
             </button>
             <button 
               onClick={() => handleNav('financiamento')} 
-              className={`text-left py-2 border-b border-[#1A1A1A] ${currentPage === 'financiamento' ? 'text-[#FF2D8D] font-bold' : 'text-gray-300'}`}
+              className={`text-left py-2 border-b border-[var(--border-color)] transition-all ${currentPage === 'financiamento' ? 'text-[var(--brand-color)] font-extrabold' : 'text-[var(--text-secondary)] hover:text-[var(--text-primary)]'}`}
             >
               Financiamento
             </button>
             <button 
               onClick={() => handleNav('avaliacao')} 
-              className={`text-left py-2 border-b border-[#1A1A1A] ${currentPage === 'avaliacao' ? 'text-[#FF2D8D] font-bold' : 'text-gray-300'}`}
+              className={`text-left py-2 border-b border-[var(--border-color)] transition-all ${currentPage === 'avaliacao' ? 'text-[var(--brand-color)] font-extrabold' : 'text-[var(--text-secondary)] hover:text-[var(--text-primary)]'}`}
             >
               Avalie seu Usado
             </button>
             <button 
               onClick={() => handleNav('combo')} 
-              className={`text-left py-2 border-b border-[#1A1A1A] flex items-center gap-2 ${currentPage === 'combo' ? 'text-[#FF2D8D] font-bold' : 'text-[#FF6FB5] font-semibold'}`}
+              className={`text-left py-2 border-b border-[var(--border-color)] flex items-center gap-2 transition-all ${currentPage === 'combo' ? 'text-[var(--brand-color)] font-extrabold' : 'text-[var(--text-secondary)] hover:text-[var(--text-primary)]'}`}
             >
               <span className="relative flex h-1.5 w-1.5">
-                <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-[#FF2D8D] opacity-75"></span>
-                <span className="relative inline-flex rounded-full h-1.5 w-1.5 bg-[#FF2D8D]"></span>
+                <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-[var(--brand-color)] opacity-75"></span>
+                <span className="relative inline-flex rounded-full h-1.5 w-1.5 bg-[var(--brand-color)]"></span>
               </span>
               Simulador Combo 🔄
             </button>
             <button 
               onClick={() => handleNav('termos')} 
-              className={`text-left py-2 border-b border-[#1A1A1A] ${currentPage === 'termos' ? 'text-[#FF2D8D] font-bold' : 'text-gray-300'}`}
+              className={`text-left py-2 border-b border-[var(--border-color)] transition-all ${currentPage === 'termos' ? 'text-[var(--brand-color)] font-extrabold' : 'text-[var(--text-secondary)] hover:text-[var(--text-primary)]'}`}
             >
               Termos de Uso
             </button>
 
             {/* Mobile Theme Selector */}
-            <div className="flex flex-col gap-1.5 border-b border-neutral-900 pb-3 pt-1">
-              <span className="text-[10px] uppercase tracking-wider font-bold text-gray-500 flex items-center gap-1">
+            <div className="flex flex-col gap-1.5 border-b border-[var(--border-color)] pb-3 pt-1">
+              <span className="text-[10px] uppercase tracking-wider font-bold text-[var(--text-secondary)] flex items-center gap-1">
                 <Palette className="w-3.5 h-3.5" /> Tema do App
               </span>
               <div className="grid grid-cols-4 gap-2">
                 <button
                   onClick={() => changeTheme('original')}
-                  className={`flex flex-col items-center gap-1.5 py-2 px-1 rounded-xl border text-[10px] font-semibold transition-all cursor-pointer ${activeTheme === 'original' ? 'border-[#FF2D8D] bg-[#FF2D8D]/10 text-[#FF2D8D]' : 'border-neutral-900 bg-neutral-950 text-gray-400'}`}
+                  className={`flex flex-col items-center gap-1.5 py-2 px-1 rounded-xl border text-[10px] font-semibold transition-all cursor-pointer ${activeTheme === 'original' ? 'border-[#FF2D8D] bg-[#FF2D8D]/10 text-[#FF2D8D]' : 'border-[var(--border-color)] bg-[var(--bg-main)] text-[var(--text-secondary)] hover:text-[var(--text-primary)] hover:bg-[var(--bg-card-hover)]'}`}
                 >
                   <span className="w-3 h-3 rounded-full bg-[#FF2D8D] shadow-sm"></span>
                   <span>Original</span>
@@ -574,7 +574,7 @@ export function Header({ currentUser, onLogout, onOpenAuth, onNavigate, currentP
                 
                 <button
                   onClick={() => changeTheme('branco')}
-                  className={`flex flex-col items-center gap-1.5 py-2 px-1 rounded-xl border text-[10px] font-semibold transition-all cursor-pointer ${activeTheme === 'branco' ? 'border-blue-500 bg-blue-500/10 text-blue-500' : 'border-neutral-900 bg-neutral-950 text-gray-400'}`}
+                  className={`flex flex-col items-center gap-1.5 py-2 px-1 rounded-xl border text-[10px] font-semibold transition-all cursor-pointer ${activeTheme === 'branco' ? 'border-blue-500 bg-blue-500/10 text-blue-500' : 'border-[var(--border-color)] bg-[var(--bg-main)] text-[var(--text-secondary)] hover:text-[var(--text-primary)] hover:bg-[var(--bg-card-hover)]'}`}
                 >
                   <span className="w-3 h-3 rounded-full bg-white border border-blue-500 shadow-sm"></span>
                   <span>Branco e Azul</span>
@@ -582,7 +582,7 @@ export function Header({ currentUser, onLogout, onOpenAuth, onNavigate, currentP
 
                 <button
                   onClick={() => changeTheme('azul')}
-                  className={`flex flex-col items-center gap-1.5 py-2 px-1 rounded-xl border text-[10px] font-semibold transition-all cursor-pointer ${activeTheme === 'azul' ? 'border-cyan-400 bg-cyan-400/10 text-cyan-400' : 'border-neutral-900 bg-neutral-950 text-gray-400'}`}
+                  className={`flex flex-col items-center gap-1.5 py-2 px-1 rounded-xl border text-[10px] font-semibold transition-all cursor-pointer ${activeTheme === 'azul' ? 'border-cyan-400 bg-cyan-400/10 text-cyan-400' : 'border-[var(--border-color)] bg-[var(--bg-main)] text-[var(--text-secondary)] hover:text-[var(--text-primary)] hover:bg-[var(--bg-card-hover)]'}`}
                 >
                   <span className="w-3 h-3 rounded-full bg-cyan-500 shadow-sm"></span>
                   <span>Azul</span>
@@ -590,7 +590,7 @@ export function Header({ currentUser, onLogout, onOpenAuth, onNavigate, currentP
 
                 <button
                   onClick={() => changeTheme('preto')}
-                  className={`flex flex-col items-center gap-1.5 py-2 px-1 rounded-xl border text-[10px] font-semibold transition-all cursor-pointer ${activeTheme === 'preto' ? 'border-neutral-600 bg-neutral-900 text-white' : 'border-neutral-900 bg-neutral-950 text-gray-400'}`}
+                  className={`flex flex-col items-center gap-1.5 py-2 px-1 rounded-xl border text-[10px] font-semibold transition-all cursor-pointer ${activeTheme === 'preto' ? 'border-neutral-600 bg-neutral-900 text-white' : 'border-[var(--border-color)] bg-[var(--bg-main)] text-[var(--text-secondary)] hover:text-[var(--text-primary)] hover:bg-[var(--bg-card-hover)]'}`}
                 >
                   <span className="w-3 h-3 rounded-full bg-black border border-neutral-700 shadow-sm"></span>
                   <span>Preto</span>
@@ -676,11 +676,11 @@ export function Header({ currentUser, onLogout, onOpenAuth, onNavigate, currentP
       {isNotifOpen && (
         <div className="fixed inset-0 z-[100] bg-black/60 backdrop-blur-sm" onClick={() => setIsNotifOpen(false)}>
           <div 
-            className="fixed inset-y-0 right-0 w-full md:max-w-md bg-neutral-950 border-l border-neutral-800 shadow-2xl flex flex-col h-full overflow-hidden"
+            className="fixed inset-y-0 right-0 w-full md:max-w-md bg-[var(--bg-card)] border-l border-[var(--border-color)] shadow-2xl flex flex-col h-full overflow-hidden"
             onClick={(e) => e.stopPropagation()}
           >
             {/* Header */}
-            <div className="p-4 border-b border-neutral-800 flex items-center justify-between bg-black">
+            <div className="p-4 border-b border-[var(--border-color)] flex items-center justify-between bg-[var(--bg-main)]">
               <div className="flex items-center gap-2">
                 <Bell className="w-5 h-5 text-[#FF2D8D]" />
                 <h3 className="font-display font-bold text-white text-base">Central de Notificações</h3>

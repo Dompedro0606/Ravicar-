@@ -77,9 +77,9 @@ export function Hero({ onNavigate, settings }: HeroProps) {
           
           <button
             onClick={handleWhatsappClick}
-            className="w-full sm:w-auto px-8 py-4 rounded-xl bg-neutral-900 border border-neutral-800 hover:border-[#FF2D8D]/50 hover:bg-neutral-800 text-white font-extrabold text-sm tracking-wide uppercase transition-all duration-300 flex items-center justify-center gap-2 transform hover:-translate-y-0.5 cursor-pointer"
+            className="w-full sm:w-auto px-8 py-4 rounded-xl bg-[#25D366] hover:bg-[#20ba59] text-white font-extrabold text-sm tracking-wide uppercase transition-all duration-300 flex items-center justify-center gap-2 transform hover:-translate-y-0.5 cursor-pointer shadow-lg hover:shadow-[#25D366]/20"
           >
-            <MessageCircle className="w-4.5 h-4.5 text-[#25D366] fill-[#25D366]/20" />
+            <MessageCircle className="w-4.5 h-4.5 text-white fill-white/10 animate-pulse" />
             Falar no WhatsApp
           </button>
         </div>

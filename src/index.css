@@ -653,6 +653,20 @@
   color: #94a3b8 !important;
 }
 
+[data-theme="branco"] section.bg-black .text-\[\#FF2D8D\],
+[data-theme="branco"] section.bg-black .text-\[\#FF6FB5\],
+[data-theme="branco"] section.bg-black .text-pink-500,
+[data-theme="branco"] section.bg-black .text-rose-500 {
+  color: #ffffff !important;
+}
+
+[data-theme="branco"] section.bg-black h1 .bg-gradient-to-r {
+  background-image: linear-gradient(to right, #60a5fa, #93c5fd) !important;
+  -webkit-background-clip: text !important;
+  background-clip: text !important;
+  color: transparent !important;
+}
+
 @keyframes slideInRight {
   0% {
     transform: translateX(100%);
