@@ -521,7 +521,7 @@ export function Header({ currentUser, onLogout, onOpenAuth, onNavigate, currentP
 
         {/* Mobile menu drawer */}
         {isMenuOpen && (
-          <div className="md:hidden absolute top-full left-0 w-full bg-[var(--bg-card)] border-b border-[var(--border-color)] py-4 px-4 flex flex-col gap-3 shadow-xl z-50 animate-slide-in-right">
+          <div className="md:hidden absolute top-full left-0 w-full bg-[var(--bg-card)] border-b border-[var(--border-color)] py-4 px-4 flex flex-col gap-3 shadow-xl z-50 animate-slide-down">
             <button 
               onClick={() => handleNav('home')} 
               className={`text-left py-2 border-b border-[var(--border-color)] transition-all ${currentPage === 'home' ? 'text-[var(--brand-color)] font-extrabold' : 'text-[var(--text-secondary)] hover:text-[var(--text-primary)]'}`}

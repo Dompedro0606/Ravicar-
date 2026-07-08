@@ -215,20 +215,20 @@ export function Catalog({ vehicles, onSelectVehicle, currentUser }: CatalogProps
           {/* Search Input - Always Visible */}
           <div className="space-y-1.5">
             <label className="block text-[9px] font-black text-gray-500 uppercase tracking-widest">Busca Inteligente por Texto</label>
-            <div className="relative">
-              <Search className="absolute left-3.5 top-3.5 w-4 h-4 text-gray-500" />
+            <div className="relative flex items-center">
+              <Search className="absolute left-3.5 top-1/2 -translate-y-1/2 w-4 h-4 text-gray-500" />
               <input
                 type="text"
                 value={search}
                 onChange={e => setSearch(e.target.value)}
                 placeholder="Ex: Onix Automático, Flex 2022..."
-                className="w-full bg-black border border-neutral-800 focus:border-[#FF2D8D] rounded-xl pl-10 pr-9 py-2.5 text-xs text-white outline-none transition focus:ring-1 focus:ring-[#FF2D8D]/40 font-sans"
+                className="w-full bg-black border border-neutral-800 focus:border-[#FF2D8D] rounded-xl pl-10 pr-9 py-3 text-sm leading-normal text-white outline-none transition focus:ring-1 focus:ring-[#FF2D8D]/40 font-sans"
               />
               {search && (
                 <button
                   type="button"
                   onClick={() => setSearch('')}
-                  className="absolute right-3 top-3 text-gray-500 hover:text-white transition cursor-pointer"
+                  className="absolute right-3 top-1/2 -translate-y-1/2 text-gray-500 hover:text-white transition cursor-pointer"
                 >
                   <X className="w-3.5 h-3.5" />
                 </button>

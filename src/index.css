@@ -13,6 +13,9 @@
     -moz-osx-font-smoothing: grayscale;
     -webkit-text-size-adjust: 100%;
     -webkit-tap-highlight-color: transparent !important;
+    overflow-x: hidden;
+    width: 100%;
+    max-width: 100%;
   }
 
   * {
@@ -24,6 +27,9 @@
     text-rendering: optimizeLegibility;
     -webkit-font-smoothing: antialiased;
     -moz-osx-font-smoothing: grayscale;
+    overflow-x: hidden;
+    width: 100%;
+    max-width: 100%;
   }
   
   h1, h2, h3, h4, h5, h6 {
@@ -963,6 +969,21 @@
     transform: translateX(0);
     opacity: 1;
   }
+}
+
+@keyframes slideDown {
+  0% {
+    transform: translateY(-12px);
+    opacity: 0;
+  }
+  100% {
+    transform: translateY(0);
+    opacity: 1;
+  }
+}
+
+.animate-slide-down {
+  animation: slideDown 0.28s cubic-bezier(0.16, 1, 0.3, 1) forwards;
 }
 
 .animate-slide-in-right {

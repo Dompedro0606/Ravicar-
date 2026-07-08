@@ -211,7 +211,7 @@ export default function App() {
   }, [vehicles, selectedVehicleId]);
 
   return (
-    <div className="flex flex-col min-h-screen bg-black text-white">
+    <div className="flex flex-col min-h-screen bg-black text-white overflow-x-hidden">
       {/* Dynamic Header */}
       <Header 
         currentUser={currentUser}
