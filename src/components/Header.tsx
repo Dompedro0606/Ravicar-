@@ -43,8 +43,6 @@ export function Header({ currentUser, onLogout, onOpenAuth, onNavigate, currentP
   // Notifications State & Polling
   const [isNotifOpen, setIsNotifOpen] = useState(false);
   const [notifications, setNotifications] = useState<any[]>([]);
-  const [activeNotifTab, setActiveNotifTab] = useState<'push' | 'email'>('push');
-  const [selectedEmailHtml, setSelectedEmailHtml] = useState<string | null>(null);
   const [activeToast, setActiveToast] = useState<any | null>(null);
   
   const seenIdsRef = useRef<string[]>([]);
@@ -463,22 +461,6 @@ export function Header({ currentUser, onLogout, onOpenAuth, onNavigate, currentP
               </button>
             </div>
 
-            {/* Toggle Tabs */}
-            <div className="flex border-b border-neutral-800 bg-black/50 p-2 gap-1">
-              <button
-                onClick={() => setActiveNotifTab('push')}
-                className={`flex-1 py-2 text-xs font-bold rounded-lg transition-all flex items-center justify-center gap-1.5 ${activeNotifTab === 'push' ? 'bg-[#FF2D8D] text-white shadow-md' : 'text-gray-400 hover:text-white hover:bg-neutral-900'}`}
-              >
-                📱 Alertas no Celular ({notifications.filter(n => n.type === 'push').length})
-              </button>
-              <button
-                onClick={() => setActiveNotifTab('email')}
-                className={`flex-1 py-2 text-xs font-bold rounded-lg transition-all flex items-center justify-center gap-1.5 ${activeNotifTab === 'email' ? 'bg-[#FF2D8D] text-white shadow-md' : 'text-gray-400 hover:text-white hover:bg-neutral-900'}`}
-              >
-                📧 E-mails no Gmail ({notifications.filter(n => n.type === 'email').length})
-              </button>
-            </div>
-
             {/* Content List */}
             <div className="flex-1 overflow-y-auto p-4 flex flex-col gap-3">
               {/* Permission Helper Banner */}
@@ -502,15 +484,15 @@ export function Header({ currentUser, onLogout, onOpenAuth, onNavigate, currentP
                 </div>
               </div>
 
-              {notifications.filter(n => n.type === activeNotifTab).length === 0 ? (
+              {notifications.filter(n => n.type === 'push').length === 0 ? (
                 <div className="flex-1 flex flex-col items-center justify-center py-12 text-center text-gray-500 gap-2">
                   <BellOff className="w-10 h-10 text-neutral-800 animate-bounce" />
                   <p className="text-xs font-bold text-white">Nenhuma notificação</p>
-                  <p className="text-[11px] text-gray-400 max-w-[240px] mx-auto">Cadastre um novo veículo no Painel Administrativo para ver o alerta celular e o e-mail chegando em tempo real!</p>
+                  <p className="text-[11px] text-gray-400 max-w-[240px] mx-auto">Cadastre um novo veículo no Painel Administrativo para ver o alerta celular em tempo real!</p>
                 </div>
               ) : (
                 notifications
-                  .filter(n => n.type === activeNotifTab)
+                  .filter(n => n.type === 'push')
                   .map((notif: any) => (
                     <div 
                       key={notif.id}
@@ -520,16 +502,11 @@ export function Header({ currentUser, onLogout, onOpenAuth, onNavigate, currentP
                         <span className="text-[9px] text-gray-500 font-mono">
                           {new Date(notif.createdAt).toLocaleTimeString('pt-BR', { hour: '2-digit', minute: '2-digit' })} - {new Date(notif.createdAt).toLocaleDateString('pt-BR')}
                         </span>
-                        {activeNotifTab === 'email' && (
-                          <span className="text-[10px] font-bold text-[#FF2D8D] bg-[#FF2D8D]/10 px-2 py-0.5 rounded-full uppercase tracking-widest text-[9px]">
-                            Gmail
-                          </span>
-                        )}
                       </div>
                       <h4 className="text-xs font-bold text-white">{notif.title}</h4>
                       <p className="text-xs text-gray-400 leading-relaxed">{notif.message}</p>
                       
-                      {activeNotifTab === 'push' && notif.actionUrl && (
+                      {notif.actionUrl && (
                         <button
                           onClick={() => {
                             setIsNotifOpen(false);
@@ -538,18 +515,6 @@ export function Header({ currentUser, onLogout, onOpenAuth, onNavigate, currentP
                           className="mt-1 self-start text-[10px] font-bold text-[#FF2D8D] uppercase tracking-wider hover:underline cursor-pointer"
                         >
                           Ver Veículo no Estoque ➔
-                        </button>
-                      )}
-
-                      {activeNotifTab === 'email' && notif.htmlBody && (
-                        <button
-                          onClick={() => {
-                            setSelectedEmailHtml(notif.htmlBody);
-                          }}
-                          className="mt-1 self-start px-3 py-1.5 rounded-md bg-neutral-800 hover:bg-neutral-700 text-white text-[10px] font-bold transition flex items-center gap-1.5 cursor-pointer"
-                        >
-                          <Mail className="w-3.5 h-3.5 text-[#FF2D8D]" />
-                          Visualizar E-mail Recebido
                         </button>
                       )}
                     </div>
@@ -577,59 +542,6 @@ export function Header({ currentUser, onLogout, onOpenAuth, onNavigate, currentP
                   Limpar Tudo
                 </button>
               )}
-            </div>
-          </div>
-        </div>
-      )}
-
-      {/* Simulated HTML Email Viewer Modal */}
-      {selectedEmailHtml && (
-        <div className="fixed inset-0 z-[110] flex items-center justify-center p-4 bg-black/85 backdrop-blur-md" onClick={() => setSelectedEmailHtml(null)}>
-          <div 
-            className="w-full max-w-2xl h-[85vh] bg-neutral-900 rounded-2xl border border-neutral-800 flex flex-col overflow-hidden"
-            onClick={(e) => e.stopPropagation()}
-          >
-            {/* Header */}
-            <div className="p-4 border-b border-neutral-800 bg-black flex items-center justify-between">
-              <div className="flex items-center gap-2">
-                <Mail className="w-5 h-5 text-[#FF2D8D]" />
-                <div>
-                  <h3 className="font-display font-bold text-white text-base">Simulador de E-mail de Notificação (Gmail)</h3>
-                  <p className="text-[10px] text-gray-400">Enviado para: <span className="font-mono text-gray-200">gabrielvitor72103@gmail.com</span></p>
-                </div>
-              </div>
-              <button 
-                onClick={() => setSelectedEmailHtml(null)}
-                className="p-1 rounded-full hover:bg-neutral-800 text-gray-400 hover:text-white transition cursor-pointer"
-              >
-                <X className="w-5 h-5" />
-              </button>
-            </div>
-
-            {/* Simulated Gmail Header info */}
-            <div className="px-4 py-2 bg-neutral-950 text-[11px] text-gray-400 border-b border-neutral-800 flex flex-wrap items-center gap-x-4 gap-y-1">
-              <div><strong>De:</strong> RaviCar Alertas &lt;noreply@ravicar.online&gt;</div>
-              <div><strong>Para:</strong> Gabriel &lt;gabrielvitor72103@gmail.com&gt;</div>
-              <div className="ml-auto text-[9px] bg-emerald-950/40 text-emerald-400 border border-emerald-900/40 px-2 py-0.5 rounded font-mono uppercase tracking-wider">Entregue com Sucesso</div>
-            </div>
-
-            {/* Email Render Iframe */}
-            <div className="flex-1 bg-[#0d0d0d] p-4 flex justify-center overflow-hidden">
-              <iframe 
-                title="Simulated Email HTML"
-                srcDoc={selectedEmailHtml}
-                className="w-full h-full border border-neutral-800 rounded-xl"
-              />
-            </div>
-
-            {/* Footer */}
-            <div className="p-4 border-t border-neutral-800 bg-neutral-900 text-center">
-              <button
-                onClick={() => setSelectedEmailHtml(null)}
-                className="px-6 py-2 rounded-full bg-neutral-800 hover:bg-neutral-700 text-white text-xs font-bold transition cursor-pointer"
-              >
-                Fechar E-mail
-              </button>
             </div>
           </div>
         </div>

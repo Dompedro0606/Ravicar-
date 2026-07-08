@@ -118,6 +118,9 @@ export async function deleteVehicle(id: string) {
   const dbData = readDb();
   if (!dbData.vehicles) dbData.vehicles = [];
   dbData.vehicles = dbData.vehicles.filter((v: any) => v.id !== id);
+  if (dbData.notifications) {
+    dbData.notifications = dbData.notifications.filter((n: any) => n.vehicleId !== id);
+  }
   writeDb(dbData);
 }
 

@@ -1268,8 +1268,8 @@ export function AdminPanel({ currentUser, token, vehicles, onRefreshData, settin
                     <input
                       type="number"
                       required
-                      value={carForm.price}
-                      onChange={e => setCarForm(p => ({ ...p, price: Number(e.target.value) }))}
+                      value={carForm.price === 0 ? "" : carForm.price}
+                      onChange={e => setCarForm(p => ({ ...p, price: e.target.value === "" ? 0 : Number(e.target.value) }))}
                       className="w-full bg-neutral-900 border border-neutral-800 rounded-xl px-3.5 py-2.5 text-white outline-none"
                       placeholder="Ex: 148900"
                     />
@@ -1318,8 +1318,8 @@ export function AdminPanel({ currentUser, token, vehicles, onRefreshData, settin
                     <input
                       type="number"
                       required
-                      value={carForm.mileage}
-                      onChange={e => setCarForm(p => ({ ...p, mileage: Number(e.target.value) }))}
+                      value={carForm.mileage === 0 ? "" : carForm.mileage}
+                      onChange={e => setCarForm(p => ({ ...p, mileage: e.target.value === "" ? 0 : Number(e.target.value) }))}
                       className="w-full bg-neutral-900 border border-neutral-800 rounded-xl px-3.5 py-2.5 text-white outline-none"
                     />
                   </div>

@@ -270,7 +270,7 @@ app.post('/api/vehicles', requireAuth, async (req, res) => {
   await saveVehicle(newCar);
 
   try {
-    // 1. Create client-facing Push/System Notification
+    // Create client-facing Push/System Notification
     const pushNotif = {
       id: `notif-push-${Date.now()}`,
       type: 'push',
@@ -283,57 +283,6 @@ app.post('/api/vehicles', requireAuth, async (req, res) => {
       vehicleId: newCar.id
     };
     await saveNotification(pushNotif);
-
-    // 2. Create beautifully-styled Admin/Manager simulated Gmail Notification
-    const emailNotif = {
-      id: `notif-email-${Date.now()}`,
-      type: 'email',
-      title: `📧 [RaviCar] Novo veículo disponível: ${newCar.brand} ${newCar.model}!`,
-      message: `Um novo veículo foi cadastrado no estoque da RaviCar: ${newCar.brand} ${newCar.model} por R$ ${Number(newCar.price).toLocaleString('pt-BR')}.`,
-      recipient: 'gabrielvitor72103@gmail.com',
-      createdAt: new Date().toISOString(),
-      read: false,
-      htmlBody: `
-<div style="font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; max-width: 600px; margin: 0 auto; padding: 25px; background-color: #0d0d0d; border: 1px solid #1a1a1a; border-radius: 12px; color: #ffffff;">
-  <div style="text-align: center; padding-bottom: 20px; border-bottom: 1px solid #222;">
-    <h1 style="color: #ffffff; font-size: 28px; margin: 0; font-family: 'Montserrat', sans-serif; font-weight: 800; letter-spacing: -1px;">Ravi<span style="color: #FF2D8D;">Car</span></h1>
-    <p style="color: #888; font-size: 11px; margin: 5px 0 0 0; text-transform: uppercase; letter-spacing: 2px;">Central de Inteligência Automotiva</p>
-  </div>
-  
-  <div style="padding: 20px 5px; text-align: left;">
-    <p style="font-size: 16px; line-height: 1.6; color: #e0e0e0;">Olá, <strong>Gabriel</strong>,</p>
-    <p style="font-size: 15px; line-height: 1.6; color: #cccccc;">Excelente novidade! O sistema inteligente da <strong>RaviCar Veículos</strong> acaba de registrar um novo veículo no estoque de São Miguel Paulista (Av. Marechal Tito, 2188).</p>
-    
-    <div style="background: #141414; border-left: 4px solid #FF2D8D; border-radius: 6px; padding: 20px; margin: 25px 0; border-top: 1px solid #1f1f1f; border-right: 1px solid #1f1f1f; border-bottom: 1px solid #1f1f1f;">
-      <h2 style="color: #FF2D8D; margin-top: 0; font-size: 22px; font-weight: 700; letter-spacing: -0.5px;">🚗 ${newCar.brand} ${newCar.model} ${newCar.engine || ''}</h2>
-      <p style="margin: 8px 0; color: #b3b3b3; font-size: 14px;"><strong>Ano / Modelo:</strong> ${newCar.year}</p>
-      <p style="margin: 8px 0; color: #b3b3b3; font-size: 14px;"><strong>Quilometragem:</strong> ${Number(newCar.mileage).toLocaleString('pt-BR')} KM</p>
-      <p style="margin: 8px 0; color: #b3b3b3; font-size: 14px;"><strong>Transmissão:</strong> ${newCar.transmission}</p>
-      <p style="margin: 8px 0; color: #b3b3b3; font-size: 14px;"><strong>Combustível:</strong> ${newCar.fuel}</p>
-      <p style="margin: 8px 0; color: #b3b3b3; font-size: 14px;"><strong>Cor do Carro:</strong> ${newCar.color || 'Não especificada'}</p>
-      
-      <div style="margin-top: 20px; padding-top: 15px; border-top: 1px solid #262626; text-align: right;">
-        <span style="font-size: 13px; color: #888888; text-transform: uppercase; letter-spacing: 1px;">Preço Sugerido / À Vista:</span><br>
-        <strong style="font-size: 26px; color: #ffffff;">R$ ${Number(newCar.price).toLocaleString('pt-BR')}</strong>
-      </div>
-    </div>
-    
-    <div style="text-align: center; margin: 35px 0;">
-      <a href="https://ravicar.online/#veiculo-${newCar.id}" style="background-color: #FF2D8D; color: #ffffff; padding: 14px 35px; text-decoration: none; border-radius: 30px; font-weight: 700; font-size: 15px; display: inline-block; box-shadow: 0 4px 12px rgba(255, 45, 141, 0.3); transition: all 0.3s;" target="_blank">VISUALIZAR NO ESTOQUE</a>
-    </div>
-    
-    <p style="font-size: 13px; line-height: 1.6; color: #555555; margin-top: 40px; border-top: 1px solid #1f1f1f; padding-top: 20px; text-align: center;">
-      Você está recebendo este alerta pois seu endereço (<strong>gabrielvitor72103@gmail.com</strong>) está configurado como e-mail principal da administração da RaviCar.
-    </p>
-  </div>
-  
-  <div style="text-align: center; font-size: 11px; color: #333333; border-top: 1px solid #1a1a1a; padding-top: 15px; margin-top: 20px;">
-    RaviCar Veículos © 2026 | Av. Marechal Tito, 2188 - São Miguel Paulista, São Paulo - SP
-  </div>
-</div>
-`
-    };
-    await saveNotification(emailNotif);
   } catch (err) {
     console.error('[Notification Trigger Error]:', err);
   }
