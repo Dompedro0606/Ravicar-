@@ -605,10 +605,10 @@ export function Catalog({ vehicles, onSelectVehicle, currentUser }: CatalogProps
                         </div>
                       )}
 
-                      {/* Featured Star */}
+                      {/* Featured Tag */}
                       {v.featured && (
-                        <div className="absolute top-3 left-3 px-2 py-1 bg-black/80 border border-[#FF2D8D]/30 rounded text-[11px] font-extrabold uppercase text-[#FF6FB5] tracking-widest flex items-center gap-1">
-                          ⚡ Destaque
+                        <div className="absolute top-3 left-3 px-2.5 py-1 rounded bg-white text-[10px] font-black uppercase text-neutral-900 tracking-[0.12em] shadow-md">
+                          Destaque
                         </div>
                       )}
 

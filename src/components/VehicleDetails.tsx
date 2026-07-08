@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from 'react';
+import { createPortal } from 'react-dom';
 import { ArrowLeft, MessageCircle, Calendar, Landmark, Check, RefreshCw, Eye, ChevronLeft, ChevronRight, Play, Film, Smartphone, Share2, Heart, Maximize2, Minimize2, Gauge, Cog, Fuel, Shield, Award, X } from 'lucide-react';
 import { Vehicle, SiteSettings, UserProfile } from '../types';
 import { VisitBooking } from './VisitBooking';
@@ -37,6 +38,17 @@ export function VehicleDetails({ vehicle, settings, vehicles, onBack, onNavigate
     window.addEventListener('keydown', handleKeyDown);
     return () => window.removeEventListener('keydown', handleKeyDown);
   }, [isLightboxOpen, activeMediaIndex, vehicle.media]);
+
+  useEffect(() => {
+    if (isLightboxOpen) {
+      document.body.style.overflow = 'hidden';
+    } else {
+      document.body.style.overflow = '';
+    }
+    return () => {
+      document.body.style.overflow = '';
+    };
+  }, [isLightboxOpen]);
 
   useEffect(() => {
     const checkFavorite = () => {
@@ -639,7 +651,7 @@ Gostaria de falar com um consultor para negociar ou simular financiamento!`;
       )}
 
       {/* Lightbox / Fullscreen Image & Video Viewer */}
-      {isLightboxOpen && currentMedia && (
+      {isLightboxOpen && currentMedia && createPortal(
         <div 
           className="fixed inset-0 z-[200] flex flex-col items-center justify-center bg-black/98 backdrop-blur-md select-none animate-fade-in"
           onClick={() => setIsLightboxOpen(false)}
@@ -706,7 +718,8 @@ Gostaria de falar com um consultor para negociar ou simular financiamento!`;
               {activeMediaIndex + 1} / {vehicle.media.length}
             </div>
           )}
-        </div>
+        </div>,
+        document.body
       )}
     </div>
   );
