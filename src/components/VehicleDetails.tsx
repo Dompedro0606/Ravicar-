@@ -165,6 +165,38 @@ Gostaria de falar com um consultor para negociar ou simular financiamento!`;
     setActiveMediaIndex(prev => (prev === 0 ? vehicle.media.length - 1 : prev - 1));
   };
 
+  // Touch Swipe Handlers for mobile navigation
+  const [touchStartX, setTouchStartX] = useState<number>(0);
+  const [touchStartY, setTouchStartY] = useState<number>(0);
+  const [touchEndX, setTouchEndX] = useState<number>(0);
+  const [touchEndY, setTouchEndY] = useState<number>(0);
+
+  const onTouchStart = (e: React.TouchEvent) => {
+    setTouchStartX(e.targetTouches[0].clientX);
+    setTouchStartY(e.targetTouches[0].clientY);
+    setTouchEndX(e.targetTouches[0].clientX);
+    setTouchEndY(e.targetTouches[0].clientY);
+  };
+
+  const onTouchMove = (e: React.TouchEvent) => {
+    setTouchEndX(e.targetTouches[0].clientX);
+    setTouchEndY(e.targetTouches[0].clientY);
+  };
+
+  const onTouchEnd = () => {
+    const diffX = touchStartX - touchEndX;
+    const diffY = touchStartY - touchEndY;
+
+    // Ensure horizontal gesture is clear and dominant over vertical scroll
+    if (Math.abs(diffX) > Math.abs(diffY) && Math.abs(diffX) > 40) {
+      if (diffX > 0) {
+        nextMedia();
+      } else {
+        prevMedia();
+      }
+    }
+  };
+
   return (
     <div className="max-w-7xl mx-auto px-4 py-8">
       {/* Back button */}
@@ -183,7 +215,12 @@ Gostaria de falar com um consultor para negociar ou simular financiamento!`;
         <div className="lg:col-span-7 space-y-4">
           
           {/* Main Stage */}
-          <div className="relative aspect-[16/10] bg-[#111] rounded-2xl overflow-hidden border border-neutral-900 shadow-xl group">
+          <div 
+            onTouchStart={onTouchStart}
+            onTouchMove={onTouchMove}
+            onTouchEnd={onTouchEnd}
+            className="relative aspect-[16/10] bg-[#111] rounded-2xl overflow-hidden border border-neutral-900 shadow-xl group touch-pan-y"
+          >
             {currentMedia ? (
               currentMedia.type === 'video' ? (
                 <video
