@@ -66,6 +66,11 @@ export function Footer({ onNavigate, settings }: FooterProps) {
               </button>
             </li>
             <li>
+              <button onClick={() => handleNav('combo')} className="hover:text-[#FF6FB5] transition text-xs cursor-pointer font-bold">
+                Simulador Combo 🔄
+              </button>
+            </li>
+            <li>
               <button onClick={() => handleNav('termos')} className="hover:text-[#FF2D8D] transition text-xs cursor-pointer">
                 Termos de Uso & Privacidade
               </button>

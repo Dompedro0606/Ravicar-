@@ -10,6 +10,7 @@ import { AuthModal } from './components/AuthModal';
 import { TermsOfUse } from './components/TermsOfUse';
 import { FinancingRequest } from './components/FinancingRequest';
 import { UsedCarEvaluation } from './components/UsedCarEvaluation';
+import ComboSimulator from './components/ComboSimulator';
 import { ClientPortal } from './components/ClientPortal';
 import { Footer } from './components/Footer';
 import { 
@@ -269,12 +270,12 @@ export default function App() {
                       onClick={() => handleNavigate('detalhes', v.id)}
                       className="group bg-neutral-950 border border-neutral-900 rounded-2xl overflow-hidden shadow-lg hover:border-[#FF2D8D]/30 transition transform hover:-translate-y-1 cursor-pointer flex flex-col justify-between"
                     >
-                      <div className="relative h-44 overflow-hidden bg-[#1A1A1A]">
+                      <div className="relative aspect-[16/10] w-full overflow-hidden bg-[#1A1A1A]">
                         {v.media && v.media.length > 0 ? (
                           <img
                             src={v.media[0].url}
                             alt={v.title}
-                            className="w-full h-full object-cover group-hover:scale-105 transition-all duration-300"
+                            className="w-full h-full object-cover object-center group-hover:scale-105 transition-all duration-300"
                           />
                         ) : (
                           <div className="w-full h-full flex items-center justify-center text-gray-600">Sem Foto</div>
@@ -414,72 +415,110 @@ export default function App() {
             </section>
 
             {/* Visit card & working hours */}
-            <section className="max-w-7xl mx-auto px-4 grid grid-cols-1 md:grid-cols-12 gap-8 items-center pt-8 border-t border-neutral-900/60">
-              <div className="md:col-span-5 space-y-4 text-xs text-gray-400">
-                <span className="text-xs font-bold text-[#FF6FB5] uppercase tracking-wider block">Showroom Físico</span>
-                <h3 className="font-display font-black text-2xl text-white tracking-tight">Nossa Localização</h3>
-                <p className="leading-relaxed">
-                  Venha conhecer pessoalmente o nosso showroom luxuoso! Oferecemos um ambiente seguro, climatizado, café espresso e estacionamento gratuito para clientes.
+            <section id="location_section" className="max-w-7xl mx-auto px-4 grid grid-cols-1 lg:grid-cols-12 gap-8 items-center pt-12 border-t border-neutral-900/60">
+              <div className="lg:col-span-5 space-y-5 text-xs text-gray-400">
+                <div className="inline-flex items-center gap-1.5 px-3 py-1 bg-[#FF2D8D]/10 border border-[#FF2D8D]/20 text-[#FF2D8D] rounded-full text-[10px] font-extrabold uppercase tracking-widest">
+                  <span className="w-1.5 h-1.5 rounded-full bg-[#FF2D8D] animate-ping"></span>
+                  Showroom Físico
+                </div>
+                <h3 className="font-display font-black text-2xl md:text-3xl text-white tracking-tight">
+                  Venha nos Visitar
+                </h3>
+                <p className="leading-relaxed text-gray-400 text-sm">
+                  Venha conhecer pessoalmente o nosso showroom luxuoso! Oferecemos um ambiente seguro, totalmente climatizado, com café espresso gourmet e estacionamento exclusivo e gratuito para clientes.
                 </p>
                 
-                <div className="space-y-2.5 pt-2">
-                  <div className="flex items-start gap-2">
-                    <MapPin className="w-4 h-4 text-[#FF2D8D] shrink-0 mt-0.5" />
-                    <span>{settings.address}</span>
+                <div className="space-y-3.5 pt-2">
+                  <div className="flex items-start gap-3">
+                    <div className="p-2 bg-neutral-900 border border-neutral-800 rounded-xl text-[#FF2D8D]">
+                      <MapPin className="w-4 h-4 shrink-0" />
+                    </div>
+                    <div>
+                      <p className="font-bold text-white mb-0.5">Endereço</p>
+                      <p className="text-gray-500 leading-normal">{settings.address}</p>
+                    </div>
                   </div>
-                  <div className="flex items-center gap-2">
-                    <Clock className="w-4 h-4 text-[#FF2D8D]" />
-                    <span>Seg a Sex: {settings.hoursWeekday} | Sáb: {settings.hoursSaturday}</span>
+                  
+                  <div className="flex items-start gap-3">
+                    <div className="p-2 bg-neutral-900 border border-neutral-800 rounded-xl text-[#FF2D8D]">
+                      <Clock className="w-4 h-4 shrink-0" />
+                    </div>
+                    <div>
+                      <p className="font-bold text-white mb-0.5">Horário de Funcionamento</p>
+                      <p className="text-gray-500 leading-normal">
+                        Segunda a Sexta: <span className="text-gray-300 font-semibold">{settings.hoursWeekday}</span> <br />
+                        Sábados: <span className="text-gray-300 font-semibold">{settings.hoursSaturday}</span>
+                      </p>
+                    </div>
                   </div>
-                  <div className="flex items-center gap-2">
-                    <Phone className="w-4 h-4 text-[#FF2D8D]" />
-                    <span>Telefone Comercial: {settings.phone}</span>
+
+                  <div className="flex items-start gap-3">
+                    <div className="p-2 bg-neutral-900 border border-neutral-800 rounded-xl text-[#FF2D8D]">
+                      <Phone className="w-4 h-4 shrink-0" />
+                    </div>
+                    <div>
+                      <p className="font-bold text-white mb-0.5">Telefone Comercial</p>
+                      <p className="text-gray-300 font-semibold text-sm">{settings.phone}</p>
+                    </div>
                   </div>
                 </div>
 
-                <div className="pt-4 flex gap-3">
+                <div className="pt-4">
                   <button
                     onClick={() => {
-                      const text = encodeURIComponent(`Olá RaviCar! Vi as fotos do Showroom no site e gostaria de saber as direções para chegar.`);
+                      const text = encodeURIComponent(`Olá RaviCar! Gostaria de saber como chegar ao showroom físico na ${settings.address}.`);
                       const cleanWhatsapp = settings.whatsapp.replace(/\D/g, '');
                       const whatsappNumber = cleanWhatsapp.startsWith('55') && cleanWhatsapp.length >= 12 ? cleanWhatsapp : `55${cleanWhatsapp}`;
                       window.open(`https://wa.me/${whatsappNumber}?text=${text}`, '_blank');
                     }}
-                    className="flex items-center justify-center gap-2 px-4 py-2 bg-[#25D366] text-white font-bold rounded-lg hover:opacity-90 transition cursor-pointer"
+                    className="w-full sm:w-auto flex items-center justify-center gap-2.5 px-6 py-3.5 bg-[#25D366] text-white font-bold rounded-xl hover:bg-[#20ba59] transition-all shadow-lg hover:shadow-[#25D366]/20 cursor-pointer text-xs uppercase tracking-wider"
                   >
-                    <MessageCircle className="w-4 h-4 fill-white text-[#25D366]" />
-                    Como Chegar via WhatsApp
+                    <MessageCircle className="w-4.5 h-4.5 fill-white text-[#25D366]" />
+                    Conversar via WhatsApp
                   </button>
                 </div>
               </div>
 
-              {/* Physical Map Mockup (Luxury styling) */}
-              <div className="md:col-span-7 h-64 md:h-80 bg-neutral-950 border border-neutral-900 rounded-2xl overflow-hidden relative shadow-xl">
-                {/* Simulated Google Map */}
-                <div className="absolute inset-0 bg-neutral-900/60 p-6 flex flex-col justify-between">
-                  <div className="bg-black/95 p-3 rounded-xl border border-neutral-800 text-xs inline-flex items-center gap-3 w-fit">
-                    <div className="p-2 bg-[#FF2D8D]/10 text-[#FF2D8D] rounded-full shrink-0">
-                      <MapPin className="w-4 h-4" />
+              {/* Physical Map (Real Google Maps with dark elegant theme and controls) */}
+              <div className="lg:col-span-7 h-80 md:h-[400px] bg-neutral-950 border border-neutral-900 rounded-3xl overflow-hidden relative shadow-2xl group">
+                <iframe
+                  title="Showroom RaviCar Localização"
+                  src={`https://maps.google.com/maps?q=${encodeURIComponent(settings.address || 'Avenida Marechal Tito, 2188, São Paulo - SP')}&t=&z=16&ie=UTF8&iwloc=&output=embed`}
+                  className="w-full h-full border-0 opacity-70 group-hover:opacity-100 transition-opacity duration-500 rounded-3xl"
+                  style={{ filter: 'grayscale(1) invert(0.92) contrast(1.15) brightness(0.95)' }}
+                  allowFullScreen
+                  loading="lazy"
+                ></iframe>
+
+                {/* Glassmorphism Navigation Overlay Card */}
+                <div className="absolute top-4 left-4 right-4 bg-black/85 backdrop-blur-md p-4 rounded-2xl border border-neutral-800/80 text-xs flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4 shadow-2xl">
+                  <div className="flex items-center gap-3">
+                    <div className="p-2.5 bg-[#FF2D8D]/15 text-[#FF2D8D] rounded-xl shrink-0 border border-[#FF2D8D]/20">
+                      <MapPin className="w-4.5 h-4.5 animate-pulse" />
                     </div>
                     <div>
-                      <p className="font-bold text-white leading-none">Showroom RaviCar</p>
-                      <p className="text-[10px] text-gray-500 mt-1">Av. Marechal Tito, 2188, São Paulo - SP</p>
+                      <p className="font-display font-black text-white text-sm">Showroom RaviCar</p>
+                      <p className="text-[10px] text-gray-400 mt-1 leading-tight">{settings.address}</p>
                     </div>
                   </div>
 
-                  <div className="w-full h-full flex items-center justify-center pt-4">
-                    <div className="text-center p-4 bg-neutral-950/80 rounded-xl border border-neutral-800">
-                      <p className="font-bold text-xs text-white mb-2">Google Maps Interativo</p>
-                      <p className="text-[10px] text-gray-500 mb-3 max-w-sm">Para traçar rotas automáticas de GPS no celular (Waze ou Maps), clique abaixo.</p>
-                      <a
-                        href="https://maps.google.com/?q=Avenida+Marechal+Tito+2188+Sao+Paulo"
-                        target="_blank"
-                        rel="noopener noreferrer"
-                        className="inline-flex items-center gap-1 text-[10px] font-extrabold text-[#FF2D8D] hover:underline"
-                      >
-                        Abrir GPS Externo ↗
-                      </a>
-                    </div>
+                  <div className="flex gap-2 w-full sm:w-auto">
+                    <a
+                      href={`https://maps.google.com/?q=${encodeURIComponent(settings.address)}`}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="flex-1 sm:flex-initial text-center px-4 py-2 bg-[#FF2D8D] hover:bg-[#FF6FB5] text-white font-black text-[10px] rounded-xl shadow-lg transition uppercase tracking-wider cursor-pointer"
+                    >
+                      Google Maps
+                    </a>
+                    <a
+                      href={`https://waze.com/ul?q=${encodeURIComponent(settings.address)}`}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="flex-1 sm:flex-initial text-center px-4 py-2 bg-neutral-900 hover:bg-neutral-800 border border-neutral-800 text-gray-300 hover:text-white font-black text-[10px] rounded-xl shadow-lg transition uppercase tracking-wider cursor-pointer"
+                    >
+                      Waze
+                    </a>
                   </div>
                 </div>
               </div>
@@ -516,6 +555,16 @@ export default function App() {
         {/* PAGE 5: USED CAR EVALUATION */}
         {currentPage === 'avaliacao' && (
           <UsedCarEvaluation settings={settings} currentUser={currentUser} />
+        )}
+
+        {/* PAGE 5B: UNIFIED COMBO SIMULATOR (TRADE-IN + FINANCING combo) */}
+        {currentPage === 'combo' && (
+          <ComboSimulator 
+            vehicles={vehicles} 
+            settings={settings} 
+            currentUser={currentUser} 
+            onNavigate={handleNavigate} 
+          />
         )}
 
         {/* PAGE 6: TERMS OF USE LEGAL PAGE */}

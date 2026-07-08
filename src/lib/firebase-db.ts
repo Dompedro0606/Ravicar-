@@ -229,3 +229,33 @@ export async function deleteClient(id: string) {
   dbData.clients = dbData.clients.filter((c: any) => c.id !== id);
   writeDb(dbData);
 }
+
+// Notifications Helpers
+export async function getNotifications() {
+  const dbData = readDb();
+  const list = dbData.notifications || [];
+  return list.sort((a: any, b: any) => {
+    const aTime = a.createdAt ? new Date(a.createdAt).getTime() : 0;
+    const bTime = b.createdAt ? new Date(b.createdAt).getTime() : 0;
+    return bTime - aTime;
+  });
+}
+
+export async function saveNotification(notif: any) {
+  const dbData = readDb();
+  if (!dbData.notifications) dbData.notifications = [];
+  const index = dbData.notifications.findIndex((n: any) => n.id === notif.id);
+  if (index >= 0) {
+    dbData.notifications[index] = notif;
+  } else {
+    dbData.notifications.push(notif);
+  }
+  writeDb(dbData);
+  return notif;
+}
+
+export async function clearNotifications() {
+  const dbData = readDb();
+  dbData.notifications = [];
+  writeDb(dbData);
+}

@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { ArrowLeft, MessageCircle, Calendar, Landmark, Check, RefreshCw, Eye, ChevronLeft, ChevronRight, Play, Film, Smartphone, Share2, Heart } from 'lucide-react';
+import { ArrowLeft, MessageCircle, Calendar, Landmark, Check, RefreshCw, Eye, ChevronLeft, ChevronRight, Play, Film, Smartphone, Share2, Heart, Maximize2, Minimize2, Gauge, Cog, Fuel, Shield, Award } from 'lucide-react';
 import { Vehicle, SiteSettings, UserProfile } from '../types';
 import { VisitBooking } from './VisitBooking';
 import { FinancingRequest } from './FinancingRequest';
@@ -20,6 +20,7 @@ export function VehicleDetails({ vehicle, settings, vehicles, onBack, onNavigate
   const [activeFormModal, setActiveFormModal] = useState<'none' | 'visita' | 'financiamento' | 'avaliacao'>('none');
   const [copied, setCopied] = useState(false);
   const [isFavorite, setIsFavorite] = useState(false);
+  const [fitContain, setFitContain] = useState(false);
 
   useEffect(() => {
     const checkFavorite = () => {
@@ -192,11 +193,33 @@ Gostaria de falar com um consultor para negociar ou simular financiamento!`;
                   poster={vehicle.media.find(m => m.type === 'image')?.url}
                 />
               ) : (
-                <img
-                  src={currentMedia.url}
-                  alt={vehicle.title}
-                  className="w-full h-full object-cover object-center"
-                />
+                <div className="relative w-full h-full">
+                  <img
+                    src={currentMedia.url}
+                    alt={vehicle.title}
+                    className={`w-full h-full transition-all duration-350 ${fitContain ? 'object-contain' : 'object-cover object-center'}`}
+                  />
+                  <button
+                    type="button"
+                    onClick={(e) => {
+                      e.stopPropagation();
+                      setFitContain(!fitContain);
+                    }}
+                    className="absolute top-4 right-4 z-30 p-2 rounded-xl bg-black/85 border border-neutral-800 text-white hover:text-[#FF2D8D] transition-all duration-200 cursor-pointer shadow-xl flex items-center gap-1.5 text-[9px] font-black uppercase tracking-widest"
+                  >
+                    {fitContain ? (
+                      <>
+                        <Maximize2 className="w-3.5 h-3.5" />
+                        <span>Preencher</span>
+                      </>
+                    ) : (
+                      <>
+                        <Minimize2 className="w-3.5 h-3.5" />
+                        <span>Enquadrar</span>
+                      </>
+                    )}
+                  </button>
+                </div>
               )
             ) : (
               <div className="w-full h-full flex items-center justify-center text-gray-600 text-sm">
@@ -277,35 +300,71 @@ Gostaria de falar com um consultor para negociar ou simular financiamento!`;
             </div>
 
             {/* Price section */}
-            <div className="p-4 rounded-2xl bg-neutral-950 border border-neutral-900">
-              <span className="text-[12px] font-bold text-gray-400 uppercase tracking-wider leading-normal">Preço à Vista</span>
-              <p className="font-display font-black text-[#FF2D8D] text-3xl md:text-4xl tracking-tight mt-1 py-0.5">
+            <div className="relative p-5 rounded-2xl bg-gradient-to-br from-neutral-950 to-neutral-900/90 border border-neutral-900 overflow-hidden shadow-2xl">
+              <div className="absolute top-0 right-0 w-24 h-24 bg-gradient-to-br from-[#FF2D8D]/10 to-transparent rounded-full blur-2xl pointer-events-none" />
+              
+              <div className="flex items-center justify-between">
+                <span className="text-[10px] font-extrabold text-gray-400 uppercase tracking-widest leading-none">Preço à Vista</span>
+                <span className="px-2 py-0.5 rounded-full text-[8.5px] font-black uppercase tracking-wider bg-emerald-500/10 text-emerald-400 border border-emerald-500/20 flex items-center gap-1">
+                  <Shield className="w-2.5 h-2.5 fill-emerald-400/20" />
+                  Laudo Cautelar 100% Aprovado
+                </span>
+              </div>
+              
+              <p className="font-display font-black text-[#FF2D8D] text-3xl md:text-4xl tracking-tight mt-1.5 py-0.5 drop-shadow-[0_2px_10px_rgba(255,45,141,0.15)]">
                 R$ {vehicle.price.toLocaleString('pt-BR')}
               </p>
-              <p className="text-[11.5px] text-gray-400 mt-2">
-                * Aceitamos seu carro na troca e fazemos simulação rápida com 13 bancos.
-              </p>
+              
+              <div className="mt-3.5 pt-3 border-t border-neutral-900/80 flex items-start gap-2">
+                <Award className="w-3.5 h-3.5 text-amber-400 shrink-0 mt-0.5" />
+                <p className="text-[10.5px] text-gray-400 leading-normal">
+                  <strong className="text-white">Troca inteligente RaviCar:</strong> Supervalorização do seu usado com simulação rápida em até 13 bancos parceiros.
+                </p>
+              </div>
             </div>
 
             {/* Main Key specs layout */}
             <div className="grid grid-cols-2 gap-3">
-              <div className="p-3 bg-neutral-900/40 border border-neutral-900 rounded-xl text-center">
-                <span className="block text-[12.5px] text-gray-400 uppercase font-bold">📅 Ano / Modelo</span>
-                <span className="font-bold text-base text-white mt-1 block">{vehicle.year}</span>
+              <div className="p-3.5 bg-neutral-900/35 hover:bg-neutral-900/50 border border-neutral-900/80 rounded-xl flex items-center gap-3 transition-all duration-300 group">
+                <div className="p-2 rounded-xl bg-[#FF2D8D]/10 text-[#FF2D8D] group-hover:bg-[#FF2D8D]/20 transition-all duration-300">
+                  <Calendar className="w-4 h-4" />
+                </div>
+                <div className="text-left">
+                  <span className="block text-[10px] text-gray-400 font-bold uppercase tracking-widest">Ano / Modelo</span>
+                  <span className="font-extrabold text-sm text-white mt-0.5 block">{vehicle.year}</span>
+                </div>
               </div>
-              <div className="p-3 bg-neutral-900/40 border border-neutral-900 rounded-xl text-center">
-                <span className="block text-[12.5px] text-gray-400 uppercase font-bold">📍 Quilometragem</span>
-                <span className="font-bold text-base text-white mt-1 block">
-                  {vehicle.mileage === 0 ? 'Zero KM' : `${vehicle.mileage.toLocaleString('pt-BR')} KM`}
-                </span>
+
+              <div className="p-3.5 bg-neutral-900/35 hover:bg-neutral-900/50 border border-neutral-900/80 rounded-xl flex items-center gap-3 transition-all duration-300 group">
+                <div className="p-2 rounded-xl bg-emerald-500/10 text-emerald-400 group-hover:bg-emerald-500/20 transition-all duration-300">
+                  <Gauge className="w-4 h-4" />
+                </div>
+                <div className="text-left">
+                  <span className="block text-[10px] text-gray-400 font-bold uppercase tracking-widest">Quilometragem</span>
+                  <span className="font-extrabold text-sm text-white mt-0.5 block">
+                    {vehicle.mileage === 0 ? 'Zero KM' : `${vehicle.mileage.toLocaleString('pt-BR')} KM`}
+                  </span>
+                </div>
               </div>
-              <div className="p-3 bg-neutral-900/40 border border-neutral-900 rounded-xl text-center">
-                <span className="block text-[12.5px] text-gray-400 uppercase font-bold">⚙️ Câmbio / Marchas</span>
-                <span className="font-bold text-base text-white mt-1 block">{vehicle.transmission}</span>
+
+              <div className="p-3.5 bg-neutral-900/35 hover:bg-neutral-900/50 border border-neutral-900/80 rounded-xl flex items-center gap-3 transition-all duration-300 group">
+                <div className="p-2 rounded-xl bg-[#FF6FB5]/10 text-[#FF6FB5] group-hover:bg-[#FF6FB5]/20 transition-all duration-300">
+                  <Cog className="w-4 h-4" />
+                </div>
+                <div className="text-left">
+                  <span className="block text-[10px] text-gray-400 font-bold uppercase tracking-widest">Câmbio</span>
+                  <span className="font-extrabold text-sm text-white mt-0.5 block">{vehicle.transmission}</span>
+                </div>
               </div>
-              <div className="p-3 bg-neutral-900/40 border border-neutral-900 rounded-xl text-center">
-                <span className="block text-[12.5px] text-gray-400 uppercase font-bold">⛽ Combustível</span>
-                <span className="font-bold text-base text-white mt-1 block">{vehicle.fuel}</span>
+
+              <div className="p-3.5 bg-neutral-900/35 hover:bg-neutral-900/50 border border-neutral-900/80 rounded-xl flex items-center gap-3 transition-all duration-300 group">
+                <div className="p-2 rounded-xl bg-blue-500/10 text-blue-400 group-hover:bg-blue-500/20 transition-all duration-300">
+                  <Fuel className="w-4 h-4" />
+                </div>
+                <div className="text-left">
+                  <span className="block text-[10px] text-gray-400 font-bold uppercase tracking-widest">Combustível</span>
+                  <span className="font-extrabold text-sm text-white mt-0.5 block">{vehicle.fuel}</span>
+                </div>
               </div>
             </div>
           </div>
@@ -314,7 +373,7 @@ Gostaria de falar com um consultor para negociar ou simular financiamento!`;
           <div className="space-y-3 pt-4 border-t border-neutral-900">
             <button
               onClick={handleBuyWhatsapp}
-              className="w-full py-4 rounded-xl bg-gradient-to-r from-[#FF2D8D] to-[#FF6FB5] text-white hover:glow-pink font-extrabold text-sm uppercase tracking-wider flex items-center justify-center gap-2 cursor-pointer transform hover:-translate-y-0.5 transition duration-300"
+              className="w-full py-4 rounded-xl bg-gradient-to-r from-[#FF2D8D] to-[#FF6FB5] text-white font-extrabold text-sm uppercase tracking-wider flex items-center justify-center gap-2 cursor-pointer transform hover:-translate-y-0.5 transition duration-300 hover:shadow-[0_0_25px_rgba(255,45,141,0.35)]"
             >
               <MessageCircle className="w-5 h-5 fill-white text-[#FF2D8D]" />
               Comprar pelo WhatsApp
@@ -323,7 +382,7 @@ Gostaria de falar com um consultor para negociar ou simular financiamento!`;
             <div className="grid grid-cols-2 gap-3">
               <button
                 onClick={handleCopyLink}
-                className={`py-3 rounded-xl border font-bold text-xs uppercase tracking-wide transition flex items-center justify-center gap-2 cursor-pointer ${
+                className={`py-3 rounded-xl border font-bold text-xs uppercase tracking-wide transition-all duration-300 flex items-center justify-center gap-2 cursor-pointer ${
                   copied 
                     ? 'bg-emerald-950/40 border-emerald-500/50 text-emerald-300' 
                     : 'bg-neutral-900 border-neutral-800 hover:border-[#FF2D8D]/40 text-gray-300 hover:text-white'
@@ -344,7 +403,7 @@ Gostaria de falar com um consultor para negociar ou simular financiamento!`;
 
               <button
                 onClick={toggleFavorite}
-                className={`py-3 rounded-xl border font-bold text-xs uppercase tracking-wide transition flex items-center justify-center gap-2 cursor-pointer ${
+                className={`py-3 rounded-xl border font-bold text-xs uppercase tracking-wide transition-all duration-300 flex items-center justify-center gap-2 cursor-pointer ${
                   isFavorite 
                     ? 'bg-[#FF2D8D]/15 border-[#FF2D8D]/40 text-[#FF6FB5]' 
                     : 'bg-neutral-900 border-neutral-800 hover:border-[#FF2D8D]/40 text-gray-300 hover:text-white'
@@ -358,23 +417,23 @@ Gostaria de falar com um consultor para negociar ou simular financiamento!`;
             <div className="grid grid-cols-3 gap-2">
               <button
                 onClick={() => setActiveFormModal('financiamento')}
-                className="py-3 px-2 rounded-xl bg-[#1A1A1A]/80 border border-neutral-800 hover:border-[#FF2D8D]/40 text-white font-bold text-[11.5px] uppercase tracking-wide transition flex flex-col items-center justify-center gap-1.5 cursor-pointer"
+                className="py-3 px-2 rounded-xl bg-[#1A1A1A]/80 border border-neutral-800 hover:border-[#FF2D8D]/40 hover:bg-[#1A1A1A] text-white font-bold text-[11.5px] uppercase tracking-wide transition-all duration-300 flex flex-col items-center justify-center gap-1.5 cursor-pointer group"
               >
-                <Landmark className="w-4 h-4 text-[#FF2D8D]" />
+                <Landmark className="w-4 h-4 text-[#FF2D8D] transition-transform duration-300 group-hover:scale-110" />
                 Simular Juros
               </button>
               <button
                 onClick={() => setActiveFormModal('visita')}
-                className="py-3 px-2 rounded-xl bg-[#1A1A1A]/80 border border-neutral-800 hover:border-[#FF2D8D]/40 text-white font-bold text-[11.5px] uppercase tracking-wide transition flex flex-col items-center justify-center gap-1.5 cursor-pointer"
+                className="py-3 px-2 rounded-xl bg-[#1A1A1A]/80 border border-neutral-800 hover:border-[#FF2D8D]/40 hover:bg-[#1A1A1A] text-white font-bold text-[11.5px] uppercase tracking-wide transition-all duration-300 flex flex-col items-center justify-center gap-1.5 cursor-pointer group"
               >
-                <Calendar className="w-4 h-4 text-[#FF6FB5]" />
+                <Calendar className="w-4 h-4 text-[#FF6FB5] transition-transform duration-300 group-hover:scale-110" />
                 Agendar Teste
               </button>
               <button
                 onClick={() => setActiveFormModal('avaliacao')}
-                className="py-3 px-2 rounded-xl bg-[#1A1A1A]/80 border border-neutral-800 hover:border-[#FF2D8D]/40 text-white font-bold text-[11.5px] uppercase tracking-wide transition flex flex-col items-center justify-center gap-1.5 cursor-pointer"
+                className="py-3 px-2 rounded-xl bg-[#1A1A1A]/80 border border-neutral-800 hover:border-[#FF2D8D]/40 hover:bg-[#1A1A1A] text-white font-bold text-[11.5px] uppercase tracking-wide transition-all duration-300 flex flex-col items-center justify-center gap-1.5 cursor-pointer group"
               >
-                <RefreshCw className="w-4 h-4 text-emerald-400" />
+                <RefreshCw className="w-4 h-4 text-emerald-400 transition-transform duration-300 group-hover:scale-110" />
                 Avaliar Troca
               </button>
             </div>
@@ -382,26 +441,28 @@ Gostaria de falar com um consultor para negociar ou simular financiamento!`;
         </div>
       </div>
 
-      {/* Tabs list: Specs vs Description */}
-      <div className="border-b border-neutral-900 mb-6">
-        <div className="flex gap-6">
-          <button
-            onClick={() => setActiveTab('details')}
-            className={`pb-3 text-xs uppercase tracking-wider font-bold border-b-2 transition ${
-              activeTab === 'details' ? 'border-[#FF2D8D] text-white' : 'border-transparent text-gray-500 hover:text-white'
-            }`}
-          >
-            Ficha Técnica e Opcionais
-          </button>
-          <button
-            onClick={() => setActiveTab('description')}
-            className={`pb-3 text-xs uppercase tracking-wider font-bold border-b-2 transition ${
-              activeTab === 'description' ? 'border-[#FF2D8D] text-white' : 'border-transparent text-gray-500 hover:text-white'
-            }`}
-          >
-            Descrição do Veículo
-          </button>
-        </div>
+      {/* Premium Segmented Tabs list: Specs vs Description */}
+      <div className="mb-6 p-1 bg-neutral-950 border border-neutral-900 rounded-xl flex max-w-md">
+        <button
+          onClick={() => setActiveTab('details')}
+          className={`flex-1 py-2.5 px-4 rounded-lg text-[11px] uppercase tracking-wider font-extrabold transition-all duration-300 cursor-pointer text-center ${
+            activeTab === 'details' 
+              ? 'bg-[#FF2D8D]/15 text-white border border-[#FF2D8D]/30 shadow-lg' 
+              : 'text-gray-500 hover:text-gray-300 border border-transparent'
+          }`}
+        >
+          Ficha Técnica e Opcionais
+        </button>
+        <button
+          onClick={() => setActiveTab('description')}
+          className={`flex-1 py-2.5 px-4 rounded-lg text-[11px] uppercase tracking-wider font-extrabold transition-all duration-300 cursor-pointer text-center ${
+            activeTab === 'description' 
+              ? 'bg-[#FF2D8D]/15 text-white border border-[#FF2D8D]/30 shadow-lg' 
+              : 'text-gray-500 hover:text-gray-300 border border-transparent'
+          }`}
+        >
+          Descrição do Veículo
+        </button>
       </div>
 
       {/* Tab Panels */}

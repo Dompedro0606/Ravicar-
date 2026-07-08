@@ -1,5 +1,5 @@
 import React, { useState, useMemo, useEffect } from 'react';
-import { Search, Fuel, Settings2, SlidersHorizontal, Eye, ArrowUpDown, Tag, Check, Calendar, ChevronDown, Heart } from 'lucide-react';
+import { Search, Fuel, Settings2, SlidersHorizontal, Eye, ArrowUpDown, Tag, Check, Calendar, ChevronDown, Heart, X } from 'lucide-react';
 import { Vehicle, FuelType, TransmissionType, VehicleStatus, UserProfile } from '../types';
 
 interface CatalogProps {
@@ -64,17 +64,18 @@ export function Catalog({ vehicles, onSelectVehicle, currentUser }: CatalogProps
   const [selectedStatus, setSelectedStatus] = useState<string>('Disponível'); // default to show available, but can change
   const [maxPrice, setMaxPrice] = useState<number>(0);
   const [sortBy, setSortBy] = useState<'price_asc' | 'price_desc' | 'year_desc' | 'views_desc' | 'newest'>('newest');
+  const [sortDropdownOpen, setSortDropdownOpen] = useState(false);
 
   // Main Filters Toggle State
   const [showFilters, setShowFilters] = useState(false);
 
-  // Collapsible Filters State - once main panel is opened, we default individual categories to open for faster usability
+  // Collapsible Filters State
   const [openFilters, setOpenFilters] = useState<Record<string, boolean>>({
-    brand: true,
-    status: true,
-    transmission: true,
-    fuel: true,
-    price: true
+    brand: false,
+    status: false,
+    transmission: false,
+    fuel: false,
+    price: false
   });
 
   const toggleFilter = (key: string) => {
@@ -192,239 +193,303 @@ export function Catalog({ vehicles, onSelectVehicle, currentUser }: CatalogProps
       {/* Main Grid: left filters bar (desktop) and right catalog list */}
       <div className="grid grid-cols-1 lg:grid-cols-4 gap-8">
         {/* Filters Panel */}
-        <div className="bg-neutral-950 border border-neutral-900 rounded-2xl p-4 lg:h-fit lg:sticky lg:top-24 transition-all duration-300">
+        <div className="bg-neutral-950 border border-neutral-900 rounded-3xl p-5 lg:h-fit lg:sticky lg:top-24 transition-all duration-300 shadow-xl">
           {/* Main Clickable Header to Toggle Filters */}
           <button
+            type="button"
             onClick={() => setShowFilters(!showFilters)}
-            className="w-full flex items-center justify-between text-left group outline-none focus:outline-none cursor-pointer"
+            className="w-full flex items-center justify-between pb-3 border-b border-neutral-900 text-left outline-none focus:outline-none cursor-pointer group"
           >
             <div className="flex items-center gap-2">
               <SlidersHorizontal className="w-4 h-4 text-[#FF2D8D]" />
-              <span className="font-display font-bold text-sm text-white group-hover:text-[#FF6FB5] transition">
+              <span className="font-display font-black text-xs uppercase tracking-wider text-white group-hover:text-[#FF6FB5] transition">
                 Filtros de Busca
               </span>
               {activeFiltersCount > 0 && (
-                <span className="bg-[#FF2D8D]/20 text-[#FF2D8D] text-[9px] font-extrabold px-1.5 py-0.5 rounded border border-[#FF2D8D]/30">
+                <span className="bg-[#FF2D8D]/20 text-[#FF2D8D] text-[9px] font-black px-2 py-0.5 rounded-full border border-[#FF2D8D]/30 font-mono">
                   {activeFiltersCount}
                 </span>
               )}
             </div>
-            <div className="flex items-center gap-2.5">
+            
+            <div className="flex items-center gap-3">
               {activeFiltersCount > 0 && (
                 <span
                   onClick={(e) => {
                     e.stopPropagation();
                     handleClearFilters();
                   }}
-                  className="text-[10px] text-[#FF6FB5] hover:underline font-bold mr-1 cursor-pointer"
+                  className="text-[10px] text-[#FF6FB5] hover:text-[#FF2D8D] font-extrabold uppercase tracking-wider transition cursor-pointer"
                 >
                   Limpar
                 </span>
               )}
-              <span className="text-[10px] text-gray-500 group-hover:text-gray-300 transition">
-                {showFilters ? 'Ocultar' : 'Mostrar'}
-              </span>
-              <ChevronDown className={`w-4 h-4 text-gray-500 group-hover:text-white transition-transform duration-200 ${showFilters ? 'rotate-180' : ''}`} />
+              <ChevronDown className={`w-4 h-4 text-gray-500 group-hover:text-white transition-transform duration-200 ${showFilters ? 'rotate-180 text-[#FF2D8D]' : ''}`} />
             </div>
           </button>
 
-          {showFilters ? (
-            <div className="mt-4 pt-4 border-t border-neutral-900 space-y-4">
-              {/* Search Input - Always Visible when panel is open */}
-              <div className="pb-3 border-b border-neutral-900/60">
-                <label className="block text-[10px] font-bold text-gray-500 uppercase tracking-wider mb-1.5">Texto Livre</label>
-                <div className="relative">
-                  <Search className="absolute left-3 top-2.5 w-4 h-4 text-gray-500" />
-                  <input
-                    type="text"
-                    value={search}
-                    onChange={e => setSearch(e.target.value)}
-                    placeholder="Modelo, marca, cor..."
-                    className="w-full bg-neutral-900 border border-neutral-800 focus:border-[#FF2D8D] rounded-xl pl-9 pr-4 py-2 text-xs text-white outline-none transition"
-                  />
-                </div>
-              </div>
-
-              {/* Brand Collapsible Filter */}
-              <div className="border-b border-neutral-900/60 pb-3">
-                <button
-                  type="button"
-                  onClick={() => toggleFilter('brand')}
-                  className="w-full flex items-center justify-between text-left py-1 group/btn outline-none focus:outline-none"
-                >
-                  <div className="flex flex-col">
-                    <span className="text-[10px] font-bold text-gray-500 uppercase tracking-wider">Marca</span>
-                    {selectedBrand ? (
-                      <span className="text-xs text-[#FF2D8D] font-bold mt-0.5">{selectedBrand}</span>
-                    ) : (
-                      <span className="text-[11px] text-gray-400 mt-0.5">Todas as Marcas</span>
-                    )}
-                  </div>
-                  <ChevronDown className={`w-4 h-4 text-gray-500 group-hover/btn:text-white transition-transform duration-200 ${openFilters.brand ? 'rotate-180 text-white' : ''}`} />
-                </button>
-                
-                {openFilters.brand && (
-                  <div className="mt-2.5 pt-1.5">
-                    <select
-                      value={selectedBrand}
-                      onChange={e => setSelectedBrand(e.target.value)}
-                      className="w-full bg-neutral-900 border border-neutral-800 focus:border-[#FF2D8D] rounded-xl px-3 py-2 text-xs text-white outline-none transition"
-                    >
-                      <option value="">Todas as Marcas</option>
-                      {brands.map(b => (
-                        <option key={b} value={b}>{b}</option>
-                      ))}
-                    </select>
-                  </div>
-                )}
-              </div>
-
-              {/* Status Collapsible Filter */}
-              <div className="border-b border-neutral-900/60 pb-3">
-                <button
-                  type="button"
-                  onClick={() => toggleFilter('status')}
-                  className="w-full flex items-center justify-between text-left py-1 group/btn outline-none focus:outline-none"
-                >
-                  <div className="flex flex-col">
-                    <span className="text-[10px] font-bold text-gray-500 uppercase tracking-wider">Status do Veículo</span>
-                    {selectedStatus ? (
-                      <span className="text-xs text-[#FF2D8D] font-bold mt-0.5">{selectedStatus}</span>
-                    ) : (
-                      <span className="text-[11px] text-gray-400 mt-0.5">Todos</span>
-                    )}
-                  </div>
-                  <ChevronDown className={`w-4 h-4 text-gray-500 group-hover/btn:text-white transition-transform duration-200 ${openFilters.status ? 'rotate-180 text-white' : ''}`} />
-                </button>
-                
-                {openFilters.status && (
-                  <div className="mt-2.5 pt-1.5 flex flex-wrap gap-1.5">
-                    {['Disponível', 'Reservado', 'Vendido', 'Todos'].map(status => (
-                      <button
-                        key={status}
-                        onClick={() => setSelectedStatus(status)}
-                        className={`px-3 py-1.5 rounded-full text-[10px] font-bold tracking-wide transition-all border ${
-                          selectedStatus === status
-                            ? 'bg-[#FF2D8D] border-[#FF2D8D] text-white'
-                            : 'bg-neutral-900 border-neutral-800 text-gray-400 hover:text-white'
-                        }`}
-                      >
-                        {status}
-                      </button>
-                    ))}
-                  </div>
-                )}
-              </div>
-
-              {/* Transmission Collapsible Filter */}
-              <div className="border-b border-neutral-900/60 pb-3">
-                <button
-                  type="button"
-                  onClick={() => toggleFilter('transmission')}
-                  className="w-full flex items-center justify-between text-left py-1 group/btn outline-none focus:outline-none"
-                >
-                  <div className="flex flex-col">
-                    <span className="text-[10px] font-bold text-gray-500 uppercase tracking-wider">Câmbio</span>
-                    {selectedTransmission ? (
-                      <span className="text-xs text-[#FF2D8D] font-bold mt-0.5">{selectedTransmission}</span>
-                    ) : (
-                      <span className="text-[11px] text-gray-400 mt-0.5">Qualquer Câmbio</span>
-                    )}
-                  </div>
-                  <ChevronDown className={`w-4 h-4 text-gray-500 group-hover/btn:text-white transition-transform duration-200 ${openFilters.transmission ? 'rotate-180 text-white' : ''}`} />
-                </button>
-                
-                {openFilters.transmission && (
-                  <div className="mt-2.5 pt-1.5">
-                    <select
-                      value={selectedTransmission}
-                      onChange={e => setSelectedTransmission(e.target.value)}
-                      className="w-full bg-neutral-900 border border-neutral-800 focus:border-[#FF2D8D] rounded-xl px-3 py-2 text-xs text-white outline-none transition"
-                    >
-                      <option value="">Qualquer Câmbio</option>
-                      <option value="Manual">Manual</option>
-                      <option value="Automático">Automático</option>
-                    </select>
-                  </div>
-                )}
-              </div>
-
-              {/* Fuel Collapsible Filter */}
-              <div className="border-b border-neutral-900/60 pb-3">
-                <button
-                  type="button"
-                  onClick={() => toggleFilter('fuel')}
-                  className="w-full flex items-center justify-between text-left py-1 group/btn outline-none focus:outline-none"
-                >
-                  <div className="flex flex-col">
-                    <span className="text-[10px] font-bold text-gray-500 uppercase tracking-wider">Combustível</span>
-                    {selectedFuel ? (
-                      <span className="text-xs text-[#FF2D8D] font-bold mt-0.5">{selectedFuel}</span>
-                    ) : (
-                      <span className="text-[11px] text-gray-400 mt-0.5">Qualquer Combustível</span>
-                    )}
-                  </div>
-                  <ChevronDown className={`w-4 h-4 text-gray-500 group-hover/btn:text-white transition-transform duration-200 ${openFilters.fuel ? 'rotate-180 text-white' : ''}`} />
-                </button>
-                
-                {openFilters.fuel && (
-                  <div className="mt-2.5 pt-1.5">
-                    <select
-                      value={selectedFuel}
-                      onChange={e => setSelectedFuel(e.target.value)}
-                      className="w-full bg-neutral-900 border border-neutral-800 focus:border-[#FF2D8D] rounded-xl px-3 py-2 text-xs text-white outline-none transition"
-                    >
-                      <option value="">Qualquer Combustível</option>
-                      <option value="Gasolina">Gasolina</option>
-                      <option value="Etanol">Etanol</option>
-                      <option value="Flex">Flex</option>
-                      <option value="Diesel">Diesel</option>
-                      <option value="Híbrido">Híbrido</option>
-                      <option value="Elétrico">Elétrico</option>
-                    </select>
-                  </div>
-                )}
-              </div>
-
-              {/* Price Collapsible Filter */}
-              <div className="pb-1">
-                <button
-                  type="button"
-                  onClick={() => toggleFilter('price')}
-                  className="w-full flex items-center justify-between text-left py-1 group/btn outline-none focus:outline-none"
-                >
-                  <div className="flex flex-col">
-                    <span className="text-[10px] font-bold text-gray-500 uppercase tracking-wider">Valor Máximo</span>
-                    <span className="text-xs text-[#FF2D8D] font-bold mt-0.5">
-                      {maxPrice > 0 ? `Até R$ ${maxPrice.toLocaleString('pt-BR')}` : 'Sem limite'}
-                    </span>
-                  </div>
-                  <ChevronDown className={`w-4 h-4 text-gray-500 group-hover/btn:text-white transition-transform duration-200 ${openFilters.price ? 'rotate-180 text-white' : ''}`} />
-                </button>
-                
-                {openFilters.price && (
-                  <div className="mt-3 pt-1.5">
-                    <input
-                      type="range"
-                      min={20000}
-                      max={maxPossiblePrice || 250000}
-                      step={5000}
-                      value={maxPrice || maxPossiblePrice}
-                      onChange={e => setMaxPrice(Number(e.target.value))}
-                      className="w-full accent-[#FF2D8D]"
-                    />
-                    <div className="flex justify-between text-[9px] text-gray-500 mt-1 font-mono">
-                      <span>R$ 20.000</span>
-                      <span>R$ {(maxPossiblePrice || 250000).toLocaleString('pt-BR')}</span>
-                    </div>
-                  </div>
+          {showFilters && (
+            <div className="mt-4 space-y-5 animate-fade-in">
+            {/* Search Input - Always Visible */}
+            <div className="space-y-1.5">
+              <label className="block text-[9px] font-black text-gray-500 uppercase tracking-widest">Texto Livre / Buscar</label>
+              <div className="relative">
+                <Search className="absolute left-3.5 top-3 w-4 h-4 text-gray-500" />
+                <input
+                  type="text"
+                  value={search}
+                  onChange={e => setSearch(e.target.value)}
+                  placeholder="Modelo, cor, motor..."
+                  className="w-full bg-black border border-neutral-800 focus:border-[#FF2D8D] rounded-xl pl-10 pr-9 py-2.5 text-xs text-white outline-none transition focus:ring-1 focus:ring-[#FF2D8D]/40 font-sans"
+                />
+                {search && (
+                  <button
+                    type="button"
+                    onClick={() => setSearch('')}
+                    className="absolute right-3 top-3 text-gray-500 hover:text-white transition cursor-pointer"
+                  >
+                    <X className="w-3.5 h-3.5" />
+                  </button>
                 )}
               </div>
             </div>
-          ) : (
-            <p className="text-[10px] text-gray-500 mt-2 leading-normal">
-              Clique acima para exibir as opções de filtragem e busca.
-            </p>
+
+            {/* Brand Collapsible Filter */}
+            <div className="space-y-2 border-b border-neutral-900/40 pb-3">
+              <button
+                type="button"
+                onClick={() => toggleFilter('brand')}
+                className="w-full flex items-center justify-between text-left py-1 group/btn outline-none focus:outline-none cursor-pointer"
+              >
+                <div className="flex flex-col">
+                  <span className="text-[9px] font-black text-gray-500 uppercase tracking-widest">Filtrar por Marca</span>
+                  <span className="text-[11px] text-[#FF2D8D] font-bold mt-0.5 font-sans">
+                    {selectedBrand ? selectedBrand : 'Todas as Marcas'}
+                  </span>
+                </div>
+                <ChevronDown className={`w-4 h-4 text-gray-500 group-hover/btn:text-white transition-transform duration-200 ${openFilters.brand ? 'rotate-180 text-[#FF2D8D]' : ''}`} />
+              </button>
+
+              {openFilters.brand && (
+                <div className="flex flex-wrap gap-1.5 max-h-36 overflow-y-auto pr-1 pt-1.5 animate-fade-in">
+                  <button
+                    type="button"
+                    onClick={() => setSelectedBrand('')}
+                    className={`px-3 py-1.5 rounded-xl text-[10px] font-bold tracking-wide transition-all border ${
+                      !selectedBrand
+                        ? 'bg-[#FF2D8D] border-[#FF2D8D] text-white shadow-lg shadow-[#FF2D8D]/15'
+                        : 'bg-black border-neutral-800 text-gray-400 hover:border-neutral-700 hover:text-white'
+                    } cursor-pointer`}
+                  >
+                    Todas
+                  </button>
+                  {brands.map(b => (
+                    <button
+                      key={b}
+                      type="button"
+                      onClick={() => setSelectedBrand(selectedBrand === b ? '' : b)}
+                      className={`px-3 py-1.5 rounded-xl text-[10px] font-bold tracking-wide transition-all border ${
+                        selectedBrand === b
+                          ? 'bg-[#FF2D8D] border-[#FF2D8D] text-white shadow-lg shadow-[#FF2D8D]/15'
+                          : 'bg-black border-neutral-800 text-gray-300 hover:border-neutral-700 hover:text-white'
+                      } cursor-pointer`}
+                    >
+                      {b}
+                    </button>
+                  ))}
+                </div>
+              )}
+            </div>
+
+            {/* Status Collapsible Filter */}
+            <div className="space-y-2 border-b border-neutral-900/40 pb-3">
+              <button
+                type="button"
+                onClick={() => toggleFilter('status')}
+                className="w-full flex items-center justify-between text-left py-1 group/btn outline-none focus:outline-none cursor-pointer"
+              >
+                <div className="flex flex-col">
+                  <span className="text-[9px] font-black text-gray-500 uppercase tracking-widest">Disponibilidade</span>
+                  <span className="text-[11px] text-[#FF2D8D] font-bold mt-0.5 font-sans">
+                    {selectedStatus ? selectedStatus : 'Todos os status'}
+                  </span>
+                </div>
+                <ChevronDown className={`w-4 h-4 text-gray-500 group-hover/btn:text-white transition-transform duration-200 ${openFilters.status ? 'rotate-180 text-[#FF2D8D]' : ''}`} />
+              </button>
+
+              {openFilters.status && (
+                <div className="grid grid-cols-2 gap-1.5 pt-1.5 animate-fade-in">
+                  {['Disponível', 'Reservado', 'Vendido', 'Todos'].map(status => (
+                    <button
+                      key={status}
+                      type="button"
+                      onClick={() => setSelectedStatus(status === 'Todos' ? '' : status)}
+                      className={`py-2 rounded-xl text-[10px] font-bold tracking-wide text-center transition-all border ${
+                        (selectedStatus === status) || (status === 'Todos' && !selectedStatus)
+                          ? 'bg-[#FF2D8D] border-[#FF2D8D] text-white shadow-lg shadow-[#FF2D8D]/15'
+                          : 'bg-black border-neutral-800 text-gray-400 hover:border-neutral-700 hover:text-white'
+                      } cursor-pointer`}
+                    >
+                      {status}
+                    </button>
+                  ))}
+                </div>
+              )}
+            </div>
+
+            {/* Transmission Collapsible Filter */}
+            <div className="space-y-2 border-b border-neutral-900/40 pb-3">
+              <button
+                type="button"
+                onClick={() => toggleFilter('transmission')}
+                className="w-full flex items-center justify-between text-left py-1 group/btn outline-none focus:outline-none cursor-pointer"
+              >
+                <div className="flex flex-col">
+                  <span className="text-[9px] font-black text-gray-500 uppercase tracking-widest">Câmbio</span>
+                  <span className="text-[11px] text-[#FF2D8D] font-bold mt-0.5 font-sans">
+                    {selectedTransmission ? selectedTransmission : 'Qualquer câmbio'}
+                  </span>
+                </div>
+                <ChevronDown className={`w-4 h-4 text-gray-500 group-hover/btn:text-white transition-transform duration-200 ${openFilters.transmission ? 'rotate-180 text-[#FF2D8D]' : ''}`} />
+              </button>
+
+              {openFilters.transmission && (
+                <div className="grid grid-cols-3 gap-1.5 pt-1.5 animate-fade-in">
+                  {[
+                    { label: 'Todos', value: '' },
+                    { label: 'Manual', value: 'Manual' },
+                    { label: 'Automático', value: 'Automático' }
+                  ].map(item => (
+                    <button
+                      key={item.label}
+                      type="button"
+                      onClick={() => setSelectedTransmission(item.value)}
+                      className={`py-2 rounded-xl text-[10px] font-bold tracking-wide text-center transition-all border ${
+                        selectedTransmission === item.value
+                          ? 'bg-[#FF2D8D] border-[#FF2D8D] text-white shadow-lg shadow-[#FF2D8D]/15'
+                          : 'bg-black border-neutral-800 text-gray-400 hover:border-neutral-700 hover:text-white'
+                      } cursor-pointer`}
+                    >
+                      {item.label}
+                    </button>
+                  ))}
+                </div>
+              )}
+            </div>
+
+            {/* Fuel Collapsible Filter */}
+            <div className="space-y-2 border-b border-neutral-900/40 pb-3">
+              <button
+                type="button"
+                onClick={() => toggleFilter('fuel')}
+                className="w-full flex items-center justify-between text-left py-1 group/btn outline-none focus:outline-none cursor-pointer"
+              >
+                <div className="flex flex-col">
+                  <span className="text-[9px] font-black text-gray-500 uppercase tracking-widest">Combustível</span>
+                  <span className="text-[11px] text-[#FF2D8D] font-bold mt-0.5 font-sans">
+                    {selectedFuel ? selectedFuel : 'Qualquer combustível'}
+                  </span>
+                </div>
+                <ChevronDown className={`w-4 h-4 text-gray-500 group-hover/btn:text-white transition-transform duration-200 ${openFilters.fuel ? 'rotate-180 text-[#FF2D8D]' : ''}`} />
+              </button>
+
+              {openFilters.fuel && (
+                <div className="flex flex-wrap gap-1.5 pt-1.5 animate-fade-in font-sans">
+                  {[
+                    { label: 'Todos', value: '' },
+                    { label: 'Flex', value: 'Flex' },
+                    { label: 'Gasolina', value: 'Gasolina' },
+                    { label: 'Etanol', value: 'Etanol' },
+                    { label: 'Diesel', value: 'Diesel' },
+                    { label: 'Híbrido', value: 'Híbrido' },
+                    { label: 'Elétrico', value: 'Elétrico' }
+                  ].map(item => (
+                    <button
+                      key={item.label}
+                      type="button"
+                      onClick={() => setSelectedFuel(item.value)}
+                      className={`px-3 py-1.5 rounded-xl text-[10px] font-bold tracking-wide transition-all border ${
+                        selectedFuel === item.value
+                          ? 'bg-[#FF2D8D] border-[#FF2D8D] text-white shadow-lg shadow-[#FF2D8D]/15'
+                          : 'bg-black border-neutral-800 text-gray-400 hover:border-neutral-700 hover:text-white'
+                      } cursor-pointer`}
+                    >
+                      {item.label}
+                    </button>
+                  ))}
+                </div>
+              )}
+            </div>
+
+            {/* Price Collapsible Filter */}
+            <div className="space-y-2 pb-1">
+              <button
+                type="button"
+                onClick={() => toggleFilter('price')}
+                className="w-full flex items-center justify-between text-left py-1 group/btn outline-none focus:outline-none cursor-pointer"
+              >
+                <div className="flex flex-col">
+                  <span className="text-[9px] font-black text-gray-500 uppercase tracking-widest">Valor Máximo</span>
+                  <span className="text-[11px] text-[#FF2D8D] font-bold mt-0.5 font-sans">
+                    {maxPrice > 0 ? `Até R$ ${maxPrice.toLocaleString('pt-BR')}` : 'Qualquer valor'}
+                  </span>
+                </div>
+                <ChevronDown className={`w-4 h-4 text-gray-500 group-hover/btn:text-white transition-transform duration-200 ${openFilters.price ? 'rotate-180 text-[#FF2D8D]' : ''}`} />
+              </button>
+              
+              {openFilters.price && (
+                <div className="space-y-3 pt-2 animate-fade-in">
+                  <input
+                    type="range"
+                    min={20000}
+                    max={maxPossiblePrice || 250000}
+                    step={5000}
+                    value={maxPrice || maxPossiblePrice}
+                    onChange={e => setMaxPrice(Number(e.target.value))}
+                    className="w-full accent-[#FF2D8D] cursor-pointer h-1.5 bg-neutral-900 rounded-lg appearance-none"
+                  />
+                  <div className="flex justify-between text-[8px] text-gray-500 font-mono">
+                    <span>Min: R$ 20k</span>
+                    <span>Max: R$ {(maxPossiblePrice || 250000).toLocaleString('pt-BR')}</span>
+                  </div>
+
+                  {/* Quick Price Presets */}
+                  <div className="grid grid-cols-2 gap-1.5">
+                    {[
+                      { label: 'Até R$ 60 Mil', value: 60000 },
+                      { label: 'Até R$ 90 Mil', value: 90000 },
+                      { label: 'Até R$ 130 Mil', value: 130000 },
+                      { label: 'Qualquer Valor', value: 0 }
+                    ].map(preset => (
+                      <button
+                        key={preset.label}
+                        type="button"
+                        onClick={() => setMaxPrice(preset.value)}
+                        className={`py-2 rounded-xl text-[9px] font-bold tracking-wider text-center uppercase transition-all border ${
+                          (preset.value === 0 && !maxPrice) || (maxPrice === preset.value)
+                            ? 'bg-[#FF2D8D]/10 border-[#FF2D8D] text-white'
+                            : 'bg-black border-neutral-800 text-gray-500 hover:border-neutral-700 hover:text-white'
+                        } cursor-pointer`}
+                      >
+                        {preset.label}
+                      </button>
+                    ))}
+                  </div>
+                </div>
+              )}
+            </div>
+
+            {/* Clear Filters CTA for faster navigation */}
+            {activeFiltersCount > 0 && (
+              <button
+                type="button"
+                onClick={handleClearFilters}
+                className="w-full py-3 mt-2 rounded-xl border border-dashed border-[#FF2D8D]/30 hover:border-[#FF2D8D] text-xs text-[#FF6FB5] hover:text-white hover:bg-[#FF2D8D]/5 font-black uppercase tracking-widest transition duration-200 cursor-pointer"
+              >
+                Limpar Todos os Filtros
+              </button>
+            )}
+          </div>
           )}
         </div>
 
@@ -435,22 +500,68 @@ export function Catalog({ vehicles, onSelectVehicle, currentUser }: CatalogProps
             <p className="text-xs text-gray-400 font-medium pl-1">
               Mostrando <span className="text-white font-bold">{filteredVehicles.length}</span> veículos encontrados
             </p>
-            <div className="flex items-center gap-2 w-full sm:w-auto">
+            <div className="flex items-center gap-2 w-full sm:w-auto relative">
               <span className="text-xs text-gray-500 shrink-0 flex items-center gap-1">
                 <ArrowUpDown className="w-3.5 h-3.5" />
                 Ordenar por:
               </span>
-              <select
-                value={sortBy}
-                onChange={e => setSortBy(e.target.value as any)}
-                className="bg-neutral-900 border border-neutral-800 focus:border-[#FF2D8D] rounded-xl px-3 py-1.5 text-xs text-white outline-none transition w-full sm:w-auto"
-              >
-                <option value="newest">Mais Recentes</option>
-                <option value="price_asc">Menor Preço</option>
-                <option value="price_desc">Maior Preço</option>
-                <option value="year_desc">Ano Mais Novo</option>
-                <option value="views_desc">Mais Vistos</option>
-              </select>
+              
+              {/* Custom Dropdown Selector */}
+              <div className="relative w-full sm:w-auto z-30">
+                <button
+                  type="button"
+                  onClick={() => setSortDropdownOpen(!sortDropdownOpen)}
+                  className="w-full sm:w-48 flex items-center justify-between gap-2.5 bg-neutral-900 border border-neutral-800 hover:border-[#FF2D8D]/60 focus:border-[#FF2D8D] rounded-xl px-4 py-2 text-xs text-white outline-none transition cursor-pointer font-bold"
+                >
+                  <span className="truncate">
+                    {sortBy === 'newest' && 'Mais Recentes'}
+                    {sortBy === 'price_asc' && 'Menor Preço'}
+                    {sortBy === 'price_desc' && 'Maior Preço'}
+                    {sortBy === 'year_desc' && 'Ano Mais Novo'}
+                    {sortBy === 'views_desc' && 'Mais Vistos'}
+                  </span>
+                  <ChevronDown className={`w-3.5 h-3.5 text-gray-500 transition-transform duration-200 shrink-0 ${sortDropdownOpen ? 'rotate-180 text-[#FF2D8D]' : ''}`} />
+                </button>
+
+                {sortDropdownOpen && (
+                  <>
+                    {/* Backdrop to close dropdown */}
+                    <div 
+                      className="fixed inset-0 z-40" 
+                      onClick={() => setSortDropdownOpen(false)}
+                    />
+                    <div className="absolute right-0 left-0 sm:left-auto mt-2 w-full sm:w-48 bg-neutral-950 border border-neutral-900 rounded-2xl p-1.5 shadow-[0_10px_30px_rgba(0,0,0,0.85)] z-50 animate-fade-in divide-y divide-neutral-900/40">
+                      {[
+                        { value: 'newest', label: 'Mais Recentes' },
+                        { value: 'price_asc', label: 'Menor Preço' },
+                        { value: 'price_desc', label: 'Maior Preço' },
+                        { value: 'year_desc', label: 'Ano Mais Novo' },
+                        { value: 'views_desc', label: 'Mais Vistos' }
+                      ].map(option => {
+                        const isSelected = option.value === sortBy;
+                        return (
+                          <button
+                            key={option.value}
+                            type="button"
+                            onClick={() => {
+                              setSortBy(option.value as any);
+                              setSortDropdownOpen(false);
+                            }}
+                            className={`w-full flex items-center justify-between px-3.5 py-2.5 rounded-xl text-xs font-semibold text-left transition-all cursor-pointer ${
+                              isSelected
+                                ? 'bg-[#FF2D8D]/10 text-[#FF2D8D] font-bold border border-[#FF2D8D]/20 shadow-[0_4px_12px_rgba(255,45,141,0.05)]'
+                                : 'text-gray-400 hover:text-white hover:bg-neutral-900/60'
+                            }`}
+                          >
+                            <span>{option.label}</span>
+                            {isSelected && <Check className="w-3.5 h-3.5 text-[#FF2D8D] shrink-0" />}
+                          </button>
+                        );
+                      })}
+                    </div>
+                  </>
+                )}
+              </div>
             </div>
           </div>
 
@@ -481,12 +592,12 @@ export function Catalog({ vehicles, onSelectVehicle, currentUser }: CatalogProps
                     className="group bg-neutral-950 border border-neutral-900/60 rounded-2xl overflow-hidden shadow-lg hover:border-[#FF2D8D]/40 transition-all duration-300 transform hover:-translate-y-1 flex flex-col justify-between cursor-pointer"
                   >
                     {/* Image Area */}
-                    <div className="relative h-48 overflow-hidden bg-[#1A1A1A]">
+                    <div className="relative aspect-[16/10] w-full overflow-hidden bg-[#1A1A1A]">
                       {v.media && v.media.length > 0 ? (
                         <img
                           src={v.media[0].url}
                           alt={v.title}
-                          className="w-full h-full object-cover group-hover:scale-105 transition-all duration-500"
+                          className="w-full h-full object-cover object-center group-hover:scale-105 transition-all duration-500"
                         />
                       ) : (
                         <div className="w-full h-full flex items-center justify-center text-gray-600">

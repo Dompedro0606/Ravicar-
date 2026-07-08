@@ -26,8 +26,50 @@ interface ClientCRM {
   createdBy: string;
 }
 
+function getEstimatedFipeClient(brand: string, model: string, year: number): number {
+  let hash = 0;
+  const str = `${brand.toLowerCase()}_${model.toLowerCase()}`;
+  for (let i = 0; i < str.length; i++) {
+    hash = (hash << 5) - hash + str.charCodeAt(i);
+    hash |= 0;
+  }
+  const absHash = Math.abs(hash);
+  
+  let basePrice = 50000;
+  if (year >= 2026) {
+    basePrice = 110000;
+  } else if (year >= 2024) {
+    basePrice = 90000;
+  } else if (year >= 2022) {
+    basePrice = 75000;
+  } else if (year >= 2020) {
+    basePrice = 60000;
+  } else if (year >= 2017) {
+    basePrice = 45000;
+  } else if (year >= 2014) {
+    basePrice = 32000;
+  } else {
+    basePrice = 22000;
+  }
+
+  const b = brand.toLowerCase();
+  let modifier = 1.0;
+  if (b.includes('toyota') || b.includes('honda')) modifier = 1.15;
+  else if (b.includes('bmw') || b.includes('mercedes') || b.includes('audi') || b.includes('porsche')) modifier = 1.6;
+  else if (b.includes('jeep') || b.includes('hyundai')) modifier = 1.08;
+  else if (b.includes('chevrolet') || b.includes('fiat') || b.includes('volkswagen') || b.includes('ford')) modifier = 0.95;
+  
+  const variation = 0.85 + ((absHash % 30) / 100); // 0.85 to 1.15
+  return Math.round(basePrice * modifier * variation);
+}
+
 export function AdminPanel({ currentUser, token, vehicles, onRefreshData, settings, onUpdateSettings }: AdminPanelProps) {
   const [activeTab, setActiveTab] = useState<'dashboard' | 'vehicles' | 'leads' | 'clients' | 'users' | 'settings'>('dashboard');
+  
+  // Market Intelligence Audit States
+  const [auditSearch, setAuditSearch] = useState('');
+  const [auditFilter, setAuditFilter] = useState<'all' | 'need_adjustment' | 'dentro' | 'acima' | 'abaixo'>('all');
+  const [expandedSeoCarId, setExpandedSeoCarId] = useState<string | null>(null);
 
   // Custom Toast/Alert and Confirmation Dialog States
   const [toast, setToast] = useState<{ message: string; type: 'success' | 'error' | 'info' } | null>(null);
@@ -71,6 +113,11 @@ export function AdminPanel({ currentUser, token, vehicles, onRefreshData, settin
   const [leadsFilter, setLeadsFilter] = useState<'Todos' | 'Contato' | 'Agendamento' | 'Financiamento' | 'Avaliação' | 'WhatsAppClick'>('Todos');
   const [leadsStatusFilter, setLeadsStatusFilter] = useState<'Todos' | 'Pendente' | 'Atendido'>('Todos');
   
+  // Search Filters
+  const [stockSearch, setStockSearch] = useState('');
+  const [leadSearch, setLeadSearch] = useState('');
+  const [clientSearch, setClientSearch] = useState('');
+  
   // Loading & Edit States
   const [loading, setLoading] = useState(false);
   const [carFormOpen, setCarFormOpen] = useState(false);
@@ -97,7 +144,7 @@ export function AdminPanel({ currentUser, token, vehicles, onRefreshData, settin
     newlyArrived: true,
   });
 
-  // Gemini AI Analysis State
+  // RaviCar AI Analysis State
   const [aiLoading, setAiLoading] = useState(false);
   const [aiAnalysis, setAiAnalysis] = useState<{
     veiculo: string;
@@ -365,7 +412,7 @@ export function AdminPanel({ currentUser, token, vehicles, onRefreshData, settin
       }
     } catch (e: any) {
       console.error(e);
-      showToast('Erro ao conectar com a IA do Gemini.', 'error');
+      showToast('Erro ao conectar com a IA RaviCar.', 'error');
     } finally {
       setAiLoading(false);
     }
@@ -554,99 +601,243 @@ export function AdminPanel({ currentUser, token, vehicles, onRefreshData, settin
     const totalViews = vehicles.reduce((acc, v) => acc + (v.views || 0), 0);
     const pendingLeads = leadsList.filter(l => l.status === 'Pendente').length;
     
-    return { totalCount, available, reserved, sold, totalViews, pendingLeads };
+    const activeVehicles = vehicles.filter(v => v.status !== 'Vendido');
+    const totalStockValue = activeVehicles.reduce((acc, v) => acc + v.price, 0);
+    const avgPrice = activeVehicles.length > 0 ? totalStockValue / activeVehicles.length : 0;
+    
+    const adjustmentNeededCount = activeVehicles.filter(v => {
+      const yearNum = parseInt(v.year.split('/')[0]) || 2022;
+      const fipePrice = getEstimatedFipeClient(v.brand, v.model, yearNum);
+      const diffPct = ((v.price - fipePrice) / fipePrice) * 100;
+      return diffPct > 10 || diffPct < -10;
+    }).length;
+    
+    return { 
+      totalCount, 
+      available, 
+      reserved, 
+      sold, 
+      totalViews, 
+      pendingLeads,
+      totalStockValue,
+      avgPrice,
+      adjustmentNeededCount
+    };
   }, [vehicles, leadsList]);
+
+  // Filtered Vehicles
+  const filteredVehicles = React.useMemo(() => {
+    return vehicles.filter(v => {
+      const query = stockSearch.toLowerCase();
+      return (
+        v.title.toLowerCase().includes(query) ||
+        v.brand.toLowerCase().includes(query) ||
+        v.model.toLowerCase().includes(query) ||
+        v.year.toLowerCase().includes(query) ||
+        (v.color && v.color.toLowerCase().includes(query))
+      );
+    });
+  }, [vehicles, stockSearch]);
+
+  // Filtered Clients
+  const filteredClients = React.useMemo(() => {
+    return clientsList.filter(c => {
+      const query = clientSearch.toLowerCase();
+      return (
+        c.name.toLowerCase().includes(query) ||
+        c.phone.toLowerCase().includes(query) ||
+        (c.email && c.email.toLowerCase().includes(query)) ||
+        (c.notes && c.notes.toLowerCase().includes(query))
+      );
+    });
+  }, [clientsList, clientSearch]);
 
   // Filtered Leads
   const filteredLeads = React.useMemo(() => {
     return leadsList.filter(l => {
       const matchType = leadsFilter === 'Todos' || l.type === leadsFilter;
       const matchStatus = leadsStatusFilter === 'Todos' || l.status === leadsStatusFilter;
-      return matchType && matchStatus;
+      const query = leadSearch.toLowerCase();
+      const matchQuery = !query || 
+        l.name.toLowerCase().includes(query) ||
+        l.phone.toLowerCase().includes(query) ||
+        (l.email && l.email.toLowerCase().includes(query)) ||
+        (l.message && l.message.toLowerCase().includes(query)) ||
+        (l.vehicleName && l.vehicleName.toLowerCase().includes(query));
+      return matchType && matchStatus && matchQuery;
     });
-  }, [leadsList, leadsFilter, leadsStatusFilter]);
+  }, [leadsList, leadsFilter, leadsStatusFilter, leadSearch]);
+
+  // Filtered audited vehicles for Inteligência de Mercado
+  const auditedVehicles = React.useMemo(() => {
+    return vehicles.filter(v => {
+      const query = auditSearch.toLowerCase();
+      const matchQuery = v.title.toLowerCase().includes(query) ||
+                         v.brand.toLowerCase().includes(query) ||
+                         v.model.toLowerCase().includes(query);
+      if (!matchQuery) return false;
+
+      const yearNum = parseInt(v.year.split('/')[0]) || 2022;
+      const fipePrice = getEstimatedFipeClient(v.brand, v.model, yearNum);
+      const diffPct = ((v.price - fipePrice) / fipePrice) * 100;
+
+      if (auditFilter === 'need_adjustment') {
+        return diffPct > 10 || diffPct < -10;
+      }
+      if (auditFilter === 'dentro') {
+        return diffPct <= 10 && diffPct >= -10;
+      }
+      if (auditFilter === 'acima') {
+        return diffPct > 10;
+      }
+      if (auditFilter === 'abaixo') {
+        return diffPct < -10;
+      }
+      return true;
+    });
+  }, [vehicles, auditSearch, auditFilter]);
+
+  const handleAutoAdjustPrice = async (vehicle: Vehicle, suggestedPrice: number) => {
+    try {
+      setLoading(true);
+      const payload = {
+        ...vehicle,
+        price: suggestedPrice,
+        newlyArrived: vehicle.newlyArrived ?? true
+      };
+
+      const res = await fetch(`/api/vehicles/${vehicle.id}`, {
+        method: 'PUT',
+        headers: {
+          'Content-Type': 'application/json',
+          'Authorization': `Bearer ${token}`
+        },
+        body: JSON.stringify(payload)
+      });
+
+      if (res.ok) {
+        showToast(`Preço do ${vehicle.brand} ${vehicle.model} reajustado com sucesso para R$ ${suggestedPrice.toLocaleString('pt-BR')}`, 'success');
+        onRefreshData();
+      } else {
+        const err = await res.json();
+        showToast(err.error || 'Erro ao ajustar o preço.', 'error');
+      }
+    } catch (err) {
+      console.error(err);
+      showToast('Erro de conexão ao ajustar preço.', 'error');
+    } finally {
+      setLoading(false);
+    }
+  };
 
   return (
     <div className="max-w-7xl mx-auto px-4 py-8">
-      {/* Admin Title Bar */}
-      <div className="flex flex-col md:flex-row items-start md:items-center justify-between gap-4 mb-8 pb-6 border-b border-[#1A1A1A]">
-        <div>
-          <div className="flex items-center gap-2">
-            <h1 className="font-display font-black text-2xl md:text-3xl text-white tracking-tight">
-              Painel Operacional RaviCar
-            </h1>
-            <span className="px-3 py-1 bg-[#FF2D8D]/10 text-[#FF2D8D] rounded-full font-bold text-[10px] tracking-wider uppercase border border-[#FF2D8D]/20">
-              {currentUser.role}
-            </span>
+      <div className="grid grid-cols-1 lg:grid-cols-12 gap-8">
+        
+        {/* Navigation Sidebar (3 columns on lg screens) */}
+        <div className="lg:col-span-3 lg:border-r lg:border-neutral-900/60 lg:pr-6 space-y-6">
+          <div className="bg-neutral-950 border border-neutral-900/60 rounded-2xl p-4 md:p-5">
+            <div className="flex items-center gap-2">
+              <h1 className="font-display font-black text-lg md:text-xl text-white tracking-tight">
+                Painel RaviCar
+              </h1>
+              <span className="px-2 py-0.5 bg-[#FF2D8D]/10 text-[#FF2D8D] rounded-full font-bold text-[8px] tracking-wider uppercase border border-[#FF2D8D]/20">
+                {currentUser.role}
+              </span>
+            </div>
+            <p className="text-[10px] text-gray-400 mt-1.5 leading-relaxed">
+              Olá, <strong className="text-white">{currentUser.name}</strong>. Bem-vindo de volta!
+            </p>
           </div>
-          <p className="text-xs text-gray-500 mt-1">
-            Seja bem-vindo, <strong className="text-white">{currentUser.name}</strong>. Gerencie o estoque, clientes, propostas financeiras e configurações gerais.
-          </p>
+
+          {/* Tab Selector Links */}
+          <div className="flex flex-row lg:flex-col gap-2 overflow-x-auto lg:overflow-x-visible pb-3 lg:pb-0 scrollbar-none scroll-smooth w-full">
+            {[
+              { id: 'dashboard', label: 'Dashboard', icon: ClipboardList },
+              { id: 'vehicles', label: 'Estoque', icon: Car },
+              { id: 'leads', label: `Leads (${stats.pendingLeads})`, icon: Mail },
+              { id: 'clients', label: 'Clientes CRM', icon: Users },
+              ...(currentUser.role === 'Administrador' ? [
+                { id: 'users', label: 'Funcionários', icon: UserPlus },
+                { id: 'settings', label: 'Configurações', icon: Settings }
+              ] : [])
+            ].map(tab => {
+              const Icon = tab.icon;
+              const isActive = activeTab === tab.id;
+              return (
+                <button
+                  key={tab.id}
+                  onClick={() => setActiveTab(tab.id as any)}
+                  className={`flex items-center gap-2.5 px-4 py-3 rounded-xl text-xs font-bold transition-all border shrink-0 text-left lg:w-full cursor-pointer ${
+                    isActive 
+                      ? 'bg-[#FF2D8D] border-[#FF2D8D] text-white shadow-[0_4px_15px_rgba(255,45,141,0.15)]'
+                      : 'bg-neutral-950/60 border-neutral-900/60 text-gray-400 hover:text-white hover:bg-neutral-900/40 hover:border-neutral-800'
+                  }`}
+                >
+                  <Icon className="w-4 h-4 shrink-0" />
+                  <span>{tab.label}</span>
+                </button>
+              );
+            })}
+          </div>
         </div>
 
-        {/* Tab Selector Links */}
-        <div className="flex flex-wrap gap-2">
-          {[
-            { id: 'dashboard', label: 'Dashboard', icon: ClipboardList },
-            { id: 'vehicles', label: 'Estoque', icon: Car },
-            { id: 'leads', label: `Leads (${stats.pendingLeads})`, icon: Mail },
-            { id: 'clients', label: 'Clientes CRM', icon: Users },
-            ...(currentUser.role === 'Administrador' ? [
-              { id: 'users', label: 'Funcionários', icon: UserPlus },
-              { id: 'settings', label: 'Configurações', icon: Settings }
-            ] : [])
-          ].map(tab => {
-            const Icon = tab.icon;
-            const isActive = activeTab === tab.id;
-            return (
-              <button
-                key={tab.id}
-                onClick={() => setActiveTab(tab.id as any)}
-                className={`flex items-center gap-2 px-4 py-2.5 rounded-xl text-xs font-bold transition-all border cursor-pointer ${
-                  isActive 
-                    ? 'bg-[#FF2D8D] border-[#FF2D8D] text-white shadow-[0_0_15px_rgba(255,45,141,0.2)]'
-                    : 'bg-neutral-950 border-neutral-900 text-gray-400 hover:text-white hover:border-neutral-800'
-                }`}
-              >
-                <Icon className="w-4 h-4" />
-                {tab.label}
-              </button>
-            );
-          })}
-        </div>
-      </div>
+        {/* Content Area (9 columns on lg screens) */}
+        <div className="lg:col-span-9 space-y-6">
 
-      {/* --- DASHBOARD TAB --- */}
-      {activeTab === 'dashboard' && (
-        <div className="space-y-8">
+          {/* --- DASHBOARD TAB --- */}
+          {activeTab === 'dashboard' && (
+            <div className="space-y-8">
           {/* Bento Stats Rows */}
-          <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
-            <div className="p-5 bg-neutral-950 border border-neutral-900 rounded-2xl">
-              <span className="text-[9px] uppercase tracking-wider text-gray-500 font-bold">Total do Estoque</span>
-              <p className="font-display font-black text-3xl text-white mt-1.5">{stats.totalCount}</p>
-              <div className="flex items-center gap-2 mt-2 text-[10px] text-gray-500">
-                <span className="text-emerald-400 font-semibold">{stats.available} Livres</span>
-                <span>•</span>
-                <span className="text-amber-500 font-semibold">{stats.reserved} Reservados</span>
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
+            {/* Total Estoque */}
+            <div className="p-5 bg-neutral-950 border border-neutral-900 rounded-2xl relative overflow-hidden group hover:border-neutral-800 transition duration-300">
+              <div className="absolute right-4 top-4 w-9 h-9 bg-neutral-900 border border-neutral-800 rounded-xl flex items-center justify-center text-gray-400 group-hover:text-[#FF2D8D] transition">
+                <Car className="w-4 h-4" />
+              </div>
+              <span className="text-[9px] uppercase tracking-wider text-gray-500 font-extrabold">Total do Estoque</span>
+              <p className="font-display font-black text-3xl text-white mt-2 leading-none">{stats.totalCount}</p>
+              <div className="flex items-center gap-2 mt-4 text-[10px]">
+                <span className="text-emerald-400 font-bold">{stats.available} Livres</span>
+                <span className="text-gray-700">•</span>
+                <span className="text-amber-500 font-bold">{stats.reserved} Reservados</span>
               </div>
             </div>
             
-            <div className="p-5 bg-neutral-950 border border-neutral-900 rounded-2xl">
-              <span className="text-[9px] uppercase tracking-wider text-gray-500 font-bold">Leads Pendentes</span>
-              <p className="font-display font-black text-3xl text-[#FF2D8D] mt-1.5">{stats.pendingLeads}</p>
-              <p className="text-[10px] text-gray-500 mt-2">Novos agendamentos e propostas precisando de retorno.</p>
+            {/* Leads Pendentes */}
+            <div className="p-5 bg-neutral-950 border border-neutral-900 rounded-2xl relative overflow-hidden group hover:border-neutral-800 transition duration-300">
+              <div className="absolute right-4 top-4 w-9 h-9 bg-neutral-900 border border-neutral-800 rounded-xl flex items-center justify-center text-gray-400 group-hover:text-amber-500 transition">
+                <Mail className="w-4 h-4" />
+              </div>
+              <span className="text-[9px] uppercase tracking-wider text-gray-500 font-extrabold">Leads Pendentes</span>
+              <p className="font-display font-black text-3xl text-[#FF2D8D] mt-2 leading-none">{stats.pendingLeads}</p>
+              <p className="text-[10px] text-gray-400 mt-4 leading-normal">
+                Retornos e agendamentos pendentes.
+              </p>
             </div>
 
-            <div className="p-5 bg-neutral-950 border border-neutral-900 rounded-2xl">
-              <span className="text-[9px] uppercase tracking-wider text-gray-500 font-bold">Total de Cliques</span>
-              <p className="font-display font-black text-3xl text-white mt-1.5">{leadsList.length}</p>
-              <p className="text-[10px] text-gray-500 mt-2">Simulações, formulários de usadose contatos enviados.</p>
+            {/* Total Cliques */}
+            <div className="p-5 bg-neutral-950 border border-neutral-900 rounded-2xl relative overflow-hidden group hover:border-neutral-800 transition duration-300">
+              <div className="absolute right-4 top-4 w-9 h-9 bg-neutral-900 border border-neutral-800 rounded-xl flex items-center justify-center text-gray-400 group-hover:text-emerald-500 transition">
+                <ClipboardList className="w-4 h-4" />
+              </div>
+              <span className="text-[9px] uppercase tracking-wider text-gray-500 font-extrabold">Total de Interações</span>
+              <p className="font-display font-black text-3xl text-white mt-2 leading-none">{leadsList.length}</p>
+              <p className="text-[10px] text-gray-400 mt-4 leading-normal">
+                Simulações, cadastros e cliques.
+              </p>
             </div>
 
-            <div className="p-5 bg-neutral-950 border border-neutral-900 rounded-2xl">
-              <span className="text-[9px] uppercase tracking-wider text-gray-500 font-bold">Visualizações do Showroom</span>
-              <p className="font-display font-black text-3xl text-[#FF6FB5] mt-1.5">{stats.totalViews}</p>
-              <p className="text-[10px] text-gray-500 mt-2">Quantidade de acessos aos detalhes dos carros do estoque.</p>
+            {/* Visualizações Showroom */}
+            <div className="p-5 bg-neutral-950 border border-neutral-900 rounded-2xl relative overflow-hidden group hover:border-neutral-800 transition duration-300">
+              <div className="absolute right-4 top-4 w-9 h-9 bg-neutral-900 border border-neutral-800 rounded-xl flex items-center justify-center text-gray-400 group-hover:text-blue-500 transition">
+                <Eye className="w-4 h-4" />
+              </div>
+              <span className="text-[9px] uppercase tracking-wider text-gray-500 font-extrabold">Cliques no Estoque</span>
+              <p className="font-display font-black text-3xl text-[#FF6FB5] mt-2 leading-none">{stats.totalViews}</p>
+              <p className="text-[10px] text-gray-400 mt-4 leading-normal">
+                Visualizações nos detalhes de veículos.
+              </p>
             </div>
           </div>
 
@@ -722,22 +913,324 @@ export function AdminPanel({ currentUser, token, vehicles, onRefreshData, settin
               </div>
             </div>
           </div>
+
+          {/* PAINEL DE INTELIGÊNCIA DE MERCADO E AUDITORIA FIPE */}
+          <div className="bg-neutral-950 border border-neutral-900 rounded-2xl p-6 mt-6">
+            <div className="flex flex-col md:flex-row md:items-center justify-between gap-4 mb-6 pb-6 border-b border-neutral-900/80">
+              <div>
+                <h3 className="font-display font-bold text-sm text-white flex items-center gap-2">
+                  <span className="p-1 bg-[#FF2D8D]/15 rounded-lg text-[#FF2D8D] text-xs">📊</span>
+                  Painel de Inteligência de Mercado & Auditoria FIPE (Julho de 2026)
+                </h3>
+                <p className="text-[10px] text-gray-400 mt-1 leading-normal">
+                  Monitore a competitividade do estoque RaviCar de acordo com a tabela referencial de mercado e gere copys persuasivas automatizadas de alta conversão.
+                </p>
+              </div>
+
+              {/* Mini dashboard insights */}
+              <div className="flex flex-wrap gap-2">
+                <div className="px-3 py-1.5 bg-neutral-900 rounded-xl border border-neutral-800 flex flex-col">
+                  <span className="text-[7px] text-gray-500 uppercase font-black">Capital Ativo</span>
+                  <span className="text-xs font-bold text-white">R$ {stats.totalStockValue.toLocaleString('pt-BR')}</span>
+                </div>
+                <div className="px-3 py-1.5 bg-neutral-900 rounded-xl border border-neutral-800 flex flex-col">
+                  <span className="text-[7px] text-gray-500 uppercase font-black">Ticket Médio</span>
+                  <span className="text-xs font-bold text-white">R$ {stats.avgPrice.toLocaleString('pt-BR', { maximumFractionDigits: 0 })}</span>
+                </div>
+                <div className="px-3 py-1.5 bg-neutral-900 rounded-xl border border-neutral-800 flex flex-col">
+                  <span className="text-[7px] text-gray-500 uppercase font-black">Preços Críticos</span>
+                  <span className={`text-xs font-bold ${stats.adjustmentNeededCount > 0 ? 'text-rose-400' : 'text-emerald-400'}`}>
+                    {stats.adjustmentNeededCount} {stats.adjustmentNeededCount === 1 ? 'carro' : 'carros'}
+                  </span>
+                </div>
+              </div>
+            </div>
+
+            {/* Filters & Search Row */}
+            <div className="flex flex-col md:flex-row items-stretch md:items-center justify-between gap-4 mb-6">
+              <div className="relative flex-1 max-w-md">
+                <Search className="w-3.5 h-3.5 text-gray-500 absolute left-3 top-1/2 -translate-y-1/2" />
+                <input
+                  type="text"
+                  placeholder="Filtrar por marca ou modelo na auditoria..."
+                  value={auditSearch}
+                  onChange={e => setAuditSearch(e.target.value)}
+                  className="w-full bg-neutral-900 border border-neutral-800 rounded-xl pl-9 pr-4 py-2 text-xs text-white outline-none focus:border-[#FF2D8D] transition"
+                />
+              </div>
+
+              {/* Filter Pills */}
+              <div className="flex flex-wrap gap-2 overflow-x-auto scrollbar-none">
+                {[
+                  { id: 'all', label: 'Todos', count: vehicles.length },
+                  { id: 'need_adjustment', label: 'Reajuste Crítico', count: stats.adjustmentNeededCount, isCritical: true },
+                  { id: 'dentro', label: 'Preço Saudável', count: vehicles.length - stats.adjustmentNeededCount },
+                  { id: 'acima', label: 'Acima da FIPE' },
+                  { id: 'abaixo', label: 'Abaixo da FIPE' }
+                ].map(pill => {
+                  const isActive = auditFilter === pill.id;
+                  return (
+                    <button
+                      key={pill.id}
+                      onClick={() => setAuditFilter(pill.id as any)}
+                      className={`px-3 py-1.5 rounded-lg text-[10px] font-bold transition flex items-center gap-1.5 cursor-pointer ${
+                        isActive
+                          ? 'bg-[#FF2D8D] text-white'
+                          : pill.isCritical && pill.count && pill.count > 0
+                          ? 'bg-rose-950/40 text-rose-400 border border-rose-900/50 hover:bg-rose-950/60'
+                          : 'bg-neutral-900 text-gray-400 hover:text-white border border-neutral-800'
+                      }`}
+                    >
+                      <span>{pill.label}</span>
+                      {pill.count !== undefined && (
+                        <span className={`px-1.5 py-0.2 rounded-full text-[8px] ${
+                          isActive 
+                            ? 'bg-white/20 text-white' 
+                            : pill.isCritical && pill.count > 0
+                            ? 'bg-rose-500/20 text-rose-300'
+                            : 'bg-neutral-800 text-gray-500'
+                        }`}>
+                          {pill.count}
+                        </span>
+                      )}
+                    </button>
+                  );
+                })}
+              </div>
+            </div>
+
+            {/* Audited Cars List */}
+            {auditedVehicles.length === 0 ? (
+              <div className="text-center py-8 bg-neutral-900/20 border border-dashed border-neutral-900 rounded-xl">
+                <p className="text-xs text-gray-500">Nenhum veículo encontrado com os filtros selecionados.</p>
+              </div>
+            ) : (
+              <div className="space-y-4">
+                {auditedVehicles.map(v => {
+                  const yearNum = parseInt(v.year.split('/')[0]) || 2022;
+                  const fipePrice = getEstimatedFipeClient(v.brand, v.model, yearNum);
+                  const diffPct = ((v.price - fipePrice) / fipePrice) * 100;
+                  const diffFormatted = diffPct > 0 ? `+${diffPct.toFixed(1)}%` : `${diffPct.toFixed(1)}%`;
+                  
+                  const isAdjustmentNeeded = diffPct > 10 || diffPct < -10;
+                  const statusLabel = diffPct > 10 
+                    ? 'ACIMA DO MERCADO' 
+                    : diffPct < -10 
+                    ? 'ABAIXO DO MERCADO' 
+                    : 'DENTRO DO MERCADO';
+
+                  const kmNum = Number(v.mileage) || 40000;
+                  
+                  // Score de Qualidade (0-10)
+                  let scoreQualidade = 7.5;
+                  if (kmNum < 40000) scoreQualidade += 1.0;
+                  if (v.optionsText && v.optionsText.length > 5) scoreQualidade += 1.0;
+                  if (v.description && v.description.length > 15) scoreQualidade += 0.5;
+                  scoreQualidade = Math.min(10, scoreQualidade);
+
+                  // SEO Differential and fields
+                  let differential = 'IMPECÁVEL';
+                  if (kmNum < 20000) {
+                    differential = 'BAIXA QUILOMETRAGEM';
+                  } else if (v.optionsText && v.optionsText.toLowerCase().includes('teto')) {
+                    differential = 'TETO SOLAR';
+                  } else if (v.optionsText && v.optionsText.toLowerCase().includes('couro')) {
+                    differential = 'BANCOS EM COURO';
+                  } else if (yearNum >= 2024) {
+                    differential = 'ESTADO DE NOVO';
+                  }
+
+                  const seoTitle = `${v.brand.toUpperCase()} ${v.model.toUpperCase()} ${yearNum} - ${differential} - RAVICAR MULTIMARCAS`;
+                  const persuasiveDesc = `Imperdível oportunidade! Este ${v.brand} ${v.model} ${yearNum} está disponível na RaviCar Veículos por apenas R$ ${v.price.toLocaleString('pt-BR')}. Com apenas ${kmNum.toLocaleString('pt-BR')} km rodados e uma conservação espetacular. ${v.optionsText ? 'Destaque absoluto para: ' + v.optionsText + '. ' : ''}Veículo 100% periciado com laudo cautelar aprovado, revisado e com garantia total da RaviCar. Perfeito para quem busca segurança, economia e procedência garantida na Zona Leste! Aceitamos seu usado na troca com supervalorização e simulamos seu financiamento na hora!`;
+
+                  const isExpanded = expandedSeoCarId === v.id;
+
+                  return (
+                    <div key={v.id} className={`p-4 bg-neutral-900/60 border rounded-xl transition duration-300 ${
+                      isAdjustmentNeeded 
+                        ? 'border-rose-950/55 hover:border-rose-800/40 bg-neutral-950/40' 
+                        : 'border-neutral-900 hover:border-neutral-800'
+                    }`}>
+                      {/* Grid principal do veículo */}
+                      <div className="grid grid-cols-1 md:grid-cols-12 gap-4 items-center">
+                        {/* Imagem e Identificação */}
+                        <div className="md:col-span-4 flex items-center gap-3">
+                          <div className="w-12 h-12 bg-neutral-950 border border-neutral-900 rounded-lg flex items-center justify-center overflow-hidden shrink-0">
+                            {v.images && v.images[0] ? (
+                              <img src={v.images[0]} alt={v.title} className="w-full h-full object-cover animate-fade-in" referrerPolicy="no-referrer" />
+                            ) : (
+                              <Car className="w-5 h-5 text-gray-600" />
+                            )}
+                          </div>
+                          <div>
+                            <span className="text-[8px] font-extrabold uppercase text-gray-500 tracking-wide">{v.brand}</span>
+                            <h4 className="font-bold text-xs text-white leading-tight mt-0.5">{v.title}</h4>
+                            <div className="flex items-center gap-2 text-[9px] text-gray-400 mt-1">
+                              <span>Ano {v.year}</span>
+                              <span>•</span>
+                              <span>{kmNum.toLocaleString('pt-BR')} Km</span>
+                            </div>
+                          </div>
+                        </div>
+
+                        {/* Dados Financeiros */}
+                        <div className="md:col-span-4 grid grid-cols-3 gap-2 text-center md:text-left">
+                          <div className="flex flex-col">
+                            <span className="text-[7px] text-gray-500 uppercase font-bold">Preço RaviCar</span>
+                            <span className="text-xs font-bold text-white mt-1">R$ {v.price.toLocaleString('pt-BR')}</span>
+                          </div>
+                          <div className="flex flex-col">
+                            <span className="text-[7px] text-gray-500 uppercase font-bold">Média FIPE</span>
+                            <span className="text-xs font-bold text-gray-300 mt-1">R$ {fipePrice.toLocaleString('pt-BR')}</span>
+                          </div>
+                          <div className="flex flex-col">
+                            <span className="text-[7px] text-gray-500 uppercase font-bold">Desvio FIPE</span>
+                            <span className={`text-xs font-black mt-1 ${
+                              diffPct > 10 ? 'text-amber-500' : diffPct < -10 ? 'text-indigo-400' : 'text-emerald-400'
+                            }`}>
+                              {diffFormatted}
+                            </span>
+                          </div>
+                        </div>
+
+                        {/* Status de Auditoria */}
+                        <div className="md:col-span-2 flex flex-col items-center md:items-start gap-1">
+                          <span className="text-[7px] text-gray-500 uppercase font-bold">Status FIPE</span>
+                          <span className={`px-2 py-1 rounded text-[8px] font-extrabold uppercase leading-none mt-1 border ${
+                            diffPct > 10 
+                              ? 'bg-amber-950/40 text-amber-500 border-amber-900/60' 
+                              : diffPct < -10 
+                              ? 'bg-indigo-950/40 text-indigo-400 border-indigo-900/60' 
+                              : 'bg-emerald-950/40 text-emerald-500 border-emerald-900/60'
+                          }`}>
+                            {statusLabel}
+                          </span>
+                        </div>
+
+                        {/* Score de Qualidade */}
+                        <div className="md:col-span-2 flex items-center justify-between md:justify-end gap-3 w-full md:w-auto">
+                          <div className="flex flex-col items-end">
+                            <span className="text-[7px] text-gray-500 uppercase font-bold">Score Geral</span>
+                            <div className="flex items-center gap-1.5 mt-1">
+                              <span className="text-xs font-black text-white">{scoreQualidade.toFixed(1)}</span>
+                              <span className="text-[8px] text-gray-500">/10</span>
+                            </div>
+                          </div>
+                          
+                          {/* Mini progress ring or bar */}
+                          <div className="w-8 h-1.5 bg-neutral-950 border border-neutral-900 rounded-full overflow-hidden shrink-0">
+                            <div 
+                              className={`h-full rounded-full ${
+                                scoreQualidade >= 9 ? 'bg-emerald-400' : scoreQualidade >= 8 ? 'bg-indigo-400' : 'bg-amber-400'
+                              }`}
+                              style={{ width: `${scoreQualidade * 10}%` }}
+                            />
+                          </div>
+                        </div>
+                      </div>
+
+                      {/* Ações e expansor de SEO */}
+                      <div className="flex flex-col sm:flex-row items-stretch sm:items-center justify-between gap-3 mt-4 pt-3.5 border-t border-neutral-900/80">
+                        <div className="flex flex-wrap items-center gap-2">
+                          <button
+                            onClick={() => setExpandedSeoCarId(isExpanded ? null : v.id)}
+                            className="px-3 py-1.5 bg-neutral-950 hover:bg-neutral-900 border border-neutral-800 text-gray-300 hover:text-white rounded-xl text-[10px] font-bold transition flex items-center gap-1.5 cursor-pointer"
+                          >
+                            <FileText className="w-3 h-3 text-[#FF2D8D]" />
+                            {isExpanded ? 'Esconder Copys SEO' : 'Visualizar Copys SEO'}
+                          </button>
+                        </div>
+
+                        {/* Botão de Reajuste em 1 Clique */}
+                        {isAdjustmentNeeded && (
+                          <button
+                            onClick={() => handleAutoAdjustPrice(v, fipePrice)}
+                            className="px-3 py-1.5 bg-rose-500/10 hover:bg-rose-600 hover:text-white text-rose-400 border border-rose-500/20 hover:border-transparent rounded-xl text-[10px] font-bold transition flex items-center justify-center gap-1.5 cursor-pointer"
+                          >
+                            <RefreshCw className="w-3 h-3 shrink-0" />
+                            Ajustar para Preço FIPE (R$ {fipePrice.toLocaleString('pt-BR')})
+                          </button>
+                        )}
+                      </div>
+
+                      {/* Bloco Expandido de Copys SEO */}
+                      {isExpanded && (
+                        <div className="mt-4 p-4 bg-neutral-950 border border-neutral-900 rounded-xl space-y-4">
+                          <div>
+                            <div className="flex items-center justify-between mb-1.5">
+                              <span className="text-[8px] font-extrabold uppercase text-emerald-400 tracking-wider">Título Otimizado (SEO)</span>
+                              <button
+                                onClick={() => {
+                                  navigator.clipboard.writeText(seoTitle);
+                                  showToast('Título SEO copiado para a área de transferência!', 'success');
+                                }}
+                                className="text-[9px] text-[#FF2D8D] hover:underline font-bold flex items-center gap-1 cursor-pointer"
+                              >
+                                Copiar Título
+                              </button>
+                            </div>
+                            <p className="p-2.5 bg-neutral-900/60 border border-neutral-900/80 rounded-lg text-[10px] text-white font-mono leading-relaxed select-all">
+                              {seoTitle}
+                            </p>
+                          </div>
+
+                          <div>
+                            <div className="flex items-center justify-between mb-1.5">
+                              <span className="text-[8px] font-extrabold uppercase text-emerald-400 tracking-wider">Descrição Persuasiva de Venda</span>
+                              <button
+                                onClick={() => {
+                                  navigator.clipboard.writeText(persuasiveDesc);
+                                  showToast('Descrição persuasiva copiada para a área de transferência!', 'success');
+                                }}
+                                className="text-[9px] text-[#FF2D8D] hover:underline font-bold flex items-center gap-1 cursor-pointer"
+                              >
+                                Copiar Descrição
+                              </button>
+                            </div>
+                            <p className="p-2.5 bg-neutral-900/60 border border-neutral-900/80 rounded-lg text-[10px] text-gray-300 leading-relaxed select-all">
+                              {persuasiveDesc}
+                            </p>
+                          </div>
+                        </div>
+                      )}
+                    </div>
+                  );
+                })}
+              </div>
+            )}
+          </div>
         </div>
       )}
 
       {/* --- STOCK VEHICLES TAB --- */}
       {activeTab === 'vehicles' && (
         <div className="space-y-6">
-          <div className="flex items-center justify-between">
-            <h3 className="font-display font-bold text-sm text-white uppercase tracking-wider text-[#FF2D8D]">
-              Estoque do Showroom ({vehicles.length})
-            </h3>
-            <button
-              onClick={() => { setEditingCarId(null); setCarFormOpen(true); setAiAnalysis(null); }}
-              className="flex items-center gap-1.5 px-4 py-2 bg-[#FF2D8D] text-white hover:bg-[#FF6FB5] transition font-bold text-xs rounded-xl shadow-lg cursor-pointer"
-            >
-              <Plus className="w-4 h-4" /> Cadastrar Veículo
-            </button>
+          <div className="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4">
+            <div>
+              <h3 className="font-display font-bold text-sm text-white uppercase tracking-wider text-[#FF2D8D]">
+                Estoque do Showroom ({filteredVehicles.length})
+              </h3>
+              <p className="text-[10px] text-gray-500 mt-0.5">Gerencie os veículos seminovos ativos no showroom.</p>
+            </div>
+            
+            <div className="flex flex-col sm:flex-row items-stretch sm:items-center gap-3 w-full sm:w-auto">
+              <div className="relative w-full sm:w-64">
+                <Search className="w-3.5 h-3.5 text-gray-500 absolute left-3 top-1/2 -translate-y-1/2" />
+                <input
+                  type="text"
+                  placeholder="Buscar carro (marca, modelo, ano...)"
+                  value={stockSearch}
+                  onChange={e => setStockSearch(e.target.value)}
+                  className="w-full bg-neutral-900 border border-neutral-800 rounded-xl pl-9 pr-4 py-2 text-xs text-white outline-none focus:border-[#FF2D8D] transition"
+                />
+              </div>
+              <button
+                onClick={() => { setEditingCarId(null); setCarFormOpen(true); setAiAnalysis(null); }}
+                className="flex items-center justify-center gap-1.5 px-4 py-2.5 bg-[#FF2D8D] text-white hover:bg-[#FF6FB5] transition font-bold text-xs rounded-xl shadow-lg cursor-pointer shrink-0"
+              >
+                <Plus className="w-4 h-4" /> Cadastrar Veículo
+              </button>
+            </div>
           </div>
 
           {/* Add / Edit Vehicle Form Overlay */}
@@ -968,7 +1461,7 @@ export function AdminPanel({ currentUser, token, vehicles, onRefreshData, settin
                     <div>
                       <h5 className="font-display font-black text-xs text-white uppercase tracking-wider flex items-center gap-1.5">
                         <RefreshCw className={`w-4 h-4 text-[#FF2D8D] ${aiLoading ? 'animate-spin' : ''}`} />
-                        Inteligência de Mercado IA (Gemini)
+                        Inteligência de Mercado IA (RaviCar)
                       </h5>
                       <p className="text-[10px] text-gray-500 mt-0.5">Audite o preço do veículo e otimize o título para SEO e descrição com 1 clique.</p>
                     </div>
@@ -1165,7 +1658,7 @@ export function AdminPanel({ currentUser, token, vehicles, onRefreshData, settin
                   </tr>
                 </thead>
                 <tbody className="divide-y divide-neutral-900/60 text-gray-300">
-                  {vehicles.map(v => (
+                  {filteredVehicles.map(v => (
                     <tr key={v.id} className="hover:bg-neutral-900/10">
                       <td className="p-4">
                         <div className="flex items-center gap-3">
@@ -1228,15 +1721,15 @@ export function AdminPanel({ currentUser, token, vehicles, onRefreshData, settin
       {/* --- LEADS / MESSAGES TAB --- */}
       {activeTab === 'leads' && (
         <div className="space-y-6">
-          <div className="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4 p-4 bg-neutral-950 border border-neutral-900 rounded-2xl">
-            <div className="flex items-center gap-3">
+          <div className="flex flex-col xl:flex-row items-stretch xl:items-center justify-between gap-4 p-4 bg-neutral-950 border border-neutral-900 rounded-2xl">
+            <div className="flex flex-col sm:flex-row sm:items-center gap-3">
               <span className="text-xs text-gray-400 font-semibold">Tipo:</span>
               <div className="flex flex-wrap gap-1">
                 {['Todos', 'Contato', 'Agendamento', 'Financiamento', 'Avaliação', 'WhatsAppClick'].map(type => (
                   <button
                     key={type}
                     onClick={() => setLeadsFilter(type as any)}
-                    className={`px-2.5 py-1 rounded text-[10px] font-bold ${
+                    className={`px-2.5 py-1 rounded text-[10px] font-bold cursor-pointer transition ${
                       leadsFilter === type 
                         ? 'bg-[#FF2D8D] text-white' 
                         : 'bg-neutral-900 border border-neutral-800 text-gray-400 hover:text-white'
@@ -1248,14 +1741,14 @@ export function AdminPanel({ currentUser, token, vehicles, onRefreshData, settin
               </div>
             </div>
 
-            <div className="flex items-center gap-3">
+            <div className="flex flex-col sm:flex-row sm:items-center gap-3">
               <span className="text-xs text-gray-400 font-semibold">Status:</span>
               <div className="flex gap-1">
                 {['Todos', 'Pendente', 'Atendido'].map(st => (
                   <button
                     key={st}
                     onClick={() => setLeadsStatusFilter(st as any)}
-                    className={`px-2.5 py-1 rounded text-[10px] font-bold ${
+                    className={`px-2.5 py-1 rounded text-[10px] font-bold cursor-pointer transition ${
                       leadsStatusFilter === st 
                         ? 'bg-[#FF6FB5] text-white' 
                         : 'bg-neutral-900 border border-neutral-800 text-gray-400 hover:text-white'
@@ -1265,6 +1758,17 @@ export function AdminPanel({ currentUser, token, vehicles, onRefreshData, settin
                   </button>
                 ))}
               </div>
+            </div>
+
+            <div className="relative w-full xl:w-56">
+              <Search className="w-3.5 h-3.5 text-gray-500 absolute left-3 top-1/2 -translate-y-1/2" />
+              <input
+                type="text"
+                placeholder="Buscar lead (nome, fone...)"
+                value={leadSearch}
+                onChange={e => setLeadSearch(e.target.value)}
+                className="w-full bg-neutral-900 border border-neutral-800 rounded-xl pl-9 pr-4 py-2 text-xs text-white outline-none focus:border-[#FF2D8D] transition"
+              />
             </div>
           </div>
 
@@ -1339,16 +1843,32 @@ export function AdminPanel({ currentUser, token, vehicles, onRefreshData, settin
       {/* --- CLIENT CRM TAB --- */}
       {activeTab === 'clients' && (
         <div className="space-y-6">
-          <div className="flex items-center justify-between">
-            <h3 className="font-display font-bold text-sm text-white uppercase tracking-wider text-[#FF2D8D]">
-              CRM - Gestão de Contatos de Clientes ({clientsList.length})
-            </h3>
-            <button
-              onClick={() => { setEditingClientId(null); setClientFormOpen(true); }}
-              className="flex items-center gap-1.5 px-4 py-2 bg-[#FF2D8D] text-white hover:bg-[#FF6FB5] transition font-bold text-xs rounded-xl shadow-lg cursor-pointer"
-            >
-              <Plus className="w-4 h-4" /> Cadastrar Cliente
-            </button>
+          <div className="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4">
+            <div>
+              <h3 className="font-display font-bold text-sm text-white uppercase tracking-wider text-[#FF2D8D]">
+                CRM - Gestão de Clientes ({filteredClients.length})
+              </h3>
+              <p className="text-[10px] text-gray-500 mt-0.5">Histórico de contatos e negociações de veículos.</p>
+            </div>
+            
+            <div className="flex flex-col sm:flex-row items-stretch sm:items-center gap-3 w-full sm:w-auto">
+              <div className="relative w-full sm:w-64">
+                <Search className="w-3.5 h-3.5 text-gray-500 absolute left-3 top-1/2 -translate-y-1/2" />
+                <input
+                  type="text"
+                  placeholder="Buscar cliente (nome, fone...)"
+                  value={clientSearch}
+                  onChange={e => setClientSearch(e.target.value)}
+                  className="w-full bg-neutral-900 border border-neutral-800 rounded-xl pl-9 pr-4 py-2 text-xs text-white outline-none focus:border-[#FF2D8D] transition"
+                />
+              </div>
+              <button
+                onClick={() => { setEditingClientId(null); setClientFormOpen(true); }}
+                className="flex items-center justify-center gap-1.5 px-4 py-2.5 bg-[#FF2D8D] text-white hover:bg-[#FF6FB5] transition font-bold text-xs rounded-xl shadow-lg cursor-pointer shrink-0"
+              >
+                <Plus className="w-4 h-4" /> Cadastrar Cliente
+              </button>
+            </div>
           </div>
 
           {/* Add/Edit Client Form Overlay */}
@@ -1429,7 +1949,7 @@ export function AdminPanel({ currentUser, token, vehicles, onRefreshData, settin
                 </tr>
               </thead>
               <tbody className="divide-y divide-neutral-900/60 text-gray-300">
-                {clientsList.map(c => (
+                {filteredClients.map(c => (
                   <tr key={c.id}>
                     <td className="p-4 font-bold text-white">{c.name}</td>
                     <td className="p-4">
@@ -1758,6 +2278,9 @@ export function AdminPanel({ currentUser, token, vehicles, onRefreshData, settin
           </div>
         </div>
       )}
+
+        </div> {/* Content Area col-span-9 */}
+      </div> {/* Grid container cols-12 */}
 
       {/* Toast Notification */}
       {toast && (
