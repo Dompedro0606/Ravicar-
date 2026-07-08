@@ -577,7 +577,7 @@ export function Header({ currentUser, onLogout, onOpenAuth, onNavigate, currentP
                   className={`flex flex-col items-center gap-1.5 py-2 px-1 rounded-xl border text-[10px] font-semibold transition-all cursor-pointer ${activeTheme === 'branco' ? 'border-blue-500 bg-blue-500/10 text-blue-500' : 'border-neutral-900 bg-neutral-950 text-gray-400'}`}
                 >
                   <span className="w-3 h-3 rounded-full bg-white border border-blue-500 shadow-sm"></span>
-                  <span>Branco</span>
+                  <span>Branco e Azul</span>
                 </button>
 
                 <button

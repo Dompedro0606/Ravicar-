@@ -139,6 +139,9 @@
 
 /* Semi-transparent navbar & overlay backgrounds */
 [data-theme] .bg-black\/80,
+[data-theme] .bg-black\/85,
+[data-theme] .bg-black\/75,
+[data-theme] .bg-black\/60,
 [data-theme] .bg-black\/95,
 [data-theme] .bg-black\/40,
 [data-theme] .bg-black\/50,
@@ -149,7 +152,7 @@
 [data-theme] .bg-neutral-950\/95,
 [data-theme] .bg-zinc-950\/80,
 [data-theme] .bg-zinc-950\/50 {
-  background-color: rgba(var(--bg-main-rgb), 0.8) !important;
+  background-color: rgba(var(--bg-card-rgb), 0.85) !important;
 }
 
 /* Container and Card overrides */
@@ -426,10 +429,30 @@
 }
 
 /* Keep selected tabs and interactive elements with a beautiful soft blue brand glow */
+[data-theme="branco"] .bg-\[\#FF2D8D\]\/5 {
+  background-color: rgba(37, 99, 235, 0.03) !important;
+}
+[data-theme="branco"] .bg-\[\#FF2D8D\]\/10 {
+  background-color: rgba(37, 99, 235, 0.06) !important;
+  color: #2563eb !important;
+}
 [data-theme="branco"] .bg-\[\#FF2D8D\]\/15 {
   background-color: rgba(37, 99, 235, 0.08) !important;
   color: #2563eb !important;
   border-color: rgba(37, 99, 235, 0.3) !important;
+}
+[data-theme="branco"] .bg-\[\#FF2D8D\]\/20 {
+  background-color: rgba(37, 99, 235, 0.12) !important;
+}
+[data-theme="branco"] .bg-\[\#FF2D8D\]\/25 {
+  background-color: rgba(37, 99, 235, 0.15) !important;
+}
+
+/* Beautiful custom blue brand gradient for the white and blue theme */
+[data-theme="branco"] .bg-gradient-to-r.from-\[\#FF2D8D\].to-\[\#FF6FB5\],
+[data-theme="branco"] .from-\[\#FF2D8D\] {
+  background-image: linear-gradient(to right, #2563eb, #60a5fa) !important;
+  background-color: transparent !important;
 }
 
 /* --- ADAPT FORMS AND INTERACTIVE PANELS FOR THE WHITE THEME --- */
@@ -465,8 +488,8 @@
 [data-theme="branco"] .bg-neutral-800\/20,
 [data-theme="branco"] .bg-neutral-800\/10,
 [data-theme="branco"] .bg-zinc-900\/50 {
-  background-color: #f8fafc !important;
-  border-color: #cbd5e1 !important;
+  background-color: #ffffff !important;
+  border-color: #e2e8f0 !important;
   color: #0f172a !important;
 }
 
@@ -509,7 +532,7 @@
   color: #0f172a !important;
 }
 
-/* Highlight elements on hover with a beautiful pink accent line and subtle glow */
+/* Highlight elements on hover with a beautiful blue accent line and subtle glow */
 [data-theme="branco"] .bg-black:hover,
 [data-theme="branco"] .bg-neutral-950:hover,
 [data-theme="branco"] .bg-neutral-900:hover,
@@ -519,9 +542,9 @@
 [data-theme="branco"] button.bg-neutral-900:hover,
 [data-theme="branco"] button.bg-neutral-950:hover,
 [data-theme="branco"] button.bg-\[\#1A1A1A\]:hover {
-  background-color: rgba(255, 45, 141, 0.04) !important;
-  border-color: #FF2D8D !important;
-  color: #FF2D8D !important;
+  background-color: rgba(37, 99, 235, 0.04) !important;
+  border-color: #2563eb !important;
+  color: #2563eb !important;
 }
 
 /* Maintain high-contrast text and icon colors within light buttons/inputs on hover */
