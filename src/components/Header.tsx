@@ -44,6 +44,9 @@ export function Header({ currentUser, onLogout, onOpenAuth, onNavigate, currentP
   const [isNotifOpen, setIsNotifOpen] = useState(false);
   const [notifications, setNotifications] = useState<any[]>([]);
   const [activeToast, setActiveToast] = useState<any | null>(null);
+  const [browserPermission, setBrowserPermission] = useState<string>(
+    'Notification' in window ? Notification.permission : 'denied'
+  );
   
   const seenIdsRef = useRef<string[]>([]);
 
@@ -141,14 +144,41 @@ export function Header({ currentUser, onLogout, onOpenAuth, onNavigate, currentP
               }
             }
             freshNotifs.forEach((n: any) => {
-              if (n.type === 'push' && localStorage.getItem('ravicar_notifications') === 'granted' && 'Notification' in window && Notification.permission === 'granted') {
-                try {
-                  new Notification(n.title, {
-                    body: n.message,
-                    icon: '/favicon.png'
-                  });
-                } catch (e) {
-                  console.log('Error triggering native notification:', e);
+              if (n.type === 'push' && localStorage.getItem('ravicar_notifications') === 'granted' && 'Notification' in window) {
+                if (Notification.permission === 'granted') {
+                  // Android Chrome and modern mobile browsers require using the Service Worker registration to show notifications.
+                  if ('serviceWorker' in navigator && navigator.serviceWorker.register) {
+                    navigator.serviceWorker.ready.then(registration => {
+                      registration.showNotification(n.title, {
+                        body: n.message,
+                        icon: '/logo.png',
+                        badge: '/favicon.png',
+                        tag: n.id,
+                        vibrate: [120, 80, 120]
+                      } as any).catch(err => {
+                        console.log('ServiceWorker failed to show notification:', err);
+                        // Fallback
+                        try {
+                          new Notification(n.title, { body: n.message, icon: '/logo.png' });
+                        } catch (e) {}
+                      });
+                    }).catch(err => {
+                      console.log('Service worker not ready for notification:', err);
+                      // Fallback
+                      try {
+                        new Notification(n.title, { body: n.message, icon: '/logo.png' });
+                      } catch (e) {}
+                    });
+                  } else {
+                    try {
+                      new Notification(n.title, {
+                        body: n.message,
+                        icon: '/logo.png'
+                      });
+                    } catch (e) {
+                      console.log('Error triggering native notification:', e);
+                    }
+                  }
                 }
               }
             });
@@ -174,8 +204,75 @@ export function Header({ currentUser, onLogout, onOpenAuth, onNavigate, currentP
     // Check native browser permission
     if ('Notification' in window) {
       Notification.requestPermission().then(permission => {
+        setBrowserPermission(permission);
         console.log('Notification permission:', permission);
       });
+    }
+  };
+
+  const triggerNative = (n: any) => {
+    if ('serviceWorker' in navigator && navigator.serviceWorker.register) {
+      navigator.serviceWorker.ready.then(registration => {
+        registration.showNotification(n.title, {
+          body: n.message,
+          icon: '/logo.png',
+          badge: '/favicon.png',
+          tag: n.id,
+          vibrate: [120, 80, 120]
+        } as any).catch(err => {
+          console.log('ServiceWorker failed to show notification:', err);
+          try {
+            new Notification(n.title, { body: n.message, icon: '/logo.png' });
+          } catch (e) {}
+        });
+      }).catch(err => {
+        console.log('Service worker not ready:', err);
+        try {
+          new Notification(n.title, { body: n.message, icon: '/logo.png' });
+        } catch (e) {}
+      });
+    } else {
+      try {
+        new Notification(n.title, {
+          body: n.message,
+          icon: '/logo.png'
+        });
+      } catch (e) {}
+    }
+  };
+
+  const testNativeNotification = () => {
+    playNotificationChime();
+    triggerHapticFeedback();
+
+    const mockNotif = {
+      id: `test-notif-${Date.now()}`,
+      title: '🔔 Teste de Alerta RaviCar',
+      message: 'As notificações nativas do celular estão ativas e funcionando perfeitamente!',
+      actionUrl: 'catalogo'
+    };
+
+    // Show the in-app glassmorphic toast
+    setActiveToast(mockNotif);
+    setTimeout(() => {
+      setActiveToast((prev: any) => prev && prev.id === mockNotif.id ? null : prev);
+    }, 8000);
+
+    // Show native notification if allowed
+    if ('Notification' in window) {
+      if (Notification.permission === 'default') {
+        Notification.requestPermission().then(perm => {
+          setBrowserPermission(perm);
+          if (perm === 'granted') {
+            triggerNative(mockNotif);
+          }
+        });
+      } else if (Notification.permission === 'granted') {
+        triggerNative(mockNotif);
+      } else {
+        // Since we are in iframe, alert can inform the user nicely
+        console.log('Permissions are blocked/denied in browser.');
+      }
     }
   };
 
@@ -464,22 +561,43 @@ export function Header({ currentUser, onLogout, onOpenAuth, onNavigate, currentP
             {/* Content List */}
             <div className="flex-1 overflow-y-auto p-4 flex flex-col gap-3">
               {/* Permission Helper Banner */}
-              <div className="p-3 bg-[#FF2D8D]/5 border border-[#FF2D8D]/20 rounded-xl flex flex-col gap-2">
-                <div className="flex gap-2 items-start">
+              <div className="p-3.5 bg-[#FF2D8D]/5 border border-[#FF2D8D]/25 rounded-xl flex flex-col gap-3">
+                <div className="flex gap-2.5 items-start">
                   <div className="p-1.5 rounded-full bg-[#FF2D8D]/10 text-[#FF2D8D] shrink-0">
-                    <Bell className="w-3.5 h-3.5" />
+                    <Bell className="w-4 h-4 animate-pulse" />
                   </div>
                   <div>
                     <h4 className="text-xs font-bold text-white">Alertas no Celular / Navegador</h4>
-                    <p className="text-[11px] text-gray-400">Ative o recebimento nativo no seu celular para receber alertas em tempo real fora do site.</p>
+                    <p className="text-[11px] text-gray-400 mt-0.5 leading-relaxed">
+                      Ative o recebimento nativo no seu celular para receber os alertas em tempo real na sua barra de notificações do celular.
+                    </p>
+                    
+                    {/* Status Indicator */}
+                    <div className="mt-2 text-[10px] font-bold">
+                      {browserPermission === 'granted' ? (
+                        <span className="text-emerald-400 bg-emerald-500/10 px-2 py-0.5 rounded-md border border-emerald-500/20 flex items-center gap-1 w-fit">
+                          ● Navegador Autorizado (Ativo)
+                        </span>
+                      ) : browserPermission === 'denied' ? (
+                        <span className="text-red-400 bg-red-500/10 px-2 py-0.5 rounded-md border border-red-500/20 flex flex-col gap-1 w-fit leading-normal">
+                          <span>● Navegador Bloqueado</span>
+                          <span className="font-normal text-gray-400 normal-case">Clique no ícone de cadeado na barra de endereços para permitir!</span>
+                        </span>
+                      ) : (
+                        <span className="text-amber-400 bg-amber-500/10 px-2 py-0.5 rounded-md border border-amber-500/20 flex items-center gap-1 w-fit">
+                          ● Aguardando Permissão
+                        </span>
+                      )}
+                    </div>
                   </div>
                 </div>
-                <div className="flex justify-end">
+                
+                <div className="flex items-center justify-between border-t border-neutral-800/60 pt-2.5 mt-0.5">
                   <button
                     onClick={handleRequestPermission}
                     className="text-[10px] font-bold uppercase tracking-wider text-[#FF2D8D] hover:text-[#FF6FB5] transition cursor-pointer"
                   >
-                    {notifPermission === 'granted' ? '✓ Alertas Ativos' : 'Ativar Alertas Nativos'}
+                    {browserPermission === 'granted' ? '✓ Configurado' : 'Ativar Permissão'}
                   </button>
                 </div>
               </div>
