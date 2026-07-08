@@ -1,5 +1,5 @@
 import React, { useState, useEffect, useRef } from 'react';
-import { Menu, X, ShieldAlert, LogIn, LogOut, Bell, BellOff, Settings, User, Mail } from 'lucide-react';
+import { Menu, X, ShieldAlert, LogIn, LogOut, Bell, BellOff, Settings, User, Mail, Palette } from 'lucide-react';
 import { UserProfile, SiteSettings } from '../types';
 // @ts-ignore
 import ravicarLogo from '../assets/images/ravicar_logo_1783395977905.jpg';
@@ -49,6 +49,37 @@ export function Header({ currentUser, onLogout, onOpenAuth, onNavigate, currentP
   );
   
   const seenIdsRef = useRef<string[]>([]);
+  
+  // Theme Switching State & Effects
+  const [activeTheme, setActiveTheme] = useState<string>(() => {
+    return localStorage.getItem('ravicar_theme') || 'original';
+  });
+  const [isThemeOpen, setIsThemeOpen] = useState(false);
+  const themeMenuRef = useRef<HTMLDivElement>(null);
+
+  useEffect(() => {
+    if (activeTheme === 'original') {
+      document.documentElement.removeAttribute('data-theme');
+    } else {
+      document.documentElement.setAttribute('data-theme', activeTheme);
+    }
+  }, [activeTheme]);
+
+  useEffect(() => {
+    const handleClickOutside = (event: MouseEvent) => {
+      if (themeMenuRef.current && !themeMenuRef.current.contains(event.target as Node)) {
+        setIsThemeOpen(false);
+      }
+    };
+    document.addEventListener('mousedown', handleClickOutside);
+    return () => document.removeEventListener('mousedown', handleClickOutside);
+  }, []);
+
+  const changeTheme = (newTheme: string) => {
+    setActiveTheme(newTheme);
+    localStorage.setItem('ravicar_theme', newTheme);
+    setIsThemeOpen(false);
+  };
 
   const playNotificationChime = () => {
     try {
@@ -343,6 +374,70 @@ export function Header({ currentUser, onLogout, onOpenAuth, onNavigate, currentP
 
           {/* Right Controls */}
           <div className="hidden md:flex items-center gap-4">
+            {/* Theme Selector Button */}
+            <div className="relative" ref={themeMenuRef}>
+              <button
+                onClick={() => setIsThemeOpen(!isThemeOpen)}
+                title="Escolher Tema"
+                className={`p-2 rounded-full border border-neutral-800 hover:bg-neutral-900 transition-all cursor-pointer relative ${isThemeOpen ? 'text-[#FF2D8D] border-[#FF2D8D]/40 bg-neutral-900' : 'text-gray-400 hover:text-white'}`}
+              >
+                <Palette className="w-4 h-4" />
+              </button>
+              
+              {isThemeOpen && (
+                <div className="absolute right-0 mt-2.5 w-52 bg-neutral-950 border border-neutral-800 rounded-xl shadow-2xl p-2.5 z-[110] flex flex-col gap-1.5">
+                  <div className="px-2 py-1 border-b border-neutral-800/60 mb-1">
+                    <span className="text-[10px] uppercase tracking-wider font-bold text-gray-500">Escolha o Tema</span>
+                  </div>
+                  
+                  {/* Theme buttons */}
+                  <button
+                    onClick={() => changeTheme('original')}
+                    className={`w-full flex items-center justify-between px-2.5 py-1.5 rounded-lg text-xs transition-all cursor-pointer ${activeTheme === 'original' ? 'bg-[#FF2D8D]/10 text-[#FF2D8D] font-bold' : 'text-gray-300 hover:bg-neutral-900'}`}
+                  >
+                    <div className="flex items-center gap-2">
+                      <span className="w-2.5 h-2.5 rounded-full bg-[#FF2D8D]"></span>
+                      <span>RaviCar Neon</span>
+                    </div>
+                    {activeTheme === 'original' && <span className="text-[10px] font-bold">●</span>}
+                  </button>
+
+                  <button
+                    onClick={() => changeTheme('branco')}
+                    className={`w-full flex items-center justify-between px-2.5 py-1.5 rounded-lg text-xs transition-all cursor-pointer ${activeTheme === 'branco' ? 'bg-blue-500/10 text-blue-400 font-bold' : 'text-gray-300 hover:bg-neutral-900'}`}
+                  >
+                    <div className="flex items-center gap-2">
+                      <span className="w-2.5 h-2.5 rounded-full bg-white border border-neutral-500"></span>
+                      <span>Branco</span>
+                    </div>
+                    {activeTheme === 'branco' && <span className="text-[10px] font-bold">●</span>}
+                  </button>
+
+                  <button
+                    onClick={() => changeTheme('azul')}
+                    className={`w-full flex items-center justify-between px-2.5 py-1.5 rounded-lg text-xs transition-all cursor-pointer ${activeTheme === 'azul' ? 'bg-cyan-500/10 text-cyan-400 font-bold' : 'text-gray-300 hover:bg-neutral-900'}`}
+                  >
+                    <div className="flex items-center gap-2">
+                      <span className="w-2.5 h-2.5 rounded-full bg-cyan-500"></span>
+                      <span>Azul</span>
+                    </div>
+                    {activeTheme === 'azul' && <span className="text-[10px] font-bold">●</span>}
+                  </button>
+
+                  <button
+                    onClick={() => changeTheme('preto')}
+                    className={`w-full flex items-center justify-between px-2.5 py-1.5 rounded-lg text-xs transition-all cursor-pointer ${activeTheme === 'preto' ? 'bg-neutral-800 text-white font-bold' : 'text-gray-300 hover:bg-neutral-900'}`}
+                  >
+                    <div className="flex items-center gap-2">
+                      <span className="w-2.5 h-2.5 rounded-full bg-black border border-neutral-700"></span>
+                      <span>Preto Puro</span>
+                    </div>
+                    {activeTheme === 'preto' && <span className="text-[10px] font-bold">●</span>}
+                  </button>
+                </div>
+              )}
+            </div>
+
             {/* Notification bell */}
             <div className="relative">
               <button
@@ -462,6 +557,46 @@ export function Header({ currentUser, onLogout, onOpenAuth, onNavigate, currentP
             >
               Termos de Uso
             </button>
+
+            {/* Mobile Theme Selector */}
+            <div className="flex flex-col gap-1.5 border-b border-neutral-900 pb-3 pt-1">
+              <span className="text-[10px] uppercase tracking-wider font-bold text-gray-500 flex items-center gap-1">
+                <Palette className="w-3.5 h-3.5" /> Tema do App
+              </span>
+              <div className="grid grid-cols-4 gap-2">
+                <button
+                  onClick={() => changeTheme('original')}
+                  className={`flex flex-col items-center gap-1.5 py-2 px-1 rounded-xl border text-[10px] font-semibold transition-all cursor-pointer ${activeTheme === 'original' ? 'border-[#FF2D8D] bg-[#FF2D8D]/10 text-[#FF2D8D]' : 'border-neutral-900 bg-neutral-950 text-gray-400'}`}
+                >
+                  <span className="w-3 h-3 rounded-full bg-[#FF2D8D] shadow-sm"></span>
+                  <span>Original</span>
+                </button>
+                
+                <button
+                  onClick={() => changeTheme('branco')}
+                  className={`flex flex-col items-center gap-1.5 py-2 px-1 rounded-xl border text-[10px] font-semibold transition-all cursor-pointer ${activeTheme === 'branco' ? 'border-blue-500 bg-blue-500/10 text-blue-400' : 'border-neutral-900 bg-neutral-950 text-gray-400'}`}
+                >
+                  <span className="w-3 h-3 rounded-full bg-white border border-neutral-500 shadow-sm"></span>
+                  <span>Branco</span>
+                </button>
+
+                <button
+                  onClick={() => changeTheme('azul')}
+                  className={`flex flex-col items-center gap-1.5 py-2 px-1 rounded-xl border text-[10px] font-semibold transition-all cursor-pointer ${activeTheme === 'azul' ? 'border-cyan-400 bg-cyan-400/10 text-cyan-400' : 'border-neutral-900 bg-neutral-950 text-gray-400'}`}
+                >
+                  <span className="w-3 h-3 rounded-full bg-cyan-500 shadow-sm"></span>
+                  <span>Azul</span>
+                </button>
+
+                <button
+                  onClick={() => changeTheme('preto')}
+                  className={`flex flex-col items-center gap-1.5 py-2 px-1 rounded-xl border text-[10px] font-semibold transition-all cursor-pointer ${activeTheme === 'preto' ? 'border-neutral-600 bg-neutral-900 text-white' : 'border-neutral-900 bg-neutral-950 text-gray-400'}`}
+                >
+                  <span className="w-3 h-3 rounded-full bg-black border border-neutral-700 shadow-sm"></span>
+                  <span>Preto</span>
+                </button>
+              </div>
+            </div>
 
             {currentUser ? (
               <div className="flex flex-col gap-2 pt-2">
