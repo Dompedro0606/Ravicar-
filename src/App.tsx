@@ -50,7 +50,19 @@ export default function App() {
     pixSantander: 'ag: 0696 CC: 13004672-2',
     pixBradesco: 'ag: 0113 CC: 0032823-5',
     pixItau: 'ag: 6453 CC: 99793-1',
-    pixInter: 'ag: 0001 CC: 22066529-0'
+    pixInter: 'ag: 0001 CC: 22066529-0',
+    taxaSantander: 1.39,
+    taxaItau: 1.49,
+    taxaBradesco: 1.59,
+    taxaBv: 1.29,
+    taxaPan: 1.69,
+    taxaSafra: 1.39,
+    taxaC6: 1.59,
+    taxaPorto: 1.49,
+    taxaCreditas: 1.39,
+    taxaMercadoPago: 1.69,
+    taxaOmni: 1.89,
+    taxaDaycoval: 1.79
   });
 
   // Fetch all vehicles and configurations on mount

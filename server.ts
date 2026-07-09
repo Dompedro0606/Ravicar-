@@ -712,7 +712,7 @@ app.post('/api/gemini/analyze-car', requireAuth, async (req, res) => {
 
 // 16. IA Financing Simulation
 app.post('/api/gemini/simulate-financing', async (req, res) => {
-  const { name, phone, email, cpf, birthDate, vehicleId, downPayment, installments, notes } = req.body;
+  const { name, phone, email, cpf, birthDate, vehicleId, downPayment, installments, notes, bank } = req.body;
 
   if (!name || !phone || !cpf || !vehicleId) {
     return res.status(400).json({ error: 'Nome, Celular, CPF e Veículo de Interesse são obrigatórios para a simulação.' });
@@ -723,7 +723,7 @@ app.post('/api/gemini/simulate-financing', async (req, res) => {
     return res.status(404).json({ error: 'Veículo selecionado para a simulação não foi encontrado.' });
   }
 
-  console.log(`[RaviCar AI Engine] Simulating financing for: ${name} (Vehicle: ${vehicle.brand} ${vehicle.model})`);
+  console.log(`[RaviCar AI Engine] Simulating financing for: ${name} (Vehicle: ${vehicle.brand} ${vehicle.model}, Bank: ${bank || 'Santander'})`);
 
   const cleanNum = (val: any) => Number(String(val).replace(/\D/g, '')) || 0;
   const installmentsNum = parseInt(String(installments).replace(/\D/g, '')) || 48;
@@ -733,15 +733,28 @@ app.post('/api/gemini/simulate-financing', async (req, res) => {
   const valorFinanciado = Math.max(0, carPrice - downPaymentNum);
   const pctDownPayment = (downPaymentNum / carPrice) * 100;
   
-  // Determine dynamic interest rate based on down payment %
-  let taxaJurosMensal = 1.89; // Default rate
-  if (pctDownPayment >= 50) {
-    taxaJurosMensal = 1.39;
-  } else if (pctDownPayment >= 30) {
-    taxaJurosMensal = 1.59;
-  } else if (pctDownPayment >= 15) {
-    taxaJurosMensal = 1.79;
-  }
+  // Get active interest rates from settings
+  const settings = await getSettings();
+  const getBankInterestRate = (b: string, s: any) => {
+    const rates: { [key: string]: number } = {
+      'Santander': Number(s.taxaSantander) || 1.39,
+      'Itaú': Number(s.taxaItau) || 1.49,
+      'Bradesco': Number(s.taxaBradesco) || 1.59,
+      'BV Financeira': Number(s.taxaBv) || 1.29,
+      'Banco PAN': Number(s.taxaPan) || 1.69,
+      'Banco Safra': Number(s.taxaSafra) || 1.39,
+      'C6 Bank': Number(s.taxaC6) || 1.59,
+      'Porto Seguro': Number(s.taxaPorto) || 1.49,
+      'Creditas': Number(s.taxaCreditas) || 1.39,
+      'Mercado Pago': Number(s.taxaMercadoPago) || 1.69,
+      'Banco Omni': Number(s.taxaOmni) || 1.89,
+      'Daycoval': Number(s.taxaDaycoval) || 1.79,
+    };
+    return rates[b] || 1.59;
+  };
+
+  const selectedBankName = bank || 'Santander';
+  const taxaJurosMensal = getBankInterestRate(selectedBankName, settings);
 
   // PMT calculation formula (Price Table)
   const calculatePMT = (pv: number, rateMonth: number, n: number) => {
@@ -757,7 +770,7 @@ app.post('/api/gemini/simulate-financing', async (req, res) => {
   const scoreAprovacao = Math.min(100, Math.round(45 + pctDownPayment + (installmentsNum <= 36 ? 12 : 0)));
   const aprovado = scoreAprovacao >= 55;
 
-  const parecerIa = `Olá, ${name}! Analisamos seu perfil de crédito para o ${vehicle.brand} ${vehicle.model} (${vehicle.year}). Com base nas taxas ativas para julho de 2026 e uma entrada de R$ ${downPaymentNum.toLocaleString('pt-BR')} (${Math.round(pctDownPayment)}% do valor total), nosso simulador inteligente de crédito da RaviCar calculou uma taxa pré-aprovada excelente de ${taxaJurosMensal}% ao mês através das nossas principais financeiras credenciadas (como Santander, Itaú e BV). O seu score de aprovação de cadastro foi de ${scoreAprovacao} pontos. Parabéns, seu pré-cadastro foi gravado com sucesso! Clique no botão de WhatsApp para falar com nosso consultor e liberar o veículo em minutos.`;
+  const parecerIa = `Olá, ${name}! Analisamos seu perfil de crédito para o ${vehicle.brand} ${vehicle.model} (${vehicle.year}). Com base nas taxas ativas para julho de 2026 e uma entrada de R$ ${downPaymentNum.toLocaleString('pt-BR')} (${Math.round(pctDownPayment)}% do valor total), nosso simulador inteligente de crédito da RaviCar calculou uma taxa pré-aprovada excelente de ${taxaJurosMensal}% ao mês através do parceiro ${selectedBankName}. O seu score de aprovação de cadastro foi de ${scoreAprovacao} pontos. Parabéns, seu pré-cadastro foi gravado com sucesso! Clique no botão de WhatsApp para falar com nosso consultor e liberar o veículo em minutos.`;
 
   // Populate alternative financing terms
   const planosAlternativos = [];

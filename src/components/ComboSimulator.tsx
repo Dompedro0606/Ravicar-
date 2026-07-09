@@ -40,6 +40,7 @@ export default function ComboSimulator({ vehicles, settings, currentUser, onNavi
   const [clientName, setClientName] = useState(currentUser?.name || '');
   const [clientPhone, setClientPhone] = useState(currentUser?.phone || '');
   const [clientEmail, setClientEmail] = useState(currentUser?.email || '');
+  const [selectedBank, setSelectedBank] = useState('Santander');
 
   const [loading, setLoading] = useState(false);
   const [simulationResult, setSimulationResult] = useState<any | null>(null);
@@ -149,13 +150,28 @@ export default function ComboSimulator({ vehicles, settings, currentUser, onNavi
 
       // Finance Options (Only if client has to pay a difference)
       let financeOptions: Array<{ term: string; pmt: number }> = [];
-      let rate = 1.59; // monthly rate
+      
+      const getBankInterestRate = (b: string, s: any) => {
+        const rates: { [key: string]: number } = {
+          'Santander': Number(s?.taxaSantander) || 1.39,
+          'Itaú': Number(s?.taxaItau) || 1.49,
+          'Bradesco': Number(s?.taxaBradesco) || 1.59,
+          'BV Financeira': Number(s?.taxaBv) || 1.29,
+          'Banco PAN': Number(s?.taxaPan) || 1.69,
+          'Banco Safra': Number(s?.taxaSafra) || 1.39,
+          'C6 Bank': Number(s?.taxaC6) || 1.59,
+          'Porto Seguro': Number(s?.taxaPorto) || 1.49,
+          'Creditas': Number(s?.taxaCreditas) || 1.39,
+          'Mercado Pago': Number(s?.taxaMercadoPago) || 1.69,
+          'Banco Omni': Number(s?.taxaOmni) || 1.89,
+          'Daycoval': Number(s?.taxaDaycoval) || 1.79,
+        };
+        return rates[b] || 1.59;
+      };
+
+      const rate = getBankInterestRate(selectedBank, settings);
 
       if (!isTrocaComTroco && absDifference > 0) {
-        // Lower rate for small financing amounts
-        if (absDifference < 20000) rate = 1.49;
-        else if (absDifference > 50000) rate = 1.79;
-
         const calculatePMT = (pv: number, rateMonth: number, n: number) => {
           const r = rateMonth / 100;
           return (pv * r * Math.pow(1 + r, n)) / (Math.pow(1 + r, n) - 1);
@@ -518,7 +534,7 @@ export default function ComboSimulator({ vehicles, settings, currentUser, onNavi
                 3. Seus Dados de Contato
               </label>
 
-              <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+              <div className="grid grid-cols-1 sm:grid-cols-3 gap-4">
                 <div className="space-y-1.5">
                   <span className="text-[10px] text-gray-400 font-bold uppercase">Seu Nome Completo</span>
                   <input
@@ -541,6 +557,27 @@ export default function ComboSimulator({ vehicles, settings, currentUser, onNavi
                     className="w-full bg-black border border-neutral-800 rounded-xl px-4 py-2.5 text-xs text-white focus:border-[#FF2D8D] focus:outline-none"
                   />
                 </div>
+                <div className="space-y-1.5">
+                  <span className="text-[10px] text-gray-400 font-bold uppercase">Banco de Preferência</span>
+                  <select
+                    value={selectedBank}
+                    onChange={(e) => setSelectedBank(e.target.value)}
+                    className="w-full bg-black border border-neutral-800 rounded-xl px-4 py-2.5 text-xs text-white focus:border-[#FF2D8D] focus:outline-none cursor-pointer"
+                  >
+                    <option value="Santander">Santander</option>
+                    <option value="Itaú">Itaú</option>
+                    <option value="Bradesco">Bradesco</option>
+                    <option value="BV Financeira">BV Financeira</option>
+                    <option value="Banco PAN">Banco PAN</option>
+                    <option value="Banco Safra">Banco Safra</option>
+                    <option value="C6 Bank">C6 Bank</option>
+                    <option value="Porto Seguro">Porto Seguro</option>
+                    <option value="Creditas">Creditas</option>
+                    <option value="Mercado Pago">Mercado Pago</option>
+                    <option value="Banco Omni">Banco Omni</option>
+                    <option value="Daycoval">Daycoval</option>
+                  </select>
+                </div>
               </div>
             </div>
 
@@ -562,6 +599,14 @@ export default function ComboSimulator({ vehicles, settings, currentUser, onNavi
                 </>
               )}
             </button>
+
+            {/* Disclaimer */}
+            <div className="p-3 bg-neutral-900/40 border border-neutral-900 rounded-xl flex items-start gap-2.5">
+              <Info className="w-4 h-4 text-gray-500 shrink-0 mt-0.5" />
+              <p className="text-[10px] text-gray-500 leading-normal">
+                *A simulação é apenas uma estimativa e não representa uma aprovação de crédito.*
+              </p>
+            </div>
           </form>
         </div>
 
@@ -663,6 +708,14 @@ export default function ComboSimulator({ vehicles, settings, currentUser, onNavi
                 <MessageCircle className="w-4 h-4 fill-white text-[#25D366]" />
                 Falar com Perito no WhatsApp
               </button>
+
+              {/* Simulation Disclaimer */}
+              <div className="p-3 bg-neutral-900 border border-neutral-800 rounded-xl flex items-start gap-2.5">
+                <Info className="w-4 h-4 text-gray-500 shrink-0 mt-0.5" />
+                <p className="text-[9px] text-gray-500 leading-relaxed">
+                  *A simulação é apenas uma estimativa e não representa uma aprovação de crédito.*
+                </p>
+              </div>
             </div>
           ) : (
             <div className="bg-neutral-950 border border-neutral-900 border-dashed rounded-3xl p-8 text-center h-full flex flex-col items-center justify-center space-y-4 py-16">

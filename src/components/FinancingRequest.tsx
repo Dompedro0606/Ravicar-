@@ -46,6 +46,7 @@ export function FinancingRequest({ settings, vehicles, preselectedVehicleId, cur
     downPayment: '',
     installments: '48x',
     notes: '',
+    bank: 'Santander',
   });
 
   const [loading, setLoading] = useState(false);
@@ -104,10 +105,26 @@ export function FinancingRequest({ settings, vehicles, preselectedVehicleId, cur
     const downPaymentNum = Math.max(0, parseFloat(formData.downPayment.replace(/\D/g, '')) || 0);
     const balanceToFinance = Math.max(0, carPrice - downPaymentNum);
     
-    // Monthly interest rate heuristic
-    let rate = 1.59;
-    if (balanceToFinance < 20000) rate = 1.49;
-    else if (balanceToFinance > 60000) rate = 1.79;
+    // Get interest rate based on bank chosen from site settings
+    const getBankInterestRate = (b: string, s: any) => {
+      const rates: { [key: string]: number } = {
+        'Santander': Number(s?.taxaSantander) || 1.39,
+        'Itaú': Number(s?.taxaItau) || 1.49,
+        'Bradesco': Number(s?.taxaBradesco) || 1.59,
+        'BV Financeira': Number(s?.taxaBv) || 1.29,
+        'Banco PAN': Number(s?.taxaPan) || 1.69,
+        'Banco Safra': Number(s?.taxaSafra) || 1.39,
+        'C6 Bank': Number(s?.taxaC6) || 1.59,
+        'Porto Seguro': Number(s?.taxaPorto) || 1.49,
+        'Creditas': Number(s?.taxaCreditas) || 1.39,
+        'Mercado Pago': Number(s?.taxaMercadoPago) || 1.69,
+        'Banco Omni': Number(s?.taxaOmni) || 1.89,
+        'Daycoval': Number(s?.taxaDaycoval) || 1.79,
+      };
+      return rates[b] || 1.59;
+    };
+
+    const rate = getBankInterestRate(formData.bank || 'Santander', settings);
 
     const n = parseInt(formData.installments.replace(/\D/g, '')) || 48;
     
@@ -153,6 +170,7 @@ export function FinancingRequest({ settings, vehicles, preselectedVehicleId, cur
           downPayment: formData.downPayment || '0',
           installments: formData.installments,
           notes: formData.notes,
+          bank: formData.bank,
         }),
       });
 
@@ -402,6 +420,14 @@ Por favor, analisem meu cadastro no banco de preferência para confirmar a aprov
                 </div>
               )}
 
+              {/* Disclaimer */}
+              <div className="p-3 bg-neutral-900 border border-neutral-800 rounded-xl flex items-center gap-2.5">
+                <Info className="w-4 h-4 text-[#FF2D8D] shrink-0" />
+                <div className="text-[10px] text-gray-400">
+                  Atenção: <strong>A simulação é apenas uma estimativa e não representa uma aprovação de crédito.</strong>
+                </div>
+              </div>
+
               {/* Physical inspection warning / human audit disclaimer */}
               <div className="p-4 bg-gradient-to-r from-neutral-950 to-neutral-900 border border-[#FF2D8D]/20 rounded-2xl flex items-start gap-3">
                 <ShieldCheck className="w-5 h-5 text-[#FF2D8D] shrink-0 mt-0.5" />
@@ -548,9 +574,9 @@ Por favor, analisem meu cadastro no banco de preferência para confirmar a aprov
                   <h3 className="font-display font-black text-xs uppercase tracking-wider text-white">Veículo de Showroom & Plano de Juros</h3>
                 </div>
 
-                <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                <div className="grid grid-cols-1 sm:grid-cols-3 gap-4">
                   {/* Select Vehicle */}
-                  <div className="sm:col-span-2 space-y-1.5">
+                  <div className="sm:col-span-3 space-y-1.5">
                     <label className="block font-bold text-gray-400 uppercase text-[9px] tracking-wider">Veículo do Estoque para Financiar *</label>
                     <div className="relative">
                       {/* Selected Vehicle Trigger Button */}
@@ -717,6 +743,30 @@ Por favor, analisem meu cadastro no banco de preferência para confirmar a aprov
                       <option value="12x">12 parcelas mensais</option>
                     </select>
                   </div>
+
+                  {/* Preferred Bank selection */}
+                  <div className="space-y-1.5">
+                    <label className="block font-bold text-gray-400 uppercase text-[9px] tracking-wider">Banco de Preferência</label>
+                    <select
+                      name="bank"
+                      value={formData.bank}
+                      onChange={handleChange}
+                      className="w-full bg-black border border-neutral-800 focus:border-[#FF2D8D] rounded-xl px-4 py-3 text-white outline-none transition duration-200 font-sans text-xs cursor-pointer focus:ring-1 focus:ring-[#FF2D8D]/40"
+                    >
+                      <option value="Santander">Santander</option>
+                      <option value="Itaú">Itaú</option>
+                      <option value="Bradesco">Bradesco</option>
+                      <option value="BV Financeira">BV Financeira</option>
+                      <option value="Banco PAN">Banco PAN</option>
+                      <option value="Banco Safra">Banco Safra</option>
+                      <option value="C6 Bank">C6 Bank</option>
+                      <option value="Porto Seguro">Porto Seguro</option>
+                      <option value="Creditas">Creditas</option>
+                      <option value="Mercado Pago">Mercado Pago</option>
+                      <option value="Banco Omni">Banco Omni</option>
+                      <option value="Daycoval">Daycoval</option>
+                    </select>
+                  </div>
                 </div>
               </div>
 
@@ -751,6 +801,14 @@ Por favor, analisem meu cadastro no banco de preferência para confirmar a aprov
                   </>
                 )}
               </button>
+
+              {/* Form Disclaimer */}
+              <div className="p-3.5 bg-neutral-900/40 border border-neutral-900 rounded-xl flex items-start gap-2.5">
+                <Info className="w-4 h-4 text-gray-500 shrink-0 mt-0.5" />
+                <p className="text-[10px] text-gray-500 leading-normal">
+                  *A simulação é apenas uma estimativa e não representa uma aprovação de crédito.*
+                </p>
+              </div>
 
             </form>
           )}
@@ -853,6 +911,14 @@ Por favor, analisem meu cadastro no banco de preferência para confirmar a aprov
                 <ShieldCheck className="w-4 h-4 text-[#FF2D8D] shrink-0" />
                 <span className="text-[9px] text-gray-400 leading-normal">
                   Suas informações estão criptografadas e protegidas segundo a LGPD. Sem consultas abusivas.
+                </span>
+              </div>
+
+              {/* Estimative simulation disclaimer */}
+              <div className="p-3 bg-neutral-950 border border-neutral-900/60 rounded-xl flex items-start gap-2.5 text-left">
+                <Info className="w-4 h-4 text-gray-500 shrink-0 mt-0.5" />
+                <span className="text-[9px] text-gray-500 font-medium leading-relaxed">
+                  *A simulação é apenas uma estimativa e não representa uma aprovação de crédito.*
                 </span>
               </div>
 

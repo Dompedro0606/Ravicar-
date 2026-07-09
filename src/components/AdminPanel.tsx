@@ -3,7 +3,7 @@ import {
   Plus, Edit, Trash, Check, UserPlus, Users, 
   Car, Landmark, Mail, ClipboardList, Settings, DollarSign, 
   Eye, RefreshCw, Upload, Video, Image as ImageIcon, Save, ShieldAlert,
-  Search, CheckCircle2, ChevronRight, Phone, Clock, FileText, UserCheck
+  Search, CheckCircle2, ChevronRight, Phone, Clock, FileText, UserCheck, Percent
 } from 'lucide-react';
 import { Vehicle, UserProfile, LeadMessage, SiteSettings, MediaItem, VehicleStatus, FuelType, TransmissionType } from '../types';
 
@@ -2139,7 +2139,7 @@ export function AdminPanel({ currentUser, token, vehicles, onRefreshData, settin
             </button>
           </div>
 
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-6 text-xs text-gray-300">
+          <div className="grid grid-cols-1 lg:grid-cols-3 gap-6 text-xs text-gray-300">
             {/* Contacts & Address Panel */}
             <div className="p-5 bg-neutral-950 border border-neutral-900 rounded-2xl space-y-4">
               <h4 className="font-display font-bold text-xs text-[#FF6FB5] mb-2 flex items-center gap-1">
@@ -2272,6 +2272,139 @@ export function AdminPanel({ currentUser, token, vehicles, onRefreshData, settin
                       className="w-full bg-neutral-900 border border-neutral-800 rounded-xl px-3.5 py-2.5 text-white font-mono"
                     />
                   </div>
+                </div>
+              </div>
+            </div>
+
+            {/* Interest Rates Panel */}
+            <div className="p-5 bg-neutral-950 border border-neutral-900 rounded-2xl space-y-4">
+              <h4 className="font-display font-bold text-xs text-[#FF2D8D] mb-2 flex items-center gap-1">
+                <Percent className="w-4 h-4" /> Taxas de Juros Mensais (%)
+              </h4>
+              <p className="text-[10px] text-gray-500 leading-normal mb-1">
+                Ajuste os juros das simulações de financiamento calculadas para os clientes de acordo com cada banco parceiro.
+              </p>
+              
+              <div className="grid grid-cols-2 gap-3">
+                <div>
+                  <label className="block text-gray-500 mb-1">Santander</label>
+                  <input
+                    type="number"
+                    step="0.01"
+                    value={siteSettings.taxaSantander !== undefined ? siteSettings.taxaSantander : 1.39}
+                    onChange={e => setSiteSettings(p => ({ ...p, taxaSantander: parseFloat(e.target.value) || 0 }))}
+                    className="w-full bg-neutral-900 border border-neutral-800 rounded-xl px-3.5 py-2 text-white font-mono"
+                  />
+                </div>
+                <div>
+                  <label className="block text-gray-500 mb-1">Itaú</label>
+                  <input
+                    type="number"
+                    step="0.01"
+                    value={siteSettings.taxaItau !== undefined ? siteSettings.taxaItau : 1.49}
+                    onChange={e => setSiteSettings(p => ({ ...p, taxaItau: parseFloat(e.target.value) || 0 }))}
+                    className="w-full bg-neutral-900 border border-neutral-800 rounded-xl px-3.5 py-2 text-white font-mono"
+                  />
+                </div>
+                <div>
+                  <label className="block text-gray-500 mb-1">Bradesco</label>
+                  <input
+                    type="number"
+                    step="0.01"
+                    value={siteSettings.taxaBradesco !== undefined ? siteSettings.taxaBradesco : 1.59}
+                    onChange={e => setSiteSettings(p => ({ ...p, taxaBradesco: parseFloat(e.target.value) || 0 }))}
+                    className="w-full bg-neutral-900 border border-neutral-800 rounded-xl px-3.5 py-2 text-white font-mono"
+                  />
+                </div>
+                <div>
+                  <label className="block text-gray-500 mb-1">BV Financeira</label>
+                  <input
+                    type="number"
+                    step="0.01"
+                    value={siteSettings.taxaBv !== undefined ? siteSettings.taxaBv : 1.29}
+                    onChange={e => setSiteSettings(p => ({ ...p, taxaBv: parseFloat(e.target.value) || 0 }))}
+                    className="w-full bg-neutral-900 border border-neutral-800 rounded-xl px-3.5 py-2 text-white font-mono"
+                  />
+                </div>
+                <div>
+                  <label className="block text-gray-500 mb-1">Banco PAN</label>
+                  <input
+                    type="number"
+                    step="0.01"
+                    value={siteSettings.taxaPan !== undefined ? siteSettings.taxaPan : 1.69}
+                    onChange={e => setSiteSettings(p => ({ ...p, taxaPan: parseFloat(e.target.value) || 0 }))}
+                    className="w-full bg-neutral-900 border border-neutral-800 rounded-xl px-3.5 py-2 text-white font-mono"
+                  />
+                </div>
+                <div>
+                  <label className="block text-gray-500 mb-1">Banco Safra</label>
+                  <input
+                    type="number"
+                    step="0.01"
+                    value={siteSettings.taxaSafra !== undefined ? siteSettings.taxaSafra : 1.39}
+                    onChange={e => setSiteSettings(p => ({ ...p, taxaSafra: parseFloat(e.target.value) || 0 }))}
+                    className="w-full bg-neutral-900 border border-neutral-800 rounded-xl px-3.5 py-2 text-white font-mono"
+                  />
+                </div>
+                <div>
+                  <label className="block text-gray-500 mb-1">C6 Bank</label>
+                  <input
+                    type="number"
+                    step="0.01"
+                    value={siteSettings.taxaC6 !== undefined ? siteSettings.taxaC6 : 1.59}
+                    onChange={e => setSiteSettings(p => ({ ...p, taxaC6: parseFloat(e.target.value) || 0 }))}
+                    className="w-full bg-neutral-900 border border-neutral-800 rounded-xl px-3.5 py-2 text-white font-mono"
+                  />
+                </div>
+                <div>
+                  <label className="block text-gray-500 mb-1">Porto Seguro</label>
+                  <input
+                    type="number"
+                    step="0.01"
+                    value={siteSettings.taxaPorto !== undefined ? siteSettings.taxaPorto : 1.49}
+                    onChange={e => setSiteSettings(p => ({ ...p, taxaPorto: parseFloat(e.target.value) || 0 }))}
+                    className="w-full bg-neutral-900 border border-neutral-800 rounded-xl px-3.5 py-2 text-white font-mono"
+                  />
+                </div>
+                <div>
+                  <label className="block text-gray-500 mb-1">Creditas</label>
+                  <input
+                    type="number"
+                    step="0.01"
+                    value={siteSettings.taxaCreditas !== undefined ? siteSettings.taxaCreditas : 1.39}
+                    onChange={e => setSiteSettings(p => ({ ...p, taxaCreditas: parseFloat(e.target.value) || 0 }))}
+                    className="w-full bg-neutral-900 border border-neutral-800 rounded-xl px-3.5 py-2 text-white font-mono"
+                  />
+                </div>
+                <div>
+                  <label className="block text-gray-500 mb-1">Mercado Pago</label>
+                  <input
+                    type="number"
+                    step="0.01"
+                    value={siteSettings.taxaMercadoPago !== undefined ? siteSettings.taxaMercadoPago : 1.69}
+                    onChange={e => setSiteSettings(p => ({ ...p, taxaMercadoPago: parseFloat(e.target.value) || 0 }))}
+                    className="w-full bg-neutral-900 border border-neutral-800 rounded-xl px-3.5 py-2 text-white font-mono"
+                  />
+                </div>
+                <div>
+                  <label className="block text-gray-500 mb-1">Banco Omni</label>
+                  <input
+                    type="number"
+                    step="0.01"
+                    value={siteSettings.taxaOmni !== undefined ? siteSettings.taxaOmni : 1.89}
+                    onChange={e => setSiteSettings(p => ({ ...p, taxaOmni: parseFloat(e.target.value) || 0 }))}
+                    className="w-full bg-neutral-900 border border-neutral-800 rounded-xl px-3.5 py-2 text-white font-mono"
+                  />
+                </div>
+                <div>
+                  <label className="block text-gray-500 mb-1">Daycoval</label>
+                  <input
+                    type="number"
+                    step="0.01"
+                    value={siteSettings.taxaDaycoval !== undefined ? siteSettings.taxaDaycoval : 1.79}
+                    onChange={e => setSiteSettings(p => ({ ...p, taxaDaycoval: parseFloat(e.target.value) || 0 }))}
+                    className="w-full bg-neutral-900 border border-neutral-800 rounded-xl px-3.5 py-2 text-white font-mono"
+                  />
                 </div>
               </div>
             </div>

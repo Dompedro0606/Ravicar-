@@ -102,4 +102,16 @@ export interface SiteSettings {
   pixItau: string;
   pixInter: string;
   customDomain?: string;
+  taxaSantander?: number;
+  taxaItau?: number;
+  taxaBradesco?: number;
+  taxaBv?: number;
+  taxaPan?: number;
+  taxaSafra?: number;
+  taxaC6?: number;
+  taxaPorto?: number;
+  taxaCreditas?: number;
+  taxaMercadoPago?: number;
+  taxaOmni?: number;
+  taxaDaycoval?: number;
 }
