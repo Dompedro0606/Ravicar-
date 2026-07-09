@@ -14,9 +14,11 @@ import {
   AlertTriangle,
   Info,
   ChevronDown,
-  Search
+  Search,
+  Check
 } from 'lucide-react';
 import { Vehicle, SiteSettings, UserProfile } from '../types';
+import { BANKS } from './FinancingRequest';
 
 interface ComboSimulatorProps {
   vehicles: Vehicle[];
@@ -49,6 +51,7 @@ export default function ComboSimulator({ vehicles, settings, currentUser, onNavi
   // Custom dropdown states
   const [isDropdownOpen, setIsDropdownOpen] = useState(false);
   const [searchTerm, setSearchTerm] = useState('');
+  const [isBankSelectOpen, setIsBankSelectOpen] = useState(false);
 
   // Filter out sold vehicles for the desired selection
   const availableDesiredVehicles = useMemo(() => {
@@ -559,24 +562,98 @@ export default function ComboSimulator({ vehicles, settings, currentUser, onNavi
                 </div>
                 <div className="space-y-1.5">
                   <span className="text-[10px] text-gray-400 font-bold uppercase">Banco de Preferência</span>
-                  <select
-                    value={selectedBank}
-                    onChange={(e) => setSelectedBank(e.target.value)}
-                    className="w-full bg-black border border-neutral-800 rounded-xl px-4 py-2.5 text-xs text-white focus:border-[#FF2D8D] focus:outline-none cursor-pointer"
-                  >
-                    <option value="Santander">Santander</option>
-                    <option value="Itaú">Itaú</option>
-                    <option value="Bradesco">Bradesco</option>
-                    <option value="BV Financeira">BV Financeira</option>
-                    <option value="Banco PAN">Banco PAN</option>
-                    <option value="Banco Safra">Banco Safra</option>
-                    <option value="C6 Bank">C6 Bank</option>
-                    <option value="Porto Seguro">Porto Seguro</option>
-                    <option value="Creditas">Creditas</option>
-                    <option value="Mercado Pago">Mercado Pago</option>
-                    <option value="Banco Omni">Banco Omni</option>
-                    <option value="Daycoval">Daycoval</option>
-                  </select>
+                  <div className="relative">
+                    {/* Custom dropdown trigger button */}
+                    <button
+                      type="button"
+                      onClick={() => setIsBankSelectOpen(!isBankSelectOpen)}
+                      className="w-full bg-black border border-neutral-800 hover:border-neutral-700 focus:border-[#FF2D8D] rounded-xl px-4 py-2 text-white text-left transition duration-200 font-sans text-xs flex items-center justify-between cursor-pointer focus:ring-1 focus:ring-[#FF2D8D]/40 min-h-[46px]"
+                    >
+                      {(() => {
+                        const currentBank = BANKS.find(b => b.id === (selectedBank || 'Santander')) || BANKS[0];
+                        return (
+                          <div className="flex items-center gap-2.5 min-w-0">
+                            <div 
+                              className="w-5 h-5 rounded-full flex items-center justify-center text-[9px] font-black text-white shrink-0 shadow-inner"
+                              style={{ backgroundColor: currentBank.color }}
+                            >
+                              {currentBank.logo}
+                            </div>
+                            <div className="min-w-0">
+                              <span className="font-extrabold text-white block leading-tight truncate">
+                                {currentBank.name}
+                              </span>
+                              <span className="text-[8px] text-gray-500 block leading-tight truncate">
+                                {currentBank.desc}
+                              </span>
+                            </div>
+                          </div>
+                        );
+                      })()}
+                      <ChevronDown className={`w-4 h-4 text-gray-500 shrink-0 transition-transform duration-200 ${isBankSelectOpen ? 'rotate-180' : ''}`} />
+                    </button>
+
+                    {/* Custom options float list */}
+                    {isBankSelectOpen && (
+                      <>
+                        {/* Invisible Backdrop to close on outside tap */}
+                        <div 
+                          className="fixed inset-0 z-40" 
+                          onClick={() => setIsBankSelectOpen(false)}
+                        />
+                        
+                        <div className="absolute left-0 right-0 bottom-full md:bottom-auto md:top-full z-50 mb-2 md:mb-0 md:mt-2 bg-neutral-950 border border-neutral-800 rounded-2xl shadow-2xl overflow-hidden animate-fade-in max-h-64 flex flex-col">
+                          {/* Scrollable Items */}
+                          <div className="overflow-y-auto max-h-64 p-1.5 space-y-1 divide-y divide-neutral-900/40">
+                            {BANKS.map(b => {
+                              const isSelected = b.id === (selectedBank || 'Santander');
+                              return (
+                                <button
+                                  key={b.id}
+                                  type="button"
+                                  onClick={() => {
+                                    setSelectedBank(b.id);
+                                    setIsBankSelectOpen(false);
+                                  }}
+                                  className={`w-full p-2.5 flex items-center justify-between text-left rounded-xl transition duration-150 cursor-pointer ${
+                                    isSelected 
+                                      ? 'bg-[#FF2D8D]/5 border border-[#FF2D8D]/30 text-white' 
+                                      : 'hover:bg-neutral-900 border border-transparent text-gray-400 hover:text-white'
+                                  }`}
+                                >
+                                  <div className="flex items-center gap-2.5 min-w-0">
+                                    <div 
+                                      className="w-7 h-7 rounded-full flex items-center justify-center text-[10px] font-black text-white shrink-0 shadow-md"
+                                      style={{ backgroundColor: b.color }}
+                                    >
+                                      {b.logo}
+                                    </div>
+                                    <div className="min-w-0">
+                                      <h4 className="font-bold text-xs text-white leading-tight">
+                                        {b.name}
+                                      </h4>
+                                      <span className="text-[9px] text-gray-500 block truncate leading-tight mt-0.5">
+                                        {b.desc}
+                                      </span>
+                                    </div>
+                                  </div>
+                                  <div className="shrink-0 pl-2">
+                                    {isSelected ? (
+                                      <div className="w-4 h-4 rounded-full bg-[#FF2D8D] flex items-center justify-center">
+                                        <Check className="w-2.5 h-2.5 text-white stroke-[3px]" />
+                                      </div>
+                                    ) : (
+                                      <div className="w-4 h-4 rounded-full border border-neutral-850" />
+                                    )}
+                                  </div>
+                                </button>
+                              );
+                            })}
+                          </div>
+                        </div>
+                      </>
+                    )}
+                  </div>
                 </div>
               </div>
             </div>
