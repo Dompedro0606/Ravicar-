@@ -322,50 +322,42 @@ export function Header({ currentUser, onLogout, onOpenAuth, onNavigate, currentP
 
   return (
     <>
-      <header id="nav_header" className="sticky top-0 z-50 bg-black/80 backdrop-blur-md border-b border-[#1A1A1A] h-20 flex items-center px-4 md:px-8">
-        <div className="max-w-7xl mx-auto w-full flex items-center justify-between">
+      <header id="nav_header" className="sticky top-0 z-50 bg-[#080808]/85 backdrop-blur-xl border-b border-neutral-900/60 h-24 flex items-center px-4 md:px-8 transition-all duration-500">
+        <div className="max-w-7xl mx-auto w-full flex items-center justify-between relative">
           {/* Logo */}
           <div onClick={() => handleNav('home')}>
             <Logo />
           </div>
 
           {/* Desktop Nav Links */}
-          <nav className="hidden md:flex items-center gap-8 text-xs font-semibold uppercase tracking-widest">
+          <nav className="hidden md:flex items-center gap-10 text-[10px] font-mono tracking-[0.2em] uppercase">
             <button 
               onClick={() => handleNav('home')} 
-              className={`transition-all duration-200 cursor-pointer py-1 ${currentPage === 'home' ? 'text-[var(--brand-color)] border-b-2 border-[var(--brand-color)] font-bold' : 'text-gray-400 hover:text-white'}`}
+              className={`group relative transition-all duration-300 cursor-pointer py-2 ${currentPage === 'home' ? 'text-white font-bold' : 'text-gray-500 hover:text-white'}`}
             >
               Início
+              <span className={`absolute -bottom-2 left-1/2 -translate-x-1/2 w-1 h-1 rounded-full transition-all duration-300 ${currentPage === 'home' ? 'bg-[var(--brand-color)] opacity-100 scale-100' : 'bg-transparent opacity-0 scale-0 group-hover:bg-neutral-600 group-hover:opacity-100 group-hover:scale-100'}`}></span>
             </button>
             <button 
               onClick={() => handleNav('catalogo')} 
-              className={`transition-all duration-200 cursor-pointer py-1 ${currentPage === 'catalogo' ? 'text-[var(--brand-color)] border-b-2 border-[var(--brand-color)] font-bold' : 'text-gray-400 hover:text-white'}`}
+              className={`group relative transition-all duration-300 cursor-pointer py-2 ${currentPage === 'catalogo' ? 'text-white font-bold' : 'text-gray-500 hover:text-white'}`}
             >
               Estoque
+              <span className={`absolute -bottom-2 left-1/2 -translate-x-1/2 w-1 h-1 rounded-full transition-all duration-300 ${currentPage === 'catalogo' ? 'bg-[var(--brand-color)] opacity-100 scale-100' : 'bg-transparent opacity-0 scale-0 group-hover:bg-neutral-600 group-hover:opacity-100 group-hover:scale-100'}`}></span>
             </button>
             <button 
               onClick={() => handleNav('financiamento')} 
-              className={`transition-all duration-200 cursor-pointer py-1 ${currentPage === 'financiamento' ? 'text-[var(--brand-color)] border-b-2 border-[var(--brand-color)] font-bold' : 'text-gray-400 hover:text-white'}`}
+              className={`group relative transition-all duration-300 cursor-pointer py-2 ${currentPage === 'financiamento' ? 'text-white font-bold' : 'text-gray-500 hover:text-white'}`}
             >
               Financiamento
+              <span className={`absolute -bottom-2 left-1/2 -translate-x-1/2 w-1 h-1 rounded-full transition-all duration-300 ${currentPage === 'financiamento' ? 'bg-[var(--brand-color)] opacity-100 scale-100' : 'bg-transparent opacity-0 scale-0 group-hover:bg-neutral-600 group-hover:opacity-100 group-hover:scale-100'}`}></span>
             </button>
             <button 
               onClick={() => handleNav('avaliacao')} 
-              className={`transition-all duration-200 cursor-pointer py-1 ${currentPage === 'avaliacao' ? 'text-[var(--brand-color)] border-b-2 border-[var(--brand-color)] font-bold' : 'text-gray-400 hover:text-white'}`}
+              className={`group relative transition-all duration-300 cursor-pointer py-2 ${currentPage === 'avaliacao' ? 'text-white font-bold' : 'text-gray-500 hover:text-white'}`}
             >
               Avalie seu Usado
-            </button>
-            <button 
-              onClick={() => handleNav('combo')} 
-              className={`transition-all duration-200 cursor-pointer py-1 flex items-center gap-1 ${currentPage === 'combo' ? 'text-[var(--brand-color)] border-b-2 border-[var(--brand-color)] font-bold' : 'text-gray-400 hover:text-white'}`}
-            >
-              Simulador Combo
-            </button>
-            <button 
-              onClick={() => handleNav('termos')} 
-              className={`transition-all duration-200 cursor-pointer py-1 ${currentPage === 'termos' ? 'text-[var(--brand-color)] border-b-2 border-[var(--brand-color)] font-bold' : 'text-gray-400 hover:text-white'}`}
-            >
-              Termos de Uso
+              <span className={`absolute -bottom-2 left-1/2 -translate-x-1/2 w-1 h-1 rounded-full transition-all duration-300 ${currentPage === 'avaliacao' ? 'bg-[var(--brand-color)] opacity-100 scale-100' : 'bg-transparent opacity-0 scale-0 group-hover:bg-neutral-600 group-hover:opacity-100 group-hover:scale-100'}`}></span>
             </button>
           </nav>
 

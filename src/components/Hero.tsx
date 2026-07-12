@@ -61,18 +61,7 @@ export function Hero({ onNavigate, settings }: HeroProps) {
           className="w-full h-full object-cover object-center opacity-40 filter brightness-50 pointer-events-none select-none"
         />
         {/* Dark radial glow overlay to focus eyes on central text */}
-        <div className="absolute inset-0 bg-gradient-to-t from-black via-black/40 to-black/80 pointer-events-none select-none"></div>
-        <div className="absolute inset-0 bg-radial-gradient(circle at center, transparent 20%, black 80%) pointer-events-none select-none"></div>
-        
-        {/* Apple-style interactive luxury spotlight that follows the mouse cursor */}
-        <div 
-          className="absolute inset-0 pointer-events-none opacity-40 transition-opacity duration-500"
-          style={{
-            background: isHovered 
-              ? `radial-gradient(circle 500px at ${mousePosition.x}% ${mousePosition.y}%, rgba(255, 45, 141, 0.16) 0%, rgba(255, 45, 141, 0) 80%)`
-              : 'radial-gradient(circle 500px at 50% 50%, rgba(255, 45, 141, 0.08) 0%, rgba(255, 45, 141, 0) 80%)',
-          }}
-        />
+        <div className="absolute inset-0 bg-gradient-to-t from-black via-black/50 to-black/80 pointer-events-none select-none"></div>
       </div>
 
       {/* Main Content container */}
@@ -87,8 +76,8 @@ export function Hero({ onNavigate, settings }: HeroProps) {
 
         {/* Heading */}
         <h1 className="font-display font-black text-4xl sm:text-6xl md:text-7xl text-white tracking-tight leading-[1.1] mb-6 animate-fade-in-up">
-          <span className="apple-text-gradient">Encontre o carro ideal</span> <br />
-          <span className="text-[var(--brand-color)] drop-shadow-[0_0_20px_rgba(var(--brand-color-rgb),0.55)]">
+          Encontre o carro ideal <br />
+          <span className="text-[var(--brand-color)]">
             para você.
           </span>
         </h1>

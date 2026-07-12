@@ -651,58 +651,63 @@ export function Catalog({ vehicles, onSelectVehicle, currentUser }: CatalogProps
 
                       {/* Status Overlay */}
                       <div className="absolute bottom-3 left-3">
-                        <span className={`px-2.5 py-1 rounded text-[11px] font-black uppercase tracking-wider ${
-                          isAvailable ? 'bg-emerald-500/95 text-white' :
-                          isReserved ? 'bg-amber-500/95 text-black font-bold' :
-                          'bg-neutral-800 text-gray-400'
+                        <span className={`px-2.5 py-0.5 rounded-full text-[10px] font-mono tracking-wider uppercase flex items-center gap-1.5 backdrop-blur-md border ${
+                          isAvailable ? 'bg-emerald-500/10 border-emerald-500/20 text-emerald-400' :
+                          isReserved ? 'bg-amber-500/10 border-amber-500/20 text-amber-400' :
+                          'bg-neutral-500/10 border-neutral-500/20 text-gray-400'
                         }`}>
+                          <span className={`w-1.5 h-1.5 rounded-full ${
+                            isAvailable ? 'bg-emerald-500 animate-pulse' :
+                            isReserved ? 'bg-amber-500' : 'bg-gray-400'
+                          }`}></span>
                           {v.status}
                         </span>
                       </div>
                     </div>
 
                     {/* Metadata Area */}
-                    <div className="p-4 flex-grow flex flex-col justify-between">
+                    <div className="p-5 flex-grow flex flex-col justify-between">
                       <div>
-                        <span className="text-[12px] leading-normal text-gray-400 uppercase tracking-widest font-extrabold">{v.brand}</span>
-                        <h4 className="font-display font-bold text-white text-sm truncate leading-relaxed py-1 mt-0.5 group-hover:text-[#FF2D8D] transition-colors duration-200">
+                        <span className="text-[10px] font-mono tracking-widest text-gray-500 uppercase">{v.brand}</span>
+                        <h4 className="font-display font-extrabold text-white text-base truncate leading-relaxed py-1 mt-0.5 group-hover:text-[var(--brand-color)] transition-colors">
                           {v.title}
                         </h4>
                         
                         {/* Tags list */}
-                        <div className="grid grid-cols-2 gap-y-1.5 gap-x-2 mt-3 text-[12px] leading-normal text-gray-400">
-                          <span className="flex items-center gap-1.5 truncate py-0.5">
-                            <Calendar className="w-3.5 h-3.5 text-[#FF2D8D] shrink-0" />
+                        <div className="grid grid-cols-2 gap-y-2 gap-x-3 mt-4 text-xs text-gray-400 font-medium">
+                          <span className="flex items-center gap-2 truncate py-0.5">
+                            <Calendar className="w-3.5 h-3.5 text-neutral-500 group-hover:text-[var(--brand-color)] transition-colors shrink-0" />
                             <span>{v.year}</span>
                           </span>
-                          <span className="flex items-center gap-1.5 truncate py-0.5">
-                            <Wrench className="w-3.5 h-3.5 text-[#FF2D8D] shrink-0" />
+                          <span className="flex items-center gap-2 truncate py-0.5">
+                            <Wrench className="w-3.5 h-3.5 text-neutral-500 group-hover:text-[var(--brand-color)] transition-colors shrink-0" />
                             <span className="truncate">{v.transmission}</span>
                           </span>
-                          <span className="flex items-center gap-1.5 truncate py-0.5">
-                            <Gauge className="w-3.5 h-3.5 text-[#FF2D8D] shrink-0" />
+                          <span className="flex items-center gap-2 truncate py-0.5">
+                            <Gauge className="w-3.5 h-3.5 text-neutral-500 group-hover:text-[var(--brand-color)] transition-colors shrink-0" />
                             <span>{v.mileage === 0 ? 'Zero KM' : `${v.mileage.toLocaleString('pt-BR')} KM`}</span>
                           </span>
-                          <span className="flex items-center gap-1.5 truncate py-0.5">
-                            <Fuel className="w-3.5 h-3.5 text-[#FF2D8D] shrink-0" />
+                          <span className="flex items-center gap-2 truncate py-0.5">
+                            <Fuel className="w-3.5 h-3.5 text-neutral-500 group-hover:text-[var(--brand-color)] transition-colors shrink-0" />
                             <span className="truncate">{v.fuel}</span>
                           </span>
                         </div>
                       </div>
 
                       {/* Pricing block */}
-                      <div className="mt-5 pt-3 border-t border-neutral-900/60 flex items-end justify-between">
+                      <div className="mt-5 pt-4 border-t border-neutral-900/60 flex items-end justify-between">
                         <div>
-                          <p className="text-[11.5px] leading-normal text-gray-400 uppercase font-bold py-0.5">Valor Especial</p>
-                          <p className="font-display font-black text-[#FF2D8D] text-lg mt-0.5 py-1">
+                          <p className="text-[9px] uppercase tracking-widest text-neutral-500 font-mono">VALOR ESPECIAL</p>
+                          <p className="font-display font-black text-white text-lg mt-0.5 group-hover:text-[var(--brand-color)] transition-colors">
                             R$ {v.price.toLocaleString('pt-BR')}
                           </p>
                         </div>
-                        <span className="text-[12.5px] leading-normal font-bold text-gray-400 group-hover:text-[#FF6FB5] transition duration-200 flex items-center gap-1">
-                          Ver Detalhes →
+                        <span className="h-8 w-8 rounded-full border border-neutral-900 bg-neutral-950 flex items-center justify-center text-gray-400 group-hover:border-[var(--brand-color)]/40 group-hover:text-[var(--brand-color)] transition-all duration-300">
+                          <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M7 17L17 7"/><path d="M7 7h10v10"/></svg>
                         </span>
                       </div>
                     </div>
+
                   </Premium3DTiltCard>
                 );
               })}

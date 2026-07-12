@@ -19,7 +19,7 @@ import {
 } from './types';
 import { 
   Star, MapPin, Phone, MessageCircle, Calendar, Landmark, 
-  HelpCircle, ShieldCheck, ChevronRight, AlertCircle, Sparkles, CheckCircle2, DollarSign, Clock, Wrench, Gauge, Fuel, ArrowUpRight
+  HelpCircle, ShieldCheck, ChevronRight, AlertCircle, Sparkles, CheckCircle2, DollarSign, Clock, Wrench, Gauge, Fuel, ArrowUpRight, Copy, Check
 } from 'lucide-react';
 
 export default function App() {
@@ -34,6 +34,13 @@ export default function App() {
   const [currentUser, setCurrentUser] = useState<UserProfile | null>(null);
   const [token, setToken] = useState<string | null>(null);
   const [loading, setLoading] = useState(true);
+  const [copiedKey, setCopiedKey] = useState<string | null>(null);
+
+  const handleCopy = (text: string, id: string) => {
+    navigator.clipboard.writeText(text);
+    setCopiedKey(id);
+    setTimeout(() => setCopiedKey(null), 2000);
+  };
 
   // Default initial settings
   const [settings, setSettings] = useState<SiteSettings>({
@@ -281,10 +288,6 @@ export default function App() {
             <section className="max-w-7xl mx-auto px-4 reveal-on-scroll">
               <div className="flex flex-col sm:flex-row items-start sm:items-center justify-between mb-8 gap-3">
                 <div>
-                  <div className="flex items-center gap-2 text-xs font-extrabold uppercase tracking-widest text-[var(--brand-color)]">
-                    <Sparkles className="w-4 h-4" />
-                    Destaques RaviCar
-                  </div>
                   <h2 className="font-display font-black text-2xl md:text-3xl text-white mt-1">
                     Veículos em Destaque no Showroom
                   </h2>
@@ -508,17 +511,35 @@ export default function App() {
                     <div className="space-y-4">
                       <span className="text-[10px] font-mono tracking-widest text-[var(--brand-color)] uppercase">// CHAVES PIX OFICIAIS</span>
                       <div className="space-y-3 bg-black/40 border border-neutral-900/80 rounded-2xl p-5">
-                        <div className="flex justify-between items-center text-xs py-1 border-b border-neutral-900/30">
+                        <div 
+                          className="flex justify-between items-center text-xs py-1.5 border-b border-neutral-900/30 group cursor-pointer hover:bg-neutral-900/20 px-2 rounded -mx-2 transition-colors"
+                          onClick={() => handleCopy(settings.pixCnpj, 'cnpj')}
+                        >
                           <span className="text-gray-500">CNPJ RaviCar</span>
-                          <span className="text-white font-mono font-bold">{settings.pixCnpj}</span>
+                          <span className="text-white font-mono font-bold flex items-center gap-2">
+                            {settings.pixCnpj}
+                            {copiedKey === 'cnpj' ? <Check className="w-3.5 h-3.5 text-emerald-500" /> : <Copy className="w-3.5 h-3.5 text-neutral-600 group-hover:text-[var(--brand-color)] transition-colors" />}
+                          </span>
                         </div>
-                        <div className="flex justify-between items-center text-xs py-1 border-b border-neutral-900/30">
+                        <div 
+                          className="flex justify-between items-center text-xs py-1.5 border-b border-neutral-900/30 group cursor-pointer hover:bg-neutral-900/20 px-2 rounded -mx-2 transition-colors"
+                          onClick={() => handleCopy(settings.pixCelular, 'celular')}
+                        >
                           <span className="text-gray-500">Pix Celular</span>
-                          <span className="text-white font-mono font-bold">{settings.pixCelular}</span>
+                          <span className="text-white font-mono font-bold flex items-center gap-2">
+                            {settings.pixCelular}
+                            {copiedKey === 'celular' ? <Check className="w-3.5 h-3.5 text-emerald-500" /> : <Copy className="w-3.5 h-3.5 text-neutral-600 group-hover:text-[var(--brand-color)] transition-colors" />}
+                          </span>
                         </div>
-                        <div className="flex justify-between items-center text-xs py-1">
+                        <div 
+                          className="flex justify-between items-center text-xs py-1.5 group cursor-pointer hover:bg-neutral-900/20 px-2 rounded -mx-2 transition-colors"
+                          onClick={() => handleCopy(settings.pixEmail, 'email')}
+                        >
                           <span className="text-gray-500">Pix E-mail</span>
-                          <span className="text-white font-mono font-bold truncate max-w-[180px]">{settings.pixEmail}</span>
+                          <span className="text-white font-mono font-bold flex items-center gap-2 truncate max-w-[200px]">
+                            {settings.pixEmail}
+                            {copiedKey === 'email' ? <Check className="w-3.5 h-3.5 text-emerald-500 shrink-0" /> : <Copy className="w-3.5 h-3.5 text-neutral-600 group-hover:text-[var(--brand-color)] transition-colors shrink-0" />}
+                          </span>
                         </div>
                       </div>
                     </div>
@@ -527,22 +548,46 @@ export default function App() {
                     <div className="space-y-4">
                       <span className="text-[10px] font-mono tracking-widest text-neutral-500 uppercase">// TRANSFERÊNCIA DIRETA</span>
                       <div className="space-y-3 bg-black/40 border border-neutral-900/80 rounded-2xl p-5">
-                        <div className="grid grid-cols-2 gap-2 text-[11px] leading-relaxed">
-                          <div className="py-1 border-b border-neutral-900/30">
-                            <span className="text-gray-500 block text-[9px] uppercase font-mono">SANTANDER</span>
-                            <span className="text-gray-300 font-bold font-mono">{settings.pixSantander}</span>
+                        <div className="grid grid-cols-2 gap-x-6 gap-y-2 text-[11px] leading-relaxed">
+                          <div 
+                            className="py-1.5 border-b border-neutral-900/30 group cursor-pointer hover:bg-neutral-900/20 px-2 rounded -mx-2 transition-colors flex justify-between items-center"
+                            onClick={() => handleCopy(settings.pixSantander, 'santander')}
+                          >
+                            <div>
+                              <span className="text-gray-500 block text-[9px] uppercase font-mono mb-0.5">SANTANDER</span>
+                              <span className="text-gray-300 font-bold font-mono">{settings.pixSantander}</span>
+                            </div>
+                            {copiedKey === 'santander' ? <Check className="w-3.5 h-3.5 text-emerald-500" /> : <Copy className="w-3.5 h-3.5 text-neutral-600 group-hover:text-[var(--brand-color)] transition-colors opacity-0 group-hover:opacity-100" />}
                           </div>
-                          <div className="py-1 border-b border-neutral-900/30">
-                            <span className="text-gray-500 block text-[9px] uppercase font-mono">BRADESCO</span>
-                            <span className="text-gray-300 font-bold font-mono">{settings.pixBradesco}</span>
+                          <div 
+                            className="py-1.5 border-b border-neutral-900/30 group cursor-pointer hover:bg-neutral-900/20 px-2 rounded -mx-2 transition-colors flex justify-between items-center"
+                            onClick={() => handleCopy(settings.pixBradesco, 'bradesco')}
+                          >
+                            <div>
+                              <span className="text-gray-500 block text-[9px] uppercase font-mono mb-0.5">BRADESCO</span>
+                              <span className="text-gray-300 font-bold font-mono">{settings.pixBradesco}</span>
+                            </div>
+                            {copiedKey === 'bradesco' ? <Check className="w-3.5 h-3.5 text-emerald-500" /> : <Copy className="w-3.5 h-3.5 text-neutral-600 group-hover:text-[var(--brand-color)] transition-colors opacity-0 group-hover:opacity-100" />}
                           </div>
-                          <div className="py-1">
-                            <span className="text-gray-500 block text-[9px] uppercase font-mono">ITAÚ</span>
-                            <span className="text-gray-300 font-bold font-mono">{settings.pixItau}</span>
+                          <div 
+                            className="py-1.5 group cursor-pointer hover:bg-neutral-900/20 px-2 rounded -mx-2 transition-colors flex justify-between items-center"
+                            onClick={() => handleCopy(settings.pixItau, 'itau')}
+                          >
+                            <div>
+                              <span className="text-gray-500 block text-[9px] uppercase font-mono mb-0.5">ITAÚ</span>
+                              <span className="text-gray-300 font-bold font-mono">{settings.pixItau}</span>
+                            </div>
+                            {copiedKey === 'itau' ? <Check className="w-3.5 h-3.5 text-emerald-500" /> : <Copy className="w-3.5 h-3.5 text-neutral-600 group-hover:text-[var(--brand-color)] transition-colors opacity-0 group-hover:opacity-100" />}
                           </div>
-                          <div className="py-1">
-                            <span className="text-gray-500 block text-[9px] uppercase font-mono">BANCO INTER</span>
-                            <span className="text-gray-300 font-bold font-mono">{settings.pixInter}</span>
+                          <div 
+                            className="py-1.5 group cursor-pointer hover:bg-neutral-900/20 px-2 rounded -mx-2 transition-colors flex justify-between items-center"
+                            onClick={() => handleCopy(settings.pixInter, 'inter')}
+                          >
+                            <div>
+                              <span className="text-gray-500 block text-[9px] uppercase font-mono mb-0.5">BANCO INTER</span>
+                              <span className="text-gray-300 font-bold font-mono">{settings.pixInter}</span>
+                            </div>
+                            {copiedKey === 'inter' ? <Check className="w-3.5 h-3.5 text-emerald-500" /> : <Copy className="w-3.5 h-3.5 text-neutral-600 group-hover:text-[var(--brand-color)] transition-colors opacity-0 group-hover:opacity-100" />}
                           </div>
                         </div>
                       </div>

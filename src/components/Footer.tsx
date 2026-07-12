@@ -15,15 +15,18 @@ export function Footer({ onNavigate, settings }: FooterProps) {
   };
 
   return (
-    <footer className="bg-[#050505] border-t border-[#111] text-gray-400 text-sm">
+    <footer className="bg-[#050505] border-t border-neutral-900/60 text-gray-400 text-sm relative overflow-hidden">
+      {/* Decorative Blur */}
+      <div className="absolute top-0 left-1/2 -translate-x-1/2 w-full max-w-3xl h-px bg-gradient-to-r from-transparent via-[var(--brand-color)]/20 to-transparent"></div>
+      
       {/* Top Footer */}
-      <div className="max-w-7xl mx-auto px-4 py-12 grid grid-cols-1 md:grid-cols-4 gap-8">
+      <div className="max-w-7xl mx-auto px-4 py-16 grid grid-cols-1 md:grid-cols-4 gap-10">
         
         {/* Brand column */}
         <div className="flex flex-col gap-4">
           <Logo />
-          <p className="text-xs text-gray-500 leading-relaxed mt-2">
-            RaviCar é sinônimo de segurança, elegância e dedicação total na realização do seu sonho automotivo. Oferecemos as melhores condições de compra, venda, troca e financiamento.
+          <p className="text-[11px] text-gray-500 leading-relaxed mt-2 font-medium">
+            A RaviCar redefine a experiência de compra automotiva. Curadoria de excelência, transparência total e condições exclusivas de mercado.
           </p>
           
           {/* Social icons */}
@@ -32,7 +35,7 @@ export function Footer({ onNavigate, settings }: FooterProps) {
               href={settings.instagram} 
               target="_blank" 
               rel="noopener noreferrer" 
-              className="p-2 rounded-full bg-[#111] hover:bg-[var(--brand-color)] hover:text-white text-gray-400 transition duration-300"
+              className="w-10 h-10 rounded-full border border-neutral-800 bg-neutral-900/50 flex items-center justify-center hover:bg-[var(--brand-color)] hover:border-[var(--brand-color)] hover:text-white text-gray-400 transition-all duration-300"
             >
               <Instagram className="w-4 h-4" />
             </a>
@@ -41,23 +44,24 @@ export function Footer({ onNavigate, settings }: FooterProps) {
 
         {/* Quick Links */}
         <div>
-          <h3 className="font-display font-bold text-white text-base mb-4 border-b border-[#1A1A1A] pb-2">
-            Links Rápidos
+          <h3 className="font-mono text-[10px] tracking-widest uppercase font-bold text-gray-300 mb-6">
+            // Navegação
           </h3>
-          <ul className="flex flex-col gap-2">
+          <ul className="flex flex-col gap-3">
             <li>
-              <button onClick={() => handleNav('home')} className="hover:text-[var(--brand-color)] transition text-xs cursor-pointer">
-                Início
+              <button onClick={() => handleNav('home')} className="hover:text-[var(--brand-color)] hover:translate-x-1 transition-all duration-300 text-xs cursor-pointer flex items-center gap-2">
+                <span className="w-1 h-1 rounded-full bg-neutral-700"></span> Início
               </button>
             </li>
             <li>
-              <button onClick={() => handleNav('catalogo')} className="hover:text-[var(--brand-color)] transition text-xs cursor-pointer">
-                Estoque Completo
+              <button onClick={() => handleNav('catalogo')} className="hover:text-[var(--brand-color)] hover:translate-x-1 transition-all duration-300 text-xs cursor-pointer flex items-center gap-2">
+                <span className="w-1 h-1 rounded-full bg-neutral-700"></span> Estoque Premium
               </button>
             </li>
             <li>
-              <button onClick={() => handleNav('financiamento')} className="hover:text-[var(--brand-color)] transition text-xs cursor-pointer">
-                Solicitar Financiamento
+              <button onClick={() => handleNav('financiamento')} className="hover:text-[var(--brand-color)] hover:translate-x-1 transition-all duration-300 text-xs cursor-pointer flex items-center gap-2">
+                <span className="w-1 h-1 rounded-full bg-neutral-700"></span> Simular Financiamento
+
               </button>
             </li>
             <li>
