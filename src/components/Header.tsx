@@ -151,7 +151,8 @@ export function Header({ currentUser, onLogout, onOpenAuth, onNavigate, currentP
     const fetchNotifs = async () => {
       try {
         const res = await fetch('/api/notifications');
-        if (res.ok) {
+        const contentType = res.headers.get('content-type');
+        if (res.ok && contentType && contentType.includes('application/json')) {
           const data = await res.json();
           setNotifications(data);
           

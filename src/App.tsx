@@ -13,12 +13,13 @@ import { UsedCarEvaluation } from './components/UsedCarEvaluation';
 import ComboSimulator from './components/ComboSimulator';
 import { ClientPortal } from './components/ClientPortal';
 import { Footer } from './components/Footer';
+import { Premium3DTiltCard } from './components/Premium3DTiltCard';
 import { 
   Vehicle, UserProfile, SiteSettings, Testimonial 
 } from './types';
 import { 
   Star, MapPin, Phone, MessageCircle, Calendar, Landmark, 
-  HelpCircle, ShieldCheck, ChevronRight, AlertCircle, Sparkles, CheckCircle2, DollarSign, Clock, Wrench, Gauge, Fuel
+  HelpCircle, ShieldCheck, ChevronRight, AlertCircle, Sparkles, CheckCircle2, DollarSign, Clock, Wrench, Gauge, Fuel, ArrowUpRight
 } from 'lucide-react';
 
 export default function App() {
@@ -146,6 +147,32 @@ export default function App() {
     window.scrollTo(0, 0);
   }, [currentPage, selectedVehicleId]);
 
+  // Apple-style scroll reveal animation handler
+  useEffect(() => {
+    // Delay slightly to allow the DOM to fully render after navigation/loading
+    const timer = setTimeout(() => {
+      const observer = new IntersectionObserver(
+        (entries) => {
+          entries.forEach((entry) => {
+            if (entry.isIntersecting) {
+              entry.target.classList.add('revealed');
+            }
+          });
+        },
+        { threshold: 0.08, rootMargin: '0px 0px -40px 0px' }
+      );
+
+      const elements = document.querySelectorAll('.reveal-on-scroll');
+      elements.forEach((el) => observer.observe(el));
+
+      return () => {
+        elements.forEach((el) => observer.unobserve(el));
+      };
+    }, 150);
+
+    return () => clearTimeout(timer);
+  }, [currentPage, loading]);
+
   // Handle Login Event
   const handleLoginSuccess = (user: UserProfile, sessionToken: string) => {
     setCurrentUser(user);
@@ -251,7 +278,7 @@ export default function App() {
             <Hero onNavigate={handleNavigate} settings={settings} />
 
             {/* Featured Cars Section */}
-            <section className="max-w-7xl mx-auto px-4">
+            <section className="max-w-7xl mx-auto px-4 reveal-on-scroll">
               <div className="flex flex-col sm:flex-row items-start sm:items-center justify-between mb-8 gap-3">
                 <div>
                   <div className="flex items-center gap-2 text-xs font-extrabold uppercase tracking-widest text-[var(--brand-color)]">
@@ -277,172 +304,267 @@ export default function App() {
               ) : (
                 <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-6">
                   {featuredVehicles.map(v => (
-                    <div
+                    <Premium3DTiltCard
                       key={v.id}
                       onClick={() => handleNavigate('detalhes', v.id)}
-                      className="group bg-neutral-950 border border-neutral-900 rounded-2xl overflow-hidden shadow-lg hover:border-[var(--brand-color)]/30 transition transform hover:-translate-y-1 cursor-pointer flex flex-col justify-between"
+                      className="group bg-neutral-950 border border-neutral-900 rounded-2xl overflow-hidden cursor-pointer flex flex-col justify-between"
                     >
                       <div className="relative aspect-[16/10] w-full overflow-hidden bg-[#1A1A1A]">
                         {v.media && v.media.length > 0 ? (
                           <img
                             src={v.media[0].url}
                             alt={v.title}
-                            className="w-full h-full object-cover object-center group-hover:scale-105 transition-all duration-300"
+                            className="w-full h-full object-cover object-center group-hover:scale-105 transition-all duration-500"
                           />
                         ) : (
                           <div className="w-full h-full flex items-center justify-center text-gray-600">Sem Foto</div>
                         )}
-                        <span className="absolute bottom-3 left-3 px-2 py-0.5 rounded text-[11px] font-black uppercase tracking-wider bg-emerald-500 text-white">
+                        <span className={`absolute bottom-3 left-3 px-2.5 py-0.5 rounded-full text-[10px] font-mono tracking-wider uppercase flex items-center gap-1.5 backdrop-blur-md border ${
+                          v.status === 'Disponível' ? 'bg-emerald-500/10 border-emerald-500/20 text-emerald-400' :
+                          v.status === 'Reservado' ? 'bg-amber-500/10 border-amber-500/20 text-amber-400' :
+                          'bg-neutral-500/10 border-neutral-500/20 text-gray-400'
+                        }`}>
+                          <span className={`w-1.5 h-1.5 rounded-full ${
+                            v.status === 'Disponível' ? 'bg-emerald-500 animate-pulse' :
+                            v.status === 'Reservado' ? 'bg-amber-500' : 'bg-gray-400'
+                          }`}></span>
                           {v.status}
                         </span>
                       </div>
-                      <div className="p-4 flex-grow flex flex-col justify-between">
+                      <div className="p-5 flex-grow flex flex-col justify-between">
                         <div>
-                          <span className="text-[11px] leading-normal text-gray-500 uppercase tracking-widest font-black">{v.brand}</span>
-                          <h4 className="font-display font-bold text-white text-sm truncate leading-relaxed py-1 mt-0.5 group-hover:text-[var(--brand-color)] transition-colors">
+                          <span className="text-[10px] font-mono tracking-widest text-gray-500 uppercase">{v.brand}</span>
+                          <h4 className="font-display font-extrabold text-white text-base truncate leading-relaxed py-1 mt-0.5 group-hover:text-[var(--brand-color)] transition-colors">
                             {v.title}
                           </h4>
                           
                           {/* Tags list (matching high-fidelity Catalog style) */}
-                          <div className="grid grid-cols-2 gap-y-1.5 gap-x-2 mt-3 text-[11px] leading-normal text-gray-400">
-                            <span className="flex items-center gap-1.5 truncate py-0.5">
-                              <Calendar className="w-3.5 h-3.5 text-[var(--brand-color)] shrink-0" />
+                          <div className="grid grid-cols-2 gap-y-2 gap-x-3 mt-4 text-xs text-gray-400 font-medium">
+                            <span className="flex items-center gap-2 truncate py-0.5">
+                              <Calendar className="w-3.5 h-3.5 text-neutral-500 group-hover:text-[var(--brand-color)] transition-colors shrink-0" />
                               <span>{v.year}</span>
                             </span>
-                            <span className="flex items-center gap-1.5 truncate py-0.5">
-                              <Wrench className="w-3.5 h-3.5 text-[var(--brand-color)] shrink-0" />
+                            <span className="flex items-center gap-2 truncate py-0.5">
+                              <Wrench className="w-3.5 h-3.5 text-neutral-500 group-hover:text-[var(--brand-color)] transition-colors shrink-0" />
                               <span className="truncate">{v.transmission}</span>
                             </span>
-                            <span className="flex items-center gap-1.5 truncate py-0.5">
-                              <Gauge className="w-3.5 h-3.5 text-[var(--brand-color)] shrink-0" />
+                            <span className="flex items-center gap-2 truncate py-0.5">
+                              <Gauge className="w-3.5 h-3.5 text-neutral-500 group-hover:text-[var(--brand-color)] transition-colors shrink-0" />
                               <span className="truncate">{v.mileage === 0 ? 'Zero KM' : `${v.mileage.toLocaleString('pt-BR')} KM`}</span>
                             </span>
-                            <span className="flex items-center gap-1.5 truncate py-0.5">
-                              <Fuel className="w-3.5 h-3.5 text-[var(--brand-color)] shrink-0" />
+                            <span className="flex items-center gap-2 truncate py-0.5">
+                              <Fuel className="w-3.5 h-3.5 text-neutral-500 group-hover:text-[var(--brand-color)] transition-colors shrink-0" />
                               <span className="truncate">{v.fuel || 'Flex'}</span>
                             </span>
                           </div>
                         </div>
-                        <div className="mt-4 pt-3 border-t border-neutral-900/60 flex items-end justify-between">
+                        <div className="mt-5 pt-4 border-t border-neutral-900/60 flex items-end justify-between">
                           <div>
-                            <p className="text-[10px] leading-normal text-gray-500 uppercase font-black py-0.5">Valor Especial</p>
-                            <p className="font-display font-black text-[var(--brand-color)] text-[16px] mt-0.5 py-1">R$ {v.price.toLocaleString('pt-BR')}</p>
+                            <p className="text-[9px] uppercase tracking-widest text-neutral-500 font-mono">VALOR ESPECIAL</p>
+                            <p className="font-display font-black text-white text-lg mt-0.5 group-hover:text-[var(--brand-color)] transition-colors">R$ {v.price.toLocaleString('pt-BR')}</p>
                           </div>
-                          <span className="text-[11.5px] leading-normal font-bold text-gray-400 group-hover:text-[var(--brand-color)] transition flex items-center gap-0.5">Ver Ficha ➔</span>
+                          <span className="h-8 w-8 rounded-full border border-neutral-900 bg-neutral-950 flex items-center justify-center text-gray-400 group-hover:border-[var(--brand-color)]/40 group-hover:text-[var(--brand-color)] transition-all duration-300">
+                            <ArrowUpRight className="w-4 h-4" />
+                          </span>
                         </div>
                       </div>
-                    </div>
+                    </Premium3DTiltCard>
                   ))}
                 </div>
               )}
             </section>
 
             {/* Quick action buttons with high fidelity illustrations and links */}
-            <section className="bg-neutral-950 border-y border-neutral-900/60 py-12">
-              <div className="max-w-7xl mx-auto px-4 grid grid-cols-1 md:grid-cols-3 gap-6">
-                <div className="p-6 rounded-2xl bg-black border border-neutral-900 hover:border-[var(--brand-color)]/30 transition duration-300 flex flex-col justify-between hover-lift">
-                  <div>
-                    <Landmark className="w-8 h-8 text-[var(--brand-color)] mb-4" />
-                    <h3 className="font-display font-bold text-white text-base mb-1">Simular Financiamento</h3>
-                    <p className="text-xs text-gray-400 leading-relaxed">Taxas exclusivas em até 60 parcelas com o respaldo de 13 bancos líderes de mercado.</p>
-                  </div>
-                  <button onClick={() => handleNavigate('financiamento')} className="mt-6 text-xs font-bold text-[var(--brand-color)] flex items-center gap-1 hover:underline cursor-pointer">
-                    Iniciar Simulação de Crédito <ChevronRight className="w-4 h-4" />
-                  </button>
+            <section className="bg-neutral-950 border-y border-neutral-900/60 py-16 reveal-on-scroll">
+              <div className="max-w-7xl mx-auto px-4">
+                <div className="mb-10 text-center md:text-left">
+                  <span className="text-[10px] font-mono tracking-widest text-[var(--brand-color)] uppercase">// SOLUÇÕES INTEGRADAS</span>
+                  <h2 className="font-display font-extrabold text-2xl md:text-3xl text-white mt-2">Facilidades Exclusivas RaviCar</h2>
+                  <p className="text-xs text-gray-500 mt-1 max-w-xl">Do crédito à entrega, cuidamos de toda a jornada para que sua única preocupação seja aproveitar a estrada.</p>
                 </div>
 
-                <div className="p-6 rounded-2xl bg-black border border-neutral-900 hover:border-[var(--brand-color)]/30 transition duration-300 flex flex-col justify-between hover-lift">
-                  <div>
-                    <Sparkles className="w-8 h-8 text-[var(--brand-color)] mb-4" />
-                    <h3 className="font-display font-bold text-white text-base mb-1">Avaliar Veículo Usado</h3>
-                    <p className="text-xs text-gray-400 leading-relaxed">Faremos a avaliação mais justa do seu veículo seminovo para dar de entrada na troca.</p>
+                <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
+                  {/* Action 1 */}
+                  <div className="group p-8 rounded-2xl bg-black border border-neutral-900/80 hover:border-[var(--brand-color)]/30 transition-all duration-300 flex flex-col justify-between hover-lift relative overflow-hidden">
+                    <div className="absolute top-6 right-6 text-xs font-mono text-neutral-800 group-hover:text-[var(--brand-color)]/20 transition-colors">// 01</div>
+                    <div>
+                      <div className="h-12 w-12 rounded-xl bg-[var(--brand-color)]/5 flex items-center justify-center border border-[var(--brand-color)]/10 text-[var(--brand-color)] mb-6">
+                        <Landmark className="w-5 h-5" />
+                      </div>
+                      <h3 className="font-display font-extrabold text-white text-base mb-2">Simular Financiamento</h3>
+                      <p className="text-xs text-gray-400 leading-relaxed">Parcerias estratégicas com 13 bancos líderes para garantir as menores taxas do mercado nacional em até 60x.</p>
+                    </div>
+                    <button onClick={() => handleNavigate('financiamento')} className="mt-8 text-xs font-extrabold text-[var(--brand-color)] flex items-center gap-1 hover:gap-2 transition-all cursor-pointer">
+                      Iniciar Simulação de Crédito <ChevronRight className="w-4 h-4" />
+                    </button>
                   </div>
-                  <button onClick={() => handleNavigate('avaliacao')} className="mt-6 text-xs font-bold text-[var(--brand-color)] flex items-center gap-1 hover:underline cursor-pointer">
-                    Solicitar Avaliação Física <ChevronRight className="w-4 h-4" />
-                  </button>
-                </div>
 
-                <div className="p-6 rounded-2xl bg-black border border-neutral-900 hover:border-[var(--brand-color)]/30 transition duration-300 flex flex-col justify-between hover-lift">
-                  <div>
-                    <Calendar className="w-8 h-8 text-emerald-400 mb-4" />
-                    <h3 className="font-display font-bold text-white text-base mb-1">Agendar Test Drive</h3>
-                    <p className="text-xs text-gray-400 leading-relaxed">Escolha o dia, horário e veículo de interesse para conhecer nossa equipe pessoalmente.</p>
+                  {/* Action 2 */}
+                  <div className="group p-8 rounded-2xl bg-black border border-neutral-900/80 hover:border-[var(--brand-color)]/30 transition-all duration-300 flex flex-col justify-between hover-lift relative overflow-hidden">
+                    <div className="absolute top-6 right-6 text-xs font-mono text-neutral-800 group-hover:text-[var(--brand-color)]/20 transition-colors">// 02</div>
+                    <div>
+                      <div className="h-12 w-12 rounded-xl bg-[var(--brand-color)]/5 flex items-center justify-center border border-[var(--brand-color)]/10 text-[var(--brand-color)] mb-6">
+                        <Sparkles className="w-5 h-5" />
+                      </div>
+                      <h3 className="font-display font-extrabold text-white text-base mb-2">Avaliar Veículo Usado</h3>
+                      <p className="text-xs text-gray-400 leading-relaxed">Tenha a avaliação mais justa e transparente do mercado utilizando inteligência de dados para dar de entrada na troca.</p>
+                    </div>
+                    <button onClick={() => handleNavigate('avaliacao')} className="mt-8 text-xs font-extrabold text-[var(--brand-color)] flex items-center gap-1 hover:gap-2 transition-all cursor-pointer">
+                      Solicitar Avaliação Física <ChevronRight className="w-4 h-4" />
+                    </button>
                   </div>
-                  <button onClick={() => handleNavigate('catalogo')} className="mt-6 text-xs font-bold text-[var(--brand-color)] flex items-center gap-1 hover:underline cursor-pointer">
-                    Ver Veículos Disponíveis <ChevronRight className="w-4 h-4" />
-                  </button>
+
+                  {/* Action 3 */}
+                  <div className="group p-8 rounded-2xl bg-black border border-neutral-900/80 hover:border-[var(--brand-color)]/30 transition-all duration-300 flex flex-col justify-between hover-lift relative overflow-hidden">
+                    <div className="absolute top-6 right-6 text-xs font-mono text-neutral-800 group-hover:text-[var(--brand-color)]/20 transition-colors">// 03</div>
+                    <div>
+                      <div className="h-12 w-12 rounded-xl bg-emerald-500/5 flex items-center justify-center border border-emerald-500/10 text-emerald-400 mb-6">
+                        <Calendar className="w-5 h-5" />
+                      </div>
+                      <h3 className="font-display font-extrabold text-white text-base mb-2">Agendar Test Drive</h3>
+                      <p className="text-xs text-gray-400 leading-relaxed">Escolha o melhor dia e horário para testar seu carro dos sonhos com atendimento premium e personalizado.</p>
+                    </div>
+                    <button onClick={() => handleNavigate('catalogo')} className="mt-8 text-xs font-extrabold text-[var(--brand-color)] flex items-center gap-1 hover:gap-2 transition-all cursor-pointer">
+                      Ver Veículos Disponíveis <ChevronRight className="w-4 h-4" />
+                    </button>
+                  </div>
                 </div>
               </div>
             </section>
 
             {/* Testimonials section */}
-            <section className="max-w-7xl mx-auto px-4">
-              <div className="text-center max-w-xl mx-auto mb-10">
-                <div className="inline-flex items-center gap-1 text-xs font-bold text-[var(--brand-color)] uppercase tracking-wider mb-2">
-                  <Star className="w-4 h-4 fill-[var(--brand-color)]" /> Opinião de Clientes
+            <section className="max-w-7xl mx-auto px-4 reveal-on-scroll">
+              <div className="text-center max-w-xl mx-auto mb-12">
+                <div className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-neutral-950 border border-neutral-900 text-[10px] font-mono tracking-widest text-[var(--brand-color)] uppercase mb-3">
+                  <Star className="w-3 h-3 fill-[var(--brand-color)]" /> Depoimentos Reais
                 </div>
-                <h2 className="font-display font-black text-2xl md:text-3xl text-white">Quem Compra na RaviCar, Recomenda!</h2>
-                <p className="text-xs text-gray-500 mt-1">Transparência e foco total na satisfação do início ao fim da negociação.</p>
+                <h2 className="font-display font-extrabold text-2xl md:text-3xl text-white">Experiências RaviCar</h2>
+                <p className="text-xs text-gray-500 mt-1">A melhor métrica do nosso trabalho é a satisfação de quem confia em nossa curadoria.</p>
               </div>
 
-              <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
+              <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
                 {(testimonials.length > 0 ? testimonials : [
                   { id: '1', name: 'Guilherme Silva', role: 'Cliente Satisfeito', rating: 5, text: 'O atendimento é sensacional! Carros super revisados e negociação sem burocracia.' },
                   { id: '2', name: 'Amanda Ramos', role: 'Proprietária de Voyage', rating: 5, text: 'Facilidade de crédito incrível. Fiz a simulação de manhã e à tarde já estava de Voyage novo!' },
                   { id: '3', name: 'Bruno Mendes', role: 'Cliente Recorrente', rating: 5, text: 'Segunda vez que compro na RaviCar e recomendo. Confiança total e carros realmente periciados.' }
-                ]).map((t, idx) => (
-                  <div key={t.id || idx} className="p-6 rounded-2xl bg-neutral-950 border border-neutral-900 relative hover-lift transition-all duration-300">
-                    <div className="flex gap-1 mb-4">
-                      {Array.from({ length: t.rating }).map((_, i) => (
-                        <Star key={i} className="w-4 h-4 fill-[var(--brand-color)] text-[var(--brand-color)]" />
-                      ))}
+                ]).map((t, idx) => {
+                  // Generate initials for luxury avatar
+                  const initials = t.name ? t.name.split(' ').map(n => n[0]).join('').slice(0, 2).toUpperCase() : 'C';
+                  return (
+                    <div key={t.id || idx} className="p-8 rounded-2xl bg-[#080808] border border-neutral-900/60 relative hover:border-[var(--brand-color)]/25 transition-all duration-500 flex flex-col justify-between group overflow-hidden hover-lift">
+                      {/* Quote mark watermark */}
+                      <span className="absolute top-2 right-4 text-7xl font-serif text-neutral-900/30 select-none pointer-events-none group-hover:text-[var(--brand-color)]/5 transition-colors">“</span>
+                      
+                      <div className="relative z-10">
+                        <div className="flex gap-1 mb-5">
+                          {Array.from({ length: t.rating }).map((_, i) => (
+                            <Star key={i} className="w-3.5 h-3.5 fill-[var(--brand-color)] text-[var(--brand-color)]" />
+                          ))}
+                        </div>
+                        <p className="text-xs text-gray-300 leading-relaxed font-medium italic mb-6">"{t.text}"</p>
+                      </div>
+
+                      <div className="flex items-center gap-3 pt-4 border-t border-neutral-900/40 relative z-10">
+                        <div className="w-9 h-9 rounded-full bg-neutral-900 border border-neutral-800 flex items-center justify-center text-xs font-mono font-bold text-gray-400 group-hover:border-[var(--brand-color)]/30 group-hover:text-[var(--brand-color)] transition-colors">
+                          {initials}
+                        </div>
+                        <div>
+                          <h4 className="font-display font-extrabold text-white text-xs">{t.name}</h4>
+                          <p className="text-[10px] text-gray-500 font-mono mt-0.5 uppercase tracking-wide">{t.role}</p>
+                        </div>
+                      </div>
                     </div>
-                    <p className="text-xs text-gray-400 leading-relaxed italic mb-6">"{t.text}"</p>
-                    <div>
-                      <h4 className="font-display font-bold text-white text-xs">{t.name}</h4>
-                      <p className="text-[10px] text-gray-500 mt-0.5">{t.role}</p>
-                    </div>
-                  </div>
-                ))}
+                  );
+                })}
               </div>
             </section>
 
             {/* PIX RESERVA OPTIONS BANNER */}
-            <section className="max-w-4xl mx-auto px-4">
-              <div className="bg-neutral-950 border border-[var(--brand-color)]/30 rounded-2xl p-6 md:p-8 relative overflow-hidden shadow-xl">
-                <div className="absolute right-0 bottom-0 translate-y-1/4 translate-x-1/4 opacity-10 text-[var(--brand-color)]">
-                  <DollarSign className="w-72 h-72" />
-                </div>
-                
-                <div className="relative z-10 space-y-6">
-                  <div className="flex items-center gap-3">
-                    <div className="p-2.5 rounded-full bg-[var(--brand-color)]/10 text-[var(--brand-color)]">
-                      <DollarSign className="w-6 h-6" />
+            <section className="max-w-4xl mx-auto px-4 reveal-on-scroll">
+              <div className="relative overflow-hidden bg-neutral-950 border border-neutral-900 rounded-3xl p-8 md:p-10 shadow-2xl">
+                {/* Visual Accent Glow */}
+                <div className="absolute right-0 top-0 -translate-y-1/3 translate-x-1/3 w-96 h-96 bg-[var(--brand-color)]/5 rounded-full blur-3xl pointer-events-none"></div>
+                <div className="absolute left-0 bottom-0 translate-y-1/3 -translate-x-1/3 w-96 h-96 bg-emerald-500/5 rounded-full blur-3xl pointer-events-none"></div>
+
+                <div className="relative z-10">
+                  <div className="flex flex-col md:flex-row md:items-center justify-between gap-6 pb-6 border-b border-neutral-900/60">
+                    <div className="flex items-center gap-4">
+                      <div className="h-12 w-12 rounded-2xl bg-[var(--brand-color)]/10 flex items-center justify-center border border-[var(--brand-color)]/20 text-[var(--brand-color)]">
+                        <DollarSign className="w-5 h-5" />
+                      </div>
+                      <div>
+                        <h3 className="font-display font-extrabold text-xl text-white">Certificado de Reserva e Sinal</h3>
+                        <p className="text-xs text-gray-500 mt-0.5">Garanta a exclusividade imediata do seu veículo de forma ágil e segura.</p>
+                      </div>
                     </div>
-                    <div>
-                      <h3 className="font-display font-extrabold text-lg text-white">Garantia de Reserva por Sinal (PIX)</h3>
-                      <p className="text-[10px] text-gray-500">Gostou muito de um veículo e quer segurar ele para você? Faça um sinal de garantia oficial RaviCar.</p>
+                    <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-emerald-500/10 border border-emerald-500/20 text-[10px] font-mono uppercase tracking-wider text-emerald-400 self-start md:self-center">
+                      <span className="w-1.5 h-1.5 rounded-full bg-emerald-500 animate-pulse"></span>
+                      Operação Instantânea via Pix
                     </div>
                   </div>
 
-                  <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 text-xs text-gray-400 pt-2">
-                    <div className="space-y-2">
-                      <p><strong>CNPJ Oficial:</strong> <span className="text-white font-mono">{settings.pixCnpj}</span></p>
-                      <p><strong>Pix Celular:</strong> <span className="text-white font-mono">{settings.pixCelular}</span></p>
-                      <p><strong>Pix E-mail:</strong> <span className="text-white font-mono">{settings.pixEmail}</span></p>
+                  <div className="grid grid-cols-1 md:grid-cols-2 gap-8 pt-8">
+                    {/* Left Column: Pix Keys */}
+                    <div className="space-y-4">
+                      <span className="text-[10px] font-mono tracking-widest text-[var(--brand-color)] uppercase">// CHAVES PIX OFICIAIS</span>
+                      <div className="space-y-3 bg-black/40 border border-neutral-900/80 rounded-2xl p-5">
+                        <div className="flex justify-between items-center text-xs py-1 border-b border-neutral-900/30">
+                          <span className="text-gray-500">CNPJ RaviCar</span>
+                          <span className="text-white font-mono font-bold">{settings.pixCnpj}</span>
+                        </div>
+                        <div className="flex justify-between items-center text-xs py-1 border-b border-neutral-900/30">
+                          <span className="text-gray-500">Pix Celular</span>
+                          <span className="text-white font-mono font-bold">{settings.pixCelular}</span>
+                        </div>
+                        <div className="flex justify-between items-center text-xs py-1">
+                          <span className="text-gray-500">Pix E-mail</span>
+                          <span className="text-white font-mono font-bold truncate max-w-[180px]">{settings.pixEmail}</span>
+                        </div>
+                      </div>
                     </div>
-                    <div className="space-y-2 border-t sm:border-t-0 sm:border-l border-neutral-900 sm:pl-4 pt-2 sm:pt-0">
-                      <p className="font-bold text-[var(--brand-color)]">Contas para Transferência Direta:</p>
-                      <p className="text-[10px]">🏦 <strong>Santander:</strong> {settings.pixSantander}</p>
-                      <p className="text-[10px]">🏦 <strong>Bradesco:</strong> {settings.pixBradesco}</p>
-                      <p className="text-[10px]">🏦 <strong>Itaú:</strong> {settings.pixItau}</p>
-                      <p className="text-[10px]">🏦 <strong>Banco Inter:</strong> {settings.pixInter}</p>
+
+                    {/* Right Column: Bank details */}
+                    <div className="space-y-4">
+                      <span className="text-[10px] font-mono tracking-widest text-neutral-500 uppercase">// TRANSFERÊNCIA DIRETA</span>
+                      <div className="space-y-3 bg-black/40 border border-neutral-900/80 rounded-2xl p-5">
+                        <div className="grid grid-cols-2 gap-2 text-[11px] leading-relaxed">
+                          <div className="py-1 border-b border-neutral-900/30">
+                            <span className="text-gray-500 block text-[9px] uppercase font-mono">SANTANDER</span>
+                            <span className="text-gray-300 font-bold font-mono">{settings.pixSantander}</span>
+                          </div>
+                          <div className="py-1 border-b border-neutral-900/30">
+                            <span className="text-gray-500 block text-[9px] uppercase font-mono">BRADESCO</span>
+                            <span className="text-gray-300 font-bold font-mono">{settings.pixBradesco}</span>
+                          </div>
+                          <div className="py-1">
+                            <span className="text-gray-500 block text-[9px] uppercase font-mono">ITAÚ</span>
+                            <span className="text-gray-300 font-bold font-mono">{settings.pixItau}</span>
+                          </div>
+                          <div className="py-1">
+                            <span className="text-gray-500 block text-[9px] uppercase font-mono">BANCO INTER</span>
+                            <span className="text-gray-300 font-bold font-mono">{settings.pixInter}</span>
+                          </div>
+                        </div>
+                      </div>
                     </div>
                   </div>
 
-                  <p className="text-[9px] text-gray-500 italic mt-3">
-                    * Envie o comprovante de sinal de reserva para seu vendedor no WhatsApp {settings.whatsapp} para emitir o termo de reserva e retirar o anúncio do ar imediatamente.
-                  </p>
+                  <div className="mt-8 pt-6 border-t border-neutral-900/40 flex flex-col sm:flex-row sm:items-center justify-between gap-4">
+                    <p className="text-[10px] text-gray-500 italic max-w-xl">
+                      * Após concluir o sinal de reserva, envie imediatamente o comprovante ao seu consultor de vendas RaviCar para emitirmos seu termo de reserva legalizado.
+                    </p>
+                    <button 
+                      onClick={() => {
+                        const messageText = encodeURIComponent(`Olá, realizei um sinal de reserva para garantir meu seminovo RaviCar. Aqui está meu comprovante.`);
+                        const cleanWhatsapp = settings.whatsapp.replace(/\D/g, '');
+                        const whatsappNumber = cleanWhatsapp.startsWith('55') && cleanWhatsapp.length >= 12 ? cleanWhatsapp : `55${cleanWhatsapp}`;
+                        window.open(`https://wa.me/${whatsappNumber}?text=${messageText}`, '_blank');
+                      }}
+                      className="px-5 py-2.5 rounded-xl bg-neutral-900 hover:bg-[var(--brand-color)] border border-neutral-800 hover:border-transparent text-xs font-bold text-gray-300 hover:text-white transition-all duration-300 shrink-0 cursor-pointer text-center"
+                    >
+                      Enviar Comprovante de Reserva
+                    </button>
+                  </div>
                 </div>
               </div>
             </section>

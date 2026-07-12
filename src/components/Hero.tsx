@@ -8,6 +8,18 @@ interface HeroProps {
 }
 
 export function Hero({ onNavigate, settings }: HeroProps) {
+  const heroRef = React.useRef<HTMLDivElement>(null);
+  const [mousePosition, setMousePosition] = React.useState({ x: 50, y: 50 });
+  const [isHovered, setIsHovered] = React.useState(false);
+
+  const handleMouseMove = (e: React.MouseEvent<HTMLDivElement>) => {
+    if (!heroRef.current) return;
+    const rect = heroRef.current.getBoundingClientRect();
+    const x = ((e.clientX - rect.left) / rect.width) * 100;
+    const y = ((e.clientY - rect.top) / rect.height) * 100;
+    setMousePosition({ x, y });
+  };
+
   const handleWhatsappClick = () => {
     // Record contact lead in DB via fetch first for metrics, then open WhatsApp
     const messageText = encodeURIComponent(`Olá RaviCar! Vi o site e gostaria de falar com um vendedor para tirar algumas dúvidas.`);
@@ -31,7 +43,16 @@ export function Hero({ onNavigate, settings }: HeroProps) {
   };
 
   return (
-    <section className="relative min-h-[85vh] flex items-center justify-center bg-black overflow-hidden pt-12 select-none">
+    <section 
+      ref={heroRef}
+      onMouseMove={handleMouseMove}
+      onMouseEnter={() => setIsHovered(true)}
+      onMouseLeave={() => {
+        setIsHovered(false);
+        setMousePosition({ x: 50, y: 50 });
+      }}
+      className="relative min-h-[85vh] flex items-center justify-center bg-black overflow-hidden pt-12 select-none group/hero"
+    >
       {/* Background with luxury premium sports car and dark gradient overlay */}
       <div className="absolute inset-0 z-0 pointer-events-none select-none">
         <img 
@@ -42,14 +63,32 @@ export function Hero({ onNavigate, settings }: HeroProps) {
         {/* Dark radial glow overlay to focus eyes on central text */}
         <div className="absolute inset-0 bg-gradient-to-t from-black via-black/40 to-black/80 pointer-events-none select-none"></div>
         <div className="absolute inset-0 bg-radial-gradient(circle at center, transparent 20%, black 80%) pointer-events-none select-none"></div>
+        
+        {/* Apple-style interactive luxury spotlight that follows the mouse cursor */}
+        <div 
+          className="absolute inset-0 pointer-events-none opacity-40 transition-opacity duration-500"
+          style={{
+            background: isHovered 
+              ? `radial-gradient(circle 500px at ${mousePosition.x}% ${mousePosition.y}%, rgba(255, 45, 141, 0.16) 0%, rgba(255, 45, 141, 0) 80%)`
+              : 'radial-gradient(circle 500px at 50% 50%, rgba(255, 45, 141, 0.08) 0%, rgba(255, 45, 141, 0) 80%)',
+          }}
+        />
       </div>
 
       {/* Main Content container */}
       <div className="relative z-10 max-w-5xl mx-auto px-4 text-center flex flex-col items-center">
+        {/* Coordinates Badge */}
+        <div className="mb-6 inline-flex items-center gap-2 px-3 py-1 rounded-full border border-neutral-900 bg-neutral-950/80 text-[10px] font-mono tracking-widest text-gray-400 select-none backdrop-blur-md">
+          <span className="w-1.5 h-1.5 rounded-full bg-[var(--brand-color)] animate-pulse"></span>
+          <span>SÃO MIGUEL PAULISTA, SP</span>
+          <span className="text-neutral-800">|</span>
+          <span>23.5015° S, 46.4013° W</span>
+        </div>
+
         {/* Heading */}
         <h1 className="font-display font-black text-4xl sm:text-6xl md:text-7xl text-white tracking-tight leading-[1.1] mb-6 animate-fade-in-up">
-          Encontre o carro ideal <br />
-          <span className="text-[var(--brand-color)] drop-shadow-[0_0_15px_rgba(var(--brand-color-rgb),0.4)]">
+          <span className="apple-text-gradient">Encontre o carro ideal</span> <br />
+          <span className="text-[var(--brand-color)] drop-shadow-[0_0_20px_rgba(var(--brand-color-rgb),0.55)]">
             para você.
           </span>
         </h1>
@@ -63,18 +102,22 @@ export function Hero({ onNavigate, settings }: HeroProps) {
         <div className="flex flex-col sm:flex-row items-center gap-4 w-full sm:w-auto">
           <button
             onClick={() => onNavigate('catalogo')}
-            className="w-full sm:w-auto px-8 py-4 rounded-xl bg-[var(--brand-color)] text-white font-extrabold text-sm tracking-wide uppercase transition-all duration-300 flex items-center justify-center gap-2 transform hover:-translate-y-0.5 shadow-lg hover:shadow-[var(--brand-color)]/20 cursor-pointer"
+            className="relative overflow-hidden w-full sm:w-auto px-8 py-4 rounded-xl bg-[var(--brand-color)] text-white font-extrabold text-sm tracking-wide uppercase transition-all duration-300 flex items-center justify-center gap-2 transform hover:-translate-y-0.5 shadow-lg hover:shadow-[var(--brand-color)]/30 cursor-pointer group"
           >
-            Ver veículos
-            <ChevronRight className="w-4 h-4" />
+            {/* Shimmer element inside button */}
+            <span className="absolute inset-0 premium-shimmer pointer-events-none opacity-40"></span>
+            <span className="relative z-10 flex items-center gap-2">
+              Ver veículos
+              <ChevronRight className="w-4 h-4 transition-transform duration-300 group-hover:translate-x-1" />
+            </span>
           </button>
           
           <button
             onClick={handleWhatsappClick}
-            className="w-full sm:w-auto px-8 py-4 rounded-xl bg-[#25D366] text-white font-extrabold text-sm tracking-wide uppercase transition-all duration-300 flex items-center justify-center gap-2 transform hover:-translate-y-0.5 cursor-pointer shadow-lg hover:shadow-[#25D366]/20"
+            className="relative overflow-hidden w-full sm:w-auto px-8 py-4 rounded-xl bg-[#25D366] text-white font-extrabold text-sm tracking-wide uppercase transition-all duration-300 flex items-center justify-center gap-2 transform hover:-translate-y-0.5 cursor-pointer shadow-lg hover:shadow-[#25D366]/20 group"
           >
             <MessageCircle className="w-4.5 h-4.5 text-white fill-white/10" />
-            Falar no WhatsApp
+            <span className="relative z-10">Falar no WhatsApp</span>
           </button>
         </div>
 

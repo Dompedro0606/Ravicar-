@@ -1040,3 +1040,40 @@
   transform: translateY(-4px);
 }
 
+/* APPLE-STYLE LUXURY ADDITIONS */
+.apple-text-gradient {
+  background: linear-gradient(135deg, #ffffff 0%, #a3a3a3 50%, rgba(255, 45, 141, 0.8) 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+
+/* Shimmer shine animation on premium components */
+@keyframes luxuryShine {
+  0% {
+    background-position: -200% center;
+  }
+  100% {
+    background-position: 200% center;
+  }
+}
+
+.premium-shimmer {
+  background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.08) 30%, rgba(255, 45, 141, 0.15) 50%, rgba(255, 255, 255, 0.08) 70%, transparent);
+  background-size: 200% auto;
+  animation: luxuryShine 6s linear infinite;
+}
+
+/* Smooth reveal class on scroll */
+.reveal-on-scroll {
+  opacity: 0;
+  transform: translateY(30px);
+  transition: opacity 0.8s cubic-bezier(0.16, 1, 0.3, 1), transform 0.8s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.reveal-on-scroll.revealed {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+

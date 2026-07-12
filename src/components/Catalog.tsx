@@ -1,6 +1,7 @@
 import React, { useState, useMemo, useEffect } from 'react';
 import { Search, Fuel, Settings2, SlidersHorizontal, Eye, ArrowUpDown, Tag, Check, Calendar, ChevronDown, Heart, X, Gauge, Wrench } from 'lucide-react';
 import { Vehicle, FuelType, TransmissionType, VehicleStatus, UserProfile } from '../types';
+import { Premium3DTiltCard } from './Premium3DTiltCard';
 
 interface CatalogProps {
   vehicles: Vehicle[];
@@ -604,13 +605,12 @@ export function Catalog({ vehicles, onSelectVehicle, currentUser }: CatalogProps
               {filteredVehicles.map(v => {
                 const isAvailable = v.status === 'Disponível';
                 const isReserved = v.status === 'Reservado';
-                const isSold = v.status === 'Vendido';
 
                 return (
-                  <div
+                  <Premium3DTiltCard
                     key={v.id}
                     onClick={() => onSelectVehicle(v.id)}
-                    className="group bg-neutral-950 border border-neutral-900/60 rounded-2xl overflow-hidden shadow-lg hover:border-[#FF2D8D]/40 transition-all duration-300 transform hover:-translate-y-1 flex flex-col justify-between cursor-pointer"
+                    className="group bg-neutral-950 border border-neutral-900/60 rounded-2xl overflow-hidden cursor-pointer"
                   >
                     {/* Image Area */}
                     <div className="relative aspect-[16/10] w-full overflow-hidden bg-[#1A1A1A]">
@@ -703,7 +703,7 @@ export function Catalog({ vehicles, onSelectVehicle, currentUser }: CatalogProps
                         </span>
                       </div>
                     </div>
-                  </div>
+                  </Premium3DTiltCard>
                 );
               })}
             </div>
