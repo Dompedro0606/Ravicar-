@@ -56,7 +56,8 @@ export function Hero({ onNavigate, settings }: HeroProps) {
       {/* Background with luxury premium sports car and dark gradient overlay */}
       <div className="absolute inset-0 z-0 pointer-events-none select-none bg-black">
         <video 
-          src="/hero-video.mp4"
+          key="hero-video"
+          src="/hero-video.mp4?v=3"
           autoPlay 
           loop 
           muted 

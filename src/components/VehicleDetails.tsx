@@ -13,9 +13,10 @@ interface VehicleDetailsProps {
   onBack: () => void;
   onNavigate: (page: string, preselectedVehicleId?: string) => void;
   currentUser?: UserProfile | null;
+  recentlyViewedIds?: string[];
 }
 
-export function VehicleDetails({ vehicle, settings, vehicles, onBack, onNavigate, currentUser }: VehicleDetailsProps) {
+export function VehicleDetails({ vehicle, settings, vehicles, onBack, onNavigate, currentUser, recentlyViewedIds = [] }: VehicleDetailsProps) {
   const [activeMediaIndex, setActiveMediaIndex] = useState(0);
   const [activeTab, setActiveTab] = useState<'details' | 'description'>('details');
   const [activeFormModal, setActiveFormModal] = useState<'none' | 'visita' | 'financiamento' | 'avaliacao'>('none');
@@ -647,6 +648,79 @@ Gostaria de falar com um consultor para negociar ou simular financiamento!`;
               )}
             </div>
           </div>
+        </div>
+      )}
+
+      {/* RECENTLY VIEWED SECTION */}
+      {recentlyViewedIds && recentlyViewedIds.length > 0 && (
+        <div className="max-w-7xl mx-auto px-4 pb-20">
+          {(() => {
+            const recentVehicles = recentlyViewedIds
+              .filter(id => id !== vehicle.id)
+              .map(id => vehicles.find(v => v.id === id))
+              .filter((v): v is Vehicle => v !== undefined);
+
+            if (recentVehicles.length === 0) return null;
+
+            return (
+              <div className="border-t border-neutral-900 pt-16">
+                <div className="flex items-center gap-3 mb-8">
+                  <div className="w-1.5 h-6 bg-[var(--brand-color)] rounded-full"></div>
+                  <h3 className="font-display font-black text-2xl tracking-tight text-white uppercase">Vistos Recentemente</h3>
+                </div>
+                
+                <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-4">
+                  {recentVehicles.map(v => (
+                    <div
+                      key={v.id}
+                      onClick={() => {
+                        window.scrollTo(0, 0);
+                        onNavigate('detalhes', v.id);
+                      }}
+                      className="group bg-neutral-950 border border-neutral-900 rounded-xl overflow-hidden cursor-pointer flex flex-col justify-between hover:border-[var(--brand-color)]/30 hover:shadow-[0_0_20px_rgba(255,45,141,0.1)] transition-all duration-300"
+                    >
+                      <div className="relative aspect-[16/10] w-full overflow-hidden bg-[#1A1A1A]">
+                        {v.media && v.media.length > 0 ? (
+                          <img
+                            src={v.media[0].url}
+                            alt={v.title}
+                            className="w-full h-full object-cover object-center group-hover:scale-105 transition-all duration-500"
+                          />
+                        ) : (
+                          <div className="w-full h-full flex items-center justify-center text-gray-600">Sem Foto</div>
+                        )}
+                        <span className={`absolute bottom-2 left-2 px-2 py-0.5 rounded-full text-[9px] font-mono tracking-wider uppercase flex items-center gap-1 backdrop-blur-md border ${
+                          v.status === 'Disponível' ? 'bg-emerald-500/10 border-emerald-500/20 text-emerald-400' :
+                          v.status === 'Reservado' ? 'bg-amber-500/10 border-amber-500/20 text-amber-400' :
+                          'bg-neutral-500/10 border-neutral-500/20 text-gray-400'
+                        }`}>
+                          {v.status}
+                        </span>
+                      </div>
+                      <div className="p-4 flex-grow flex flex-col justify-between">
+                        <div>
+                          <span className="text-[9px] font-mono tracking-widest text-gray-500 uppercase">{v.brand}</span>
+                          <h4 className="font-display font-bold text-white text-sm truncate leading-relaxed group-hover:text-[var(--brand-color)] transition-colors">
+                            {v.title}
+                          </h4>
+                          <div className="flex gap-2 text-xs text-gray-400 mt-2">
+                            <span>{v.year}</span>
+                            <span>•</span>
+                            <span>{v.mileage === 0 ? '0 KM' : `${(v.mileage / 1000).toFixed(0)}k KM`}</span>
+                          </div>
+                        </div>
+                        <div className="mt-3 pt-3 border-t border-neutral-900 flex items-center justify-between">
+                          <p className="font-display font-black text-white text-sm group-hover:text-[var(--brand-color)] transition-colors">
+                            R$ {v.price.toLocaleString('pt-BR')}
+                          </p>
+                        </div>
+                      </div>
+                    </div>
+                  ))}
+                </div>
+              </div>
+            );
+          })()}
         </div>
       )}
 

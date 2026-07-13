@@ -62,7 +62,33 @@ export default function App() {
   // Navigation & Page State
   const [currentPage, setCurrentPage] = useState<string>('home');
   const [selectedVehicleId, setSelectedVehicleId] = useState<string | null>(null);
+  const [recentlyViewedIds, setRecentlyViewedIds] = useState<string[]>(() => {
+    if (typeof window !== 'undefined') {
+      try {
+        const saved = localStorage.getItem('ravicar_recently_viewed');
+        return saved ? JSON.parse(saved) : [];
+      } catch {
+        return [];
+      }
+    }
+    return [];
+  });
   const [authModalOpen, setAuthModalOpen] = useState(false);
+
+  useEffect(() => {
+    if (typeof window !== 'undefined') {
+      localStorage.setItem('ravicar_recently_viewed', JSON.stringify(recentlyViewedIds));
+    }
+  }, [recentlyViewedIds]);
+
+  useEffect(() => {
+    if (selectedVehicleId) {
+      setRecentlyViewedIds(prev => {
+        const filtered = prev.filter(id => id !== selectedVehicleId);
+        return [selectedVehicleId, ...filtered].slice(0, 6);
+      });
+    }
+  }, [selectedVehicleId]);
 
   // Global App States
   const [vehicles, setVehicles] = useState<Vehicle[]>([]);
@@ -805,6 +831,7 @@ export default function App() {
               onBack={() => handleNavigate('catalogo')}
               onNavigate={handleNavigate}
               currentUser={currentUser}
+              recentlyViewedIds={recentlyViewedIds}
             />
           </div>
         )}
