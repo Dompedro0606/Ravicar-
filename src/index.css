@@ -64,6 +64,27 @@
   scrollbar-width: none;
 }
 
+/* Global text selection (highlighting) colors */
+::selection {
+  background-color: var(--brand-color);
+  color: #ffffff;
+}
+
+::-moz-selection {
+  background-color: var(--brand-color);
+  color: #ffffff;
+}
+
+[data-theme="preto"] ::selection {
+  background-color: var(--brand-color);
+  color: #000000;
+}
+
+[data-theme="preto"] ::-moz-selection {
+  background-color: var(--brand-color);
+  color: #000000;
+}
+
 /* Premium gradient borders and pink glowing shadows */
 :root {
   --brand-color-rgb: 255, 45, 141;

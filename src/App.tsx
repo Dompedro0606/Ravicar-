@@ -22,6 +22,42 @@ import {
   HelpCircle, ShieldCheck, ChevronRight, AlertCircle, Sparkles, CheckCircle2, DollarSign, Clock, Wrench, Gauge, Fuel, ArrowUpRight, Copy, Check
 } from 'lucide-react';
 
+const CustomCursor = () => {
+  const [position, setPosition] = useState({ x: -100, y: -100 });
+  const [isHovering, setIsHovering] = useState(false);
+
+  useEffect(() => {
+    const onMouseMove = (e: MouseEvent) => {
+      setPosition({ x: e.clientX, y: e.clientY });
+      
+      const target = e.target as HTMLElement;
+      // Check if the target is clickable
+      const isClickable = target.closest('a') || target.closest('button') || target.closest('input') || target.closest('select') || target.closest('textarea') || target.closest('[role="button"]') || target.closest('.cursor-pointer');
+      
+      setIsHovering(!!isClickable);
+    };
+
+    window.addEventListener('mousemove', onMouseMove);
+    return () => window.removeEventListener('mousemove', onMouseMove);
+  }, []);
+
+  // Use a media query to hide on touch devices
+  const isTouchDevice = typeof window !== 'undefined' && ('ontouchstart' in window || navigator.maxTouchPoints > 0);
+  
+  if (isTouchDevice) return null;
+
+  return (
+    <>
+      <div 
+        className={`fixed top-0 left-0 w-8 h-8 rounded-full border-2 border-[var(--brand-color)] pointer-events-none z-[99999] transform -translate-x-1/2 -translate-y-1/2 transition-transform duration-100 ease-out flex items-center justify-center ${isHovering ? 'scale-[1.5] bg-[var(--brand-color)]/20' : 'scale-100'}`}
+        style={{ left: `${position.x}px`, top: `${position.y}px` }}
+      >
+        <div className={`w-1.5 h-1.5 rounded-full bg-[var(--brand-color)] transition-transform duration-200 ${isHovering ? 'scale-0' : 'scale-100'}`} />
+      </div>
+    </>
+  );
+};
+
 export default function App() {
   // Navigation & Page State
   const [currentPage, setCurrentPage] = useState<string>('home');
@@ -279,6 +315,7 @@ export default function App() {
 
   return (
     <div className="flex flex-col min-h-screen bg-black text-white overflow-x-hidden">
+      <CustomCursor />
       {/* Dynamic Header */}
       <Header 
         currentUser={currentUser}
