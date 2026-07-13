@@ -108,13 +108,13 @@ export function AuthModal({ onClose, onLoginSuccess, initialTab = 'cliente' }: A
         {/* Close Button */}
         <button
           onClick={onClose}
-          className="absolute top-4 right-4 z-50 p-2 rounded-full hover:bg-neutral-900 text-gray-500 hover:text-white transition cursor-pointer"
+          className="absolute top-3 right-3 md:top-4 md:right-4 z-50 p-2.5 md:p-2 rounded-full bg-neutral-900/80 hover:bg-neutral-800 text-gray-400 hover:text-white transition-all cursor-pointer flex items-center justify-center"
         >
           <X className="w-5 h-5" />
         </button>
 
         {/* Tab Selection */}
-        <div className="flex border-b border-neutral-900 mb-6 mt-6 md:mt-2">
+        <div className="flex border-b border-neutral-900 mb-6 mt-8 md:mt-2">
           <button
             onClick={() => {
               setActiveTab('cliente');

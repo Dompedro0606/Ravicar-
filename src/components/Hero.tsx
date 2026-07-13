@@ -55,13 +55,18 @@ export function Hero({ onNavigate, settings }: HeroProps) {
     >
       {/* Background with luxury premium sports car and dark gradient overlay */}
       <div className="absolute inset-0 z-0 pointer-events-none select-none">
-        <img 
-          src="https://images.unsplash.com/photo-1503376780353-7e6692767b70?auto=format&fit=crop&q=80&w=1600" 
-          alt="RaviCar Premium Sports Car" 
-          className="w-full h-full object-cover object-center opacity-40 filter brightness-50 pointer-events-none select-none"
+        <video 
+          src="/hero-video.mp4#t=1"
+          autoPlay 
+          loop 
+          muted 
+          playsInline
+          poster="https://images.unsplash.com/photo-1503376780353-7e6692767b70?auto=format&fit=crop&q=80&w=1600"
+          className="w-full h-full object-cover object-center opacity-60 filter brightness-75 pointer-events-none select-none mix-blend-screen"
         />
-        {/* Dark radial glow overlay to focus eyes on central text */}
-        <div className="absolute inset-0 bg-gradient-to-t from-black via-black/50 to-black/80 pointer-events-none select-none"></div>
+        {/* Dark radial glow overlay to focus eyes on central text and add a subtle pink tint */}
+        <div className="absolute inset-0 bg-gradient-to-t from-black via-black/40 to-black/80 pointer-events-none select-none"></div>
+        <div className="absolute inset-0 bg-[var(--brand-color)]/5 pointer-events-none select-none mix-blend-overlay"></div>
       </div>
 
       {/* Main Content container */}

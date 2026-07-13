@@ -37,9 +37,30 @@ export default function App() {
   const [copiedKey, setCopiedKey] = useState<string | null>(null);
 
   const handleCopy = (text: string, id: string) => {
-    navigator.clipboard.writeText(text);
-    setCopiedKey(id);
-    setTimeout(() => setCopiedKey(null), 2000);
+    if (navigator.clipboard && navigator.clipboard.writeText) {
+      navigator.clipboard.writeText(text)
+        .then(() => {
+          setCopiedKey(id);
+          setTimeout(() => setCopiedKey(null), 2000);
+        })
+        .catch((err) => console.error('Failed to copy text: ', err));
+    } else {
+      try {
+        const textArea = document.createElement("textarea");
+        textArea.value = text;
+        textArea.style.position = "fixed";
+        textArea.style.left = "-9999px";
+        document.body.appendChild(textArea);
+        textArea.focus();
+        textArea.select();
+        document.execCommand('copy');
+        document.body.removeChild(textArea);
+        setCopiedKey(id);
+        setTimeout(() => setCopiedKey(null), 2000);
+      } catch (err) {
+        console.error('Fallback copy failed', err);
+      }
+    }
   };
 
   // Default initial settings
