@@ -51,22 +51,26 @@ export function Hero({ onNavigate, settings }: HeroProps) {
         setIsHovered(false);
         setMousePosition({ x: 50, y: 50 });
       }}
-      className="relative min-h-[85vh] flex items-center justify-center bg-black overflow-hidden pt-12 select-none group/hero"
+      className="relative min-h-[75vh] py-24 md:py-32 flex items-center justify-center bg-black overflow-hidden select-none group/hero"
     >
       {/* Background with luxury premium sports car and dark gradient overlay */}
-      <div className="absolute inset-0 z-0 pointer-events-none select-none">
+      <div className="absolute inset-0 z-0 pointer-events-none select-none bg-black">
         <video 
-          src="/hero-video.mp4#t=1"
+          src="/hero-video.mp4"
           autoPlay 
           loop 
           muted 
           playsInline
-          poster="https://images.unsplash.com/photo-1503376780353-7e6692767b70?auto=format&fit=crop&q=80&w=1600"
-          className="w-full h-full object-cover object-center opacity-60 filter brightness-75 pointer-events-none select-none mix-blend-screen"
+          className="w-full h-full object-cover object-center opacity-80 filter brightness-[0.8] scale-[1.02] pointer-events-none select-none"
         />
-        {/* Dark radial glow overlay to focus eyes on central text and add a subtle pink tint */}
-        <div className="absolute inset-0 bg-gradient-to-t from-black via-black/40 to-black/80 pointer-events-none select-none"></div>
-        <div className="absolute inset-0 bg-[var(--brand-color)]/5 pointer-events-none select-none mix-blend-overlay"></div>
+        {/* Gradients to fade out the edges of the video into the black background */}
+        <div className="absolute inset-x-0 bottom-0 h-32 bg-gradient-to-t from-black to-transparent pointer-events-none select-none"></div>
+        <div className="absolute inset-x-0 top-0 h-40 bg-gradient-to-b from-black/80 to-transparent pointer-events-none select-none"></div>
+        <div className="absolute inset-y-0 left-0 w-32 bg-gradient-to-r from-black to-transparent pointer-events-none select-none opacity-80"></div>
+        <div className="absolute inset-y-0 right-0 w-32 bg-gradient-to-l from-black to-transparent pointer-events-none select-none opacity-80"></div>
+        {/* Radial vignette for cinematic focus */}
+        <div className="absolute inset-0 bg-[radial-gradient(circle_at_center,transparent_0%,black_100%)] opacity-80 pointer-events-none select-none mix-blend-multiply"></div>
+        <div className="absolute inset-0 bg-[var(--brand-color)]/10 pointer-events-none select-none mix-blend-overlay"></div>
       </div>
 
       {/* Main Content container */}
