@@ -14,6 +14,8 @@ import ComboSimulator from './components/ComboSimulator';
 import { ClientPortal } from './components/ClientPortal';
 import { Footer } from './components/Footer';
 import { Premium3DTiltCard } from './components/Premium3DTiltCard';
+import { VehicleShowcaseCard } from './components/VehicleShowcaseCard';
+import { ReservationCertificate } from './components/ReservationCertificate';
 import { 
   Vehicle, UserProfile, SiteSettings, Testimonial 
 } from './types';
@@ -369,96 +371,44 @@ export default function App() {
             <Hero onNavigate={handleNavigate} settings={settings} />
 
             {/* Featured Cars Section */}
-            <section className="max-w-7xl mx-auto px-4 reveal-on-scroll">
-              <div className="flex flex-col sm:flex-row items-start sm:items-center justify-between mb-8 gap-3">
-                <div>
-                  <h2 className="font-display font-black text-2xl md:text-3xl text-white mt-1">
-                    Veículos em Destaque no Showroom
-                  </h2>
+            <section className="bg-[#0B0B0C] py-20 border-y border-neutral-900/40 reveal-on-scroll">
+              <div className="max-w-7xl mx-auto px-4">
+                <div className="flex flex-col sm:flex-row items-start sm:items-center justify-between mb-10 gap-3">
+                  <div>
+                    <span className="text-[10px] font-mono tracking-widest text-[#FF2A7A] uppercase">// SHOWROOM</span>
+                    <h2 className="font-display font-black text-2xl md:text-3xl text-white mt-1">
+                      Veículos em Destaque
+                    </h2>
+                  </div>
+                  <button
+                    onClick={() => handleNavigate('catalogo')}
+                    className="px-5 py-2.5 rounded-xl border border-neutral-800 hover:border-[#FF2A7A]/30 bg-[#18181B] text-xs font-bold text-gray-300 hover:text-[#FF2A7A] transition duration-300 flex items-center gap-1 cursor-pointer"
+                  >
+                    Ver Estoque Completo
+                    <ChevronRight className="w-4 h-4" />
+                  </button>
                 </div>
-                <button
-                  onClick={() => handleNavigate('catalogo')}
-                  className="px-5 py-2.5 rounded-xl border border-neutral-800 hover:border-[var(--brand-color)] bg-neutral-950 text-xs font-bold text-gray-300 hover:text-[var(--brand-color)] transition duration-300 flex items-center gap-1 cursor-pointer"
-                >
-                  Ver Estoque Completo
-                  <ChevronRight className="w-4 h-4" />
-                </button>
+                
+                {/* Grid of featured vehicles */}
+                {featuredVehicles.length === 0 ? (
+                  <p className="text-xs text-gray-500 py-10 text-center">Nenhum veículo em destaque no momento.</p>
+                ) : (
+                  <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
+                    {featuredVehicles.map(v => (
+                      <VehicleShowcaseCard 
+                        key={v.id}
+                        vehicle={v}
+                        onClick={() => handleNavigate('detalhes', v.id)}
+                        onContactClick={() => {
+                          const wppNumber = settings?.contactPhone ? settings.contactPhone.replace(/\D/g, '') : '5511999999999';
+                          const message = `Olá! Tenho interesse no veículo ${v.title} (${v.year}) que vi em destaque no site.`;
+                          window.open(`https://wa.me/${wppNumber}?text=${encodeURIComponent(message)}`, '_blank');
+                        }}
+                      />
+                    ))}
+                  </div>
+                )}
               </div>
-
-              {/* Grid of featured vehicles */}
-              {featuredVehicles.length === 0 ? (
-                <p className="text-xs text-gray-500 py-10 text-center">Nenhum veículo em destaque no momento.</p>
-              ) : (
-                <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-6">
-                  {featuredVehicles.map(v => (
-                    <Premium3DTiltCard
-                      key={v.id}
-                      onClick={() => handleNavigate('detalhes', v.id)}
-                      className="group bg-neutral-950 border border-neutral-900 rounded-2xl overflow-hidden cursor-pointer flex flex-col justify-between"
-                    >
-                      <div className="relative aspect-[16/10] w-full overflow-hidden bg-[#1A1A1A]">
-                        {v.media && v.media.length > 0 ? (
-                          <img
-                            src={v.media[0].url}
-                            alt={v.title}
-                            className="w-full h-full object-cover object-center group-hover:scale-105 transition-all duration-500"
-                          />
-                        ) : (
-                          <div className="w-full h-full flex items-center justify-center text-gray-600">Sem Foto</div>
-                        )}
-                        <span className={`absolute bottom-3 left-3 px-2.5 py-0.5 rounded-full text-[10px] font-mono tracking-wider uppercase flex items-center gap-1.5 backdrop-blur-md border ${
-                          v.status === 'Disponível' ? 'bg-emerald-500/10 border-emerald-500/20 text-emerald-400' :
-                          v.status === 'Reservado' ? 'bg-amber-500/10 border-amber-500/20 text-amber-400' :
-                          'bg-neutral-500/10 border-neutral-500/20 text-gray-400'
-                        }`}>
-                          <span className={`w-1.5 h-1.5 rounded-full ${
-                            v.status === 'Disponível' ? 'bg-emerald-500 animate-pulse' :
-                            v.status === 'Reservado' ? 'bg-amber-500' : 'bg-gray-400'
-                          }`}></span>
-                          {v.status}
-                        </span>
-                      </div>
-                      <div className="p-5 flex-grow flex flex-col justify-between">
-                        <div>
-                          <span className="text-[10px] font-mono tracking-widest text-gray-500 uppercase">{v.brand}</span>
-                          <h4 className="font-display font-extrabold text-white text-base truncate leading-relaxed py-1 mt-0.5 group-hover:text-[var(--brand-color)] transition-colors">
-                            {v.title}
-                          </h4>
-                          
-                          {/* Tags list (matching high-fidelity Catalog style) */}
-                          <div className="grid grid-cols-2 gap-y-2 gap-x-3 mt-4 text-xs text-gray-400 font-medium">
-                            <span className="flex items-center gap-2 truncate py-0.5">
-                              <Calendar className="w-3.5 h-3.5 text-neutral-500 group-hover:text-[var(--brand-color)] transition-colors shrink-0" />
-                              <span>{v.year}</span>
-                            </span>
-                            <span className="flex items-center gap-2 truncate py-0.5">
-                              <Wrench className="w-3.5 h-3.5 text-neutral-500 group-hover:text-[var(--brand-color)] transition-colors shrink-0" />
-                              <span className="truncate">{v.transmission}</span>
-                            </span>
-                            <span className="flex items-center gap-2 truncate py-0.5">
-                              <Gauge className="w-3.5 h-3.5 text-neutral-500 group-hover:text-[var(--brand-color)] transition-colors shrink-0" />
-                              <span className="truncate">{v.mileage === 0 ? 'Zero KM' : `${v.mileage.toLocaleString('pt-BR')} KM`}</span>
-                            </span>
-                            <span className="flex items-center gap-2 truncate py-0.5">
-                              <Fuel className="w-3.5 h-3.5 text-neutral-500 group-hover:text-[var(--brand-color)] transition-colors shrink-0" />
-                              <span className="truncate">{v.fuel || 'Flex'}</span>
-                            </span>
-                          </div>
-                        </div>
-                        <div className="mt-5 pt-4 border-t border-neutral-900/60 flex items-end justify-between">
-                          <div>
-                            <p className="text-[9px] uppercase tracking-widest text-neutral-500 font-mono">VALOR ESPECIAL</p>
-                            <p className="font-display font-black text-white text-lg mt-0.5 group-hover:text-[var(--brand-color)] transition-colors">R$ {v.price.toLocaleString('pt-BR')}</p>
-                          </div>
-                          <span className="h-8 w-8 rounded-full border border-neutral-900 bg-neutral-950 flex items-center justify-center text-gray-400 group-hover:border-[var(--brand-color)]/40 group-hover:text-[var(--brand-color)] transition-all duration-300">
-                            <ArrowUpRight className="w-4 h-4" />
-                          </span>
-                        </div>
-                      </div>
-                    </Premium3DTiltCard>
-                  ))}
-                </div>
-              )}
             </section>
 
             {/* Quick action buttons with high fidelity illustrations and links */}
@@ -859,6 +809,13 @@ export default function App() {
               currentUser={currentUser} 
               onNavigate={handleNavigate} 
             />
+          </div>
+        )}
+
+        {/* RESERVA PAGE */}
+        {currentPage === 'reserva' && (
+          <div className="animate-fade-in-up py-20 px-4 min-h-[80vh] flex items-center justify-center">
+            <ReservationCertificate />
           </div>
         )}
 

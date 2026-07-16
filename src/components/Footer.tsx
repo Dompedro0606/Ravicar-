@@ -79,6 +79,11 @@ export function Footer({ onNavigate, settings }: FooterProps) {
                 Termos de Uso & Privacidade
               </button>
             </li>
+            <li>
+              <button onClick={() => handleNav('reserva')} className="hover:text-[var(--brand-color)] transition text-xs cursor-pointer text-emerald-400">
+                Certificado de Reserva
+              </button>
+            </li>
           </ul>
         </div>
 
