@@ -333,31 +333,31 @@ export function Header({ currentUser, onLogout, onOpenAuth, onNavigate, currentP
           <nav className="hidden md:flex items-center gap-10 text-[10px] font-mono tracking-[0.2em] uppercase">
             <button 
               onClick={() => handleNav('home')} 
-              className={`group relative transition-all duration-300 cursor-pointer py-2 ${currentPage === 'home' ? 'text-white font-bold' : 'text-gray-500 hover:text-white'}`}
+              className={`group relative transition-all duration-300 cursor-pointer py-2 ${currentPage === 'home' ? (activeTheme === 'original' ? 'text-[#FF2A7A] font-bold' : 'text-[var(--brand-color)] font-bold') : (activeTheme === 'original' ? 'text-gray-500 hover:text-[#FF2A7A]' : 'text-gray-500 hover:text-white')}`}
             >
               Início
-              <span className={`absolute -bottom-2 left-1/2 -translate-x-1/2 w-1 h-1 rounded-full transition-all duration-300 ${currentPage === 'home' ? 'bg-[var(--brand-color)] opacity-100 scale-100' : 'bg-transparent opacity-0 scale-0 group-hover:bg-neutral-600 group-hover:opacity-100 group-hover:scale-100'}`}></span>
+              <span className={`absolute -bottom-2 left-1/2 -translate-x-1/2 w-1 h-1 rounded-full transition-all duration-300 ${currentPage === 'home' ? (activeTheme === 'original' ? 'bg-[#FF2A7A] opacity-100 scale-100' : 'bg-[var(--brand-color)] opacity-100 scale-100') : 'bg-transparent opacity-0 scale-0 group-hover:bg-neutral-600 group-hover:opacity-100 group-hover:scale-100'}`}></span>
             </button>
             <button 
               onClick={() => handleNav('catalogo')} 
-              className={`group relative transition-all duration-300 cursor-pointer py-2 ${currentPage === 'catalogo' ? 'text-white font-bold' : 'text-gray-500 hover:text-white'}`}
+              className={`group relative transition-all duration-300 cursor-pointer py-2 ${currentPage === 'catalogo' ? (activeTheme === 'original' ? 'text-[#FF2A7A] font-bold' : 'text-[var(--brand-color)] font-bold') : (activeTheme === 'original' ? 'text-gray-500 hover:text-[#FF2A7A]' : 'text-gray-500 hover:text-white')}`}
             >
               Estoque
-              <span className={`absolute -bottom-2 left-1/2 -translate-x-1/2 w-1 h-1 rounded-full transition-all duration-300 ${currentPage === 'catalogo' ? 'bg-[var(--brand-color)] opacity-100 scale-100' : 'bg-transparent opacity-0 scale-0 group-hover:bg-neutral-600 group-hover:opacity-100 group-hover:scale-100'}`}></span>
+              <span className={`absolute -bottom-2 left-1/2 -translate-x-1/2 w-1 h-1 rounded-full transition-all duration-300 ${currentPage === 'catalogo' ? (activeTheme === 'original' ? 'bg-[#FF2A7A] opacity-100 scale-100' : 'bg-[var(--brand-color)] opacity-100 scale-100') : 'bg-transparent opacity-0 scale-0 group-hover:bg-neutral-600 group-hover:opacity-100 group-hover:scale-100'}`}></span>
             </button>
             <button 
               onClick={() => handleNav('financiamento')} 
-              className={`group relative transition-all duration-300 cursor-pointer py-2 ${currentPage === 'financiamento' ? 'text-white font-bold' : 'text-gray-500 hover:text-white'}`}
+              className={`group relative transition-all duration-300 cursor-pointer py-2 ${currentPage === 'financiamento' ? (activeTheme === 'original' ? 'text-[#FF2A7A] font-bold' : 'text-[var(--brand-color)] font-bold') : (activeTheme === 'original' ? 'text-gray-500 hover:text-[#FF2A7A]' : 'text-gray-500 hover:text-white')}`}
             >
               Financiamento
-              <span className={`absolute -bottom-2 left-1/2 -translate-x-1/2 w-1 h-1 rounded-full transition-all duration-300 ${currentPage === 'financiamento' ? 'bg-[var(--brand-color)] opacity-100 scale-100' : 'bg-transparent opacity-0 scale-0 group-hover:bg-neutral-600 group-hover:opacity-100 group-hover:scale-100'}`}></span>
+              <span className={`absolute -bottom-2 left-1/2 -translate-x-1/2 w-1 h-1 rounded-full transition-all duration-300 ${currentPage === 'financiamento' ? (activeTheme === 'original' ? 'bg-[#FF2A7A] opacity-100 scale-100' : 'bg-[var(--brand-color)] opacity-100 scale-100') : 'bg-transparent opacity-0 scale-0 group-hover:bg-neutral-600 group-hover:opacity-100 group-hover:scale-100'}`}></span>
             </button>
             <button 
               onClick={() => handleNav('avaliacao')} 
-              className={`group relative transition-all duration-300 cursor-pointer py-2 ${currentPage === 'avaliacao' ? 'text-white font-bold' : 'text-gray-500 hover:text-white'}`}
+              className={`group relative transition-all duration-300 cursor-pointer py-2 ${currentPage === 'avaliacao' ? (activeTheme === 'original' ? 'text-[#FF2A7A] font-bold' : 'text-[var(--brand-color)] font-bold') : (activeTheme === 'original' ? 'text-gray-500 hover:text-[#FF2A7A]' : 'text-gray-500 hover:text-white')}`}
             >
               Avalie seu Usado
-              <span className={`absolute -bottom-2 left-1/2 -translate-x-1/2 w-1 h-1 rounded-full transition-all duration-300 ${currentPage === 'avaliacao' ? 'bg-[var(--brand-color)] opacity-100 scale-100' : 'bg-transparent opacity-0 scale-0 group-hover:bg-neutral-600 group-hover:opacity-100 group-hover:scale-100'}`}></span>
+              <span className={`absolute -bottom-2 left-1/2 -translate-x-1/2 w-1 h-1 rounded-full transition-all duration-300 ${currentPage === 'avaliacao' ? (activeTheme === 'original' ? 'bg-[#FF2A7A] opacity-100 scale-100' : 'bg-[var(--brand-color)] opacity-100 scale-100') : 'bg-transparent opacity-0 scale-0 group-hover:bg-neutral-600 group-hover:opacity-100 group-hover:scale-100'}`}></span>
             </button>
           </nav>
 
@@ -609,31 +609,31 @@ export function Header({ currentUser, onLogout, onOpenAuth, onNavigate, currentP
                 <nav className="flex flex-col py-2">
                   <button 
                     onClick={() => handleNav('home')} 
-                    className="text-left px-5 py-4 border-b border-gray-100 dark:border-neutral-900/50 text-gray-800 dark:text-white font-medium hover:bg-gray-50 dark:hover:bg-neutral-900/30 transition-colors"
+                    className={`text-left px-5 py-4 border-b border-gray-100 dark:border-neutral-900/50 hover:bg-gray-50 dark:hover:bg-neutral-900/30 transition-colors ${currentPage === 'home' ? (activeTheme === 'original' ? 'text-[#FF2A7A] font-bold' : 'text-[var(--brand-color)] font-bold') : 'text-gray-800 dark:text-white font-medium'}`}
                   >
                     Início
                   </button>
                   <button 
                     onClick={() => handleNav('catalogo')} 
-                    className="text-left px-5 py-4 border-b border-gray-100 dark:border-neutral-900/50 text-gray-800 dark:text-white font-bold hover:bg-gray-50 dark:hover:bg-neutral-900/30 transition-colors"
+                    className={`text-left px-5 py-4 border-b border-gray-100 dark:border-neutral-900/50 hover:bg-gray-50 dark:hover:bg-neutral-900/30 transition-colors ${currentPage === 'catalogo' ? (activeTheme === 'original' ? 'text-[#FF2A7A] font-bold' : 'text-[var(--brand-color)] font-bold') : 'text-gray-800 dark:text-white font-medium'}`}
                   >
                     Estoque
                   </button>
                   <button 
                     onClick={() => handleNav('financiamento')} 
-                    className="text-left px-5 py-4 border-b border-gray-100 dark:border-neutral-900/50 text-gray-800 dark:text-white font-medium hover:bg-gray-50 dark:hover:bg-neutral-900/30 transition-colors"
+                    className={`text-left px-5 py-4 border-b border-gray-100 dark:border-neutral-900/50 hover:bg-gray-50 dark:hover:bg-neutral-900/30 transition-colors ${currentPage === 'financiamento' ? (activeTheme === 'original' ? 'text-[#FF2A7A] font-bold' : 'text-[var(--brand-color)] font-bold') : 'text-gray-800 dark:text-white font-medium'}`}
                   >
                     Financiamento
                   </button>
                   <button 
                     onClick={() => handleNav('avaliacao')} 
-                    className="text-left px-5 py-4 border-b border-gray-100 dark:border-neutral-900/50 text-gray-800 dark:text-white font-medium hover:bg-gray-50 dark:hover:bg-neutral-900/30 transition-colors"
+                    className={`text-left px-5 py-4 border-b border-gray-100 dark:border-neutral-900/50 hover:bg-gray-50 dark:hover:bg-neutral-900/30 transition-colors ${currentPage === 'avaliacao' ? (activeTheme === 'original' ? 'text-[#FF2A7A] font-bold' : 'text-[var(--brand-color)] font-bold') : 'text-gray-800 dark:text-white font-medium'}`}
                   >
                     Avalie seu Usado
                   </button>
                   <button 
                     onClick={() => handleNav('combo')} 
-                    className="text-left px-5 py-4 border-b border-gray-100 dark:border-neutral-900/50 text-gray-800 dark:text-white font-medium hover:bg-gray-50 dark:hover:bg-neutral-900/30 transition-colors flex items-center justify-between"
+                    className={`text-left px-5 py-4 border-b border-gray-100 dark:border-neutral-900/50 hover:bg-gray-50 dark:hover:bg-neutral-900/30 transition-colors flex items-center justify-between ${currentPage === 'combo' ? (activeTheme === 'original' ? 'text-[#FF2A7A] font-bold' : 'text-[var(--brand-color)] font-bold') : 'text-gray-800 dark:text-white font-medium'}`}
                   >
                     Simulador Combo
                     <span className="w-2 h-2 rounded-full bg-[var(--brand-color)]"></span>
@@ -654,38 +654,38 @@ export function Header({ currentUser, onLogout, onOpenAuth, onNavigate, currentP
                   <div className="flex items-center gap-3 overflow-x-auto pb-4 hide-scrollbar">
                     <button
                       onClick={() => changeTheme('original')}
-                      className={`flex flex-col items-center justify-center gap-2 min-w-[70px] min-h-[70px] rounded-xl transition-all cursor-pointer border ${activeTheme === 'original' ? 'border-[var(--brand-color)] bg-gray-100 dark:bg-neutral-900' : 'border-gray-200 dark:border-neutral-800 hover:bg-gray-50 dark:hover:bg-neutral-900'}`}
+                      className={`flex flex-col items-center justify-center gap-2 min-w-[70px] min-h-[70px] rounded-xl transition-all cursor-pointer border ${activeTheme === 'original' ? 'border-[#FF2A7A] bg-[#FF2A7A]/5 dark:bg-[#FF2A7A]/10' : 'border-gray-200 dark:border-neutral-800 hover:bg-gray-50 dark:hover:bg-neutral-900'}`}
                     >
                       <span className="w-6 h-6 rounded-full bg-[#FF2A7A] shadow-sm"></span>
-                      <span className="text-[10px] text-gray-600 dark:text-gray-400 font-medium">Rosa</span>
+                      <span className={`text-[10px] font-medium ${activeTheme === 'original' ? 'text-[#FF2A7A]' : 'text-gray-600 dark:text-gray-400'}`}>Rosa</span>
                     </button>
                     <button
                       onClick={() => changeTheme('branco')}
-                      className={`flex flex-col items-center justify-center gap-2 min-w-[70px] min-h-[70px] rounded-xl transition-all cursor-pointer border ${activeTheme === 'branco' ? 'border-[var(--brand-color)] bg-gray-100 dark:bg-neutral-900' : 'border-gray-200 dark:border-neutral-800 hover:bg-gray-50 dark:hover:bg-neutral-900'}`}
+                      className={`flex flex-col items-center justify-center gap-2 min-w-[70px] min-h-[70px] rounded-xl transition-all cursor-pointer border ${activeTheme === 'branco' ? 'border-gray-400 dark:border-gray-500 bg-gray-100 dark:bg-neutral-800' : 'border-gray-200 dark:border-neutral-800 hover:bg-gray-50 dark:hover:bg-neutral-900'}`}
                     >
                       <span className="w-6 h-6 rounded-full bg-white border border-gray-300 shadow-sm"></span>
-                      <span className="text-[10px] text-gray-600 dark:text-gray-400 font-medium">Branco</span>
+                      <span className={`text-[10px] font-medium ${activeTheme === 'branco' ? 'text-gray-900 dark:text-white' : 'text-gray-600 dark:text-gray-400'}`}>Branco</span>
                     </button>
                     <button
                       onClick={() => changeTheme('azul')}
-                      className={`flex flex-col items-center justify-center gap-2 min-w-[70px] min-h-[70px] rounded-xl transition-all cursor-pointer border ${activeTheme === 'azul' ? 'border-[var(--brand-color)] bg-gray-100 dark:bg-neutral-900' : 'border-gray-200 dark:border-neutral-800 hover:bg-gray-50 dark:hover:bg-neutral-900'}`}
+                      className={`flex flex-col items-center justify-center gap-2 min-w-[70px] min-h-[70px] rounded-xl transition-all cursor-pointer border ${activeTheme === 'azul' ? 'border-blue-500 bg-blue-500/5 dark:bg-blue-500/10' : 'border-gray-200 dark:border-neutral-800 hover:bg-gray-50 dark:hover:bg-neutral-900'}`}
                     >
                       <span className="w-6 h-6 rounded-full bg-blue-500 shadow-sm"></span>
-                      <span className="text-[10px] text-gray-600 dark:text-gray-400 font-medium">Azul</span>
+                      <span className={`text-[10px] font-medium ${activeTheme === 'azul' ? 'text-blue-500' : 'text-gray-600 dark:text-gray-400'}`}>Azul</span>
                     </button>
                     <button
                       onClick={() => changeTheme('preto')}
-                      className={`flex flex-col items-center justify-center gap-2 min-w-[70px] min-h-[70px] rounded-xl transition-all cursor-pointer border ${activeTheme === 'preto' ? 'border-[var(--brand-color)] bg-gray-100 dark:bg-neutral-900' : 'border-gray-200 dark:border-neutral-800 hover:bg-gray-50 dark:hover:bg-neutral-900'}`}
+                      className={`flex flex-col items-center justify-center gap-2 min-w-[70px] min-h-[70px] rounded-xl transition-all cursor-pointer border ${activeTheme === 'preto' ? 'border-black dark:border-white bg-black/5 dark:bg-white/10' : 'border-gray-200 dark:border-neutral-800 hover:bg-gray-50 dark:hover:bg-neutral-900'}`}
                     >
                       <span className="w-6 h-6 rounded-full bg-black border border-neutral-700 shadow-sm"></span>
-                      <span className="text-[10px] text-gray-600 dark:text-gray-400 font-medium">Preto</span>
+                      <span className={`text-[10px] font-medium ${activeTheme === 'preto' ? 'text-black dark:text-white' : 'text-gray-600 dark:text-gray-400'}`}>Preto</span>
                     </button>
                     <button
                       onClick={() => changeTheme('creme')}
-                      className={`flex flex-col items-center justify-center gap-2 min-w-[70px] min-h-[70px] rounded-xl transition-all cursor-pointer border ${activeTheme === 'creme' ? 'border-[var(--brand-color)] bg-gray-100 dark:bg-neutral-900' : 'border-gray-200 dark:border-neutral-800 hover:bg-gray-50 dark:hover:bg-neutral-900'}`}
+                      className={`flex flex-col items-center justify-center gap-2 min-w-[70px] min-h-[70px] rounded-xl transition-all cursor-pointer border ${activeTheme === 'creme' ? 'border-[#a67537] bg-[#a67537]/5 dark:bg-[#a67537]/10' : 'border-gray-200 dark:border-neutral-800 hover:bg-gray-50 dark:hover:bg-neutral-900'}`}
                     >
                       <span className="w-6 h-6 rounded-full bg-[#faf4e8] border border-[#a67537] shadow-sm"></span>
-                      <span className="text-[10px] text-gray-600 dark:text-gray-400 font-medium">Creme</span>
+                      <span className={`text-[10px] font-medium ${activeTheme === 'creme' ? 'text-[#a67537]' : 'text-gray-600 dark:text-gray-400'}`}>Creme</span>
                     </button>
                   </div>
                 </div>

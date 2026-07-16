@@ -1393,42 +1393,45 @@ export function AdminPanel({ currentUser, token, vehicles, onRefreshData, settin
                 <div className="p-4 bg-neutral-900 border border-neutral-800/80 rounded-2xl">
                   <h5 className="font-display font-bold text-xs text-[#FF6FB5] mb-2 flex items-center gap-1">
                     <Upload className="w-4 h-4" />
-                    Upload de Fotos e Vídeos do Veículo (Suporta múltiplos arquivos do dispositivo)
+                    Fotos do Veículo
                   </h5>
-                  <p className="text-[10px] text-gray-500 mb-4">Escolha fotos ou vídeos para fazer o upload em lote. Eles serão guardados de forma segura na galeria do carro.</p>
+                  <p className="text-[10px] text-gray-500 mb-4">Adicione fotos e vídeos para compor a galeria do carro.</p>
                   
-                  <div className="flex flex-col sm:flex-row gap-4 items-start mb-4">
-                    <input
-                      type="file"
-                      multiple
-                      accept="image/*,video/*"
-                      onChange={handleFileUpload}
-                      className="text-xs text-gray-400 file:mr-4 file:py-2 file:px-4 file:rounded-xl file:border-0 file:text-xs file:font-semibold file:bg-[#FF2D8D] file:text-white hover:file:opacity-90"
-                    />
-                    {loading && <span className="text-xs text-[#FF2D8D] font-bold animate-pulse">Processando upload de mídia...</span>}
-                  </div>
+                  <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+                    {/* Dropzone */}
+                    <div className="relative w-full h-40 border-2 border-dashed border-gray-700 hover:border-[#FF2A7A] rounded-2xl flex flex-col items-center justify-center bg-neutral-950 transition-colors group cursor-pointer">
+                      <input
+                        type="file"
+                        multiple
+                        accept="image/*,video/*"
+                        onChange={handleFileUpload}
+                        className="absolute inset-0 w-full h-full opacity-0 cursor-pointer z-10"
+                      />
+                      <Upload className="w-8 h-8 text-gray-500 group-hover:text-[#FF2A7A] mb-2 transition-colors" />
+                      <span className="text-gray-400 font-bold text-xs group-hover:text-white transition-colors">Toque para adicionar fotos</span>
+                      {loading && <span className="text-xs text-[#FF2A7A] mt-2 animate-pulse font-medium">Enviando...</span>}
+                    </div>
 
-                  {/* Thumbnail Previews with option to delete */}
-                  {carForm.media.length > 0 && (
-                    <div className="flex flex-wrap gap-2 pt-2">
+                    {/* Thumbnail Previews */}
+                    <div className="grid grid-cols-3 sm:grid-cols-4 gap-2 h-40 overflow-y-auto pr-2 scrollbar-thin scrollbar-thumb-gray-800 scrollbar-track-transparent">
                       {carForm.media.map((med, idx) => (
-                        <div key={idx} className="relative w-16 h-12 rounded border border-neutral-800 overflow-hidden bg-black flex items-center justify-center">
+                        <div key={idx} className="relative aspect-square rounded-lg border border-neutral-800 overflow-hidden bg-black flex items-center justify-center group">
                           {med.type === 'video' ? (
-                            <Video className="w-5 h-5 text-[#FF2D8D]" />
+                            <Video className="w-6 h-6 text-[#FF2A7A]" />
                           ) : (
                             <img src={med.url} className="w-full h-full object-cover" />
                           )}
                           <button
                             type="button"
                             onClick={() => handleRemoveMedia(idx)}
-                            className="absolute top-0 right-0 bg-red-600 text-white text-[8px] font-bold px-1 rounded-bl"
+                            className="absolute top-1 right-1 bg-red-600/90 hover:bg-red-500 text-white w-6 h-6 flex items-center justify-center rounded-md opacity-0 group-hover:opacity-100 transition-opacity shadow-lg"
                           >
-                            X
+                            <Trash className="w-3.5 h-3.5" />
                           </button>
                         </div>
                       ))}
                     </div>
-                  )}
+                  </div>
                 </div>
 
                 {/* Optionals list inputs */}
@@ -1601,26 +1604,26 @@ export function AdminPanel({ currentUser, token, vehicles, onRefreshData, settin
                     </select>
                   </div>
 
-                  <div className="flex items-center gap-2 pt-6">
-                    <input
-                      type="checkbox"
-                      id="featured"
-                      checked={carForm.featured}
-                      onChange={e => setCarForm(p => ({ ...p, featured: e.target.checked }))}
-                      className="accent-[#FF2D8D] w-4 h-4"
-                    />
-                    <label htmlFor="featured" className="font-bold text-white text-xs cursor-pointer">Anúncio Destaque ⚡</label>
+                  <div className="flex items-center gap-3 pt-6">
+                    <button
+                      type="button"
+                      onClick={() => setCarForm(p => ({ ...p, featured: !p.featured }))}
+                      className={`relative w-10 h-6 rounded-full transition-colors duration-300 ease-in-out shrink-0 focus:outline-none ${carForm.featured ? 'bg-[#FF2A7A]' : 'bg-gray-700'}`}
+                    >
+                      <span className={`absolute top-1 bg-white w-4 h-4 rounded-full transition-transform duration-300 ease-in-out ${carForm.featured ? 'left-[22px]' : 'left-1'}`} />
+                    </button>
+                    <label className="font-bold text-white text-xs cursor-pointer" onClick={() => setCarForm(p => ({ ...p, featured: !p.featured }))}>Anúncio Destaque ⚡</label>
                   </div>
 
-                  <div className="flex items-center gap-2 pt-6">
-                    <input
-                      type="checkbox"
-                      id="newlyArrived"
-                      checked={carForm.newlyArrived}
-                      onChange={e => setCarForm(p => ({ ...p, newlyArrived: e.target.checked }))}
-                      className="accent-[#FF2D8D] w-4 h-4"
-                    />
-                    <label htmlFor="newlyArrived" className="font-bold text-white text-xs cursor-pointer">Novidade no Estoque ✨</label>
+                  <div className="flex items-center gap-3 pt-6">
+                    <button
+                      type="button"
+                      onClick={() => setCarForm(p => ({ ...p, newlyArrived: !p.newlyArrived }))}
+                      className={`relative w-10 h-6 rounded-full transition-colors duration-300 ease-in-out shrink-0 focus:outline-none ${carForm.newlyArrived ? 'bg-[#FF2A7A]' : 'bg-gray-700'}`}
+                    >
+                      <span className={`absolute top-1 bg-white w-4 h-4 rounded-full transition-transform duration-300 ease-in-out ${carForm.newlyArrived ? 'left-[22px]' : 'left-1'}`} />
+                    </button>
+                    <label className="font-bold text-white text-xs cursor-pointer" onClick={() => setCarForm(p => ({ ...p, newlyArrived: !p.newlyArrived }))}>Novidade no Estoque ✨</label>
                   </div>
                 </div>
 
@@ -1643,81 +1646,61 @@ export function AdminPanel({ currentUser, token, vehicles, onRefreshData, settin
             </div>
           )}
 
-          {/* Vehicles List Table */}
-          <div className="bg-neutral-950 border border-neutral-900 rounded-2xl overflow-hidden">
-            <div className="overflow-x-auto">
-              <table className="w-full text-left text-xs border-collapse">
-                <thead>
-                  <tr className="border-b border-neutral-900 bg-neutral-900/30 text-gray-500 font-bold">
-                    <th className="p-4">Veículo</th>
-                    <th className="p-4">Preço</th>
-                    <th className="p-4">Ano</th>
-                    <th className="p-4">Status</th>
-                    <th className="p-4">Cliques/Views</th>
-                    <th className="p-4 text-right">Ações</th>
-                  </tr>
-                </thead>
-                <tbody className="divide-y divide-neutral-900/60 text-gray-300">
-                  {filteredVehicles.map(v => (
-                    <tr key={v.id} className="hover:bg-neutral-900/10">
-                      <td className="p-4">
-                        <div className="flex items-center gap-3">
-                          <img
-                            src={v.media[0]?.url || 'https://images.unsplash.com/photo-1541899481282-d53bffe3c35d?auto=format&fit=crop&q=80&w=200'}
-                            className="w-12 h-9 object-cover rounded bg-neutral-900 border border-neutral-800"
-                          />
-                          <div>
-                            <p className="font-bold text-white text-xs">{v.title}</p>
-                            <p className="text-[10px] text-gray-500">{v.brand} • {v.transmission} • {v.fuel}</p>
-                          </div>
-                        </div>
-                      </td>
-                      <td className="p-4 font-bold text-[#FF2D8D]">
-                        R$ {v.price.toLocaleString('pt-BR')}
-                      </td>
-                      <td className="p-4 text-gray-400 font-medium">{v.year}</td>
-                      <td className="p-4">
-                        <span className={`px-2 py-0.5 rounded text-[9px] font-extrabold uppercase ${
-                          v.status === 'Disponível' ? 'bg-emerald-950/80 text-emerald-400 border border-emerald-900/50' :
-                          v.status === 'Reservado' ? 'bg-amber-950/80 text-amber-400 border border-amber-900/50' :
-                          'bg-red-950/80 text-red-400 border border-red-900/50'
-                        }`}>
-                          {v.status}
-                        </span>
-                      </td>
-                      <td className="p-4">
-                        <span className="flex items-center gap-1 font-mono text-gray-500">
-                          <Eye className="w-3.5 h-3.5" />
-                          {v.views || 0}
-                        </span>
-                      </td>
-                      <td className="p-4 text-right">
-                        <div className="flex items-center justify-end gap-2">
-                          <button
-                            onClick={() => handleEditCarClick(v)}
-                            className="p-1.5 rounded bg-neutral-900 border border-neutral-800 text-[#FF6FB5] hover:bg-[#FF2D8D] hover:text-white transition cursor-pointer flex items-center justify-center w-8 h-8 shrink-0"
-                            title="Editar Veículo"
-                          >
-                            <Edit className="w-3.5 h-3.5" />
-                          </button>
-                          <button
-                            onClick={() => handleDeleteCar(v.id)}
-                            className="p-1.5 rounded bg-neutral-900 border border-neutral-800 text-red-400 hover:bg-red-600 hover:text-white transition cursor-pointer flex items-center justify-center w-8 h-8 shrink-0"
-                            title="Excluir Anúncio"
-                          >
-                            <Trash className="w-3.5 h-3.5" />
-                          </button>
-                        </div>
-                      </td>
-                    </tr>
-                  ))}
-                </tbody>
-              </table>
-            </div>
+          {/* Vehicles List */}
+          <div className="bg-neutral-950 border border-neutral-900 rounded-2xl overflow-hidden flex flex-col">
+            {filteredVehicles.map(v => (
+              <div key={v.id} className="p-4 flex flex-row items-center gap-4 border-b border-gray-800 last:border-0 hover:bg-neutral-900/20 transition-colors">
+                <div className="shrink-0 w-20 h-20 bg-neutral-900 rounded-md overflow-hidden border border-neutral-800">
+                  <img
+                    src={v.media[0]?.url || 'https://images.unsplash.com/photo-1541899481282-d53bffe3c35d?auto=format&fit=crop&q=80&w=200'}
+                    className="w-full h-full object-cover"
+                    alt={v.title}
+                  />
+                </div>
+                <div className="flex-grow min-w-0 flex flex-col justify-center">
+                  <h4 className="text-white font-bold truncate line-clamp-1 max-w-full">{v.title}</h4>
+                  <div className="flex items-center gap-2 mt-1 flex-wrap">
+                    <span className="text-gray-400 text-xs font-medium">{v.year}</span>
+                    <span className={`px-2 py-0.5 rounded text-[9px] font-extrabold uppercase ${
+                      v.status === 'Disponível' ? 'bg-emerald-950/80 text-emerald-400 border border-emerald-900/50' :
+                      v.status === 'Reservado' ? 'bg-amber-950/80 text-amber-400 border border-amber-900/50' :
+                      'bg-red-950/80 text-red-400 border border-red-900/50'
+                    }`}>
+                      {v.status}
+                    </span>
+                  </div>
+                  <div className="flex items-center gap-2 mt-1.5 font-mono text-gray-500 text-[10px]">
+                    <span className="flex items-center gap-1">
+                      <Eye className="w-3.5 h-3.5" /> {v.views || 0} views
+                    </span>
+                  </div>
+                </div>
+                <div className="flex flex-col items-end shrink-0 ml-auto gap-2">
+                  <div className="text-[#FF2A7A] font-bold text-sm md:text-base whitespace-nowrap">
+                    R$ {v.price.toLocaleString('pt-BR')}
+                  </div>
+                  <div className="flex items-center gap-2">
+                    <button
+                      onClick={() => handleEditCarClick(v)}
+                      className="p-1.5 rounded bg-neutral-900 border border-neutral-800 text-[#FF6FB5] hover:bg-[#FF2A7A] hover:text-white transition cursor-pointer flex items-center justify-center w-8 h-8 shrink-0"
+                      title="Editar Veículo"
+                    >
+                      <Edit className="w-3.5 h-3.5" />
+                    </button>
+                    <button
+                      onClick={() => handleDeleteCar(v.id)}
+                      className="p-1.5 rounded bg-neutral-900 border border-neutral-800 text-red-400 hover:bg-red-600 hover:text-white transition cursor-pointer flex items-center justify-center w-8 h-8 shrink-0"
+                      title="Excluir Anúncio"
+                    >
+                      <Trash className="w-3.5 h-3.5" />
+                    </button>
+                  </div>
+                </div>
+              </div>
+            ))}
           </div>
         </div>
       )}
-
       {/* --- LEADS / MESSAGES TAB --- */}
       {activeTab === 'leads' && (
         <div className="space-y-6">

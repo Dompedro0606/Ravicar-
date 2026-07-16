@@ -14,7 +14,7 @@ export function VehicleShowcaseCard({ vehicle, onClick, onContactClick, isFavori
   return (
     <div 
       onClick={onClick}
-      className="flex flex-col bg-[#121214] border border-neutral-800/60 rounded-3xl overflow-hidden cursor-pointer group transition-all duration-300 hover:-translate-y-1 hover:shadow-2xl "
+      className="flex flex-col bg-white border border-gray-200 dark:bg-[#18181B] dark:border-gray-800 rounded-3xl overflow-hidden cursor-pointer group transition-all duration-300 hover:-translate-y-1 hover:shadow-xl dark:hover:shadow-2xl "
     >
       {/* Imagem no topo ocupando 100% da largura */}
       <div className="relative aspect-[4/3] w-full overflow-hidden">
@@ -25,7 +25,7 @@ export function VehicleShowcaseCard({ vehicle, onClick, onContactClick, isFavori
             className="w-full h-full object-cover object-center group-hover:scale-105 transition-transform duration-700"
           />
         ) : (
-          <div className="w-full h-full flex items-center justify-center bg-zinc-900 text-gray-600">
+          <div className="w-full h-full flex items-center justify-center bg-gray-100 dark:bg-zinc-900 text-gray-500 dark:text-gray-600">
             Sem Foto
           </div>
         )}
@@ -78,17 +78,17 @@ export function VehicleShowcaseCard({ vehicle, onClick, onContactClick, isFavori
       {/* Corpo do card */}
       <div className="p-5 flex flex-col flex-grow">
         {/* Marca em cinza e letras maiúsculas */}
-        <span className="text-gray-500 text-[10px] font-black uppercase tracking-widest mb-1.5">
+        <span className="text-gray-500 dark:text-gray-400 text-[10px] font-black uppercase tracking-widest mb-1.5">
           {vehicle.brand}
         </span>
         
         {/* Modelo do carro em branco e negrito */}
-        <h3 className="text-white font-sans font-bold text-lg leading-tight mb-5 group-hover:text-[#FF2A7A] transition-colors line-clamp-2">
+        <h3 className="text-gray-900 dark:text-white font-sans font-bold text-lg leading-tight mb-5 group-hover:text-[#FF2A7A] transition-colors line-clamp-2">
           {vehicle.title}
         </h3>
         
         {/* Grid de 2x2 com ícones pequenos */}
-        <div className="grid grid-cols-2 gap-y-3 gap-x-3 text-gray-400 text-xs font-medium mb-6">
+        <div className="grid grid-cols-2 gap-y-3 gap-x-3 text-gray-600 dark:text-gray-400 text-xs font-medium mb-6">
           <div className="flex items-center gap-2 truncate">
             <Calendar className="w-3.5 h-3.5 shrink-0 opacity-70" />
             <span>{vehicle.year}</span>
@@ -108,12 +108,12 @@ export function VehicleShowcaseCard({ vehicle, onClick, onContactClick, isFavori
         </div>
         
         {/* Rodapé do card */}
-        <div className="mt-auto flex items-end justify-between border-t border-neutral-800/60 pt-5">
+        <div className="mt-auto flex items-end justify-between border-t border-gray-100 dark:border-gray-800/60 pt-5">
           <div className="flex flex-col gap-0.5">
             <span className="text-gray-500 text-[9px] font-black uppercase tracking-widest">
               VALOR ESPECIAL
             </span>
-            <div className="text-white font-sans font-black text-2xl tracking-tight">
+            <div className="text-gray-900 dark:text-white font-sans font-black text-2xl tracking-tight">
               R$ {vehicle.price.toLocaleString('pt-BR')}
             </div>
           </div>
@@ -124,7 +124,7 @@ export function VehicleShowcaseCard({ vehicle, onClick, onContactClick, isFavori
               e.stopPropagation();
               if (onContactClick) onContactClick(e);
             }}
-            className="w-10 h-10 rounded-full bg-neutral-900 border border-neutral-800 flex items-center justify-center text-gray-400 group-hover:bg-[#FF2A7A] group-hover:text-white group-hover:border-[#FF2A7A] transition-all duration-300 shadow-sm"
+            className="w-10 h-10 rounded-full bg-gray-50 dark:bg-neutral-900 border border-gray-200 dark:border-gray-800 flex items-center justify-center text-gray-400 group-hover:bg-[#FF2A7A] group-hover:text-white group-hover:border-[#FF2A7A] transition-all duration-300 shadow-sm"
           >
             <ArrowUpRight className="w-5 h-5" />
           </button>
