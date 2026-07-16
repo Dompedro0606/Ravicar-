@@ -1,7 +1,7 @@
 import React, { useState, useMemo, useEffect } from 'react';
 import { Search, Fuel, Settings2, SlidersHorizontal, Eye, ArrowUpDown, Tag, Check, Calendar, ChevronDown, Heart, X, Gauge, Wrench } from 'lucide-react';
 import { Vehicle, FuelType, TransmissionType, VehicleStatus, UserProfile } from '../types';
-import { Premium3DTiltCard } from './Premium3DTiltCard';
+import { VehicleShowcaseCard } from './VehicleShowcaseCard';
 
 interface CatalogProps {
   vehicles: Vehicle[];
@@ -593,112 +593,14 @@ export function Catalog({ vehicles, onSelectVehicle, currentUser }: CatalogProps
           ) : (
             <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-6">
               {filteredVehicles.map(v => {
-                const isAvailable = v.status === 'Disponível';
-                const isReserved = v.status === 'Reservado';
-
                 return (
-                  <Premium3DTiltCard
+                  <VehicleShowcaseCard
                     key={v.id}
+                    vehicle={v}
                     onClick={() => onSelectVehicle(v.id)}
-                    className="group bg-neutral-950 border border-neutral-900/60 rounded-2xl overflow-hidden cursor-pointer"
-                  >
-                    {/* Image Area */}
-                    <div className="relative aspect-[16/10] w-full overflow-hidden bg-[#1A1A1A]">
-                      {v.media && v.media.length > 0 ? (
-                        <img
-                          src={v.media[0].url}
-                          alt={v.title}
-                          className="w-full h-full object-cover object-center group-hover:scale-105 transition-all duration-500"
-                        />
-                      ) : (
-                        <div className="w-full h-full flex items-center justify-center text-gray-600">
-                          Sem Foto
-                        </div>
-                      )}
-
-                      {/* Badges Container */}
-                      <div className="absolute top-3 left-3 flex flex-row items-center gap-1.5 z-10">
-                        {v.featured && (
-                          <div className="px-2.5 py-1 rounded bg-white text-[10px] font-black uppercase text-neutral-900 tracking-[0.12em] shadow-md">
-                            Destaque
-                          </div>
-                        )}
-                        {v.newlyArrived && (
-                          <div className="px-2.5 py-1 rounded bg-[#FF2D8D] text-white text-[10px] font-black uppercase tracking-[0.12em] shadow-md">
-                            Novo
-                          </div>
-                        )}
-                      </div>
-
-                      {/* Favorite Heart Button */}
-                      <button
-                        onClick={(e) => toggleFavorite(v.id, e)}
-                        className="absolute top-3 right-3 p-2 rounded-full bg-black/60 border border-neutral-800 hover:border-[#FF2D8D] text-white hover:text-[#FF2D8D] transition-all cursor-pointer z-20 hover:scale-110"
-                        title={favorites.includes(v.id) ? "Remover dos favoritos" : "Salvar nos favoritos"}
-                      >
-                        <Heart className={`w-3.5 h-3.5 transition-colors ${favorites.includes(v.id) ? 'fill-[#FF2D8D] text-[#FF2D8D]' : 'text-gray-300'}`} />
-                      </button>
-
-                      {/* Status Overlay */}
-                      <div className="absolute bottom-3 left-3">
-                        <span className={`px-2.5 py-0.5 rounded-full text-[10px] font-mono tracking-wider uppercase flex items-center gap-1.5 backdrop-blur-md border ${
-                          isAvailable ? 'bg-emerald-500/10 border-emerald-500/20 text-emerald-400' :
-                          isReserved ? 'bg-amber-500/10 border-amber-500/20 text-amber-400' :
-                          'bg-neutral-500/10 border-neutral-500/20 text-gray-400'
-                        }`}>
-                          <span className={`w-1.5 h-1.5 rounded-full ${
-                            isAvailable ? 'bg-emerald-500 animate-pulse' :
-                            isReserved ? 'bg-amber-500' : 'bg-gray-400'
-                          }`}></span>
-                          {v.status}
-                        </span>
-                      </div>
-                    </div>
-
-                    {/* Metadata Area */}
-                    <div className="p-5 flex-grow flex flex-col justify-between">
-                      <div>
-                        <span className="text-[10px] font-mono tracking-widest text-gray-500 uppercase">{v.brand}</span>
-                        <h4 className="font-display font-extrabold text-white text-base truncate leading-relaxed py-1 mt-0.5 group-hover:text-[var(--brand-color)] transition-colors">
-                          {v.title}
-                        </h4>
-                        
-                        {/* Tags list */}
-                        <div className="grid grid-cols-2 gap-y-2 gap-x-3 mt-4 text-xs text-gray-400 font-medium">
-                          <span className="flex items-center gap-2 truncate py-0.5">
-                            <Calendar className="w-3.5 h-3.5 text-neutral-500 group-hover:text-[var(--brand-color)] transition-colors shrink-0" />
-                            <span>{v.year}</span>
-                          </span>
-                          <span className="flex items-center gap-2 truncate py-0.5">
-                            <Wrench className="w-3.5 h-3.5 text-neutral-500 group-hover:text-[var(--brand-color)] transition-colors shrink-0" />
-                            <span className="truncate">{v.transmission}</span>
-                          </span>
-                          <span className="flex items-center gap-2 truncate py-0.5">
-                            <Gauge className="w-3.5 h-3.5 text-neutral-500 group-hover:text-[var(--brand-color)] transition-colors shrink-0" />
-                            <span>{v.mileage === 0 ? 'Zero KM' : `${v.mileage.toLocaleString('pt-BR')} KM`}</span>
-                          </span>
-                          <span className="flex items-center gap-2 truncate py-0.5">
-                            <Fuel className="w-3.5 h-3.5 text-neutral-500 group-hover:text-[var(--brand-color)] transition-colors shrink-0" />
-                            <span className="truncate">{v.fuel}</span>
-                          </span>
-                        </div>
-                      </div>
-
-                      {/* Pricing block */}
-                      <div className="mt-5 pt-4 border-t border-neutral-900/60 flex items-end justify-between">
-                        <div>
-                          <p className="text-[9px] uppercase tracking-widest text-neutral-500 font-mono">VALOR ESPECIAL</p>
-                          <p className="font-display font-black text-white text-lg mt-0.5 group-hover:text-[var(--brand-color)] transition-colors">
-                            R$ {v.price.toLocaleString('pt-BR')}
-                          </p>
-                        </div>
-                        <span className="h-8 w-8 rounded-full border border-neutral-900 bg-neutral-950 flex items-center justify-center text-gray-400 group-hover:border-[var(--brand-color)]/40 group-hover:text-[var(--brand-color)] transition-all duration-300">
-                          <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M7 17L17 7"/><path d="M7 7h10v10"/></svg>
-                        </span>
-                      </div>
-                    </div>
-
-                  </Premium3DTiltCard>
+                    isFavorite={favorites.includes(v.id)}
+                    onFavoriteToggle={(e) => toggleFavorite(v.id, e)}
+                  />
                 );
               })}
             </div>
