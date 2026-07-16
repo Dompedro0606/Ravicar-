@@ -731,7 +731,7 @@ export function AdminPanel({ currentUser, token, vehicles, onRefreshData, settin
   };
 
   return (
-    <div className="max-w-7xl mx-auto px-4 py-8">
+    <div className="max-w-7xl mx-auto px-4 pt-8 pb-24 lg:py-8">
       <div className="grid grid-cols-1 lg:grid-cols-12 gap-8">
         
         {/* Navigation Sidebar (3 columns on lg screens) */}
@@ -751,7 +751,7 @@ export function AdminPanel({ currentUser, token, vehicles, onRefreshData, settin
           </div>
 
           {/* Tab Selector Links */}
-          <div className="flex flex-row lg:flex-col gap-2 overflow-x-auto lg:overflow-x-visible pb-3 lg:pb-0 scrollbar-none scroll-smooth w-full">
+          <div className="hidden lg:flex flex-col gap-2 w-full">
             {[
               { id: 'dashboard', label: 'Dashboard', icon: ClipboardList },
               { id: 'vehicles', label: 'Estoque', icon: Car },
@@ -2430,6 +2430,52 @@ export function AdminPanel({ currentUser, token, vehicles, onRefreshData, settin
           </div>
         </div>
       )}
+
+      {/* Mobile Bottom Navigation Bar */}
+      <div className="lg:hidden fixed bottom-0 left-0 w-full bg-[#0B0B0C]/90 backdrop-blur-md border-t border-gray-800 z-50">
+        <div className="flex items-center justify-between px-6 h-16">
+          <button
+            onClick={() => setActiveTab('dashboard')}
+            className={`flex flex-col items-center justify-center gap-1 w-full transition-colors ${activeTab === 'dashboard' ? 'text-[#FF2A7A]' : 'text-gray-500'}`}
+          >
+            <ClipboardList className="w-5 h-5" />
+            <span className="text-[10px] font-bold uppercase tracking-wider">Dashboard</span>
+          </button>
+          
+          <button
+            onClick={() => setActiveTab('vehicles')}
+            className={`flex flex-col items-center justify-center gap-1 w-full transition-colors ${activeTab === 'vehicles' ? 'text-[#FF2A7A]' : 'text-gray-500'}`}
+          >
+            <Car className="w-5 h-5" />
+            <span className="text-[10px] font-bold uppercase tracking-wider">Estoque</span>
+          </button>
+          
+          <button
+            onClick={() => setActiveTab('leads')}
+            className={`flex flex-col items-center justify-center gap-1 w-full transition-colors ${activeTab === 'leads' ? 'text-[#FF2A7A]' : 'text-gray-500'}`}
+          >
+            <div className="relative">
+              <Mail className="w-5 h-5" />
+              {stats.pendingLeads > 0 && (
+                <span className="absolute -top-1 -right-1.5 w-3.5 h-3.5 bg-[#FF2A7A] rounded-full text-white text-[8px] font-black flex items-center justify-center">
+                  {stats.pendingLeads}
+                </span>
+              )}
+            </div>
+            <span className="text-[10px] font-bold uppercase tracking-wider">Leads</span>
+          </button>
+          
+          {currentUser.role === 'Administrador' && (
+            <button
+              onClick={() => setActiveTab('settings')}
+              className={`flex flex-col items-center justify-center gap-1 w-full transition-colors ${activeTab === 'settings' ? 'text-[#FF2A7A]' : 'text-gray-500'}`}
+            >
+              <Settings className="w-5 h-5" />
+              <span className="text-[10px] font-bold uppercase tracking-wider">Ajustes</span>
+            </button>
+          )}
+        </div>
+      </div>
     </div>
   );
 }

@@ -227,7 +227,7 @@ Gostaria de falar com um consultor para negociar ou simular financiamento!`;
   };
 
   return (
-    <div className="max-w-7xl mx-auto px-4 py-8">
+    <div className="max-w-7xl mx-auto px-4 pt-8 pb-28">
       {/* Back button */}
       <button
         onClick={onBack}
@@ -274,7 +274,7 @@ Gostaria de falar com um consultor para negociar ou simular financiamento!`;
                       e.stopPropagation();
                       setFitContain(!fitContain);
                     }}
-                    className="absolute top-4 right-4 z-30 p-2 rounded-xl bg-black/85 border border-neutral-800 text-white hover:text-[#FF2D8D] transition-all duration-200 cursor-pointer shadow-xl flex items-center gap-1.5 text-[9px] font-black uppercase tracking-widest"
+                    className="absolute bottom-4 right-4 z-30 p-2 rounded-xl bg-black/85 border border-neutral-800 text-white hover:text-[#FF2A7A] transition-all duration-200 cursor-pointer shadow-xl flex items-center gap-1.5 text-[9px] font-black uppercase tracking-widest"
                   >
                     {fitContain ? (
                       <>
@@ -316,10 +316,31 @@ Gostaria de falar com um consultor para negociar ou simular financiamento!`;
 
             {/* Media Counter Badge */}
             {vehicle.media.length > 0 && (
-              <div className="absolute top-4 right-4 px-2.5 py-1 rounded bg-black/75 text-[10px] text-gray-300 font-bold tracking-wider">
+              <div className="absolute top-4 left-4 px-2.5 py-1 rounded bg-black/60 backdrop-blur border border-neutral-800 text-[10px] text-gray-300 font-bold tracking-wider">
                 {activeMediaIndex + 1} / {vehicle.media.length}
               </div>
             )}
+
+            {/* Floating Share & Favorite */}
+            <div className="absolute top-4 right-4 flex flex-col gap-2">
+              <button
+                onClick={toggleFavorite}
+                className={`p-2.5 rounded-full bg-black/60 backdrop-blur border transition-all transform hover:scale-105 cursor-pointer ${
+                  isFavorite ? 'border-[#FF2A7A] text-[#FF2A7A]' : 'border-neutral-800 text-white'
+                }`}
+              >
+                <Heart className={`w-4 h-4 ${isFavorite ? 'fill-[#FF2A7A] text-[#FF2A7A]' : 'text-white'}`} />
+              </button>
+              
+              <button
+                onClick={handleCopyLink}
+                className={`p-2.5 rounded-full bg-black/60 backdrop-blur border transition-all transform hover:scale-105 cursor-pointer ${
+                  copied ? 'border-emerald-500 text-emerald-400' : 'border-neutral-800 text-white'
+                }`}
+              >
+                {copied ? <Check className="w-4 h-4 text-emerald-400" /> : <Share2 className="w-4 h-4" />}
+              </button>
+            </div>
           </div>
 
           {/* Thumbnails list */}
@@ -439,70 +460,27 @@ Gostaria de falar com um consultor para negociar ou simular financiamento!`;
           </div>
 
           {/* Core CTAs block */}
-          <div className="space-y-3 pt-4 border-t border-neutral-900">
-            <button
-              onClick={handleBuyWhatsapp}
-              className="w-full py-4 rounded-xl bg-gradient-to-r from-[#FF2D8D] to-[#FF6FB5] text-white font-extrabold text-sm uppercase tracking-wider flex items-center justify-center gap-2 cursor-pointer transform hover:-translate-y-0.5 transition duration-300 "
-            >
-              <MessageCircle className="w-5 h-5 fill-white text-[#FF2D8D]" />
-              Comprar pelo WhatsApp
-            </button>
-
-            <div className="grid grid-cols-2 gap-3">
-              <button
-                onClick={handleCopyLink}
-                className={`py-3 rounded-xl border font-bold text-xs uppercase tracking-wide transition-all duration-300 flex items-center justify-center gap-2 cursor-pointer ${
-                  copied 
-                    ? 'bg-emerald-950/40 border-emerald-500/50 text-emerald-300' 
-                    : 'bg-neutral-900 border-neutral-800 hover:border-[#FF2D8D]/40 text-gray-300 hover:text-white'
-                }`}
-              >
-                {copied ? (
-                  <>
-                    <Check className="w-4 h-4 text-emerald-400 shrink-0" />
-                    Copiado!
-                  </>
-                ) : (
-                  <>
-                    <Share2 className="w-4 h-4 text-[#FF2D8D] shrink-0" />
-                    Compartilhar
-                  </>
-                )}
-              </button>
-
-              <button
-                onClick={toggleFavorite}
-                className={`py-3 rounded-xl border font-bold text-xs uppercase tracking-wide transition-all duration-300 flex items-center justify-center gap-2 cursor-pointer ${
-                  isFavorite 
-                    ? 'bg-[#FF2D8D]/15 border-[#FF2D8D]/40 text-[#FF6FB5]' 
-                    : 'bg-neutral-900 border-neutral-800 hover:border-[#FF2D8D]/40 text-gray-300 hover:text-white'
-                }`}
-              >
-                <Heart className={`w-4 h-4 shrink-0 ${isFavorite ? 'fill-[#FF2D8D] text-[#FF2D8D]' : 'text-gray-400'}`} />
-                {isFavorite ? 'Favoritado' : 'Favoritar'}
-              </button>
-            </div>
-
-            <div className="grid grid-cols-3 gap-2">
+          <div className="pt-4 border-t border-neutral-900">
+            <div className="flex overflow-x-auto gap-3 snap-x scrollbar-none pb-2 md:grid md:grid-cols-3">
               <button
                 onClick={() => setActiveFormModal('financiamento')}
-                className="py-3 px-2 rounded-xl bg-[#1A1A1A]/80 border border-neutral-800 hover:border-[#FF2D8D]/40 hover:bg-[#1A1A1A] text-white font-bold text-[11.5px] uppercase tracking-wide transition-all duration-300 flex flex-col items-center justify-center gap-1.5 cursor-pointer group"
+                className="shrink-0 snap-center w-28 md:w-auto py-3 px-2 rounded-xl bg-neutral-900 border border-neutral-800 hover:border-[#FF2A7A]/40 hover:bg-neutral-800 text-white font-bold text-[10px] uppercase tracking-wide transition-all flex flex-col items-center justify-center gap-2 cursor-pointer group"
               >
-                <Landmark className="w-4 h-4 text-[#FF2D8D] transition-transform duration-300 group-hover:scale-110" />
+                <Landmark className="w-5 h-5 text-[#FF2A7A] transition-transform duration-300 group-hover:scale-110" />
                 Simular Juros
               </button>
               <button
                 onClick={() => setActiveFormModal('visita')}
-                className="py-3 px-2 rounded-xl bg-[#1A1A1A]/80 border border-neutral-800 hover:border-[#FF2D8D]/40 hover:bg-[#1A1A1A] text-white font-bold text-[11.5px] uppercase tracking-wide transition-all duration-300 flex flex-col items-center justify-center gap-1.5 cursor-pointer group"
+                className="shrink-0 snap-center w-28 md:w-auto py-3 px-2 rounded-xl bg-neutral-900 border border-neutral-800 hover:border-[#FF2A7A]/40 hover:bg-neutral-800 text-white font-bold text-[10px] uppercase tracking-wide transition-all flex flex-col items-center justify-center gap-2 cursor-pointer group"
               >
-                <Calendar className="w-4 h-4 text-[#FF6FB5] transition-transform duration-300 group-hover:scale-110" />
+                <Calendar className="w-5 h-5 text-[#FF2A7A] transition-transform duration-300 group-hover:scale-110" />
                 Agendar Teste
               </button>
               <button
                 onClick={() => setActiveFormModal('avaliacao')}
-                className="py-3 px-2 rounded-xl bg-[#1A1A1A]/80 border border-neutral-800 hover:border-[#FF2D8D]/40 hover:bg-[#1A1A1A] text-white font-bold text-[11.5px] uppercase tracking-wide transition-all duration-300 flex flex-col items-center justify-center gap-1.5 cursor-pointer group"
+                className="shrink-0 snap-center w-28 md:w-auto py-3 px-2 rounded-xl bg-neutral-900 border border-neutral-800 hover:border-[#FF2A7A]/40 hover:bg-neutral-800 text-white font-bold text-[10px] uppercase tracking-wide transition-all flex flex-col items-center justify-center gap-2 cursor-pointer group"
               >
-                <RefreshCw className="w-4 h-4 text-emerald-400 transition-transform duration-300 group-hover:scale-110" />
+                <RefreshCw className="w-5 h-5 text-emerald-400 transition-transform duration-300 group-hover:scale-110" />
                 Avaliar Troca
               </button>
             </div>
@@ -511,23 +489,23 @@ Gostaria de falar com um consultor para negociar ou simular financiamento!`;
       </div>
 
       {/* Premium Segmented Tabs list: Specs vs Description */}
-      <div className="mb-6 p-1 bg-neutral-950 border border-neutral-900 rounded-xl flex max-w-md">
+      <div className="mb-6 p-1 bg-gray-900 rounded-lg flex max-w-md">
         <button
           onClick={() => setActiveTab('details')}
-          className={`flex-1 py-2.5 px-4 rounded-lg text-[11px] uppercase tracking-wider font-extrabold transition-all duration-300 cursor-pointer text-center ${
+          className={`flex-1 py-2 px-4 rounded-md text-[11px] uppercase tracking-wider font-extrabold transition-all duration-200 cursor-pointer text-center ${
             activeTab === 'details' 
-              ? 'bg-[#FF2D8D]/15 text-white border border-[#FF2D8D]/30 shadow-lg' 
-              : 'text-gray-500 hover:text-gray-300 border border-transparent'
+              ? 'bg-gray-700 text-white shadow' 
+              : 'text-gray-500 hover:text-gray-300'
           }`}
         >
           Ficha Técnica e Opcionais
         </button>
         <button
           onClick={() => setActiveTab('description')}
-          className={`flex-1 py-2.5 px-4 rounded-lg text-[11px] uppercase tracking-wider font-extrabold transition-all duration-300 cursor-pointer text-center ${
+          className={`flex-1 py-2 px-4 rounded-md text-[11px] uppercase tracking-wider font-extrabold transition-all duration-200 cursor-pointer text-center ${
             activeTab === 'description' 
-              ? 'bg-[#FF2D8D]/15 text-white border border-[#FF2D8D]/30 shadow-lg' 
-              : 'text-gray-500 hover:text-gray-300 border border-transparent'
+              ? 'bg-gray-700 text-white shadow' 
+              : 'text-gray-500 hover:text-gray-300'
           }`}
         >
           Descrição do Veículo
@@ -586,13 +564,13 @@ Gostaria de falar com um consultor para negociar ou simular financiamento!`;
               Itens de Série e Opcionais Instalados
             </h3>
             {vehicle.options && vehicle.options.length > 0 ? (
-              <div className="grid grid-cols-1 sm:grid-cols-2 gap-2 text-xs">
+              <div className="grid grid-cols-2 gap-y-3 gap-x-4">
                 {vehicle.options.map((opt, idx) => (
-                  <div key={idx} className="flex items-center gap-2 py-1.5 border-b border-neutral-900/40">
-                    <div className="p-0.5 rounded bg-emerald-500/10 text-emerald-400">
+                  <div key={idx} className="flex items-center gap-2">
+                    <div className="p-0.5 rounded bg-emerald-500/10 text-emerald-400 shrink-0">
                       <Check className="w-3.5 h-3.5" />
                     </div>
-                    <span className="text-gray-300 font-medium">{opt}</span>
+                    <span className="text-sm text-gray-300">{opt}</span>
                   </div>
                 ))}
               </div>
@@ -602,7 +580,7 @@ Gostaria de falar com um consultor para negociar ou simular financiamento!`;
           </div>
         </div>
       ) : (
-        <div className="bg-neutral-950 border border-neutral-900 rounded-2xl p-6 text-xs text-gray-400 leading-relaxed whitespace-pre-line max-w-4xl">
+        <div className="py-2 text-[14px] text-gray-300 leading-relaxed whitespace-pre-line max-w-4xl">
           {vehicle.description || 'Nenhuma descrição detalhada disponível.'}
         </div>
       )}
@@ -723,6 +701,19 @@ Gostaria de falar com um consultor para negociar ou simular financiamento!`;
           })()}
         </div>
       )}
+
+      {/* Sticky Bottom Bar for CTA */}
+      <div className="fixed bottom-0 left-0 w-full z-40 p-4 bg-[#0B0B0C]/90 backdrop-blur border-t border-gray-800">
+        <div className="max-w-7xl mx-auto flex justify-center">
+          <button
+            onClick={handleBuyWhatsapp}
+            className="w-full lg:w-2/3 py-4 rounded-xl bg-[#FF2A7A] hover:bg-[#FF6FB5] text-white font-extrabold text-sm md:text-base uppercase tracking-wider flex items-center justify-center gap-2 cursor-pointer transform transition duration-300 shadow-xl"
+          >
+            <MessageCircle className="w-6 h-6 fill-white text-[#FF2D8D]" />
+            Comprar pelo WhatsApp
+          </button>
+        </div>
+      </div>
 
       {/* Lightbox / Fullscreen Image & Video Viewer */}
       {isLightboxOpen && currentMedia && createPortal(
