@@ -14,7 +14,7 @@ export function VehicleShowcaseCard({ vehicle, onClick, onContactClick, isFavori
   return (
     <div 
       onClick={onClick}
-      className="flex flex-col bg-[#121214] border border-neutral-800/60 rounded-3xl overflow-hidden cursor-pointer group transition-all duration-300 hover:-translate-y-1 hover:shadow-2xl hover:shadow-[var(--brand-color)]/10"
+      className="flex flex-col bg-[#121214] border border-neutral-800/60 rounded-3xl overflow-hidden cursor-pointer group transition-all duration-300 hover:-translate-y-1 hover:shadow-2xl "
     >
       {/* Imagem no topo ocupando 100% da largura */}
       <div className="relative aspect-[4/3] w-full overflow-hidden">

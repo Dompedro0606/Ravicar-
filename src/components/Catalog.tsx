@@ -289,7 +289,7 @@ export function Catalog({ vehicles, onSelectVehicle, currentUser }: CatalogProps
                     onClick={() => setSelectedBrand('')}
                     className={`px-3 py-1.5 rounded-xl text-[10px] font-bold tracking-wide transition-all border ${
                       !selectedBrand
-                        ? 'bg-[#FF2D8D] border-[#FF2D8D] text-white shadow-lg shadow-[#FF2D8D]/15'
+                        ? 'bg-[#FF2D8D] border-[#FF2D8D] text-white '
                         : 'bg-black border-neutral-800 text-gray-400 hover:border-neutral-700 hover:text-white'
                     } cursor-pointer`}
                   >
@@ -302,7 +302,7 @@ export function Catalog({ vehicles, onSelectVehicle, currentUser }: CatalogProps
                       onClick={() => setSelectedBrand(selectedBrand === b ? '' : b)}
                       className={`px-3 py-1.5 rounded-xl text-[10px] font-bold tracking-wide transition-all border ${
                         selectedBrand === b
-                          ? 'bg-[#FF2D8D] border-[#FF2D8D] text-white shadow-lg shadow-[#FF2D8D]/15'
+                          ? 'bg-[#FF2D8D] border-[#FF2D8D] text-white '
                           : 'bg-black border-neutral-800 text-gray-300 hover:border-neutral-700 hover:text-white'
                       } cursor-pointer`}
                     >
@@ -338,7 +338,7 @@ export function Catalog({ vehicles, onSelectVehicle, currentUser }: CatalogProps
                       onClick={() => setSelectedStatus(status === 'Todos' ? '' : status)}
                       className={`py-2 rounded-xl text-[10px] font-bold tracking-wide text-center transition-all border ${
                         (selectedStatus === status) || (status === 'Todos' && !selectedStatus)
-                          ? 'bg-[#FF2D8D] border-[#FF2D8D] text-white shadow-lg shadow-[#FF2D8D]/15'
+                          ? 'bg-[#FF2D8D] border-[#FF2D8D] text-white '
                           : 'bg-black border-neutral-800 text-gray-400 hover:border-neutral-700 hover:text-white'
                       } cursor-pointer`}
                     >
@@ -378,7 +378,7 @@ export function Catalog({ vehicles, onSelectVehicle, currentUser }: CatalogProps
                       onClick={() => setSelectedTransmission(item.value)}
                       className={`py-2 rounded-xl text-[10px] font-bold tracking-wide text-center transition-all border ${
                         selectedTransmission === item.value
-                          ? 'bg-[#FF2D8D] border-[#FF2D8D] text-white shadow-lg shadow-[#FF2D8D]/15'
+                          ? 'bg-[#FF2D8D] border-[#FF2D8D] text-white '
                           : 'bg-black border-neutral-800 text-gray-400 hover:border-neutral-700 hover:text-white'
                       } cursor-pointer`}
                     >
@@ -422,7 +422,7 @@ export function Catalog({ vehicles, onSelectVehicle, currentUser }: CatalogProps
                       onClick={() => setSelectedFuel(item.value)}
                       className={`px-3 py-1.5 rounded-xl text-[10px] font-bold tracking-wide transition-all border ${
                         selectedFuel === item.value
-                          ? 'bg-[#FF2D8D] border-[#FF2D8D] text-white shadow-lg shadow-[#FF2D8D]/15'
+                          ? 'bg-[#FF2D8D] border-[#FF2D8D] text-white '
                           : 'bg-black border-neutral-800 text-gray-400 hover:border-neutral-700 hover:text-white'
                       } cursor-pointer`}
                     >
@@ -561,7 +561,7 @@ export function Catalog({ vehicles, onSelectVehicle, currentUser }: CatalogProps
                             }}
                             className={`w-full flex items-center justify-between px-3.5 py-2.5 rounded-xl text-xs font-semibold text-left transition-all cursor-pointer ${
                               isSelected
-                                ? 'bg-[#FF2D8D]/10 text-[#FF2D8D] font-bold border border-[#FF2D8D]/20 shadow-[0_4px_12px_rgba(255,45,141,0.05)]'
+                                ? 'bg-[#FF2D8D]/10 text-[#FF2D8D] font-bold border border-[#FF2D8D]/20 '
                                 : 'text-gray-400 hover:text-white hover:bg-neutral-900/60'
                             }`}
                           >

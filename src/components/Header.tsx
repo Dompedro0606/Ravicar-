@@ -511,10 +511,11 @@ export function Header({ currentUser, onLogout, onOpenAuth, onNavigate, currentP
             </button>
           </div>
         </div>
+      </header>
 
-        {/* Mobile menu drawer (Offcanvas) */}
+      {/* Mobile menu drawer (Offcanvas) */}
         {isMenuOpen && (
-          <div className="md:hidden fixed inset-0 z-50 flex justify-end">
+          <div className="md:hidden fixed inset-0 z-[100] flex justify-end">
             {/* Backdrop */}
             <div 
               className="absolute inset-0 bg-black/80 backdrop-blur-sm animate-fade-in"
@@ -522,9 +523,9 @@ export function Header({ currentUser, onLogout, onOpenAuth, onNavigate, currentP
             ></div>
             
             {/* Sidebar content */}
-            <div className="relative w-[85%] max-w-sm bg-[#0B0B0C] h-full flex flex-col shadow-2xl animate-slide-in-right">
+            <div className="relative w-[85%] max-w-sm bg-white dark:bg-[#0B0B0C] h-full flex flex-col shadow-2xl animate-slide-in-right">
               {/* Header */}
-              <div className="flex items-center justify-between p-5 border-b border-neutral-900">
+              <div className="flex items-center justify-between p-5 border-b border-gray-200 dark:border-neutral-900">
                 <Logo className="w-8 h-8" showText={true} />
                 <div className="flex items-center gap-3">
                   <button 
@@ -532,160 +533,166 @@ export function Header({ currentUser, onLogout, onOpenAuth, onNavigate, currentP
                       setIsMenuOpen(false);
                       setIsNotifOpen(true);
                     }} 
-                    className="relative p-2 text-gray-400 hover:text-white transition-colors"
+                    className="relative p-2 text-gray-400 hover:text-gray-900 dark:hover:text-white transition-colors"
                   >
                     <Bell className="w-5 h-5" />
                     {notifications.some(n => !n.read) && (
-                      <span className="absolute top-1 right-1 w-2 h-2 bg-[#FF2A7A] rounded-full border border-[#0B0B0C]"></span>
+                      <span className="absolute top-1 right-1 w-2 h-2 bg-[#FF2A7A] rounded-full border border-white dark:border-[#0B0B0C]"></span>
                     )}
                   </button>
                   <button 
                     onClick={() => setIsMenuOpen(false)} 
-                    className="p-2 text-gray-400 hover:text-white transition-colors bg-neutral-900 rounded-full"
+                    className="p-2 text-gray-500 hover:text-gray-900 dark:text-gray-400 dark:hover:text-white transition-colors bg-gray-100 dark:bg-neutral-900 rounded-full"
                   >
                     <X className="w-5 h-5" />
                   </button>
                 </div>
               </div>
 
-              {/* Navigation */}
-              <div className="flex-1 overflow-y-auto">
-                <nav className="flex flex-col">
+              <div className="flex-1 overflow-y-auto flex flex-col pb-6">
+                {/* User Profile Block (Moved to top of scrollable area) */}
+                {currentUser && (
+                  <div className="p-5 border-b border-gray-200 dark:border-neutral-900 bg-gray-50 dark:bg-[#121214]">
+                    <div className="flex flex-col gap-3">
+                      <div className="flex items-center gap-3 mb-2">
+                        <div className="w-10 h-10 rounded-full bg-gray-200 dark:bg-neutral-800 flex items-center justify-center">
+                          <User className="w-5 h-5 text-gray-400" />
+                        </div>
+                        <div>
+                          <p className="text-gray-900 dark:text-white font-medium text-sm">{currentUser.name}</p>
+                          <p className="text-[10px] text-gray-500">{currentUser.role === 'Cliente' ? 'Área do Cliente' : 'Painel de Controle'}</p>
+                        </div>
+                      </div>
+                      <div className="grid grid-cols-2 gap-2">
+                        <button
+                          onClick={() => {
+                            setIsMenuOpen(false);
+                            handleNav(
+                              currentUser.role === 'Cliente' ? 'cliente' : 
+                              currentUser.role === 'Administrador' ? 'admin' : 'vendedor'
+                            );
+                          }}
+                          className="w-full text-center py-2.5 rounded-lg bg-neutral-800 text-white font-bold text-[10px] uppercase tracking-wide hover:bg-neutral-700 transition-colors"
+                        >
+                          Painel
+                        </button>
+                        <button
+                          onClick={() => {
+                            setIsMenuOpen(false);
+                            onLogout();
+                          }}
+                          className="w-full text-center py-2.5 rounded-lg bg-red-500/10 text-red-500 font-bold text-[10px] uppercase tracking-wide hover:bg-red-500/20 transition-colors"
+                        >
+                          Sair
+                        </button>
+                      </div>
+                    </div>
+                  </div>
+                )}
+
+                {!currentUser && (
+                  <div className="p-5 border-b border-neutral-900">
+                    <button
+                      onClick={() => {
+                        setIsMenuOpen(false);
+                        onOpenAuth();
+                      }}
+                      className="w-full py-4 rounded-xl bg-[var(--brand-color)] text-white font-bold text-sm tracking-wider uppercase flex items-center justify-center gap-2  hover:opacity-90 transition-opacity"
+                    >
+                      <LogIn className="w-4 h-4" />
+                      Entrar / Cadastrar
+                    </button>
+                  </div>
+                )}
+
+                {/* Navigation */}
+                <nav className="flex flex-col py-2">
                   <button 
                     onClick={() => handleNav('home')} 
-                    className="text-left px-5 py-4 border-b border-neutral-900/50 text-white font-medium hover:bg-neutral-900/30 transition-colors"
+                    className="text-left px-5 py-4 border-b border-gray-100 dark:border-neutral-900/50 text-gray-800 dark:text-white font-medium hover:bg-gray-50 dark:hover:bg-neutral-900/30 transition-colors"
                   >
                     Início
                   </button>
                   <button 
                     onClick={() => handleNav('catalogo')} 
-                    className="text-left px-5 py-4 border-b border-neutral-900/50 text-[#FF2A7A] font-bold hover:bg-neutral-900/30 transition-colors"
+                    className="text-left px-5 py-4 border-b border-gray-100 dark:border-neutral-900/50 text-gray-800 dark:text-white font-bold hover:bg-gray-50 dark:hover:bg-neutral-900/30 transition-colors"
                   >
                     Estoque
                   </button>
                   <button 
                     onClick={() => handleNav('financiamento')} 
-                    className="text-left px-5 py-4 border-b border-neutral-900/50 text-white font-medium hover:bg-neutral-900/30 transition-colors"
+                    className="text-left px-5 py-4 border-b border-gray-100 dark:border-neutral-900/50 text-gray-800 dark:text-white font-medium hover:bg-gray-50 dark:hover:bg-neutral-900/30 transition-colors"
                   >
                     Financiamento
                   </button>
                   <button 
                     onClick={() => handleNav('avaliacao')} 
-                    className="text-left px-5 py-4 border-b border-neutral-900/50 text-white font-medium hover:bg-neutral-900/30 transition-colors"
+                    className="text-left px-5 py-4 border-b border-gray-100 dark:border-neutral-900/50 text-gray-800 dark:text-white font-medium hover:bg-gray-50 dark:hover:bg-neutral-900/30 transition-colors"
                   >
                     Avalie seu Usado
                   </button>
                   <button 
                     onClick={() => handleNav('combo')} 
-                    className="text-left px-5 py-4 border-b border-neutral-900/50 text-white font-medium hover:bg-neutral-900/30 transition-colors flex items-center justify-between"
+                    className="text-left px-5 py-4 border-b border-gray-100 dark:border-neutral-900/50 text-gray-800 dark:text-white font-medium hover:bg-gray-50 dark:hover:bg-neutral-900/30 transition-colors flex items-center justify-between"
                   >
                     Simulador Combo
-                    <span className="w-2 h-2 rounded-full bg-[#FF2A7A]"></span>
+                    <span className="w-2 h-2 rounded-full bg-[var(--brand-color)]"></span>
                   </button>
                   <button 
                     onClick={() => handleNav('termos')} 
-                    className="text-left px-5 py-4 border-b border-neutral-900/50 text-gray-400 font-medium hover:bg-neutral-900/30 transition-colors"
+                    className="text-left px-5 py-4 border-b border-gray-100 dark:border-neutral-900/50 text-gray-500 dark:text-gray-400 font-medium hover:bg-gray-50 dark:hover:bg-neutral-900/30 transition-colors"
                   >
                     Termos de Uso
                   </button>
                 </nav>
 
                 {/* Theme Selector */}
-                <div className="p-5 mt-2">
+                <div className="p-5 mt-auto">
                   <span className="text-[10px] uppercase tracking-wider font-bold text-gray-500 mb-4 block">
                     Tema do App
                   </span>
                   <div className="flex items-center gap-3 overflow-x-auto pb-4 hide-scrollbar">
                     <button
                       onClick={() => changeTheme('original')}
-                      className={`flex flex-col items-center justify-center gap-2 min-w-[70px] min-h-[70px] rounded-xl transition-all cursor-pointer border ${activeTheme === 'original' ? 'border-[#FF2A7A] bg-neutral-900' : 'border-neutral-800 hover:bg-neutral-900'}`}
+                      className={`flex flex-col items-center justify-center gap-2 min-w-[70px] min-h-[70px] rounded-xl transition-all cursor-pointer border ${activeTheme === 'original' ? 'border-[var(--brand-color)] bg-gray-100 dark:bg-neutral-900' : 'border-gray-200 dark:border-neutral-800 hover:bg-gray-50 dark:hover:bg-neutral-900'}`}
                     >
-                      <span className="w-6 h-6 rounded-full bg-[#FF2D8D] shadow-lg"></span>
-                      <span className="text-[10px] text-gray-400 font-medium">Rosa</span>
+                      <span className="w-6 h-6 rounded-full bg-[#FF2A7A] shadow-sm"></span>
+                      <span className="text-[10px] text-gray-600 dark:text-gray-400 font-medium">Rosa</span>
                     </button>
                     <button
                       onClick={() => changeTheme('branco')}
-                      className={`flex flex-col items-center justify-center gap-2 min-w-[70px] min-h-[70px] rounded-xl transition-all cursor-pointer border ${activeTheme === 'branco' ? 'border-[#FF2A7A] bg-neutral-900' : 'border-neutral-800 hover:bg-neutral-900'}`}
+                      className={`flex flex-col items-center justify-center gap-2 min-w-[70px] min-h-[70px] rounded-xl transition-all cursor-pointer border ${activeTheme === 'branco' ? 'border-[var(--brand-color)] bg-gray-100 dark:bg-neutral-900' : 'border-gray-200 dark:border-neutral-800 hover:bg-gray-50 dark:hover:bg-neutral-900'}`}
                     >
-                      <span className="w-6 h-6 rounded-full bg-white border border-neutral-300 shadow-lg"></span>
-                      <span className="text-[10px] text-gray-400 font-medium">Branco</span>
+                      <span className="w-6 h-6 rounded-full bg-white border border-gray-300 shadow-sm"></span>
+                      <span className="text-[10px] text-gray-600 dark:text-gray-400 font-medium">Branco</span>
                     </button>
                     <button
                       onClick={() => changeTheme('azul')}
-                      className={`flex flex-col items-center justify-center gap-2 min-w-[70px] min-h-[70px] rounded-xl transition-all cursor-pointer border ${activeTheme === 'azul' ? 'border-[#FF2A7A] bg-neutral-900' : 'border-neutral-800 hover:bg-neutral-900'}`}
+                      className={`flex flex-col items-center justify-center gap-2 min-w-[70px] min-h-[70px] rounded-xl transition-all cursor-pointer border ${activeTheme === 'azul' ? 'border-[var(--brand-color)] bg-gray-100 dark:bg-neutral-900' : 'border-gray-200 dark:border-neutral-800 hover:bg-gray-50 dark:hover:bg-neutral-900'}`}
                     >
-                      <span className="w-6 h-6 rounded-full bg-cyan-500 shadow-lg"></span>
-                      <span className="text-[10px] text-gray-400 font-medium">Azul</span>
+                      <span className="w-6 h-6 rounded-full bg-blue-500 shadow-sm"></span>
+                      <span className="text-[10px] text-gray-600 dark:text-gray-400 font-medium">Azul</span>
                     </button>
                     <button
                       onClick={() => changeTheme('preto')}
-                      className={`flex flex-col items-center justify-center gap-2 min-w-[70px] min-h-[70px] rounded-xl transition-all cursor-pointer border ${activeTheme === 'preto' ? 'border-[#FF2A7A] bg-neutral-900' : 'border-neutral-800 hover:bg-neutral-900'}`}
+                      className={`flex flex-col items-center justify-center gap-2 min-w-[70px] min-h-[70px] rounded-xl transition-all cursor-pointer border ${activeTheme === 'preto' ? 'border-[var(--brand-color)] bg-gray-100 dark:bg-neutral-900' : 'border-gray-200 dark:border-neutral-800 hover:bg-gray-50 dark:hover:bg-neutral-900'}`}
                     >
-                      <span className="w-6 h-6 rounded-full bg-black border border-neutral-600 shadow-lg"></span>
-                      <span className="text-[10px] text-gray-400 font-medium">Preto</span>
+                      <span className="w-6 h-6 rounded-full bg-black border border-neutral-700 shadow-sm"></span>
+                      <span className="text-[10px] text-gray-600 dark:text-gray-400 font-medium">Preto</span>
                     </button>
                     <button
                       onClick={() => changeTheme('creme')}
-                      className={`flex flex-col items-center justify-center gap-2 min-w-[70px] min-h-[70px] rounded-xl transition-all cursor-pointer border ${activeTheme === 'creme' ? 'border-[#FF2A7A] bg-neutral-900' : 'border-neutral-800 hover:bg-neutral-900'}`}
+                      className={`flex flex-col items-center justify-center gap-2 min-w-[70px] min-h-[70px] rounded-xl transition-all cursor-pointer border ${activeTheme === 'creme' ? 'border-[var(--brand-color)] bg-gray-100 dark:bg-neutral-900' : 'border-gray-200 dark:border-neutral-800 hover:bg-gray-50 dark:hover:bg-neutral-900'}`}
                     >
-                      <span className="w-6 h-6 rounded-full bg-[#faf4e8] border border-[#a67537] shadow-lg"></span>
-                      <span className="text-[10px] text-gray-400 font-medium">Creme</span>
+                      <span className="w-6 h-6 rounded-full bg-[#faf4e8] border border-[#a67537] shadow-sm"></span>
+                      <span className="text-[10px] text-gray-600 dark:text-gray-400 font-medium">Creme</span>
                     </button>
                   </div>
                 </div>
               </div>
-
-              {/* Footer CTA */}
-              <div className="p-5 border-t border-neutral-900 mt-auto bg-[#0B0B0C]">
-                {currentUser ? (
-                  <div className="flex flex-col gap-3">
-                    <div className="flex items-center gap-3 mb-2">
-                      <div className="w-10 h-10 rounded-full bg-neutral-800 flex items-center justify-center">
-                        <User className="w-5 h-5 text-gray-400" />
-                      </div>
-                      <div>
-                        <p className="text-white font-medium text-sm">{currentUser.name}</p>
-                        <p className="text-[10px] text-gray-500">{currentUser.role === 'Cliente' ? 'Área do Cliente' : 'Painel de Controle'}</p>
-                      </div>
-                    </div>
-                    <button
-                      onClick={() => {
-                        setIsMenuOpen(false);
-                        handleNav(
-                          currentUser.role === 'Cliente' ? 'cliente' : 
-                          currentUser.role === 'Administrador' ? 'admin' : 'vendedor'
-                        );
-                      }}
-                      className="w-full text-center py-3.5 rounded-xl bg-neutral-800 text-white font-bold text-xs uppercase tracking-wide hover:bg-neutral-700 transition-colors"
-                    >
-                      Acessar Painel
-                    </button>
-                    <button
-                      onClick={() => {
-                        setIsMenuOpen(false);
-                        onLogout();
-                      }}
-                      className="w-full text-center py-3.5 rounded-xl bg-red-500/10 text-red-500 font-bold text-xs uppercase tracking-wide hover:bg-red-500/20 transition-colors"
-                    >
-                      Sair da Conta
-                    </button>
-                  </div>
-                ) : (
-                  <button
-                    onClick={() => {
-                      setIsMenuOpen(false);
-                      onOpenAuth();
-                    }}
-                    className="w-full py-4 rounded-xl bg-[#FF2A7A] text-white font-bold text-sm tracking-wider uppercase flex items-center justify-center gap-2 shadow-[0_0_20px_rgba(255,42,122,0.3)] hover:bg-[#D61F62] transition-colors"
-                  >
-                    Entrar / Cadastrar
-                  </button>
-                )}
-              </div>
             </div>
           </div>
         )}
-      </header>
 
       {/* Notification Perm banner */}
       {showNotifBanner && (
@@ -855,7 +862,7 @@ export function Header({ currentUser, onLogout, onOpenAuth, onNavigate, currentP
             }
             setActiveToast(null);
           }}
-          className="fixed top-4 left-4 right-4 md:top-24 md:left-auto md:right-8 z-[9999] max-w-sm bg-black/95 backdrop-blur-md border border-neutral-800 rounded-xl shadow-[0_10px_40px_rgba(var(--brand-color-rgb),0.25)] p-4 flex gap-3.5 border-l-4 border-l-[var(--brand-color)] cursor-pointer hover:border-neutral-700 transition-all duration-300 animate-slide-in-right"
+          className="fixed top-4 left-4 right-4 md:top-24 md:left-auto md:right-8 z-[9999] max-w-sm bg-black/95 backdrop-blur-md border border-neutral-800 rounded-xl shadow-lg p-4 flex gap-3.5 border-l-4 border-l-[var(--brand-color)] cursor-pointer hover:border-neutral-700 transition-all duration-300 animate-slide-in-right"
         >
           <div className="w-11 h-11 shrink-0 bg-neutral-900 border border-[var(--brand-color)]/25 rounded-full flex items-center justify-center overflow-hidden">
             <img src={ravicarLogo} alt="RaviCar" className="w-full h-full object-cover" />

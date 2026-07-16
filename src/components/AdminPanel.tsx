@@ -770,7 +770,7 @@ export function AdminPanel({ currentUser, token, vehicles, onRefreshData, settin
                   onClick={() => setActiveTab(tab.id as any)}
                   className={`flex items-center gap-2.5 px-4 py-3 rounded-xl text-xs font-bold transition-all border shrink-0 text-left lg:w-full cursor-pointer ${
                     isActive 
-                      ? 'bg-[#FF2D8D] border-[#FF2D8D] text-white shadow-[0_4px_15px_rgba(255,45,141,0.15)]'
+                      ? 'bg-[#FF2D8D] border-[#FF2D8D] text-white '
                       : 'bg-neutral-950/60 border-neutral-900/60 text-gray-400 hover:text-white hover:bg-neutral-900/40 hover:border-neutral-800'
                   }`}
                 >

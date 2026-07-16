@@ -51,39 +51,31 @@ export function Hero({ onNavigate, settings }: HeroProps) {
         setIsHovered(false);
         setMousePosition({ x: 50, y: 50 });
       }}
-      className="relative min-h-[75vh] py-24 md:py-32 flex items-center justify-center bg-black overflow-hidden select-none group/hero"
+      className="relative min-h-[75vh] py-24 md:py-32 flex items-center justify-center bg-white dark:bg-[#0B0B0C] overflow-hidden select-none group/hero"
     >
       {/* Background with luxury premium sports car and dark gradient overlay */}
-      <div className="absolute inset-0 z-0 pointer-events-none select-none bg-black">
+      <div className="absolute inset-0 z-0 pointer-events-none select-none bg-white dark:bg-[#0B0B0C]">
         <video 
           key="hero-video"
-          src="/hero-video.mp4?v=3"
+          src="/hero-video.mp4"
           autoPlay 
           loop 
           muted 
           playsInline
-          className="w-full h-full object-cover object-center opacity-80 filter brightness-[0.8] scale-[1.02] pointer-events-none select-none"
+          className="hidden dark:block w-full h-full object-cover object-center opacity-90 filter brightness-[0.9] scale-[1.02] pointer-events-none select-none"
         />
-        {/* Gradients to fade out the edges of the video into the black background */}
-        <div className="absolute inset-x-0 bottom-0 h-32 bg-gradient-to-t from-black to-transparent pointer-events-none select-none"></div>
-        <div className="absolute inset-x-0 top-0 h-40 bg-gradient-to-b from-black/80 to-transparent pointer-events-none select-none"></div>
-        <div className="absolute inset-y-0 left-0 w-32 bg-gradient-to-r from-black to-transparent pointer-events-none select-none opacity-80"></div>
-        <div className="absolute inset-y-0 right-0 w-32 bg-gradient-to-l from-black to-transparent pointer-events-none select-none opacity-80"></div>
-        {/* Radial vignette for cinematic focus */}
-        <div className="absolute inset-0 bg-[radial-gradient(circle_at_center,transparent_0%,black_100%)] opacity-80 pointer-events-none select-none mix-blend-multiply"></div>
-        <div className="absolute inset-0 bg-[var(--brand-color)]/10 pointer-events-none select-none mix-blend-overlay"></div>
       </div>
 
         {/* Main Content container */}
         <div className="relative z-10 w-full max-w-5xl mx-auto px-4 flex flex-col items-center mt-12 md:mt-0">
           {/* Coordinates Badge */}
-          <div className="mb-8 inline-flex items-center gap-1.5 px-3 py-1.5 rounded-full border border-neutral-800 bg-[#18181B] text-[10px] font-mono tracking-widest text-gray-400 select-none shadow-lg">
+          <div className="mb-8 inline-flex items-center gap-1.5 px-3 py-1.5 rounded-full border border-gray-200 dark:border-neutral-800 bg-gray-50 dark:bg-[#18181B] text-[10px] font-mono tracking-widest text-gray-500 dark:text-gray-400 select-none shadow-sm dark:shadow-lg">
             <MapPin className="w-3 h-3 text-[#FF2A7A]" />
             <span>SÃO MIGUEL PAULISTA, SP | 23.5015° S, 46.4013° W</span>
           </div>
 
           {/* Heading */}
-          <h1 className="font-sans font-black text-4xl sm:text-5xl md:text-6xl text-white tracking-tight leading-[1.1] mb-5 text-center animate-fade-in-up">
+          <h1 className="font-sans font-black text-4xl sm:text-5xl md:text-6xl text-gray-900 dark:text-white tracking-tight leading-[1.1] mb-5 text-center animate-fade-in-up">
             Encontre o carro ideal <br />
             <span className="text-[#FF2A7A]">
               para você.
@@ -91,7 +83,7 @@ export function Hero({ onNavigate, settings }: HeroProps) {
           </h1>
 
           {/* Subtitle */}
-          <p className="max-w-2xl text-sm sm:text-base text-gray-400 font-medium leading-relaxed mb-10 text-center px-4">
+          <p className="max-w-2xl text-sm sm:text-base text-gray-600 dark:text-gray-300 font-medium leading-relaxed mb-10 text-center px-4">
             Veículos periciados, revisados de para-choque a para-choque, com o selo de procedência RaviCar e financiamento facilitado.
           </p>
 
@@ -99,7 +91,7 @@ export function Hero({ onNavigate, settings }: HeroProps) {
           <div className="flex flex-col gap-3 w-full max-w-sm mx-auto mb-16">
             <button
               onClick={() => onNavigate('catalogo')}
-              className="w-full px-6 py-4 rounded-lg bg-[#FF2A7A] hover:bg-[#D61F62] text-white font-bold text-sm tracking-wide uppercase transition-colors duration-300 flex items-center justify-center gap-2 shadow-[0_0_20px_rgba(255,42,122,0.3)]"
+              className="w-full px-6 py-4 rounded-lg bg-[#FF2A7A] hover:bg-[#D61F62] text-white font-bold text-sm tracking-wide uppercase transition-colors duration-300 flex items-center justify-center gap-2"
             >
               VER VEÍCULOS &gt;
             </button>
@@ -115,21 +107,21 @@ export function Hero({ onNavigate, settings }: HeroProps) {
 
           {/* Highlights Banner Underneath (2x2 Grid) */}
           <div className="grid grid-cols-2 gap-3 w-full max-w-md mx-auto">
-            <div className="p-5 rounded-xl bg-[#18181B] border border-neutral-800 text-center flex flex-col items-center justify-center">
-              <h4 className="font-sans font-black text-white text-2xl mb-1">26K+</h4>
-              <p className="text-[9px] text-gray-500 font-bold uppercase tracking-widest">Seguidores no Insta</p>
+            <div className="p-5 rounded-xl bg-gray-50 dark:bg-[#18181B] border border-gray-200 dark:border-neutral-800 text-center flex flex-col items-center justify-center">
+              <h4 className="font-sans font-black text-gray-900 dark:text-white text-2xl mb-1">26K+</h4>
+              <p className="text-[9px] text-gray-600 dark:text-gray-500 font-bold uppercase tracking-widest">Seguidores no Insta</p>
             </div>
-            <div className="p-5 rounded-xl bg-[#18181B] border border-neutral-800 text-center flex flex-col items-center justify-center">
-              <h4 className="font-sans font-black text-white text-2xl mb-1">100%</h4>
-              <p className="text-[9px] text-gray-500 font-bold uppercase tracking-widest">Laudo Aprovado</p>
+            <div className="p-5 rounded-xl bg-gray-50 dark:bg-[#18181B] border border-gray-200 dark:border-neutral-800 text-center flex flex-col items-center justify-center">
+              <h4 className="font-sans font-black text-gray-900 dark:text-white text-2xl mb-1">100%</h4>
+              <p className="text-[9px] text-gray-600 dark:text-gray-500 font-bold uppercase tracking-widest">Laudo Aprovado</p>
             </div>
-            <div className="p-5 rounded-xl bg-[#18181B] border border-neutral-800 text-center flex flex-col items-center justify-center">
-              <h4 className="font-sans font-black text-white text-2xl mb-1">13+</h4>
-              <p className="text-[9px] text-gray-500 font-bold uppercase tracking-widest">Bancos Parceiros</p>
+            <div className="p-5 rounded-xl bg-gray-50 dark:bg-[#18181B] border border-gray-200 dark:border-neutral-800 text-center flex flex-col items-center justify-center">
+              <h4 className="font-sans font-black text-gray-900 dark:text-white text-2xl mb-1">13+</h4>
+              <p className="text-[9px] text-gray-600 dark:text-gray-500 font-bold uppercase tracking-widest">Bancos Parceiros</p>
             </div>
-            <div className="p-5 rounded-xl bg-[#18181B] border border-neutral-800 text-center flex flex-col items-center justify-center">
+            <div className="p-5 rounded-xl bg-gray-50 dark:bg-[#18181B] border border-gray-200 dark:border-neutral-800 text-center flex flex-col items-center justify-center">
               <h4 className="font-sans font-black text-[#FF2A7A] text-2xl mb-1">+50</h4>
-              <p className="text-[9px] text-gray-500 font-bold uppercase tracking-widest">Carros em Estoque</p>
+              <p className="text-[9px] text-gray-600 dark:text-gray-500 font-bold uppercase tracking-widest">Carros em Estoque</p>
             </div>
           </div>
         </div>

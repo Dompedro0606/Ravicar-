@@ -280,7 +280,7 @@ Gostaria de agendar a vistoria física para confirmar esses valores e concluir o
                       </div>
 
                       {/* RaviCar Offer - Prominent glowing item */}
-                      <div className="p-5 bg-gradient-to-b from-[#FF2D8D]/15 to-[#FF2D8D]/5 border border-[#FF2D8D]/30 rounded-2xl space-y-3 flex flex-col justify-between relative overflow-hidden hover:border-[#FF2D8D]/50 transition duration-300 shadow-lg shadow-[#FF2D8D]/5">
+                      <div className="p-5 bg-gradient-to-b from-[#FF2D8D]/15 to-[#FF2D8D]/5 border border-[#FF2D8D]/30 rounded-2xl space-y-3 flex flex-col justify-between relative overflow-hidden hover:border-[#FF2D8D]/50 transition duration-300 ">
                         <div className="absolute top-0 right-0 bg-[#FF2D8D] text-white text-[7px] font-black px-2 py-0.5 rounded-bl uppercase tracking-wider">
                           OFERTA ESTIMADA
                         </div>

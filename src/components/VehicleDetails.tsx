@@ -442,7 +442,7 @@ Gostaria de falar com um consultor para negociar ou simular financiamento!`;
           <div className="space-y-3 pt-4 border-t border-neutral-900">
             <button
               onClick={handleBuyWhatsapp}
-              className="w-full py-4 rounded-xl bg-gradient-to-r from-[#FF2D8D] to-[#FF6FB5] text-white font-extrabold text-sm uppercase tracking-wider flex items-center justify-center gap-2 cursor-pointer transform hover:-translate-y-0.5 transition duration-300 hover:shadow-[0_0_25px_rgba(255,45,141,0.35)]"
+              className="w-full py-4 rounded-xl bg-gradient-to-r from-[#FF2D8D] to-[#FF6FB5] text-white font-extrabold text-sm uppercase tracking-wider flex items-center justify-center gap-2 cursor-pointer transform hover:-translate-y-0.5 transition duration-300 "
             >
               <MessageCircle className="w-5 h-5 fill-white text-[#FF2D8D]" />
               Comprar pelo WhatsApp
@@ -677,7 +677,7 @@ Gostaria de falar com um consultor para negociar ou simular financiamento!`;
                         window.scrollTo(0, 0);
                         onNavigate('detalhes', v.id);
                       }}
-                      className="group bg-neutral-950 border border-neutral-900 rounded-xl overflow-hidden cursor-pointer flex flex-col justify-between hover:border-[var(--brand-color)]/30 hover:shadow-[0_0_20px_rgba(255,45,141,0.1)] transition-all duration-300"
+                      className="group bg-neutral-950 border border-neutral-900 rounded-xl overflow-hidden cursor-pointer flex flex-col justify-between hover:border-[var(--brand-color)]/30  transition-all duration-300"
                     >
                       <div className="relative aspect-[16/10] w-full overflow-hidden bg-[#1A1A1A]">
                         {v.media && v.media.length > 0 ? (
