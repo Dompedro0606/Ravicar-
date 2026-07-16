@@ -870,9 +870,9 @@ export function AdminPanel({ currentUser, token, vehicles, onRefreshData, settin
                       </div>
                       <button
                         onClick={() => handleMarkLeadAtendido(l.id, l.status)}
-                        className="px-3 py-1.5 rounded-lg bg-[#FF2D8D]/10 border border-[#FF2D8D]/20 text-[#FF2D8D] hover:bg-[#FF2D8D] hover:text-white transition text-[10px] font-bold"
+                        className="flex items-center gap-1.5 px-3 py-1.5 rounded-lg bg-[#FF2A7A]/10 border border-[#FF2A7A] text-[#FF2A7A] hover:bg-[#FF2A7A]/20 active:scale-95 transition-all text-[10px] font-black cursor-pointer"
                       >
-                        Atendido ✓
+                        <Check className="w-3 h-3" /> Pendente
                       </button>
                     </div>
                   ))}
@@ -1083,10 +1083,12 @@ export function AdminPanel({ currentUser, token, vehicles, onRefreshData, settin
                             <span className="text-[7px] text-gray-500 uppercase font-bold">Média FIPE</span>
                             <span className="text-xs font-bold text-gray-300 mt-1">R$ {fipePrice.toLocaleString('pt-BR')}</span>
                           </div>
-                          <div className="flex flex-col">
+                          <div className="flex flex-col items-start">
                             <span className="text-[7px] text-gray-500 uppercase font-bold">Desvio FIPE</span>
-                            <span className={`text-xs font-black mt-1 ${
-                              diffPct > 10 ? 'text-amber-500' : diffPct < -10 ? 'text-indigo-400' : 'text-emerald-400'
+                            <span className={`px-2 py-0.5 rounded-md text-[10px] font-bold mt-1 inline-flex ${
+                              diffPct > 10 ? 'bg-red-900/30 text-red-500 border border-red-900/50' : 
+                              diffPct < -10 ? 'bg-indigo-900/30 text-indigo-400 border border-indigo-900/50' : 
+                              'bg-emerald-900/30 text-emerald-400 border border-emerald-900/50'
                             }`}>
                               {diffFormatted}
                             </span>
@@ -1095,13 +1097,13 @@ export function AdminPanel({ currentUser, token, vehicles, onRefreshData, settin
 
                         {/* Status de Auditoria */}
                         <div className="md:col-span-2 flex flex-col items-center md:items-start gap-1">
-                          <span className="text-[7px] text-gray-500 uppercase font-bold">Status FIPE</span>
-                          <span className={`px-2 py-1 rounded text-[8px] font-extrabold uppercase leading-none mt-1 border ${
+                          <span className="text-[7px] text-gray-500 uppercase font-bold mb-0.5">Status FIPE</span>
+                          <span className={`px-3 py-1 rounded-full text-xs font-bold uppercase inline-flex whitespace-nowrap border ${
                             diffPct > 10 
-                              ? 'bg-amber-950/40 text-amber-500 border-amber-900/60' 
+                              ? 'bg-red-900/30 text-red-500 border-red-900/50' 
                               : diffPct < -10 
-                              ? 'bg-indigo-950/40 text-indigo-400 border-indigo-900/60' 
-                              : 'bg-emerald-950/40 text-emerald-500 border-emerald-900/60'
+                              ? 'bg-indigo-900/30 text-indigo-400 border-indigo-900/50' 
+                              : 'bg-emerald-900/30 text-emerald-400 border-emerald-900/50'
                           }`}>
                             {statusLabel}
                           </span>
@@ -1780,13 +1782,13 @@ export function AdminPanel({ currentUser, token, vehicles, onRefreshData, settin
                       <span className="text-gray-500">{new Date(lead.date).toLocaleString('pt-BR')}</span>
                       <button
                         onClick={() => handleMarkLeadAtendido(lead.id, lead.status)}
-                        className={`px-3 py-1 rounded-xl text-[10px] font-black transition cursor-pointer ${
+                        className={`flex items-center gap-1.5 px-3 py-1.5 rounded-lg text-[10px] font-black transition-all cursor-pointer active:scale-95 ${
                           lead.status === 'Atendido' 
                             ? 'bg-emerald-950 text-emerald-400 border border-emerald-900' 
-                            : 'bg-[#FF2D8D]/10 text-[#FF2D8D] border border-[#FF2D8D]/20 hover:bg-[#FF2D8D] hover:text-white'
+                            : 'bg-[#FF2A7A]/10 text-[#FF2A7A] border border-[#FF2A7A] hover:bg-[#FF2A7A]/20'
                         }`}
                       >
-                        {lead.status === 'Atendido' ? 'Atendido ✓' : 'Pendente (Marcar Atendido)'}
+                        {lead.status === 'Atendido' ? 'Atendido ✓' : <><Check className="w-3 h-3" /> Pendente (Marcar Atendido)</>}
                       </button>
                     </div>
                   </div>
@@ -1813,8 +1815,8 @@ export function AdminPanel({ currentUser, token, vehicles, onRefreshData, settin
                     )}
                   </div>
 
-                  <div className="bg-neutral-900 p-3 rounded-xl border border-neutral-800/50 text-[11px] text-gray-300">
-                    <p className="italic">"{lead.message}"</p>
+                  <div className="italic text-gray-300 bg-gray-800/50 p-3 rounded-md border-l-2 border-[#FF2A7A] text-[11px]">
+                    "{lead.message}"
                   </div>
                 </div>
               ))
@@ -1826,7 +1828,7 @@ export function AdminPanel({ currentUser, token, vehicles, onRefreshData, settin
       {/* --- CLIENT CRM TAB --- */}
       {activeTab === 'clients' && (
         <div className="space-y-6">
-          <div className="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4">
+          <div className="flex flex-col md:flex-row items-start md:items-center justify-between gap-4">
             <div>
               <h3 className="font-display font-bold text-sm text-white uppercase tracking-wider text-[#FF2D8D]">
                 CRM - Gestão de Clientes ({filteredClients.length})
@@ -1834,8 +1836,8 @@ export function AdminPanel({ currentUser, token, vehicles, onRefreshData, settin
               <p className="text-[10px] text-gray-500 mt-0.5">Histórico de contatos e negociações de veículos.</p>
             </div>
             
-            <div className="flex flex-col sm:flex-row items-stretch sm:items-center gap-3 w-full sm:w-auto">
-              <div className="relative w-full sm:w-64">
+            <div className="flex flex-col w-full md:w-auto gap-3">
+              <div className="relative w-full md:w-64">
                 <Search className="w-3.5 h-3.5 text-gray-500 absolute left-3 top-1/2 -translate-y-1/2" />
                 <input
                   type="text"
@@ -1847,7 +1849,7 @@ export function AdminPanel({ currentUser, token, vehicles, onRefreshData, settin
               </div>
               <button
                 onClick={() => { setEditingClientId(null); setClientFormOpen(true); }}
-                className="flex items-center justify-center gap-1.5 px-4 py-2.5 bg-[#FF2D8D] text-white hover:bg-[#FF6FB5] transition font-bold text-xs rounded-xl shadow-lg cursor-pointer shrink-0"
+                className="flex items-center justify-center gap-1.5 w-full px-4 py-2.5 bg-[#FF2D8D] text-white hover:bg-[#FF6FB5] transition font-bold text-xs rounded-xl shadow-lg cursor-pointer"
               >
                 <Plus className="w-4 h-4" /> Cadastrar Cliente
               </button>
@@ -1918,53 +1920,49 @@ export function AdminPanel({ currentUser, token, vehicles, onRefreshData, settin
               </div>
             </form>
           )}
-
-          {/* Client Table List */}
-          <div className="bg-neutral-950 border border-neutral-900 rounded-2xl overflow-hidden">
-            <table className="w-full text-left text-xs">
-              <thead>
-                <tr className="border-b border-neutral-900 bg-neutral-900/30 text-gray-500 font-bold">
-                  <th className="p-4">Cliente</th>
-                  <th className="p-4">Contato</th>
-                  <th className="p-4">Anotações Comerciais</th>
-                  <th className="p-4">Criado em</th>
-                  <th className="p-4 text-right">Ações</th>
-                </tr>
-              </thead>
-              <tbody className="divide-y divide-neutral-900/60 text-gray-300">
-                {filteredClients.map(c => (
-                  <tr key={c.id}>
-                    <td className="p-4 font-bold text-white">{c.name}</td>
-                    <td className="p-4">
-                      <p>{c.phone}</p>
-                      {c.email && <p className="text-[10px] text-gray-500">{c.email}</p>}
-                    </td>
-                    <td className="p-4 text-gray-400 font-medium max-w-sm">{c.notes || '-'}</td>
-                    <td className="p-4 text-gray-500">{new Date(c.createdAt).toLocaleDateString('pt-BR')}</td>
-                    <td className="p-4 text-right">
-                      <div className="flex items-center justify-end gap-2">
-                        <button
-                          onClick={() => {
-                            setEditingClientId(c.id);
-                            setClientForm({ name: c.name, phone: c.phone, email: c.email || '', notes: c.notes || '' });
-                            setClientFormOpen(true);
-                          }}
-                          className="p-1.5 rounded bg-neutral-900 border border-neutral-800 text-[#FF6FB5] hover:bg-[#FF2D8D] hover:text-white transition flex items-center justify-center w-8 h-8 shrink-0 cursor-pointer"
-                        >
-                          <Edit className="w-3.5 h-3.5" />
-                        </button>
-                        <button
-                          onClick={() => handleDeleteClient(c.id)}
-                          className="p-1.5 rounded bg-neutral-900 border border-neutral-800 text-red-400 hover:bg-red-600 hover:text-white transition flex items-center justify-center w-8 h-8 shrink-0 cursor-pointer"
-                        >
-                          <Trash className="w-3.5 h-3.5" />
-                        </button>
-                      </div>
-                    </td>
-                  </tr>
-                ))}
-              </tbody>
-            </table>
+          {/* Client Cards List */}
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
+            {filteredClients.map(c => (
+              <div key={c.id} className="bg-[#18181B] border border-neutral-800/60 rounded-2xl p-5 flex flex-col hover:border-neutral-700 transition-colors">
+                <div className="flex items-start justify-between mb-3">
+                  <h4 className="font-bold text-white text-sm">{c.name}</h4>
+                  <span className="text-[10px] text-gray-500 shrink-0">{new Date(c.createdAt).toLocaleDateString('pt-BR')}</span>
+                </div>
+                <div className="space-y-1.5 mb-4">
+                  <div className="flex items-center gap-2 text-xs text-gray-400">
+                    <Phone className="w-3.5 h-3.5" />
+                    <span>{c.phone}</span>
+                  </div>
+                  {c.email && (
+                    <div className="flex items-center gap-2 text-xs text-gray-400">
+                      <Mail className="w-3.5 h-3.5" />
+                      <span className="truncate">{c.email}</span>
+                    </div>
+                  )}
+                </div>
+                <div className="bg-gray-800/50 rounded-xl p-3 mb-4 flex-grow">
+                  <p className="text-[11px] text-gray-300 font-medium whitespace-pre-wrap">{c.notes || '-'}</p>
+                </div>
+                <div className="flex items-center gap-2 mt-auto pt-3 border-t border-neutral-800/60">
+                  <button
+                    onClick={() => {
+                      setEditingClientId(c.id);
+                      setClientForm({ name: c.name, phone: c.phone, email: c.email || '', notes: c.notes || '' });
+                      setClientFormOpen(true);
+                    }}
+                    className="flex-1 py-2 rounded-xl bg-neutral-900 border border-neutral-800 text-[#FF6FB5] hover:bg-[#FF2D8D] hover:text-white transition font-bold text-[10px] flex items-center justify-center gap-1.5 cursor-pointer"
+                  >
+                    <Edit className="w-3 h-3" /> Editar
+                  </button>
+                  <button
+                    onClick={() => handleDeleteClient(c.id)}
+                    className="flex-1 py-2 rounded-xl bg-neutral-900 border border-neutral-800 text-red-400 hover:bg-red-600 hover:text-white transition font-bold text-[10px] flex items-center justify-center gap-1.5 cursor-pointer"
+                  >
+                    <Trash className="w-3 h-3" /> Excluir
+                  </button>
+                </div>
+              </div>
+            ))}
           </div>
         </div>
       )}
@@ -1972,19 +1970,19 @@ export function AdminPanel({ currentUser, token, vehicles, onRefreshData, settin
       {/* --- EMPLOYEES TAB (Admin only) --- */}
       {activeTab === 'users' && currentUser.role === 'Administrador' && (
         <div className="space-y-6">
-          <div className="flex items-center justify-between">
+          <div className="flex flex-col md:flex-row items-start md:items-center justify-between gap-4">
             <h3 className="font-display font-bold text-sm text-white uppercase tracking-wider text-[#FF2D8D]">
               Gerenciamento de Funcionários ({usersList.length})
             </h3>
-            <button
-              onClick={() => setUserFormOpen(true)}
-              className="flex items-center gap-1.5 px-4 py-2 bg-[#FF2D8D] text-white hover:bg-[#FF6FB5] transition font-bold text-xs rounded-xl shadow-lg cursor-pointer"
-            >
-              <UserPlus className="w-4 h-4" /> Registrar Funcionário
-            </button>
+            <div className="w-full md:w-auto">
+              <button
+                onClick={() => setUserFormOpen(true)}
+                className="flex items-center justify-center gap-1.5 w-full md:w-auto px-4 py-2.5 bg-[#FF2D8D] text-white hover:bg-[#FF6FB5] transition font-bold text-xs rounded-xl shadow-lg cursor-pointer"
+              >
+                <UserPlus className="w-4 h-4" /> Registrar Funcionário
+              </button>
+            </div>
           </div>
-
-          {/* User Registration Form overlay */}
           {userFormOpen && (
             <form onSubmit={handleCreateUser} className="p-5 bg-neutral-950 border border-neutral-900 rounded-2xl space-y-4 max-w-2xl">
               <h4 className="font-display font-bold text-xs text-[#FF6FB5] uppercase tracking-wide">
@@ -2060,49 +2058,42 @@ export function AdminPanel({ currentUser, token, vehicles, onRefreshData, settin
               </div>
             </form>
           )}
-
-          {/* User Table List */}
-          <div className="bg-neutral-950 border border-neutral-900 rounded-2xl overflow-hidden">
-            <table className="w-full text-left text-xs">
-              <thead>
-                <tr className="border-b border-neutral-900 bg-neutral-900/30 text-gray-500 font-bold">
-                  <th className="p-4">Colaborador</th>
-                  <th className="p-4">E-mail de Login</th>
-                  <th className="p-4">Cargo</th>
-                  <th className="p-4">Telefone</th>
-                  <th className="p-4 text-right">Ações</th>
-                </tr>
-              </thead>
-              <tbody className="divide-y divide-neutral-900/60 text-gray-300">
-                {usersList.map(u => (
-                  <tr key={u.id}>
-                    <td className="p-4 font-bold text-white">{u.name}</td>
-                    <td className="p-4 font-mono text-gray-400">{u.email}</td>
-                    <td className="p-4">
-                      <span className={`px-2 py-0.5 rounded text-[8px] font-extrabold uppercase ${
-                        u.role === 'Administrador' ? 'bg-[#FF2D8D]/10 text-[#FF2D8D] border border-[#FF2D8D]/20' : 'bg-neutral-800 text-gray-400'
-                      }`}>
-                        {u.role}
-                      </span>
-                    </td>
-                    <td className="p-4 text-gray-500">{u.phone || '-'}</td>
-                    <td className="p-4 text-right">
-                      <div className="flex items-center justify-end">
-                        {/* Prevent self delete */}
-                        {u.id !== currentUser.id && (
-                          <button
-                            onClick={() => handleDeleteUser(u.id)}
-                            className="p-1.5 rounded bg-neutral-900 border border-neutral-800 text-red-400 hover:bg-red-600 hover:text-white transition flex items-center justify-center w-8 h-8 shrink-0 cursor-pointer"
-                          >
-                            <Trash className="w-3.5 h-3.5" />
-                          </button>
-                        )}
-                      </div>
-                    </td>
-                  </tr>
-                ))}
-              </tbody>
-            </table>
+          {/* User Cards List */}
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
+            {usersList.map(u => (
+              <div key={u.id} className="bg-[#18181B] border border-neutral-800/60 rounded-2xl p-5 relative hover:border-neutral-700 transition-colors">
+                <div className="absolute top-4 right-4">
+                  <span className={`px-2 py-1 rounded text-[10px] font-bold uppercase ${
+                    u.role === 'Administrador' ? 'bg-[#FF2D8D] text-white shadow-md' : 'bg-neutral-800 text-gray-300'
+                  }`}>
+                    {u.role}
+                  </span>
+                </div>
+                
+                <h4 className="font-bold text-white text-sm pr-20">{u.name}</h4>
+                <p className="text-xs text-gray-400 font-mono mt-1">{u.email}</p>
+                
+                {u.phone && (
+                  <div className="flex items-center gap-2 text-xs text-gray-400 mt-4">
+                    <Phone className="w-3.5 h-3.5" />
+                    <span>{u.phone}</span>
+                  </div>
+                )}
+                
+                <div className="mt-5 pt-4 border-t border-neutral-800/60 flex items-center justify-end">
+                  {u.id !== currentUser.id ? (
+                    <button
+                      onClick={() => handleDeleteUser(u.id)}
+                      className="flex items-center justify-center gap-1.5 w-full py-2 bg-neutral-900 border border-neutral-800 text-red-400 hover:bg-red-600 hover:text-white transition font-bold text-[10px] rounded-xl cursor-pointer"
+                    >
+                      <Trash className="w-3.5 h-3.5" /> Remover Acesso
+                    </button>
+                  ) : (
+                    <span className="text-[10px] text-emerald-500 font-bold px-3 py-1.5 bg-emerald-950/30 rounded-xl w-full text-center">Seu Usuário Atual</span>
+                  )}
+                </div>
+              </div>
+            ))}
           </div>
         </div>
       )}
@@ -2110,16 +2101,10 @@ export function AdminPanel({ currentUser, token, vehicles, onRefreshData, settin
       {/* --- SITE SETTINGS TAB (Admin only) --- */}
       {activeTab === 'settings' && currentUser.role === 'Administrador' && (
         <div className="space-y-6">
-          <div className="flex items-center justify-between pb-3 border-b border-neutral-900">
-            <h3 className="font-display font-bold text-sm text-white uppercase tracking-wider text-[#FF2D8D]">
+          <div className="flex items-center justify-between pb-3 border-b border-neutral-900 w-full">
+            <h3 className="font-display font-bold text-sm text-white uppercase tracking-wider text-[#FF2D8D] w-full">
               Configurações do Estabelecimento e Chaves PIX
             </h3>
-            <button
-              onClick={handleSaveSettings}
-              className="flex items-center gap-1.5 px-4 py-2 bg-[#FF2D8D] text-white hover:bg-[#FF6FB5] transition font-bold text-xs rounded-xl shadow-lg cursor-pointer"
-            >
-              <Save className="w-4 h-4" /> Salvar Configurações
-            </button>
           </div>
 
           <div className="grid grid-cols-1 lg:grid-cols-3 gap-6 text-xs text-gray-300">
@@ -2131,49 +2116,49 @@ export function AdminPanel({ currentUser, token, vehicles, onRefreshData, settin
               
               <div className="space-y-3">
                 <div>
-                  <label className="block text-gray-500 mb-1">WhatsApp de Contato Comercial (Com DDD)</label>
+                  <label className="block text-gray-400 text-sm mb-1">WhatsApp de Contato Comercial (Com DDD)</label>
                   <input
                     type="text"
                     value={siteSettings.whatsapp}
                     onChange={e => setSiteSettings(p => ({ ...p, whatsapp: e.target.value }))}
-                    className="w-full bg-neutral-900 border border-neutral-800 rounded-xl px-3.5 py-2.5 text-white"
+                    className="w-full bg-[#0B0B0C] border border-neutral-800 rounded-xl px-3.5 py-2.5 text-white focus:outline-none focus:border-[#FF2A7A] transition-colors"
                   />
                 </div>
                 <div>
-                  <label className="block text-gray-500 mb-1">Telefone Fixo / Comercial (Exibido no site)</label>
+                  <label className="block text-gray-400 text-sm mb-1">Telefone Fixo / Comercial (Exibido no site)</label>
                   <input
                     type="text"
                     value={siteSettings.phone}
                     onChange={e => setSiteSettings(p => ({ ...p, phone: e.target.value }))}
-                    className="w-full bg-neutral-900 border border-neutral-800 rounded-xl px-3.5 py-2.5 text-white"
+                    className="w-full bg-[#0B0B0C] border border-neutral-800 rounded-xl px-3.5 py-2.5 text-white focus:outline-none focus:border-[#FF2A7A] transition-colors"
                   />
                 </div>
                 <div>
-                  <label className="block text-gray-500 mb-1">E-mail Comercial Oficial</label>
+                  <label className="block text-gray-400 text-sm mb-1">E-mail Comercial Oficial</label>
                   <input
                     type="email"
                     value={siteSettings.email}
                     onChange={e => setSiteSettings(p => ({ ...p, email: e.target.value }))}
-                    className="w-full bg-neutral-900 border border-neutral-800 rounded-xl px-3.5 py-2.5 text-white"
+                    className="w-full bg-[#0B0B0C] border border-neutral-800 rounded-xl px-3.5 py-2.5 text-white focus:outline-none focus:border-[#FF2A7A] transition-colors"
                   />
                 </div>
                 <div>
-                  <label className="block text-gray-500 mb-1">Endereço Físico do Showroom</label>
+                  <label className="block text-gray-400 text-sm mb-1">Endereço Físico do Showroom</label>
                   <input
                     type="text"
                     value={siteSettings.address}
                     onChange={e => setSiteSettings(p => ({ ...p, address: e.target.value }))}
-                    className="w-full bg-neutral-900 border border-neutral-800 rounded-xl px-3.5 py-2.5 text-white"
+                    className="w-full bg-[#0B0B0C] border border-neutral-800 rounded-xl px-3.5 py-2.5 text-white focus:outline-none focus:border-[#FF2A7A] transition-colors"
                   />
                 </div>
                 <div>
-                  <label className="block text-gray-500 mb-1">Domínio Customizado do Site (ex: www.ravicar.com)</label>
+                  <label className="block text-gray-400 text-sm mb-1">Domínio Customizado do Site (ex: www.ravicar.com)</label>
                   <input
                     type="text"
                     placeholder="ex: www.ravicar.com"
                     value={siteSettings.customDomain || ''}
                     onChange={e => setSiteSettings(p => ({ ...p, customDomain: e.target.value }))}
-                    className="w-full bg-neutral-900 border border-neutral-800 rounded-xl px-3.5 py-2.5 text-white"
+                    className="w-full bg-[#0B0B0C] border border-neutral-800 rounded-xl px-3.5 py-2.5 text-white focus:outline-none focus:border-[#FF2A7A] transition-colors"
                   />
                   <p className="text-[10px] text-gray-500 mt-1">Insira seu domínio (sem http/https). Todos os links compartilhados no WhatsApp e copiados do estoque serão gerados automaticamente com este domínio.</p>
                 </div>
@@ -2189,70 +2174,70 @@ export function AdminPanel({ currentUser, token, vehicles, onRefreshData, settin
               <div className="space-y-3">
                 <div className="grid grid-cols-2 gap-3">
                   <div>
-                    <label className="block text-gray-500 mb-1">CNPJ Pix</label>
+                    <label className="block text-gray-400 text-sm mb-1">CNPJ Pix</label>
                     <input
                       type="text"
                       value={siteSettings.pixCnpj}
                       onChange={e => setSiteSettings(p => ({ ...p, pixCnpj: e.target.value }))}
-                      className="w-full bg-neutral-900 border border-neutral-800 rounded-xl px-3.5 py-2.5 text-white font-mono"
+                      className="w-full bg-[#0B0B0C] border border-neutral-800 rounded-xl px-3.5 py-2.5 text-white focus:outline-none focus:border-[#FF2A7A] transition-colors font-mono"
                     />
                   </div>
                   <div>
-                    <label className="block text-gray-500 mb-1">Celular Pix</label>
+                    <label className="block text-gray-400 text-sm mb-1">Celular Pix</label>
                     <input
                       type="text"
                       value={siteSettings.pixCelular}
                       onChange={e => setSiteSettings(p => ({ ...p, pixCelular: e.target.value }))}
-                      className="w-full bg-neutral-900 border border-neutral-800 rounded-xl px-3.5 py-2.5 text-white font-mono"
+                      className="w-full bg-[#0B0B0C] border border-neutral-800 rounded-xl px-3.5 py-2.5 text-white focus:outline-none focus:border-[#FF2A7A] transition-colors font-mono"
                     />
                   </div>
                 </div>
 
                 <div>
-                  <label className="block text-gray-500 mb-1">Chave Pix E-mail</label>
+                  <label className="block text-gray-400 text-sm mb-1">Chave Pix E-mail</label>
                   <input
                     type="text"
                     value={siteSettings.pixEmail}
                     onChange={e => setSiteSettings(p => ({ ...p, pixEmail: e.target.value }))}
-                    className="w-full bg-neutral-900 border border-neutral-800 rounded-xl px-3.5 py-2.5 text-white font-mono"
+                    className="w-full bg-[#0B0B0C] border border-neutral-800 rounded-xl px-3.5 py-2.5 text-white focus:outline-none focus:border-[#FF2A7A] transition-colors font-mono"
                   />
                 </div>
 
                 <div className="grid grid-cols-2 gap-3 pt-2 border-t border-neutral-900">
                   <div>
-                    <label className="block text-gray-500 mb-1">Santander (CC)</label>
+                    <label className="block text-gray-400 text-sm mb-1">Santander (CC)</label>
                     <input
                       type="text"
                       value={siteSettings.pixSantander}
                       onChange={e => setSiteSettings(p => ({ ...p, pixSantander: e.target.value }))}
-                      className="w-full bg-neutral-900 border border-neutral-800 rounded-xl px-3.5 py-2.5 text-white font-mono"
+                      className="w-full bg-[#0B0B0C] border border-neutral-800 rounded-xl px-3.5 py-2.5 text-white focus:outline-none focus:border-[#FF2A7A] transition-colors font-mono"
                     />
                   </div>
                   <div>
-                    <label className="block text-gray-500 mb-1">Bradesco (CC)</label>
+                    <label className="block text-gray-400 text-sm mb-1">Bradesco (CC)</label>
                     <input
                       type="text"
                       value={siteSettings.pixBradesco}
                       onChange={e => setSiteSettings(p => ({ ...p, pixBradesco: e.target.value }))}
-                      className="w-full bg-neutral-900 border border-neutral-800 rounded-xl px-3.5 py-2.5 text-white font-mono"
+                      className="w-full bg-[#0B0B0C] border border-neutral-800 rounded-xl px-3.5 py-2.5 text-white focus:outline-none focus:border-[#FF2A7A] transition-colors font-mono"
                     />
                   </div>
                   <div>
-                    <label className="block text-gray-500 mb-1">Itaú (CC)</label>
+                    <label className="block text-gray-400 text-sm mb-1">Itaú (CC)</label>
                     <input
                       type="text"
                       value={siteSettings.pixItau}
                       onChange={e => setSiteSettings(p => ({ ...p, pixItau: e.target.value }))}
-                      className="w-full bg-neutral-900 border border-neutral-800 rounded-xl px-3.5 py-2.5 text-white font-mono"
+                      className="w-full bg-[#0B0B0C] border border-neutral-800 rounded-xl px-3.5 py-2.5 text-white focus:outline-none focus:border-[#FF2A7A] transition-colors font-mono"
                     />
                   </div>
                   <div>
-                    <label className="block text-gray-500 mb-1">Banco Inter (CC)</label>
+                    <label className="block text-gray-400 text-sm mb-1">Banco Inter (CC)</label>
                     <input
                       type="text"
                       value={siteSettings.pixInter}
                       onChange={e => setSiteSettings(p => ({ ...p, pixInter: e.target.value }))}
-                      className="w-full bg-neutral-900 border border-neutral-800 rounded-xl px-3.5 py-2.5 text-white font-mono"
+                      className="w-full bg-[#0B0B0C] border border-neutral-800 rounded-xl px-3.5 py-2.5 text-white focus:outline-none focus:border-[#FF2A7A] transition-colors font-mono"
                     />
                   </div>
                 </div>
@@ -2270,128 +2255,135 @@ export function AdminPanel({ currentUser, token, vehicles, onRefreshData, settin
               
               <div className="grid grid-cols-2 gap-3">
                 <div>
-                  <label className="block text-gray-500 mb-1">Santander</label>
+                  <label className="block text-gray-400 text-sm mb-1">Santander</label>
                   <input
                     type="number"
                     step="0.01"
                     value={siteSettings.taxaSantander !== undefined ? siteSettings.taxaSantander : 1.39}
                     onChange={e => setSiteSettings(p => ({ ...p, taxaSantander: parseFloat(e.target.value) || 0 }))}
-                    className="w-full bg-neutral-900 border border-neutral-800 rounded-xl px-3.5 py-2 text-white font-mono"
+                    className="w-full bg-[#0B0B0C] border border-neutral-800 rounded-xl px-3.5 py-2 text-white font-mono focus:outline-none focus:border-[#FF2A7A] transition-colors"
                   />
                 </div>
                 <div>
-                  <label className="block text-gray-500 mb-1">Itaú</label>
+                  <label className="block text-gray-400 text-sm mb-1">Itaú</label>
                   <input
                     type="number"
                     step="0.01"
                     value={siteSettings.taxaItau !== undefined ? siteSettings.taxaItau : 1.49}
                     onChange={e => setSiteSettings(p => ({ ...p, taxaItau: parseFloat(e.target.value) || 0 }))}
-                    className="w-full bg-neutral-900 border border-neutral-800 rounded-xl px-3.5 py-2 text-white font-mono"
+                    className="w-full bg-[#0B0B0C] border border-neutral-800 rounded-xl px-3.5 py-2 text-white font-mono focus:outline-none focus:border-[#FF2A7A] transition-colors"
                   />
                 </div>
                 <div>
-                  <label className="block text-gray-500 mb-1">Bradesco</label>
+                  <label className="block text-gray-400 text-sm mb-1">Bradesco</label>
                   <input
                     type="number"
                     step="0.01"
                     value={siteSettings.taxaBradesco !== undefined ? siteSettings.taxaBradesco : 1.59}
                     onChange={e => setSiteSettings(p => ({ ...p, taxaBradesco: parseFloat(e.target.value) || 0 }))}
-                    className="w-full bg-neutral-900 border border-neutral-800 rounded-xl px-3.5 py-2 text-white font-mono"
+                    className="w-full bg-[#0B0B0C] border border-neutral-800 rounded-xl px-3.5 py-2 text-white font-mono focus:outline-none focus:border-[#FF2A7A] transition-colors"
                   />
                 </div>
                 <div>
-                  <label className="block text-gray-500 mb-1">BV Financeira</label>
+                  <label className="block text-gray-400 text-sm mb-1">BV Financeira</label>
                   <input
                     type="number"
                     step="0.01"
                     value={siteSettings.taxaBv !== undefined ? siteSettings.taxaBv : 1.29}
                     onChange={e => setSiteSettings(p => ({ ...p, taxaBv: parseFloat(e.target.value) || 0 }))}
-                    className="w-full bg-neutral-900 border border-neutral-800 rounded-xl px-3.5 py-2 text-white font-mono"
+                    className="w-full bg-[#0B0B0C] border border-neutral-800 rounded-xl px-3.5 py-2 text-white font-mono focus:outline-none focus:border-[#FF2A7A] transition-colors"
                   />
                 </div>
                 <div>
-                  <label className="block text-gray-500 mb-1">Banco PAN</label>
+                  <label className="block text-gray-400 text-sm mb-1">Banco PAN</label>
                   <input
                     type="number"
                     step="0.01"
                     value={siteSettings.taxaPan !== undefined ? siteSettings.taxaPan : 1.69}
                     onChange={e => setSiteSettings(p => ({ ...p, taxaPan: parseFloat(e.target.value) || 0 }))}
-                    className="w-full bg-neutral-900 border border-neutral-800 rounded-xl px-3.5 py-2 text-white font-mono"
+                    className="w-full bg-[#0B0B0C] border border-neutral-800 rounded-xl px-3.5 py-2 text-white font-mono focus:outline-none focus:border-[#FF2A7A] transition-colors"
                   />
                 </div>
                 <div>
-                  <label className="block text-gray-500 mb-1">Banco Safra</label>
+                  <label className="block text-gray-400 text-sm mb-1">Banco Safra</label>
                   <input
                     type="number"
                     step="0.01"
                     value={siteSettings.taxaSafra !== undefined ? siteSettings.taxaSafra : 1.39}
                     onChange={e => setSiteSettings(p => ({ ...p, taxaSafra: parseFloat(e.target.value) || 0 }))}
-                    className="w-full bg-neutral-900 border border-neutral-800 rounded-xl px-3.5 py-2 text-white font-mono"
+                    className="w-full bg-[#0B0B0C] border border-neutral-800 rounded-xl px-3.5 py-2 text-white font-mono focus:outline-none focus:border-[#FF2A7A] transition-colors"
                   />
                 </div>
                 <div>
-                  <label className="block text-gray-500 mb-1">C6 Bank</label>
+                  <label className="block text-gray-400 text-sm mb-1">C6 Bank</label>
                   <input
                     type="number"
                     step="0.01"
                     value={siteSettings.taxaC6 !== undefined ? siteSettings.taxaC6 : 1.59}
                     onChange={e => setSiteSettings(p => ({ ...p, taxaC6: parseFloat(e.target.value) || 0 }))}
-                    className="w-full bg-neutral-900 border border-neutral-800 rounded-xl px-3.5 py-2 text-white font-mono"
+                    className="w-full bg-[#0B0B0C] border border-neutral-800 rounded-xl px-3.5 py-2 text-white font-mono focus:outline-none focus:border-[#FF2A7A] transition-colors"
                   />
                 </div>
                 <div>
-                  <label className="block text-gray-500 mb-1">Porto Seguro</label>
+                  <label className="block text-gray-400 text-sm mb-1">Porto Seguro</label>
                   <input
                     type="number"
                     step="0.01"
                     value={siteSettings.taxaPorto !== undefined ? siteSettings.taxaPorto : 1.49}
                     onChange={e => setSiteSettings(p => ({ ...p, taxaPorto: parseFloat(e.target.value) || 0 }))}
-                    className="w-full bg-neutral-900 border border-neutral-800 rounded-xl px-3.5 py-2 text-white font-mono"
+                    className="w-full bg-[#0B0B0C] border border-neutral-800 rounded-xl px-3.5 py-2 text-white font-mono focus:outline-none focus:border-[#FF2A7A] transition-colors"
                   />
                 </div>
                 <div>
-                  <label className="block text-gray-500 mb-1">Creditas</label>
+                  <label className="block text-gray-400 text-sm mb-1">Creditas</label>
                   <input
                     type="number"
                     step="0.01"
                     value={siteSettings.taxaCreditas !== undefined ? siteSettings.taxaCreditas : 1.39}
                     onChange={e => setSiteSettings(p => ({ ...p, taxaCreditas: parseFloat(e.target.value) || 0 }))}
-                    className="w-full bg-neutral-900 border border-neutral-800 rounded-xl px-3.5 py-2 text-white font-mono"
+                    className="w-full bg-[#0B0B0C] border border-neutral-800 rounded-xl px-3.5 py-2 text-white font-mono focus:outline-none focus:border-[#FF2A7A] transition-colors"
                   />
                 </div>
                 <div>
-                  <label className="block text-gray-500 mb-1">Mercado Pago</label>
+                  <label className="block text-gray-400 text-sm mb-1">Mercado Pago</label>
                   <input
                     type="number"
                     step="0.01"
                     value={siteSettings.taxaMercadoPago !== undefined ? siteSettings.taxaMercadoPago : 1.69}
                     onChange={e => setSiteSettings(p => ({ ...p, taxaMercadoPago: parseFloat(e.target.value) || 0 }))}
-                    className="w-full bg-neutral-900 border border-neutral-800 rounded-xl px-3.5 py-2 text-white font-mono"
+                    className="w-full bg-[#0B0B0C] border border-neutral-800 rounded-xl px-3.5 py-2 text-white font-mono focus:outline-none focus:border-[#FF2A7A] transition-colors"
                   />
                 </div>
                 <div>
-                  <label className="block text-gray-500 mb-1">Banco Omni</label>
+                  <label className="block text-gray-400 text-sm mb-1">Banco Omni</label>
                   <input
                     type="number"
                     step="0.01"
                     value={siteSettings.taxaOmni !== undefined ? siteSettings.taxaOmni : 1.89}
                     onChange={e => setSiteSettings(p => ({ ...p, taxaOmni: parseFloat(e.target.value) || 0 }))}
-                    className="w-full bg-neutral-900 border border-neutral-800 rounded-xl px-3.5 py-2 text-white font-mono"
+                    className="w-full bg-[#0B0B0C] border border-neutral-800 rounded-xl px-3.5 py-2 text-white font-mono focus:outline-none focus:border-[#FF2A7A] transition-colors"
                   />
                 </div>
                 <div>
-                  <label className="block text-gray-500 mb-1">Daycoval</label>
+                  <label className="block text-gray-400 text-sm mb-1">Daycoval</label>
                   <input
                     type="number"
                     step="0.01"
                     value={siteSettings.taxaDaycoval !== undefined ? siteSettings.taxaDaycoval : 1.79}
                     onChange={e => setSiteSettings(p => ({ ...p, taxaDaycoval: parseFloat(e.target.value) || 0 }))}
-                    className="w-full bg-neutral-900 border border-neutral-800 rounded-xl px-3.5 py-2 text-white font-mono"
+                    className="w-full bg-[#0B0B0C] border border-neutral-800 rounded-xl px-3.5 py-2 text-white font-mono focus:outline-none focus:border-[#FF2A7A] transition-colors"
                   />
                 </div>
               </div>
             </div>
           </div>
+
+          <button
+            onClick={handleSaveSettings}
+            className="w-full bg-[#FF2A7A] hover:bg-[#FF6FB5] text-white font-bold py-4 rounded-xl shadow-lg transition-colors flex items-center justify-center gap-2 mt-4 text-sm"
+          >
+            <Save className="w-5 h-5" /> Salvar Configurações
+          </button>
         </div>
       )}
 
