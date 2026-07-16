@@ -1,5 +1,5 @@
 import React from 'react';
-import { ChevronRight, MessageCircle, Shield, HelpCircle, ArrowUpRight } from 'lucide-react';
+import { ChevronRight, MessageCircle, Shield, HelpCircle, ArrowUpRight, MapPin } from 'lucide-react';
 import { SiteSettings } from '../types';
 
 interface HeroProps {
@@ -74,72 +74,65 @@ export function Hero({ onNavigate, settings }: HeroProps) {
         <div className="absolute inset-0 bg-[var(--brand-color)]/10 pointer-events-none select-none mix-blend-overlay"></div>
       </div>
 
-      {/* Main Content container */}
-      <div className="relative z-10 max-w-5xl mx-auto px-4 text-center flex flex-col items-center">
-        {/* Coordinates Badge */}
-        <div className="mb-6 inline-flex items-center gap-2 px-3 py-1 rounded-full border border-neutral-900 bg-neutral-950/80 text-[10px] font-mono tracking-widest text-gray-400 select-none backdrop-blur-md">
-          <span className="w-1.5 h-1.5 rounded-full bg-[var(--brand-color)] animate-pulse"></span>
-          <span>SÃO MIGUEL PAULISTA, SP</span>
-          <span className="text-neutral-800">|</span>
-          <span>23.5015° S, 46.4013° W</span>
-        </div>
+        {/* Main Content container */}
+        <div className="relative z-10 w-full max-w-5xl mx-auto px-4 flex flex-col items-center mt-12 md:mt-0">
+          {/* Coordinates Badge */}
+          <div className="mb-8 inline-flex items-center gap-1.5 px-3 py-1.5 rounded-full border border-neutral-800 bg-[#18181B] text-[10px] font-mono tracking-widest text-gray-400 select-none shadow-lg">
+            <MapPin className="w-3 h-3 text-[#FF2A7A]" />
+            <span>SÃO MIGUEL PAULISTA, SP | 23.5015° S, 46.4013° W</span>
+          </div>
 
-        {/* Heading */}
-        <h1 className="font-display font-black text-4xl sm:text-6xl md:text-7xl text-white tracking-tight leading-[1.1] mb-6 animate-fade-in-up">
-          Encontre o carro ideal <br />
-          <span className="text-[var(--brand-color)]">
-            para você.
-          </span>
-        </h1>
-
-        {/* Subtitle */}
-        <p className="max-w-2xl text-sm sm:text-base md:text-lg text-gray-400 font-medium leading-relaxed mb-8">
-          "Seu próximo carro está aqui." Veículos periciados, revisados de para-choque a para-choque, com o selo de procedência RaviCar e financiamento facilitado em até 13 financeiras.
-        </p>
-
-        {/* Call-to-actions */}
-        <div className="flex flex-col sm:flex-row items-center gap-4 w-full sm:w-auto">
-          <button
-            onClick={() => onNavigate('catalogo')}
-            className="relative overflow-hidden w-full sm:w-auto px-8 py-4 rounded-xl bg-[var(--brand-color)] text-white font-extrabold text-sm tracking-wide uppercase transition-all duration-300 flex items-center justify-center gap-2 transform hover:-translate-y-0.5 shadow-lg hover:shadow-[var(--brand-color)]/30 cursor-pointer group"
-          >
-            {/* Shimmer element inside button */}
-            <span className="absolute inset-0 premium-shimmer pointer-events-none opacity-40"></span>
-            <span className="relative z-10 flex items-center gap-2">
-              Ver veículos
-              <ChevronRight className="w-4 h-4 transition-transform duration-300 group-hover:translate-x-1" />
+          {/* Heading */}
+          <h1 className="font-sans font-black text-4xl sm:text-5xl md:text-6xl text-white tracking-tight leading-[1.1] mb-5 text-center animate-fade-in-up">
+            Encontre o carro ideal <br />
+            <span className="text-[#FF2A7A]">
+              para você.
             </span>
-          </button>
-          
-          <button
-            onClick={handleWhatsappClick}
-            className="relative overflow-hidden w-full sm:w-auto px-8 py-4 rounded-xl bg-[#25D366] text-white font-extrabold text-sm tracking-wide uppercase transition-all duration-300 flex items-center justify-center gap-2 transform hover:-translate-y-0.5 cursor-pointer shadow-lg hover:shadow-[#25D366]/20 group"
-          >
-            <MessageCircle className="w-4.5 h-4.5 text-white fill-white/10" />
-            <span className="relative z-10">Falar no WhatsApp</span>
-          </button>
-        </div>
+          </h1>
 
-        {/* Highlights Banner Underneath */}
-        <div className="grid grid-cols-2 md:grid-cols-4 gap-4 w-full max-w-4xl mt-16">
-          <div className="p-4 rounded-xl bg-neutral-950/40 border border-neutral-900/50 text-center flex flex-col items-center justify-center min-h-[96px] hover-lift transition-all duration-300">
-            <h4 className="font-display font-extrabold text-white text-xl md:text-2xl leading-snug">26K+</h4>
-            <p className="text-[10px] leading-normal text-gray-500 uppercase tracking-wider mt-1">Seguidores no Insta</p>
+          {/* Subtitle */}
+          <p className="max-w-2xl text-sm sm:text-base text-gray-400 font-medium leading-relaxed mb-10 text-center px-4">
+            Veículos periciados, revisados de para-choque a para-choque, com o selo de procedência RaviCar e financiamento facilitado.
+          </p>
+
+          {/* Call-to-actions (Stacked & Full Width on mobile) */}
+          <div className="flex flex-col gap-3 w-full max-w-sm mx-auto mb-16">
+            <button
+              onClick={() => onNavigate('catalogo')}
+              className="w-full px-6 py-4 rounded-lg bg-[#FF2A7A] hover:bg-[#D61F62] text-white font-bold text-sm tracking-wide uppercase transition-colors duration-300 flex items-center justify-center gap-2 shadow-[0_0_20px_rgba(255,42,122,0.3)]"
+            >
+              VER VEÍCULOS &gt;
+            </button>
+            
+            <button
+              onClick={handleWhatsappClick}
+              className="w-full px-6 py-4 rounded-lg bg-[#128C7E] hover:bg-[#075E54] text-white font-bold text-sm tracking-wide uppercase transition-colors duration-300 flex items-center justify-center gap-2"
+            >
+              <MessageCircle className="w-5 h-5" />
+              FALAR NO WHATSAPP
+            </button>
           </div>
-          <div className="p-4 rounded-xl bg-neutral-950/40 border border-neutral-900/50 text-center flex flex-col items-center justify-center min-h-[96px] hover-lift transition-all duration-300">
-            <h4 className="font-display font-extrabold text-[var(--brand-color)] text-xl md:text-2xl leading-snug">100%</h4>
-            <p className="text-[10px] leading-normal text-gray-500 uppercase tracking-wider mt-1">Laudo Pericial Aprovado</p>
-          </div>
-          <div className="p-4 rounded-xl bg-neutral-950/40 border border-neutral-900/50 text-center flex flex-col items-center justify-center min-h-[96px] hover-lift transition-all duration-300">
-            <h4 className="font-display font-extrabold text-white text-xl md:text-2xl leading-snug">13+</h4>
-            <p className="text-[10px] leading-normal text-gray-500 uppercase tracking-wider mt-1">Financeiras Parceiras</p>
-          </div>
-          <div className="p-4 rounded-xl bg-neutral-950/40 border border-neutral-900/50 text-center flex flex-col items-center justify-center min-h-[96px] hover-lift transition-all duration-300">
-            <h4 className="font-display font-extrabold text-[var(--brand-color)] text-xl md:text-2xl leading-snug">Venda</h4>
-            <p className="text-[10px] leading-normal text-gray-500 uppercase tracking-wider mt-1">Consignado Grátis</p>
+
+          {/* Highlights Banner Underneath (2x2 Grid) */}
+          <div className="grid grid-cols-2 gap-3 w-full max-w-md mx-auto">
+            <div className="p-5 rounded-xl bg-[#18181B] border border-neutral-800 text-center flex flex-col items-center justify-center">
+              <h4 className="font-sans font-black text-white text-2xl mb-1">26K+</h4>
+              <p className="text-[9px] text-gray-500 font-bold uppercase tracking-widest">Seguidores no Insta</p>
+            </div>
+            <div className="p-5 rounded-xl bg-[#18181B] border border-neutral-800 text-center flex flex-col items-center justify-center">
+              <h4 className="font-sans font-black text-white text-2xl mb-1">100%</h4>
+              <p className="text-[9px] text-gray-500 font-bold uppercase tracking-widest">Laudo Aprovado</p>
+            </div>
+            <div className="p-5 rounded-xl bg-[#18181B] border border-neutral-800 text-center flex flex-col items-center justify-center">
+              <h4 className="font-sans font-black text-white text-2xl mb-1">13+</h4>
+              <p className="text-[9px] text-gray-500 font-bold uppercase tracking-widest">Bancos Parceiros</p>
+            </div>
+            <div className="p-5 rounded-xl bg-[#18181B] border border-neutral-800 text-center flex flex-col items-center justify-center">
+              <h4 className="font-sans font-black text-[#FF2A7A] text-2xl mb-1">+50</h4>
+              <p className="text-[9px] text-gray-500 font-bold uppercase tracking-widest">Carros em Estoque</p>
+            </div>
           </div>
         </div>
-      </div>
-    </section>
-  );
+      </section>
+    );
 }

@@ -512,136 +512,177 @@ export function Header({ currentUser, onLogout, onOpenAuth, onNavigate, currentP
           </div>
         </div>
 
-        {/* Mobile menu drawer */}
+        {/* Mobile menu drawer (Offcanvas) */}
         {isMenuOpen && (
-          <div className="md:hidden absolute top-full left-0 w-full bg-[var(--bg-card)] border-b border-[var(--border-color)] py-4 px-4 flex flex-col gap-3 shadow-xl z-50 animate-slide-down">
-            <button 
-              onClick={() => handleNav('home')} 
-              className={`text-left py-2 border-b border-[var(--border-color)] transition-all ${currentPage === 'home' ? 'text-[var(--brand-color)] font-extrabold' : 'text-[var(--text-secondary)] hover:text-[var(--text-primary)]'}`}
-            >
-              Início
-            </button>
-            <button 
-              onClick={() => handleNav('catalogo')} 
-              className={`text-left py-2 border-b border-[var(--border-color)] transition-all ${currentPage === 'catalogo' ? 'text-[var(--brand-color)] font-extrabold' : 'text-[var(--text-secondary)] hover:text-[var(--text-primary)]'}`}
-            >
-              Estoque
-            </button>
-            <button 
-              onClick={() => handleNav('financiamento')} 
-              className={`text-left py-2 border-b border-[var(--border-color)] transition-all ${currentPage === 'financiamento' ? 'text-[var(--brand-color)] font-extrabold' : 'text-[var(--text-secondary)] hover:text-[var(--text-primary)]'}`}
-            >
-              Financiamento
-            </button>
-            <button 
-              onClick={() => handleNav('avaliacao')} 
-              className={`text-left py-2 border-b border-[var(--border-color)] transition-all ${currentPage === 'avaliacao' ? 'text-[var(--brand-color)] font-extrabold' : 'text-[var(--text-secondary)] hover:text-[var(--text-primary)]'}`}
-            >
-              Avalie seu Usado
-            </button>
-            <button 
-              onClick={() => handleNav('combo')} 
-              className={`text-left py-2 border-b border-[var(--border-color)] flex items-center gap-2 transition-all ${currentPage === 'combo' ? 'text-[var(--brand-color)] font-extrabold' : 'text-[var(--text-secondary)] hover:text-[var(--text-primary)]'}`}
-            >
-              <span className="relative flex h-1.5 w-1.5">
-                <span className="relative inline-flex rounded-full h-1.5 w-1.5 bg-[var(--brand-color)]"></span>
-              </span>
-              Simulador Combo
-            </button>
-            <button 
-              onClick={() => handleNav('termos')} 
-              className={`text-left py-2 border-b border-[var(--border-color)] transition-all ${currentPage === 'termos' ? 'text-[var(--brand-color)] font-extrabold' : 'text-[var(--text-secondary)] hover:text-[var(--text-primary)]'}`}
-            >
-              Termos de Uso
-            </button>
+          <div className="md:hidden fixed inset-0 z-50 flex justify-end">
+            {/* Backdrop */}
+            <div 
+              className="absolute inset-0 bg-black/80 backdrop-blur-sm animate-fade-in"
+              onClick={() => setIsMenuOpen(false)}
+            ></div>
+            
+            {/* Sidebar content */}
+            <div className="relative w-[85%] max-w-sm bg-[#0B0B0C] h-full flex flex-col shadow-2xl animate-slide-in-right">
+              {/* Header */}
+              <div className="flex items-center justify-between p-5 border-b border-neutral-900">
+                <Logo className="w-8 h-8" showText={true} />
+                <div className="flex items-center gap-3">
+                  <button 
+                    onClick={() => {
+                      setIsMenuOpen(false);
+                      setIsNotifOpen(true);
+                    }} 
+                    className="relative p-2 text-gray-400 hover:text-white transition-colors"
+                  >
+                    <Bell className="w-5 h-5" />
+                    {notifications.some(n => !n.read) && (
+                      <span className="absolute top-1 right-1 w-2 h-2 bg-[#FF2A7A] rounded-full border border-[#0B0B0C]"></span>
+                    )}
+                  </button>
+                  <button 
+                    onClick={() => setIsMenuOpen(false)} 
+                    className="p-2 text-gray-400 hover:text-white transition-colors bg-neutral-900 rounded-full"
+                  >
+                    <X className="w-5 h-5" />
+                  </button>
+                </div>
+              </div>
 
-            {/* Mobile Theme Selector */}
-            <div className="flex flex-col gap-1.5 border-b border-[var(--border-color)] pb-3 pt-1">
-              <span className="text-[10px] uppercase tracking-wider font-bold text-[var(--text-secondary)] flex items-center gap-1">
-                <Palette className="w-3.5 h-3.5" /> Tema do App
-              </span>
-              <div className="grid grid-cols-5 gap-1">
-                <button
-                  onClick={() => changeTheme('original')}
-                  className={`flex flex-col items-center gap-1.5 py-2 px-0.5 rounded-xl border text-[9px] font-semibold transition-all cursor-pointer ${activeTheme === 'original' ? 'border-[#FF2D8D] bg-[#FF2D8D]/10 text-[#FF2D8D]' : 'border-[var(--border-color)] bg-[var(--bg-main)] text-[var(--text-secondary)] hover:text-[var(--text-primary)] hover:bg-[var(--bg-card-hover)]'}`}
-                >
-                  <span className="w-2.5 h-2.5 rounded-full bg-[#FF2D8D] shadow-sm"></span>
-                  <span>Original</span>
-                </button>
-                
-                <button
-                  onClick={() => changeTheme('branco')}
-                  className={`flex flex-col items-center gap-1.5 py-2 px-0.5 rounded-xl border text-[9px] font-semibold transition-all cursor-pointer ${activeTheme === 'branco' ? 'border-blue-500 bg-blue-500/10 text-blue-500' : 'border-[var(--border-color)] bg-[var(--bg-main)] text-[var(--text-secondary)] hover:text-[var(--text-primary)] hover:bg-[var(--bg-card-hover)]'}`}
-                >
-                  <span className="w-2.5 h-2.5 rounded-full bg-white border border-blue-500 shadow-sm"></span>
-                  <span>Branco</span>
-                </button>
+              {/* Navigation */}
+              <div className="flex-1 overflow-y-auto">
+                <nav className="flex flex-col">
+                  <button 
+                    onClick={() => handleNav('home')} 
+                    className="text-left px-5 py-4 border-b border-neutral-900/50 text-white font-medium hover:bg-neutral-900/30 transition-colors"
+                  >
+                    Início
+                  </button>
+                  <button 
+                    onClick={() => handleNav('catalogo')} 
+                    className="text-left px-5 py-4 border-b border-neutral-900/50 text-[#FF2A7A] font-bold hover:bg-neutral-900/30 transition-colors"
+                  >
+                    Estoque
+                  </button>
+                  <button 
+                    onClick={() => handleNav('financiamento')} 
+                    className="text-left px-5 py-4 border-b border-neutral-900/50 text-white font-medium hover:bg-neutral-900/30 transition-colors"
+                  >
+                    Financiamento
+                  </button>
+                  <button 
+                    onClick={() => handleNav('avaliacao')} 
+                    className="text-left px-5 py-4 border-b border-neutral-900/50 text-white font-medium hover:bg-neutral-900/30 transition-colors"
+                  >
+                    Avalie seu Usado
+                  </button>
+                  <button 
+                    onClick={() => handleNav('combo')} 
+                    className="text-left px-5 py-4 border-b border-neutral-900/50 text-white font-medium hover:bg-neutral-900/30 transition-colors flex items-center justify-between"
+                  >
+                    Simulador Combo
+                    <span className="w-2 h-2 rounded-full bg-[#FF2A7A]"></span>
+                  </button>
+                  <button 
+                    onClick={() => handleNav('termos')} 
+                    className="text-left px-5 py-4 border-b border-neutral-900/50 text-gray-400 font-medium hover:bg-neutral-900/30 transition-colors"
+                  >
+                    Termos de Uso
+                  </button>
+                </nav>
 
-                <button
-                  onClick={() => changeTheme('azul')}
-                  className={`flex flex-col items-center gap-1.5 py-2 px-0.5 rounded-xl border text-[9px] font-semibold transition-all cursor-pointer ${activeTheme === 'azul' ? 'border-cyan-400 bg-cyan-400/10 text-cyan-400' : 'border-[var(--border-color)] bg-[var(--bg-main)] text-[var(--text-secondary)] hover:text-[var(--text-primary)] hover:bg-[var(--bg-card-hover)]'}`}
-                >
-                  <span className="w-2.5 h-2.5 rounded-full bg-cyan-500 shadow-sm"></span>
-                  <span>Azul</span>
-                </button>
+                {/* Theme Selector */}
+                <div className="p-5 mt-2">
+                  <span className="text-[10px] uppercase tracking-wider font-bold text-gray-500 mb-4 block">
+                    Tema do App
+                  </span>
+                  <div className="flex items-center gap-3 overflow-x-auto pb-4 hide-scrollbar">
+                    <button
+                      onClick={() => changeTheme('original')}
+                      className={`flex flex-col items-center justify-center gap-2 min-w-[70px] min-h-[70px] rounded-xl transition-all cursor-pointer border ${activeTheme === 'original' ? 'border-[#FF2A7A] bg-neutral-900' : 'border-neutral-800 hover:bg-neutral-900'}`}
+                    >
+                      <span className="w-6 h-6 rounded-full bg-[#FF2D8D] shadow-lg"></span>
+                      <span className="text-[10px] text-gray-400 font-medium">Rosa</span>
+                    </button>
+                    <button
+                      onClick={() => changeTheme('branco')}
+                      className={`flex flex-col items-center justify-center gap-2 min-w-[70px] min-h-[70px] rounded-xl transition-all cursor-pointer border ${activeTheme === 'branco' ? 'border-[#FF2A7A] bg-neutral-900' : 'border-neutral-800 hover:bg-neutral-900'}`}
+                    >
+                      <span className="w-6 h-6 rounded-full bg-white border border-neutral-300 shadow-lg"></span>
+                      <span className="text-[10px] text-gray-400 font-medium">Branco</span>
+                    </button>
+                    <button
+                      onClick={() => changeTheme('azul')}
+                      className={`flex flex-col items-center justify-center gap-2 min-w-[70px] min-h-[70px] rounded-xl transition-all cursor-pointer border ${activeTheme === 'azul' ? 'border-[#FF2A7A] bg-neutral-900' : 'border-neutral-800 hover:bg-neutral-900'}`}
+                    >
+                      <span className="w-6 h-6 rounded-full bg-cyan-500 shadow-lg"></span>
+                      <span className="text-[10px] text-gray-400 font-medium">Azul</span>
+                    </button>
+                    <button
+                      onClick={() => changeTheme('preto')}
+                      className={`flex flex-col items-center justify-center gap-2 min-w-[70px] min-h-[70px] rounded-xl transition-all cursor-pointer border ${activeTheme === 'preto' ? 'border-[#FF2A7A] bg-neutral-900' : 'border-neutral-800 hover:bg-neutral-900'}`}
+                    >
+                      <span className="w-6 h-6 rounded-full bg-black border border-neutral-600 shadow-lg"></span>
+                      <span className="text-[10px] text-gray-400 font-medium">Preto</span>
+                    </button>
+                    <button
+                      onClick={() => changeTheme('creme')}
+                      className={`flex flex-col items-center justify-center gap-2 min-w-[70px] min-h-[70px] rounded-xl transition-all cursor-pointer border ${activeTheme === 'creme' ? 'border-[#FF2A7A] bg-neutral-900' : 'border-neutral-800 hover:bg-neutral-900'}`}
+                    >
+                      <span className="w-6 h-6 rounded-full bg-[#faf4e8] border border-[#a67537] shadow-lg"></span>
+                      <span className="text-[10px] text-gray-400 font-medium">Creme</span>
+                    </button>
+                  </div>
+                </div>
+              </div>
 
-                <button
-                  onClick={() => changeTheme('preto')}
-                  className={`flex flex-col items-center gap-1.5 py-2 px-0.5 rounded-xl border text-[9px] font-semibold transition-all cursor-pointer ${activeTheme === 'preto' ? 'border-neutral-600 bg-neutral-900 text-white' : 'border-[var(--border-color)] bg-[var(--bg-main)] text-[var(--text-secondary)] hover:text-[var(--text-primary)] hover:bg-[var(--bg-card-hover)]'}`}
-                >
-                  <span className="w-2.5 h-2.5 rounded-full bg-black border border-neutral-700 shadow-sm"></span>
-                  <span>Preto</span>
-                </button>
-
-                <button
-                  onClick={() => changeTheme('creme')}
-                  className={`flex flex-col items-center gap-1.5 py-2 px-0.5 rounded-xl border text-[9px] font-semibold transition-all cursor-pointer ${activeTheme === 'creme' ? 'border-[#a67537] bg-[#a67537]/10 text-[#a67537]' : 'border-[var(--border-color)] bg-[var(--bg-main)] text-[var(--text-secondary)] hover:text-[var(--text-primary)] hover:bg-[var(--bg-card-hover)]'}`}
-                >
-                  <span className="w-2.5 h-2.5 rounded-full bg-[#faf4e8] border border-[#a67537] shadow-sm"></span>
-                  <span>Creme</span>
-                </button>
+              {/* Footer CTA */}
+              <div className="p-5 border-t border-neutral-900 mt-auto bg-[#0B0B0C]">
+                {currentUser ? (
+                  <div className="flex flex-col gap-3">
+                    <div className="flex items-center gap-3 mb-2">
+                      <div className="w-10 h-10 rounded-full bg-neutral-800 flex items-center justify-center">
+                        <User className="w-5 h-5 text-gray-400" />
+                      </div>
+                      <div>
+                        <p className="text-white font-medium text-sm">{currentUser.name}</p>
+                        <p className="text-[10px] text-gray-500">{currentUser.role === 'Cliente' ? 'Área do Cliente' : 'Painel de Controle'}</p>
+                      </div>
+                    </div>
+                    <button
+                      onClick={() => {
+                        setIsMenuOpen(false);
+                        handleNav(
+                          currentUser.role === 'Cliente' ? 'cliente' : 
+                          currentUser.role === 'Administrador' ? 'admin' : 'vendedor'
+                        );
+                      }}
+                      className="w-full text-center py-3.5 rounded-xl bg-neutral-800 text-white font-bold text-xs uppercase tracking-wide hover:bg-neutral-700 transition-colors"
+                    >
+                      Acessar Painel
+                    </button>
+                    <button
+                      onClick={() => {
+                        setIsMenuOpen(false);
+                        onLogout();
+                      }}
+                      className="w-full text-center py-3.5 rounded-xl bg-red-500/10 text-red-500 font-bold text-xs uppercase tracking-wide hover:bg-red-500/20 transition-colors"
+                    >
+                      Sair da Conta
+                    </button>
+                  </div>
+                ) : (
+                  <button
+                    onClick={() => {
+                      setIsMenuOpen(false);
+                      onOpenAuth();
+                    }}
+                    className="w-full py-4 rounded-xl bg-[#FF2A7A] text-white font-bold text-sm tracking-wider uppercase flex items-center justify-center gap-2 shadow-[0_0_20px_rgba(255,42,122,0.3)] hover:bg-[#D61F62] transition-colors"
+                  >
+                    Entrar / Cadastrar
+                  </button>
+                )}
               </div>
             </div>
-
-            {currentUser ? (
-              <div className="flex flex-col gap-2 pt-2">
-                <div className="flex items-center gap-2 py-1">
-                  <User className="w-4 h-4 text-[var(--brand-color)]" />
-                  <span className="text-xs text-gray-300">{currentUser.name} ({currentUser.role === 'Cliente' ? 'Cliente' : currentUser.role})</span>
-                </div>
-                <button
-                  onClick={() => {
-                    setIsMenuOpen(false);
-                    handleNav(
-                      currentUser.role === 'Cliente' ? 'cliente' : 
-                      currentUser.role === 'Administrador' ? 'admin' : 'vendedor'
-                    );
-                  }}
-                  className="w-full text-center py-2 rounded-lg bg-[#1A1A1A] border border-[var(--brand-color)]/30 text-[var(--brand-color)] font-semibold text-xs animate-fade-in"
-                >
-                  {currentUser.role === 'Cliente' ? 'Ir para Área do Cliente' : 'Ir para o Painel'}
-                </button>
-                <button
-                  onClick={() => {
-                    setIsMenuOpen(false);
-                    onLogout();
-                  }}
-                  className="w-full text-center py-2 rounded-lg bg-red-950/30 border border-red-900/50 text-red-400 font-semibold text-xs mt-1"
-                >
-                  Sair da Conta
-                </button>
-              </div>
-            ) : (
-              <button
-                onClick={() => {
-                  setIsMenuOpen(false);
-                  onOpenAuth();
-                }}
-                className="w-full text-center py-2.5 rounded-xl bg-[var(--brand-color)] text-white font-bold text-xs shadow-lg mt-2 uppercase tracking-wide cursor-pointer hover:opacity-90 transition-all duration-200"
-              >
-                Entrar / Cadastrar
-              </button>
-            )}
           </div>
         )}
       </header>

@@ -200,81 +200,71 @@ export function Catalog({ vehicles, onSelectVehicle, currentUser }: CatalogProps
   return (
     <div className="max-w-7xl mx-auto px-4 py-8">
       {/* Intro section */}
-      <div className="mb-8">
+      <div className="mb-6">
         <h1 className="font-display font-black text-2xl sm:text-4xl text-white tracking-tight">
           Nosso Showroom de Veículos Seminovos
         </h1>
-        <p className="text-xs text-gray-500 mt-1">
+        <p className="text-sm text-gray-400 mt-2 max-w-2xl">
           Explore carros periciados, revisados e de alta procedência. Compre à vista, financie em até 60x ou ofereça seu carro como parte do pagamento.
         </p>
       </div>
 
-      {/* Main Grid: left filters bar (desktop) and right catalog list */}
-      <div className="grid grid-cols-1 lg:grid-cols-4 gap-8">
-        {/* Filters Panel */}
-        <div className="bg-neutral-950 border border-neutral-900 rounded-3xl p-5 lg:h-fit lg:sticky lg:top-24 transition-all duration-300 shadow-xl space-y-4">
-          {/* Search Input - Always Visible */}
+      <div className="flex flex-col gap-6">
+        {/* Top Search & Filter Actions */}
+        <div className="bg-[#18181B] border border-neutral-800 rounded-2xl p-4 sm:p-5 flex flex-col gap-4">
+          {/* Search Input */}
           <div className="space-y-1.5">
-            <label className="block text-[9px] font-black text-gray-500 uppercase tracking-widest">Busca Inteligente por Texto</label>
+            <label className="block text-[10px] font-bold text-gray-500 uppercase tracking-widest">Busca Inteligente por Texto</label>
             <div className="relative flex items-center">
-              <Search className="absolute left-3.5 top-1/2 -translate-y-1/2 w-4 h-4 text-gray-500" />
+              <Search className="absolute left-4 top-1/2 -translate-y-1/2 w-4 h-4 text-gray-500" />
               <input
                 type="text"
                 value={search}
                 onChange={e => setSearch(e.target.value)}
                 placeholder="Ex: Onix Automático, Flex 2022..."
-                className="w-full bg-black border border-neutral-800 focus:border-[#FF2D8D] rounded-xl pl-10 pr-9 py-3 text-sm leading-normal text-white outline-none transition focus:ring-1 focus:ring-[#FF2D8D]/40 font-sans"
+                className="w-full bg-[#0B0B0C] border border-neutral-800 focus:border-[var(--brand-color)] rounded-xl pl-11 pr-10 py-3.5 text-sm text-white outline-none transition focus:ring-1 focus:ring-[var(--brand-color)]/30 placeholder-gray-600"
               />
               {search && (
                 <button
                   type="button"
                   onClick={() => setSearch('')}
-                  className="absolute right-3 top-1/2 -translate-y-1/2 text-gray-500 hover:text-white transition cursor-pointer"
+                  className="absolute right-3.5 top-1/2 -translate-y-1/2 text-gray-500 hover:text-white transition cursor-pointer p-1"
                 >
-                  <X className="w-3.5 h-3.5" />
+                  <X className="w-4 h-4" />
                 </button>
               )}
             </div>
           </div>
 
-          <div className="border-t border-neutral-900/60 my-3"></div>
-
-          {/* Main Clickable Header to Toggle Filters */}
-          <button
-            type="button"
-            onClick={() => setShowFilters(!showFilters)}
-            className="w-full flex items-center justify-between pb-1 text-left outline-none focus:outline-none cursor-pointer group"
-          >
-            <div className="flex items-center gap-2">
-              <SlidersHorizontal className="w-4 h-4 text-[#FF2D8D]" />
-              <span className="font-display font-black text-xs uppercase tracking-wider text-white group-hover:text-[#FF6FB5] transition">
+          {/* Filter Actions */}
+          <div className="flex items-center justify-between border-t border-neutral-800/50 pt-4">
+            <button
+              type="button"
+              onClick={() => setShowFilters(!showFilters)}
+              className="flex items-center gap-2 outline-none focus:outline-none cursor-pointer group hover:opacity-80 transition-opacity"
+            >
+              <SlidersHorizontal className="w-4 h-4 text-gray-400 group-hover:text-white" />
+              <span className="font-bold text-xs uppercase tracking-wider text-gray-300 group-hover:text-white">
                 Filtros Avançados
               </span>
               {activeFiltersCount > 0 && (
-                <span className="bg-[#FF2D8D]/20 text-[#FF2D8D] text-[9px] font-black px-2 py-0.5 rounded-full border border-[#FF2D8D]/30 font-mono">
+                <span className="bg-[var(--brand-color)] text-white text-[9px] font-bold px-2 py-0.5 rounded-full min-w-[20px] text-center">
                   {activeFiltersCount}
                 </span>
               )}
-            </div>
+            </button>
             
-            <div className="flex items-center gap-3">
-              {activeFiltersCount > 0 && (
-                <span
-                  onClick={(e) => {
-                    e.stopPropagation();
-                    handleClearFilters();
-                  }}
-                  className="text-[10px] text-[#FF6FB5] hover:text-[#FF2D8D] font-extrabold uppercase tracking-wider transition cursor-pointer"
-                >
-                  Limpar
-                </span>
-              )}
-              <ChevronDown className={`w-4 h-4 text-gray-500 group-hover:text-white transition-transform duration-200 ${showFilters ? 'rotate-180 text-[#FF2D8D]' : ''}`} />
-            </div>
-          </button>
-
+            <button
+              onClick={handleClearFilters}
+              className="flex items-center gap-1.5 text-[10px] text-gray-500 hover:text-gray-300 font-bold uppercase tracking-wider transition cursor-pointer"
+            >
+              Limpar <ChevronDown className="w-3 h-3 -rotate-90" />
+            </button>
+          </div>
+          
+          {/* Collapsible Filters Section */}
           {showFilters && (
-            <div className="mt-2 space-y-5 animate-fade-in border-t border-neutral-900/40 pt-4">
+            <div className="mt-2 grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6 animate-fade-in border-t border-neutral-800/50 pt-4">
 
             {/* Brand Collapsible Filter */}
             <div className="space-y-2 border-b border-neutral-900/40 pb-3">
@@ -516,10 +506,10 @@ export function Catalog({ vehicles, onSelectVehicle, currentUser }: CatalogProps
         </div>
 
         {/* Catalog list column */}
-        <div className="lg:col-span-3">
+        <div className="flex-1">
           {/* Top sorting selection */}
-          <div className="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-3 mb-6 bg-neutral-950 border border-neutral-900 p-3 rounded-2xl">
-            <p className="text-xs text-gray-400 font-medium pl-1">
+          <div className="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-3 mb-6 bg-[#18181B] border border-neutral-800 p-3 rounded-2xl">
+            <p className="text-xs text-gray-400 font-medium pl-2">
               Mostrando <span className="text-white font-bold">{filteredVehicles.length}</span> veículos encontrados
             </p>
             <div className="flex items-center gap-2 w-full sm:w-auto relative">
@@ -533,7 +523,7 @@ export function Catalog({ vehicles, onSelectVehicle, currentUser }: CatalogProps
                 <button
                   type="button"
                   onClick={() => setSortDropdownOpen(!sortDropdownOpen)}
-                  className="w-full sm:w-48 flex items-center justify-between gap-2.5 bg-neutral-900 border border-neutral-800 hover:border-[#FF2D8D]/60 focus:border-[#FF2D8D] rounded-xl px-4 py-2 text-xs text-white outline-none transition cursor-pointer font-bold"
+                  className="w-full sm:w-48 flex items-center justify-between gap-2.5 bg-[#0B0B0C] border border-neutral-800 hover:border-[var(--brand-color)]/60 focus:border-[var(--brand-color)] rounded-xl px-4 py-2 text-xs text-white outline-none transition cursor-pointer font-bold"
                 >
                   <span className="truncate">
                     {sortBy === 'newest' && 'Mais Recentes'}
