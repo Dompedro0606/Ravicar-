@@ -238,39 +238,39 @@ Por favor, analisem meu cadastro no banco de preferência para confirmar a aprov
   return (
     <div className="max-w-7xl mx-auto px-4 py-8 space-y-10 text-left">
       {/* Header Panel with Beautiful Gradient Text & Background */}
-      <div className="relative overflow-hidden p-6 md:p-8 rounded-3xl bg-neutral-950 border border-neutral-900/80 flex flex-col md:flex-row justify-between items-start md:items-center gap-4">
+      <div className="relative overflow-hidden p-6 md:p-8 rounded-3xl bg-white dark:bg-neutral-950 border border-gray-200 dark:border-neutral-900/80 flex flex-col md:flex-row justify-between items-start md:items-center gap-4">
         <div className="absolute right-0 top-0 translate-y-[-30%] translate-x-[30%] w-56 h-56 rounded-full bg-[#FF2D8D]/5 blur-3xl"></div>
         <div className="space-y-1.5 z-10">
           <div className="flex items-center gap-1 text-[10px] md:text-xs uppercase tracking-widest font-black text-[#FF2D8D]">
             <Sparkles className="w-4 h-4 text-[#FF2D8D] animate-spin-slow" />
             Integrador Inteligente
           </div>
-          <h1 className="font-display font-black text-2xl md:text-4xl text-white tracking-tight">
+          <h1 className="font-display font-black text-2xl md:text-4xl text-gray-900 dark:text-white tracking-tight">
             Financiamento <span className="text-[#FF2D8D]">Sem Burocracia</span>
           </h1>
-          <p className="text-xs text-gray-400">
+          <p className="text-xs text-gray-600 dark:text-gray-400">
             Ficha cadastral avaliada por Inteligência Artificial conectada em tempo real com as 13 principais financeiras do Brasil.
           </p>
         </div>
 
         {/* Dynamic Fast Pre-Approval Badge */}
-        <div className="flex items-center gap-2.5 px-4 py-2.5 bg-black/60 border border-neutral-800 rounded-2xl z-10 shrink-0">
+        <div className="flex items-center gap-2.5 px-4 py-2.5 bg-gray-100 dark:bg-black/60 border border-gray-200 dark:border-neutral-800 rounded-2xl z-10 shrink-0">
           <Clock className="w-4 h-4 text-[#FF6FB5]" />
           <div className="text-[10px] md:text-xs">
-            <span className="text-gray-400 block font-bold leading-none">Tempo de Resposta</span>
-            <strong className="text-white font-extrabold block mt-0.5 font-mono">~ 40 segundos</strong>
+            <span className="text-gray-600 dark:text-gray-400 block font-bold leading-none">Tempo de Resposta</span>
+            <strong className="text-gray-900 dark:text-white font-extrabold block mt-0.5 font-mono">~ 40 segundos</strong>
           </div>
         </div>
       </div>
 
       {/* Finance Partner Banks Showcase */}
-      <div className="p-5 bg-neutral-950 border border-neutral-900/60 rounded-3xl space-y-4">
+      <div className="p-5 bg-white dark:bg-neutral-950 border border-gray-200 dark:border-neutral-900/60 rounded-3xl space-y-4">
         <div className="flex items-center justify-between">
           <span className="text-[10px] font-black uppercase tracking-widest text-[#FF6FB5] flex items-center gap-1">
             <Landmark className="w-3.5 h-3.5" />
             Parceiros de Crédito Credenciados
           </span>
-          <span className="text-[9px] font-bold text-gray-500 bg-neutral-900 px-2.5 py-0.5 rounded-full border border-neutral-800">
+          <span className="text-[9px] font-bold text-gray-500 dark:text-gray-400 bg-white dark:bg-neutral-900 px-2.5 py-0.5 rounded-full border border-gray-200 dark:border-neutral-800">
             Abaixo da Taxa de Balcão
           </span>
         </div>
@@ -292,9 +292,9 @@ Por favor, analisem meu cadastro no banco de preferência para confirmar a aprov
           ].map((bank, index) => (
             <div 
               key={index} 
-              className="group p-3 bg-neutral-950/40 border border-neutral-900 rounded-2xl hover:border-[#FF2D8D]/30 transition duration-300 text-center relative overflow-hidden flex flex-col justify-center items-center h-16"
+              className="group p-3 bg-gray-100 dark:bg-neutral-950/40 border border-gray-200 dark:border-neutral-900 rounded-2xl hover:border-[#FF2D8D]/30 transition duration-300 text-center relative overflow-hidden flex flex-col justify-center items-center h-16"
             >
-              <span className="font-sans font-black text-xs text-gray-300 group-hover:text-white transition duration-200">
+              <span className="font-sans font-black text-xs text-gray-600 dark:text-gray-300 group-hover:text-gray-900 dark:text-white transition duration-200">
                 {bank.name}
               </span>
               {bank.promo && (
@@ -312,7 +312,7 @@ Por favor, analisem meu cadastro no banco de preferência para confirmar a aprov
       <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 items-start">
         
         {/* Left Column (Forms & Credit Reports) */}
-        <div className="lg:col-span-7 bg-neutral-950 border border-neutral-900 rounded-3xl p-6 md:p-8 space-y-6 relative">
+        <div className="lg:col-span-7 bg-white dark:bg-neutral-950 border border-gray-200 dark:border-neutral-900 rounded-3xl p-6 md:p-8 space-y-6 relative">
           
           {submitted ? (
             // Success State Component
@@ -323,23 +323,23 @@ Por favor, analisem meu cadastro no banco de preferência para confirmar a aprov
                 <div className="p-4 rounded-full bg-emerald-500/10 text-emerald-400 border border-emerald-500/20 mb-2">
                   <CheckCircle2 className="w-10 h-10 animate-bounce" />
                 </div>
-                <h3 className="font-display font-black text-xl text-white uppercase tracking-wider">
+                <h3 className="font-display font-black text-xl text-gray-900 dark:text-white uppercase tracking-wider">
                   Simulação Concluída por IA!
                 </h3>
-                <p className="text-xs text-gray-400 max-w-md mx-auto leading-relaxed">
+                <p className="text-xs text-gray-600 dark:text-gray-400 max-w-md mx-auto leading-relaxed">
                   Nosso robô de crédito processou seus dados de proponente e calculou as melhores taxas vigentes. A ficha foi integrada ao CRM RaviCar.
                 </p>
               </div>
 
               {/* Robust AI simulation report card */}
               {aiSimulationResult && (
-                <div className="p-5 md:p-6 bg-black border border-neutral-900 rounded-2xl space-y-5 relative overflow-hidden">
+                <div className="p-5 md:p-6 bg-white dark:bg-black border border-gray-200 dark:border-neutral-900 rounded-2xl space-y-5 relative overflow-hidden">
                   <div className="absolute right-0 top-0 translate-y-[-30%] translate-x-[30%] w-40 h-40 rounded-full bg-emerald-500/5 blur-2xl"></div>
 
-                  <div className="flex items-center justify-between pb-3 border-b border-neutral-900">
+                  <div className="flex items-center justify-between pb-3 border-b border-gray-200 dark:border-neutral-900">
                     <div className="flex items-center gap-2">
                       <Sparkles className="w-5 h-5 text-[#FF2D8D] animate-spin-slow" />
-                      <span className="font-display font-black text-xs uppercase tracking-wider text-white">
+                      <span className="font-display font-black text-xs uppercase tracking-wider text-gray-900 dark:text-white">
                         Laudo de Crédito RaviCar AI
                       </span>
                     </div>
@@ -354,19 +354,19 @@ Por favor, analisem meu cadastro no banco de preferência para confirmar a aprov
                   <div className="grid grid-cols-1 md:grid-cols-12 gap-5 items-stretch">
                     
                     {/* Score Bar Panel */}
-                    <div className="md:col-span-5 p-4 bg-neutral-950 border border-neutral-900 rounded-2xl flex flex-col justify-between">
+                    <div className="md:col-span-5 p-4 bg-white dark:bg-neutral-950 border border-gray-200 dark:border-neutral-900 rounded-2xl flex flex-col justify-between">
                       <div className="space-y-1">
-                        <span className="text-[9px] uppercase tracking-wider text-gray-500 font-bold flex items-center gap-1">
+                        <span className="text-[9px] uppercase tracking-wider text-gray-500 dark:text-gray-400 font-bold flex items-center gap-1">
                           <Percent className="w-3 h-3 text-[#FF2D8D]" /> Score de Crédito IA
                         </span>
                         <div className="flex items-baseline gap-1 mt-1">
-                          <span className="text-3xl font-black text-white font-mono">{aiSimulationResult.score_aprovacao}</span>
-                          <span className="text-xs text-gray-500">/ 100</span>
+                          <span className="text-3xl font-black text-gray-900 dark:text-white font-mono">{aiSimulationResult.score_aprovacao}</span>
+                          <span className="text-xs text-gray-500 dark:text-gray-400">/ 100</span>
                         </div>
                       </div>
 
                       <div className="mt-3">
-                        <div className="w-full bg-neutral-900 h-1.5 rounded-full overflow-hidden">
+                        <div className="w-full bg-white dark:bg-neutral-900 h-1.5 rounded-full overflow-hidden">
                           <div 
                             className={`h-full rounded-full transition-all duration-1000 ${
                               aiSimulationResult.score_aprovacao >= 75 ? 'bg-emerald-500' :
@@ -375,57 +375,57 @@ Por favor, analisem meu cadastro no banco de preferência para confirmar a aprov
                             style={{ width: `${aiSimulationResult.score_aprovacao}%` }}
                           />
                         </div>
-                        <span className="text-[8px] text-gray-500 mt-1 block">
+                        <span className="text-[8px] text-gray-500 dark:text-gray-400 mt-1 block">
                           {aiSimulationResult.score_aprovacao >= 75 ? 'Excelente probabilidade de aprovação instantânea.' : 'Probabilidade moderada. Requer vistoria física.'}
                         </span>
                       </div>
                     </div>
 
                     {/* Loan Breakdown Panel */}
-                    <div className="md:col-span-7 p-4 bg-neutral-950 border border-neutral-900 rounded-2xl space-y-3 flex flex-col justify-between">
+                    <div className="md:col-span-7 p-4 bg-white dark:bg-neutral-950 border border-gray-200 dark:border-neutral-900 rounded-2xl space-y-3 flex flex-col justify-between">
                       <div className="space-y-1">
                         <span className="text-[9px] uppercase tracking-wider text-[#FF6FB5] font-black flex items-center gap-1">
                           <TrendingUp className="w-3.5 h-3.5" /> Plano Proposto ({formData.installments})
                         </span>
-                        <p className="text-2xl font-black text-white font-mono">
-                          R$ {aiSimulationResult.valor_parcela.toLocaleString('pt-BR', { minimumFractionDigits: 2, maximumFractionDigits: 2 })} <span className="text-xs text-gray-400 font-sans font-medium">/mês</span>
+                        <p className="text-2xl font-black text-gray-900 dark:text-white font-mono">
+                          R$ {aiSimulationResult.valor_parcela.toLocaleString('pt-BR', { minimumFractionDigits: 2, maximumFractionDigits: 2 })} <span className="text-xs text-gray-600 dark:text-gray-400 font-sans font-medium">/mês</span>
                         </p>
                       </div>
 
-                      <div className="grid grid-cols-2 gap-2 text-[10px] text-gray-400 pt-2 border-t border-neutral-900/80">
+                      <div className="grid grid-cols-2 gap-2 text-[10px] text-gray-600 dark:text-gray-400 pt-2 border-t border-gray-200 dark:border-neutral-900/80">
                         <div>
-                          Taxa Especial: <strong className="text-white font-mono">{aiSimulationResult.taxa_juros_mensal}% a.m.</strong>
+                          Taxa Especial: <strong className="text-gray-900 dark:text-white font-mono">{aiSimulationResult.taxa_juros_mensal}% a.m.</strong>
                         </div>
                         <div>
-                          Líquido Financiado: <strong className="text-white font-mono">R$ {aiSimulationResult.valor_financiado.toLocaleString('pt-BR')}</strong>
+                          Líquido Financiado: <strong className="text-gray-900 dark:text-white font-mono">R$ {aiSimulationResult.valor_financiado.toLocaleString('pt-BR')}</strong>
                         </div>
                       </div>
                     </div>
                   </div>
 
                   {/* Custom Rich Explanatory Parecer */}
-                  <div className="p-4 bg-neutral-950 border border-neutral-900 rounded-xl relative overflow-hidden">
+                  <div className="p-4 bg-white dark:bg-neutral-950 border border-gray-200 dark:border-neutral-900 rounded-xl relative overflow-hidden">
                     <div className="absolute top-2 right-2 text-neutral-900">
                       <Sparkles className="w-6 h-6 opacity-30 animate-pulse" />
                     </div>
                     <span className="text-[9px] uppercase tracking-wider text-[#FF6FB5] font-black block mb-1">
                       Parecer Técnico da Mesa de Crédito
                     </span>
-                    <p className="text-[11px] text-gray-300 leading-relaxed italic">
+                    <p className="text-[11px] text-gray-600 dark:text-gray-300 leading-relaxed italic">
                       "{aiSimulationResult.parecer_ia}"
                     </p>
                   </div>
 
                   {/* Other Alternative suggestions */}
                   <div className="space-y-2.5">
-                    <span className="text-[9px] uppercase tracking-wider text-gray-500 font-bold block">
+                    <span className="text-[9px] uppercase tracking-wider text-gray-500 dark:text-gray-400 font-bold block">
                       Planos de Prazo Alternativo Sugeridos:
                     </span>
                     <div className="grid grid-cols-3 gap-2 text-xs">
                       {aiSimulationResult.planos_alternativos.map((plano, idx) => (
-                        <div key={idx} className="p-2.5 bg-neutral-950 border border-neutral-900 rounded-xl text-center">
-                          <span className="text-[10px] text-gray-500 font-black block">{plano.parcelas}</span>
-                          <span className="text-white font-black font-mono text-[11px] block mt-0.5">
+                        <div key={idx} className="p-2.5 bg-white dark:bg-neutral-950 border border-gray-200 dark:border-neutral-900 rounded-xl text-center">
+                          <span className="text-[10px] text-gray-500 dark:text-gray-400 font-black block">{plano.parcelas}</span>
+                          <span className="text-gray-900 dark:text-white font-black font-mono text-[11px] block mt-0.5">
                             R$ {plano.valor_parcela.toLocaleString('pt-BR', { minimumFractionDigits: 2 })}
                           </span>
                         </div>
@@ -437,19 +437,19 @@ Por favor, analisem meu cadastro no banco de preferência para confirmar a aprov
               )}
 
               {/* Disclaimer */}
-              <div className="p-3 bg-neutral-900 border border-neutral-800 rounded-xl flex items-center gap-2.5">
+              <div className="p-3 bg-white dark:bg-neutral-900 border border-gray-200 dark:border-neutral-800 rounded-xl flex items-center gap-2.5">
                 <Info className="w-4 h-4 text-[#FF2D8D] shrink-0" />
-                <div className="text-[10px] text-gray-400">
+                <div className="text-[10px] text-gray-600 dark:text-gray-400">
                   Atenção: <strong>A simulação é apenas uma estimativa e não representa uma aprovação de crédito.</strong>
                 </div>
               </div>
 
               {/* Physical inspection warning / human audit disclaimer */}
-              <div className="p-4 bg-gradient-to-r from-neutral-950 to-neutral-900 border border-[#FF2D8D]/20 rounded-2xl flex items-start gap-3">
+              <div className="p-4 bg-gradient-to-r from-gray-50 to-gray-100 dark:from-neutral-950 dark:to-neutral-900 border border-[#FF2D8D]/20 rounded-2xl flex items-start gap-3">
                 <ShieldCheck className="w-5 h-5 text-[#FF2D8D] shrink-0 mt-0.5" />
                 <div className="space-y-1">
-                  <h5 className="font-display font-black text-[11px] text-white uppercase tracking-wider">Como Formalizar e Liberar o Carro?</h5>
-                  <p className="text-[10px] text-gray-400 leading-relaxed">
+                  <h5 className="font-display font-black text-[11px] text-gray-900 dark:text-white uppercase tracking-wider">Como Formalizar e Liberar o Carro?</h5>
+                  <p className="text-[10px] text-gray-600 dark:text-gray-400 leading-relaxed">
                     A simulação feita pela IA do site garante as taxas promocionais de julho de 2026. Agora, para assinar o contrato final e fazer a vistoria presencial obrigatória, clique no botão abaixo para falar com o gerente perito de plantão no WhatsApp.
                   </p>
                 </div>
@@ -457,10 +457,10 @@ Por favor, analisem meu cadastro no banco de preferência para confirmar a aprov
 
               {/* Gmail dispatch alert */}
               {formData.email && (
-                <div className="p-3 bg-neutral-900 border border-neutral-800 rounded-xl flex items-center gap-3">
+                <div className="p-3 bg-white dark:bg-neutral-900 border border-gray-200 dark:border-neutral-800 rounded-xl flex items-center gap-3">
                   <Mail className="w-4 h-4 text-[#FF2D8D]" />
-                  <div className="text-[10px] text-gray-400">
-                    Cópia do relatório enviada para <strong className="text-white">{formData.email}</strong>
+                  <div className="text-[10px] text-gray-600 dark:text-gray-400">
+                    Cópia do relatório enviada para <strong className="text-gray-900 dark:text-white">{formData.email}</strong>
                   </div>
                 </div>
               )}
@@ -469,7 +469,7 @@ Por favor, analisem meu cadastro no banco de preferência para confirmar a aprov
               <div className="flex flex-col sm:flex-row gap-3 pt-2">
                 <button
                   onClick={handleSendWhatsapp}
-                  className="flex-1 flex items-center justify-center gap-2 py-4 bg-[#25D366] hover:bg-[#20ba59] text-white font-extrabold text-xs uppercase tracking-wider rounded-2xl transition duration-200 shadow-lg cursor-pointer"
+                  className="flex-1 flex items-center justify-center gap-2 py-4 bg-[#25D366] hover:bg-[#20ba59] text-gray-900 dark:text-white font-extrabold text-xs uppercase tracking-wider rounded-2xl transition duration-200 shadow-lg cursor-pointer"
                 >
                   <MessageCircle className="w-4 h-4 fill-white text-[#25D366]" />
                   Enviar Ficha de Crédito para WhatsApp
@@ -480,7 +480,7 @@ Por favor, analisem meu cadastro no banco de preferência para confirmar a aprov
                     setSubmitted(false);
                     setAiSimulationResult(null);
                   }}
-                  className="px-6 py-4 rounded-2xl bg-neutral-900 hover:bg-neutral-800 border border-neutral-800 text-gray-400 hover:text-white transition duration-200 text-xs font-black uppercase tracking-wider cursor-pointer"
+                  className="px-6 py-4 rounded-2xl bg-white dark:bg-neutral-900 hover:bg-white dark:bg-neutral-800 border border-gray-200 dark:border-neutral-800 text-gray-600 dark:text-gray-400 hover:text-gray-900 dark:text-white transition duration-200 text-xs font-black uppercase tracking-wider cursor-pointer"
                 >
                   Fazer Nova Simulação
                 </button>
@@ -493,24 +493,24 @@ Por favor, analisem meu cadastro no banco de preferência para confirmar a aprov
               
               {/* Step 1: Client Information */}
               <div className="space-y-4">
-                <div className="flex items-center gap-2 pb-2 border-b border-neutral-900">
+                <div className="flex items-center gap-2 pb-2 border-b border-gray-200 dark:border-neutral-900">
                   <div className="w-6 h-6 rounded-lg bg-[#FF2D8D]/10 text-[#FF2D8D] flex items-center justify-center font-black font-display text-xs">1</div>
-                  <h3 className="font-display font-black text-xs uppercase tracking-wider text-white">Dados Básicos do Proponente</h3>
+                  <h3 className="font-display font-black text-xs uppercase tracking-wider text-gray-900 dark:text-white">Dados Básicos do Proponente</h3>
                 </div>
 
                 <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
                   {/* Nome */}
                   <div className="space-y-1.5">
-                    <label className="block font-bold text-gray-400 uppercase text-[9px] tracking-wider">Nome Completo *</label>
+                    <label className="block font-bold text-gray-600 dark:text-gray-400 uppercase text-[9px] tracking-wider">Nome Completo *</label>
                     <div className="relative">
-                      <User className="absolute left-3.5 top-1/2 -translate-y-1/2 w-4 h-4 text-gray-500" />
+                      <User className="absolute left-3.5 top-1/2 -translate-y-1/2 w-4 h-4 text-gray-500 dark:text-gray-400" />
                       <input
                         type="text"
                         name="name"
                         value={formData.name}
                         onChange={handleChange}
                         required
-                        className="w-full bg-black border border-neutral-800 focus:border-[#FF2D8D] rounded-xl pl-10 pr-4 py-3 text-white outline-none transition duration-200 font-sans text-xs focus:ring-1 focus:ring-[#FF2D8D]/40"
+                        className="w-full bg-white dark:bg-black border border-gray-200 dark:border-neutral-800 focus:border-[#FF2D8D] rounded-xl pl-10 pr-4 py-3 text-gray-900 dark:text-white outline-none transition duration-200 font-sans text-xs focus:ring-1 focus:ring-[#FF2D8D]/40"
                         placeholder="Nome conforme RG/CNH"
                       />
                     </div>
@@ -518,16 +518,16 @@ Por favor, analisem meu cadastro no banco de preferência para confirmar a aprov
 
                   {/* Whatsapp */}
                   <div className="space-y-1.5">
-                    <label className="block font-bold text-gray-400 uppercase text-[9px] tracking-wider">WhatsApp / Celular *</label>
+                    <label className="block font-bold text-gray-600 dark:text-gray-400 uppercase text-[9px] tracking-wider">WhatsApp / Celular *</label>
                     <div className="relative">
-                      <Phone className="absolute left-3.5 top-1/2 -translate-y-1/2 w-4 h-4 text-gray-500" />
+                      <Phone className="absolute left-3.5 top-1/2 -translate-y-1/2 w-4 h-4 text-gray-500 dark:text-gray-400" />
                       <input
                         type="tel"
                         name="phone"
                         value={formData.phone}
                         onChange={handleChange}
                         required
-                        className="w-full bg-black border border-neutral-800 focus:border-[#FF2D8D] rounded-xl pl-10 pr-4 py-3 text-white outline-none transition duration-200 font-sans text-xs focus:ring-1 focus:ring-[#FF2D8D]/40"
+                        className="w-full bg-white dark:bg-black border border-gray-200 dark:border-neutral-800 focus:border-[#FF2D8D] rounded-xl pl-10 pr-4 py-3 text-gray-900 dark:text-white outline-none transition duration-200 font-sans text-xs focus:ring-1 focus:ring-[#FF2D8D]/40"
                         placeholder="Ex: (11) 99999-9999"
                       />
                     </div>
@@ -535,15 +535,15 @@ Por favor, analisem meu cadastro no banco de preferência para confirmar a aprov
 
                   {/* Email */}
                   <div className="sm:col-span-2 space-y-1.5">
-                    <label className="block font-bold text-gray-400 uppercase text-[9px] tracking-wider">E-mail (Para receber cópia no Gmail)</label>
+                    <label className="block font-bold text-gray-600 dark:text-gray-400 uppercase text-[9px] tracking-wider">E-mail (Para receber cópia no Gmail)</label>
                     <div className="relative">
-                      <Mail className="absolute left-3.5 top-1/2 -translate-y-1/2 w-4 h-4 text-gray-500" />
+                      <Mail className="absolute left-3.5 top-1/2 -translate-y-1/2 w-4 h-4 text-gray-500 dark:text-gray-400" />
                       <input
                         type="email"
                         name="email"
                         value={formData.email}
                         onChange={handleChange}
-                        className="w-full bg-black border border-neutral-800 focus:border-[#FF2D8D] rounded-xl pl-10 pr-4 py-3 text-white outline-none transition duration-200 font-sans text-xs focus:ring-1 focus:ring-[#FF2D8D]/40"
+                        className="w-full bg-white dark:bg-black border border-gray-200 dark:border-neutral-800 focus:border-[#FF2D8D] rounded-xl pl-10 pr-4 py-3 text-gray-900 dark:text-white outline-none transition duration-200 font-sans text-xs focus:ring-1 focus:ring-[#FF2D8D]/40"
                         placeholder="Ex: seu_nome@gmail.com"
                       />
                     </div>
@@ -551,16 +551,16 @@ Por favor, analisem meu cadastro no banco de preferência para confirmar a aprov
 
                   {/* CPF */}
                   <div className="space-y-1.5">
-                    <label className="block font-bold text-gray-400 uppercase text-[9px] tracking-wider">CPF do Titular *</label>
+                    <label className="block font-bold text-gray-600 dark:text-gray-400 uppercase text-[9px] tracking-wider">CPF do Titular *</label>
                     <div className="relative">
-                      <FileText className="absolute left-3.5 top-1/2 -translate-y-1/2 w-4 h-4 text-gray-500" />
+                      <FileText className="absolute left-3.5 top-1/2 -translate-y-1/2 w-4 h-4 text-gray-500 dark:text-gray-400" />
                       <input
                         type="text"
                         name="cpf"
                         value={formData.cpf}
                         onChange={handleChange}
                         required
-                        className="w-full bg-black border border-neutral-800 focus:border-[#FF2D8D] rounded-xl pl-10 pr-4 py-3 text-white outline-none transition duration-200 font-sans text-xs focus:ring-1 focus:ring-[#FF2D8D]/40"
+                        className="w-full bg-white dark:bg-black border border-gray-200 dark:border-neutral-800 focus:border-[#FF2D8D] rounded-xl pl-10 pr-4 py-3 text-gray-900 dark:text-white outline-none transition duration-200 font-sans text-xs focus:ring-1 focus:ring-[#FF2D8D]/40"
                         placeholder="000.000.000-00"
                       />
                     </div>
@@ -568,15 +568,15 @@ Por favor, analisem meu cadastro no banco de preferência para confirmar a aprov
 
                   {/* Birth Date */}
                   <div className="space-y-1.5">
-                    <label className="block font-bold text-gray-400 uppercase text-[9px] tracking-wider">Data de Nascimento</label>
+                    <label className="block font-bold text-gray-600 dark:text-gray-400 uppercase text-[9px] tracking-wider">Data de Nascimento</label>
                     <div className="relative">
-                      <Calendar className="absolute left-3.5 top-1/2 -translate-y-1/2 w-4 h-4 text-gray-500" />
+                      <Calendar className="absolute left-3.5 top-1/2 -translate-y-1/2 w-4 h-4 text-gray-500 dark:text-gray-400" />
                       <input
                         type="date"
                         name="birthDate"
                         value={formData.birthDate}
                         onChange={handleChange}
-                        className="w-full bg-black border border-neutral-800 focus:border-[#FF2D8D] rounded-xl pl-10 pr-4 py-3 text-white outline-none transition duration-200 font-sans text-xs focus:ring-1 focus:ring-[#FF2D8D]/40 cursor-pointer"
+                        className="w-full bg-white dark:bg-black border border-gray-200 dark:border-neutral-800 focus:border-[#FF2D8D] rounded-xl pl-10 pr-4 py-3 text-gray-900 dark:text-white outline-none transition duration-200 font-sans text-xs focus:ring-1 focus:ring-[#FF2D8D]/40 cursor-pointer"
                       />
                     </div>
                   </div>
@@ -585,21 +585,21 @@ Por favor, analisem meu cadastro no banco de preferência para confirmar a aprov
 
               {/* Step 2: Car selection & Down Payment */}
               <div className="space-y-4 pt-4">
-                <div className="flex items-center gap-2 pb-2 border-b border-neutral-900">
+                <div className="flex items-center gap-2 pb-2 border-b border-gray-200 dark:border-neutral-900">
                   <div className="w-6 h-6 rounded-lg bg-[#FF2D8D]/10 text-[#FF2D8D] flex items-center justify-center font-black font-display text-xs">2</div>
-                  <h3 className="font-display font-black text-xs uppercase tracking-wider text-white">Veículo de Showroom & Plano de Juros</h3>
+                  <h3 className="font-display font-black text-xs uppercase tracking-wider text-gray-900 dark:text-white">Veículo de Showroom & Plano de Juros</h3>
                 </div>
 
                 <div className="grid grid-cols-1 sm:grid-cols-3 gap-4">
                   {/* Select Vehicle */}
                   <div className="sm:col-span-3 space-y-1.5">
-                    <label className="block font-bold text-gray-400 uppercase text-[9px] tracking-wider">Veículo do Estoque para Financiar *</label>
+                    <label className="block font-bold text-gray-600 dark:text-gray-400 uppercase text-[9px] tracking-wider">Veículo do Estoque para Financiar *</label>
                     <div className="relative">
                       {/* Selected Vehicle Trigger Button */}
                       <button
                         type="button"
                         onClick={() => setIsDropdownOpen(!isDropdownOpen)}
-                        className="w-full bg-black border border-neutral-800 hover:border-neutral-700 focus:border-[#FF2D8D] rounded-xl px-4 py-3 text-white text-left transition duration-200 font-sans text-xs flex items-center justify-between cursor-pointer focus:ring-1 focus:ring-[#FF2D8D]/40"
+                        className="w-full bg-white dark:bg-black border border-gray-200 dark:border-neutral-800 hover:border-gray-200 dark:border-neutral-700 focus:border-[#FF2D8D] rounded-xl px-4 py-3 text-gray-900 dark:text-white text-left transition duration-200 font-sans text-xs flex items-center justify-between cursor-pointer focus:ring-1 focus:ring-[#FF2D8D]/40"
                       >
                         {selectedVehicle ? (
                           <div className="flex items-center gap-3">
@@ -607,11 +607,11 @@ Por favor, analisem meu cadastro no banco de preferência para confirmar a aprov
                               <img 
                                 src={selectedVehicle.media[0].url} 
                                 alt="" 
-                                className="w-8 h-8 rounded-lg object-cover bg-neutral-900 shrink-0 border border-neutral-800"
+                                className="w-8 h-8 rounded-lg object-cover bg-white dark:bg-neutral-900 shrink-0 border border-gray-200 dark:border-neutral-800"
                               />
                             )}
                             <div>
-                              <span className="font-extrabold text-white block">
+                              <span className="font-extrabold text-gray-900 dark:text-white block">
                                 {selectedVehicle.brand} {selectedVehicle.model} ({selectedVehicle.year})
                               </span>
                               <span className="text-[10px] text-[#FF2D8D] font-mono font-bold">
@@ -620,9 +620,9 @@ Por favor, analisem meu cadastro no banco de preferência para confirmar a aprov
                             </div>
                           </div>
                         ) : (
-                          <span className="text-gray-500 font-medium">Selecione o veículo do catálogo...</span>
+                          <span className="text-gray-500 dark:text-gray-400 font-medium">Selecione o veículo do catálogo...</span>
                         )}
-                        <ChevronDown className={`w-4 h-4 text-gray-500 transition-transform duration-200 ${isDropdownOpen ? 'rotate-180' : ''}`} />
+                        <ChevronDown className={`w-4 h-4 text-gray-500 dark:text-gray-400 transition-transform duration-200 ${isDropdownOpen ? 'rotate-180' : ''}`} />
                       </button>
 
                       {/* Floating custom option list */}
@@ -637,16 +637,16 @@ Por favor, analisem meu cadastro no banco de preferência para confirmar a aprov
                             }}
                           />
                           
-                          <div className="absolute left-0 right-0 z-50 mt-2 bg-neutral-950 border border-neutral-800 rounded-2xl shadow-2xl overflow-hidden animate-fade-in max-h-80 flex flex-col">
+                          <div className="absolute left-0 right-0 z-50 mt-2 bg-white dark:bg-neutral-950 border border-gray-200 dark:border-neutral-800 rounded-2xl shadow-2xl overflow-hidden animate-fade-in max-h-80 flex flex-col">
                             {/* Search box inside dropdown */}
-                            <div className="p-3 border-b border-neutral-900 bg-neutral-950 flex items-center gap-2">
-                              <Search className="w-4 h-4 text-gray-500 shrink-0" />
+                            <div className="p-3 border-b border-gray-200 dark:border-neutral-900 bg-white dark:bg-neutral-950 flex items-center gap-2">
+                              <Search className="w-4 h-4 text-gray-500 dark:text-gray-400 shrink-0" />
                               <input
                                 type="text"
                                 placeholder="Digite marca, modelo ou ano..."
                                 value={searchTerm}
                                 onChange={(e) => setSearchTerm(e.target.value)}
-                                className="w-full bg-transparent text-white outline-none placeholder-gray-600 text-xs py-1"
+                                className="w-full bg-transparent text-gray-900 dark:text-white outline-none placeholder-gray-600 text-xs py-1"
                                 onClick={(e) => e.stopPropagation()} // Prevent closing dropdown on input click
                               />
                             </div>
@@ -681,14 +681,14 @@ Por favor, analisem meu cadastro no banco de preferência para confirmar a aprov
                                             src={v.media[0].url} 
                                             alt="" 
                                             referrerPolicy="no-referrer"
-                                            className="w-10 h-10 rounded-xl object-cover bg-neutral-900 shrink-0 border border-neutral-900"
+                                            className="w-10 h-10 rounded-xl object-cover bg-white dark:bg-neutral-900 shrink-0 border border-gray-200 dark:border-neutral-900"
                                           />
                                         )}
                                         <div className="min-w-0">
-                                          <h4 className="font-bold text-white text-xs truncate">
+                                          <h4 className="font-bold text-gray-900 dark:text-white text-xs truncate">
                                             {v.brand} {v.model}
                                           </h4>
-                                          <span className="text-[10px] text-gray-400 block mt-0.5">
+                                          <span className="text-[10px] text-gray-600 dark:text-gray-400 block mt-0.5">
                                             Ano: {v.year} • {v.transmission}
                                           </span>
                                         </div>
@@ -716,7 +716,7 @@ Por favor, analisem meu cadastro no banco de preferência para confirmar a aprov
                                   v.year.toString().includes(term)
                                 );
                               }).length === 0 && (
-                                <div className="p-4 text-center text-xs text-gray-500">
+                                <div className="p-4 text-center text-xs text-gray-500 dark:text-gray-400">
                                   Nenhum carro encontrado para "{searchTerm}"
                                 </div>
                               )}
@@ -729,15 +729,15 @@ Por favor, analisem meu cadastro no banco de preferência para confirmar a aprov
 
                   {/* Down payment value */}
                   <div className="space-y-1.5">
-                    <label className="block font-bold text-gray-400 uppercase text-[9px] tracking-wider">Valor de Entrada (R$ - Opcional)</label>
+                    <label className="block font-bold text-gray-600 dark:text-gray-400 uppercase text-[9px] tracking-wider">Valor de Entrada (R$ - Opcional)</label>
                     <div className="relative">
-                      <DollarSign className="absolute left-3.5 top-1/2 -translate-y-1/2 w-4 h-4 text-gray-500" />
+                      <DollarSign className="absolute left-3.5 top-1/2 -translate-y-1/2 w-4 h-4 text-gray-500 dark:text-gray-400" />
                       <input
                         type="number"
                         name="downPayment"
                         value={formData.downPayment}
                         onChange={handleChange}
-                        className="w-full bg-black border border-neutral-800 focus:border-[#FF2D8D] rounded-xl pl-10 pr-4 py-3 text-white outline-none transition duration-200 font-sans text-xs focus:ring-1 focus:ring-[#FF2D8D]/40"
+                        className="w-full bg-white dark:bg-black border border-gray-200 dark:border-neutral-800 focus:border-[#FF2D8D] rounded-xl pl-10 pr-4 py-3 text-gray-900 dark:text-white outline-none transition duration-200 font-sans text-xs focus:ring-1 focus:ring-[#FF2D8D]/40"
                         placeholder="Ex: 25000 (Vazio para Zero Entrada)"
                       />
                     </div>
@@ -745,12 +745,12 @@ Por favor, analisem meu cadastro no banco de preferência para confirmar a aprov
 
                   {/* Installment Term selection */}
                   <div className="space-y-1.5">
-                    <label className="block font-bold text-gray-400 uppercase text-[9px] tracking-wider">Prazo de Pagamento Desejado</label>
+                    <label className="block font-bold text-gray-600 dark:text-gray-400 uppercase text-[9px] tracking-wider">Prazo de Pagamento Desejado</label>
                     <select
                       name="installments"
                       value={formData.installments}
                       onChange={handleChange}
-                      className="w-full bg-black border border-neutral-800 focus:border-[#FF2D8D] rounded-xl px-4 py-3 text-white outline-none transition duration-200 font-sans text-xs cursor-pointer focus:ring-1 focus:ring-[#FF2D8D]/40"
+                      className="w-full bg-white dark:bg-black border border-gray-200 dark:border-neutral-800 focus:border-[#FF2D8D] rounded-xl px-4 py-3 text-gray-900 dark:text-white outline-none transition duration-200 font-sans text-xs cursor-pointer focus:ring-1 focus:ring-[#FF2D8D]/40"
                     >
                       <option value="60x">60 parcelas mensais</option>
                       <option value="48x">48 parcelas mensais</option>
@@ -762,36 +762,36 @@ Por favor, analisem meu cadastro no banco de preferência para confirmar a aprov
 
                   {/* Preferred Bank selection */}
                   <div className="space-y-1.5">
-                    <label className="block font-bold text-gray-400 uppercase text-[9px] tracking-wider">Banco de Preferência</label>
+                    <label className="block font-bold text-gray-600 dark:text-gray-400 uppercase text-[9px] tracking-wider">Banco de Preferência</label>
                     <div className="relative">
                       {/* Custom dropdown trigger button */}
                       <button
                         type="button"
                         onClick={() => setIsBankDropdownOpen(!isBankDropdownOpen)}
-                        className="w-full bg-black border border-neutral-800 hover:border-neutral-700 focus:border-[#FF2D8D] rounded-xl px-4 py-2 text-white text-left transition duration-200 font-sans text-xs flex items-center justify-between cursor-pointer focus:ring-1 focus:ring-[#FF2D8D]/40 min-h-[46px]"
+                        className="w-full bg-white dark:bg-black border border-gray-200 dark:border-neutral-800 hover:border-gray-200 dark:border-neutral-700 focus:border-[#FF2D8D] rounded-xl px-4 py-2 text-gray-900 dark:text-white text-left transition duration-200 font-sans text-xs flex items-center justify-between cursor-pointer focus:ring-1 focus:ring-[#FF2D8D]/40 min-h-[46px]"
                       >
                         {(() => {
                           const currentBank = BANKS.find(b => b.id === (formData.bank || 'Santander')) || BANKS[0];
                           return (
                             <div className="flex items-center gap-2.5 min-w-0">
                               <div 
-                                className="w-5 h-5 rounded-full flex items-center justify-center text-[9px] font-black text-white shrink-0 shadow-inner"
+                                className="w-5 h-5 rounded-full flex items-center justify-center text-[9px] font-black text-gray-900 dark:text-white shrink-0 shadow-inner"
                                 style={{ backgroundColor: currentBank.color }}
                               >
                                 {currentBank.logo}
                               </div>
                               <div className="min-w-0">
-                                <span className="font-extrabold text-white block leading-tight truncate">
+                                <span className="font-extrabold text-gray-900 dark:text-white block leading-tight truncate">
                                   {currentBank.name}
                                 </span>
-                                <span className="text-[8px] text-gray-500 block leading-tight truncate">
+                                <span className="text-[8px] text-gray-500 dark:text-gray-400 block leading-tight truncate">
                                   {currentBank.desc}
                                 </span>
                               </div>
                             </div>
                           );
                         })()}
-                        <ChevronDown className={`w-4 h-4 text-gray-500 shrink-0 transition-transform duration-200 ${isBankDropdownOpen ? 'rotate-180' : ''}`} />
+                        <ChevronDown className={`w-4 h-4 text-gray-500 dark:text-gray-400 shrink-0 transition-transform duration-200 ${isBankDropdownOpen ? 'rotate-180' : ''}`} />
                       </button>
 
                       {/* Custom options float list */}
@@ -803,7 +803,7 @@ Por favor, analisem meu cadastro no banco de preferência para confirmar a aprov
                             onClick={() => setIsBankDropdownOpen(false)}
                           />
                           
-                          <div className="absolute left-0 right-0 z-50 mt-2 bg-neutral-950 border border-neutral-800 rounded-2xl shadow-2xl overflow-hidden animate-fade-in max-h-72 flex flex-col">
+                          <div className="absolute left-0 right-0 z-50 mt-2 bg-white dark:bg-neutral-950 border border-gray-200 dark:border-neutral-800 rounded-2xl shadow-2xl overflow-hidden animate-fade-in max-h-72 flex flex-col">
                             {/* Scrollable Items */}
                             <div className="overflow-y-auto max-h-72 p-1.5 space-y-1 divide-y divide-neutral-900/40">
                               {BANKS.map(b => {
@@ -818,22 +818,22 @@ Por favor, analisem meu cadastro no banco de preferência para confirmar a aprov
                                     }}
                                     className={`w-full p-2.5 flex items-center justify-between text-left rounded-xl transition duration-150 cursor-pointer ${
                                       isSelected 
-                                        ? 'bg-[#FF2D8D]/5 border border-[#FF2D8D]/30 text-white' 
-                                        : 'hover:bg-neutral-900 border border-transparent text-gray-400 hover:text-white'
+                                        ? 'bg-[#FF2D8D]/5 border border-[#FF2D8D]/30 text-gray-900 dark:text-white' 
+                                        : 'hover:bg-white dark:bg-neutral-900 border border-transparent text-gray-600 dark:text-gray-400 hover:text-gray-900 dark:text-white'
                                     }`}
                                   >
                                     <div className="flex items-center gap-2.5 min-w-0">
                                       <div 
-                                        className="w-7 h-7 rounded-full flex items-center justify-center text-[10px] font-black text-white shrink-0 shadow-md"
+                                        className="w-7 h-7 rounded-full flex items-center justify-center text-[10px] font-black text-gray-900 dark:text-white shrink-0 shadow-md"
                                         style={{ backgroundColor: b.color }}
                                       >
                                         {b.logo}
                                       </div>
                                       <div className="min-w-0">
-                                        <h4 className="font-bold text-xs text-white leading-tight">
+                                        <h4 className="font-bold text-xs text-gray-900 dark:text-white leading-tight">
                                           {b.name}
                                         </h4>
-                                        <span className="text-[9px] text-gray-500 block truncate leading-tight mt-0.5">
+                                        <span className="text-[9px] text-gray-500 dark:text-gray-400 block truncate leading-tight mt-0.5">
                                           {b.desc}
                                         </span>
                                       </div>
@@ -841,7 +841,7 @@ Por favor, analisem meu cadastro no banco de preferência para confirmar a aprov
                                     <div className="shrink-0 pl-2">
                                       {isSelected ? (
                                         <div className="w-4 h-4 rounded-full bg-[#FF2D8D] flex items-center justify-center">
-                                          <Check className="w-2.5 h-2.5 text-white stroke-[3px]" />
+                                          <Check className="w-2.5 h-2.5 text-gray-900 dark:text-white stroke-[3px]" />
                                         </div>
                                       ) : (
                                         <div className="w-4 h-4 rounded-full border border-neutral-850" />
@@ -861,13 +861,13 @@ Por favor, analisem meu cadastro no banco de preferência para confirmar a aprov
 
               {/* Step 3: Observações */}
               <div className="space-y-2.5 pt-2">
-                <label className="block font-bold text-gray-400 uppercase text-[9px] tracking-wider">Observações / Preferência de Banco (Opcional)</label>
+                <label className="block font-bold text-gray-600 dark:text-gray-400 uppercase text-[9px] tracking-wider">Observações / Preferência de Banco (Opcional)</label>
                 <textarea
                   name="notes"
                   value={formData.notes}
                   onChange={handleChange}
                   rows={3}
-                  className="w-full bg-black border border-neutral-800 focus:border-[#FF2D8D] rounded-xl px-4 py-3 text-white outline-none transition duration-200 font-sans text-xs resize-none focus:ring-1 focus:ring-[#FF2D8D]/40"
+                  className="w-full bg-white dark:bg-black border border-gray-200 dark:border-neutral-800 focus:border-[#FF2D8D] rounded-xl px-4 py-3 text-gray-900 dark:text-white outline-none transition duration-200 font-sans text-xs resize-none focus:ring-1 focus:ring-[#FF2D8D]/40"
                   placeholder="Ex: Possuo score bom, prefiro simular no Santander ou Banco BV..."
                 />
               </div>
@@ -876,7 +876,7 @@ Por favor, analisem meu cadastro no banco de preferência para confirmar a aprov
               <button
                 type="submit"
                 disabled={loading}
-                className="w-full py-4 rounded-xl bg-gradient-to-r from-[#FF2D8D] to-[#FF6FB5] hover:opacity-95 text-white font-black text-xs uppercase tracking-widest shadow-lg transition duration-200 flex items-center justify-center gap-2 cursor-pointer disabled:opacity-50"
+                className="w-full py-4 rounded-xl bg-gradient-to-r from-[#FF2D8D] to-[#FF6FB5] hover:opacity-95 text-gray-900 dark:text-white font-black text-xs uppercase tracking-widest shadow-lg transition duration-200 flex items-center justify-center gap-2 cursor-pointer disabled:opacity-50"
               >
                 {loading ? (
                   <>
@@ -885,16 +885,16 @@ Por favor, analisem meu cadastro no banco de preferência para confirmar a aprov
                   </>
                 ) : (
                   <>
-                    <Sparkles className="w-4 h-4 text-white" />
+                    <Sparkles className="w-4 h-4 text-gray-900 dark:text-white" />
                     <span>Solicitar Análise de Juros RaviCar AI</span>
                   </>
                 )}
               </button>
 
               {/* Form Disclaimer */}
-              <div className="p-3.5 bg-neutral-900/40 border border-neutral-900 rounded-xl flex items-start gap-2.5">
-                <Info className="w-4 h-4 text-gray-500 shrink-0 mt-0.5" />
-                <p className="text-[10px] text-gray-500 leading-normal">
+              <div className="p-3.5 bg-gray-100 dark:bg-neutral-900/40 border border-gray-200 dark:border-neutral-900 rounded-xl flex items-start gap-2.5">
+                <Info className="w-4 h-4 text-gray-500 dark:text-gray-400 shrink-0 mt-0.5" />
+                <p className="text-[10px] text-gray-500 dark:text-gray-400 leading-normal">
                   *A simulação é apenas uma estimativa e não representa uma aprovação de crédito.*
                 </p>
               </div>
@@ -907,29 +907,29 @@ Por favor, analisem meu cadastro no banco de preferência para confirmar a aprov
         {/* Right Column: Selected Vehicle Detail & LIVE MATHEMATICAL ESTIMATOR (INTERACTIVE & MIND-BLOWING) */}
         <div className="lg:col-span-5 space-y-6">
           {selectedVehicle ? (
-            <div className="bg-neutral-950 border border-neutral-900 rounded-3xl p-5 md:p-6 space-y-5 animate-fade-in relative overflow-hidden text-left">
+            <div className="bg-white dark:bg-neutral-950 border border-gray-200 dark:border-neutral-900 rounded-3xl p-5 md:p-6 space-y-5 animate-fade-in relative overflow-hidden text-left">
               <div className="absolute right-0 top-0 translate-y-[-20%] translate-x-[20%] w-32 h-32 rounded-full bg-[#FF2D8D]/5 blur-2xl"></div>
 
               <div>
-                <span className="text-[9px] px-2.5 py-0.5 rounded uppercase tracking-wider bg-neutral-900 text-gray-400 border border-neutral-800 font-black">
+                <span className="text-[9px] px-2.5 py-0.5 rounded uppercase tracking-wider bg-white dark:bg-neutral-900 text-gray-600 dark:text-gray-400 border border-gray-200 dark:border-neutral-800 font-black">
                   Carro Selecionado
                 </span>
-                <h3 className="font-display font-black text-white text-lg mt-2 leading-tight">
+                <h3 className="font-display font-black text-gray-900 dark:text-white text-lg mt-2 leading-tight">
                   {selectedVehicle.brand} {selectedVehicle.model}
                 </h3>
-                <p className="text-[10px] text-gray-500 mt-0.5">Showroom Oficial RaviCar Motors</p>
+                <p className="text-[10px] text-gray-500 dark:text-gray-400 mt-0.5">Showroom Oficial RaviCar Motors</p>
               </div>
 
               {/* Image Preview with overlay badge */}
               {selectedVehicle.media && selectedVehicle.media[0] && (
-                <div className="relative aspect-video w-full rounded-2xl overflow-hidden bg-black border border-neutral-900 group">
+                <div className="relative aspect-video w-full rounded-2xl overflow-hidden bg-white dark:bg-black border border-gray-200 dark:border-neutral-900 group">
                   <img 
                     src={selectedVehicle.media[0].url} 
                     alt={selectedVehicle.title}
                     referrerPolicy="no-referrer"
                     className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-105"
                   />
-                  <div className="absolute bottom-2.5 left-2.5 bg-black/80 backdrop-blur-md border border-neutral-800/80 px-2.5 py-1 rounded-xl">
+                  <div className="absolute bottom-2.5 left-2.5 bg-black/80 backdrop-blur-md border border-gray-200 dark:border-neutral-800/80 px-2.5 py-1 rounded-xl">
                     <span className="text-[10px] text-[#FF2D8D] font-mono font-black">
                       R$ {selectedVehicle.price.toLocaleString('pt-BR')}
                     </span>
@@ -938,27 +938,27 @@ Por favor, analisem meu cadastro no banco de preferência para confirmar a aprov
               )}
 
               {/* Fast Spec Icons Grid */}
-              <div className="grid grid-cols-3 gap-2 text-[10px] text-gray-400">
-                <div className="p-2 bg-black border border-neutral-900 rounded-xl flex flex-col justify-center text-center">
-                  <span className="text-[8px] text-gray-500 font-bold uppercase">Ano/Mod</span>
-                  <span className="text-white font-bold font-mono mt-0.5">{selectedVehicle.year}</span>
+              <div className="grid grid-cols-3 gap-2 text-[10px] text-gray-600 dark:text-gray-400">
+                <div className="p-2 bg-white dark:bg-black border border-gray-200 dark:border-neutral-900 rounded-xl flex flex-col justify-center text-center">
+                  <span className="text-[8px] text-gray-500 dark:text-gray-400 font-bold uppercase">Ano/Mod</span>
+                  <span className="text-gray-900 dark:text-white font-bold font-mono mt-0.5">{selectedVehicle.year}</span>
                 </div>
-                <div className="p-2 bg-black border border-neutral-900 rounded-xl flex flex-col justify-center text-center">
-                  <span className="text-[8px] text-gray-500 font-bold uppercase">Câmbio</span>
-                  <span className="text-white font-bold truncate mt-0.5">{selectedVehicle.transmission}</span>
+                <div className="p-2 bg-white dark:bg-black border border-gray-200 dark:border-neutral-900 rounded-xl flex flex-col justify-center text-center">
+                  <span className="text-[8px] text-gray-500 dark:text-gray-400 font-bold uppercase">Câmbio</span>
+                  <span className="text-gray-900 dark:text-white font-bold truncate mt-0.5">{selectedVehicle.transmission}</span>
                 </div>
-                <div className="p-2 bg-black border border-neutral-900 rounded-xl flex flex-col justify-center text-center">
-                  <span className="text-[8px] text-gray-500 font-bold uppercase">Km Rodados</span>
-                  <span className="text-white font-bold font-mono mt-0.5">{selectedVehicle.mileage.toLocaleString('pt-BR')} km</span>
+                <div className="p-2 bg-white dark:bg-black border border-gray-200 dark:border-neutral-900 rounded-xl flex flex-col justify-center text-center">
+                  <span className="text-[8px] text-gray-500 dark:text-gray-400 font-bold uppercase">Km Rodados</span>
+                  <span className="text-gray-900 dark:text-white font-bold font-mono mt-0.5">{selectedVehicle.mileage.toLocaleString('pt-BR')} km</span>
                 </div>
               </div>
 
               {/* Live Calculator Feedback Box */}
               {liveCalculation && (
-                <div className="p-4 bg-black border border-neutral-800 rounded-2xl space-y-4">
-                  <div className="flex items-center gap-1.5 pb-2 border-b border-neutral-900">
+                <div className="p-4 bg-white dark:bg-black border border-gray-200 dark:border-neutral-800 rounded-2xl space-y-4">
+                  <div className="flex items-center gap-1.5 pb-2 border-b border-gray-200 dark:border-neutral-900">
                     <TrendingUp className="w-4 h-4 text-[#FF2D8D] shrink-0" />
-                    <span className="text-[10px] uppercase font-black text-white tracking-wider">
+                    <span className="text-[10px] uppercase font-black text-gray-900 dark:text-white tracking-wider">
                       Simulador ao Vivo (Antes de Enviar)
                     </span>
                   </div>
@@ -971,22 +971,22 @@ Por favor, analisem meu cadastro no banco de preferência para confirmar a aprov
                   ) : (
                     <div className="space-y-3.5">
                       {/* Financial Balances Info */}
-                      <div className="grid grid-cols-2 gap-2 text-[10px] text-gray-400">
+                      <div className="grid grid-cols-2 gap-2 text-[10px] text-gray-600 dark:text-gray-400">
                         <div>
-                          Entrada: <strong className="text-white font-mono">R$ {liveCalculation.downPayment.toLocaleString('pt-BR')}</strong>
+                          Entrada: <strong className="text-gray-900 dark:text-white font-mono">R$ {liveCalculation.downPayment.toLocaleString('pt-BR')}</strong>
                         </div>
                         <div>
-                          Saldo a Financiar: <strong className="text-white font-mono">R$ {liveCalculation.balanceToFinance.toLocaleString('pt-BR')}</strong>
+                          Saldo a Financiar: <strong className="text-gray-900 dark:text-white font-mono">R$ {liveCalculation.balanceToFinance.toLocaleString('pt-BR')}</strong>
                         </div>
                       </div>
 
                       {/* Prime Installment Display */}
-                      <div className="text-center bg-neutral-950/40 p-3 rounded-xl border border-neutral-900">
-                        <span className="text-[9px] text-gray-500 font-bold uppercase block">Parcela Estimada no Banco</span>
+                      <div className="text-center bg-gray-100 dark:bg-neutral-950/40 p-3 rounded-xl border border-gray-200 dark:border-neutral-900">
+                        <span className="text-[9px] text-gray-500 dark:text-gray-400 font-bold uppercase block">Parcela Estimada no Banco</span>
                         <p className="font-display font-black text-2xl text-[#FF2D8D] font-mono leading-none mt-1">
-                          R$ {liveCalculation.estimatedPMT.toLocaleString('pt-BR')} <span className="text-[10px] font-sans font-medium text-gray-400">/mês</span>
+                          R$ {liveCalculation.estimatedPMT.toLocaleString('pt-BR')} <span className="text-[10px] font-sans font-medium text-gray-600 dark:text-gray-400">/mês</span>
                         </p>
-                        <span className="text-[8px] text-gray-500 font-medium block mt-1.5">
+                        <span className="text-[8px] text-gray-500 dark:text-gray-400 font-medium block mt-1.5">
                           Calculado em {liveCalculation.term} com taxa estimada de {liveCalculation.rate}% a.m.
                         </span>
                       </div>
@@ -996,17 +996,17 @@ Por favor, analisem meu cadastro no banco de preferência para confirmar a aprov
               )}
 
               {/* Fast Assurance badge */}
-              <div className="p-3 bg-[#111111] rounded-xl border border-neutral-900 flex items-center gap-2.5 text-left">
+              <div className="p-3 bg-[#111111] rounded-xl border border-gray-200 dark:border-neutral-900 flex items-center gap-2.5 text-left">
                 <ShieldCheck className="w-4 h-4 text-[#FF2D8D] shrink-0" />
-                <span className="text-[9px] text-gray-400 leading-normal">
+                <span className="text-[9px] text-gray-600 dark:text-gray-400 leading-normal">
                   Suas informações estão criptografadas e protegidas segundo a LGPD. Sem consultas abusivas.
                 </span>
               </div>
 
               {/* Estimative simulation disclaimer */}
-              <div className="p-3 bg-neutral-950 border border-neutral-900/60 rounded-xl flex items-start gap-2.5 text-left">
-                <Info className="w-4 h-4 text-gray-500 shrink-0 mt-0.5" />
-                <span className="text-[9px] text-gray-500 font-medium leading-relaxed">
+              <div className="p-3 bg-white dark:bg-neutral-950 border border-gray-200 dark:border-neutral-900/60 rounded-xl flex items-start gap-2.5 text-left">
+                <Info className="w-4 h-4 text-gray-500 dark:text-gray-400 shrink-0 mt-0.5" />
+                <span className="text-[9px] text-gray-500 dark:text-gray-400 font-medium leading-relaxed">
                   *A simulação é apenas uma estimativa e não representa uma aprovação de crédito.*
                 </span>
               </div>
@@ -1014,13 +1014,13 @@ Por favor, analisem meu cadastro no banco de preferência para confirmar a aprov
             </div>
           ) : (
             // Empty Dream State Selection Placeholder
-            <div className="bg-neutral-950 border border-neutral-900 border-dashed rounded-3xl p-8 text-center h-full flex flex-col items-center justify-center space-y-4 py-16 text-left">
-              <div className="w-14 h-14 rounded-2xl bg-black border border-neutral-900 flex items-center justify-center text-gray-600">
-                <Landmark className="w-7 h-7 text-gray-500" />
+            <div className="bg-white dark:bg-neutral-950 border border-gray-200 dark:border-neutral-900 border-dashed rounded-3xl p-8 text-center h-full flex flex-col items-center justify-center space-y-4 py-16 text-left">
+              <div className="w-14 h-14 rounded-2xl bg-white dark:bg-black border border-gray-200 dark:border-neutral-900 flex items-center justify-center text-gray-600">
+                <Landmark className="w-7 h-7 text-gray-500 dark:text-gray-400" />
               </div>
               <div className="space-y-1 max-w-sm text-center">
-                <h3 className="font-display font-bold text-white text-xs uppercase tracking-wider">Aguardando Seleção de Veículo</h3>
-                <p className="text-[11px] text-gray-500 leading-relaxed">
+                <h3 className="font-display font-bold text-gray-900 dark:text-white text-xs uppercase tracking-wider">Aguardando Seleção de Veículo</h3>
+                <p className="text-[11px] text-gray-500 dark:text-gray-400 leading-relaxed">
                   Selecione um carro no formulário ao lado para carregar a ficha técnica completa e ver a projeção matemática de parcelas atualizada em tempo real!
                 </p>
               </div>

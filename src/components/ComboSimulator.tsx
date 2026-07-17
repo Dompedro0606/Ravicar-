@@ -239,23 +239,23 @@ export default function ComboSimulator({ vehicles, settings, currentUser, onNavi
   return (
     <div className="max-w-7xl mx-auto px-4 py-8 space-y-12 text-left">
       {/* Page Header */}
-      <div className="flex flex-col md:flex-row md:items-center justify-between gap-4 border-b border-neutral-900 pb-6">
+      <div className="flex flex-col md:flex-row md:items-center justify-between gap-4 border-b border-gray-200 dark:border-neutral-900 pb-6">
         <div>
           <div className="flex items-center gap-2 text-xs font-black uppercase tracking-widest text-[#FF2D8D]">
             <Sparkles className="w-4 h-4" />
             Exclusivo RaviCar Motors
           </div>
-          <h1 className="font-display font-black text-2xl md:text-4xl text-white tracking-tight mt-1">
+          <h1 className="font-display font-black text-2xl md:text-4xl text-gray-900 dark:text-white tracking-tight mt-1">
             Simulador Combo: <span className="text-[#FF2D8D]">Troca + Financiamento</span>
           </h1>
-          <p className="text-xs text-gray-500 mt-1">
+          <p className="text-xs text-gray-500 dark:text-gray-400 mt-1">
             A ferramenta definitiva e inédita no mercado de seminovos. Simule sua troca e o financiamento da diferença ao mesmo tempo!
           </p>
         </div>
 
         <button 
           onClick={() => setShowExplanation(!showExplanation)}
-          className="px-4 py-2 rounded-lg border border-neutral-800 hover:border-[#FF2D8D] bg-neutral-950 text-xs font-bold text-gray-400 hover:text-[#FF2D8D] transition duration-200 flex items-center gap-1.5 cursor-pointer"
+          className="px-4 py-2 rounded-lg border border-gray-200 dark:border-neutral-800 hover:border-[#FF2D8D] bg-gray-50 dark:bg-neutral-950 text-xs font-bold text-gray-600 dark:text-gray-400 hover:text-[#FF2D8D] transition duration-200 flex items-center gap-1.5 cursor-pointer"
         >
           <Info className="w-4 h-4 text-[#FF2D8D]" />
           Como funciona?
@@ -264,21 +264,21 @@ export default function ComboSimulator({ vehicles, settings, currentUser, onNavi
 
       {/* Explanation Banner */}
       {showExplanation && (
-        <div className="p-6 bg-neutral-950 border border-neutral-800 rounded-2xl grid grid-cols-1 md:grid-cols-3 gap-6 animate-fade-in">
+        <div className="p-6 bg-gray-50 dark:bg-neutral-950 border border-gray-200 dark:border-neutral-800 rounded-2xl grid grid-cols-1 md:grid-cols-3 gap-6 animate-fade-in">
           <div className="space-y-2">
             <div className="w-10 h-10 rounded-xl bg-[#FF2D8D]/10 text-[#FF2D8D] flex items-center justify-center font-black font-display">1</div>
-            <h4 className="font-display font-bold text-white text-xs uppercase tracking-wider">Escolha seu Interesse</h4>
-            <p className="text-[11px] text-gray-400 leading-relaxed">Selecione qualquer veículo do nosso catálogo atualizado que deseja adquirir.</p>
+            <h4 className="font-display font-bold text-gray-900 dark:text-white text-xs uppercase tracking-wider">Escolha seu Interesse</h4>
+            <p className="text-[11px] text-gray-600 dark:text-gray-400 leading-relaxed">Selecione qualquer veículo do nosso catálogo atualizado que deseja adquirir.</p>
           </div>
           <div className="space-y-2">
             <div className="w-10 h-10 rounded-xl bg-[#FF2D8D]/10 text-[#FF2D8D] flex items-center justify-center font-black font-display">2</div>
-            <h4 className="font-display font-bold text-white text-xs uppercase tracking-wider">Insira seu Carro Atual</h4>
-            <p className="text-[11px] text-gray-400 leading-relaxed">Coloque a marca, modelo, ano e quilometragem do seu seminovo para estimativa de mercado.</p>
+            <h4 className="font-display font-bold text-gray-900 dark:text-white text-xs uppercase tracking-wider">Insira seu Carro Atual</h4>
+            <p className="text-[11px] text-gray-600 dark:text-gray-400 leading-relaxed">Coloque a marca, modelo, ano e quilometragem do seu seminovo para estimativa de mercado.</p>
           </div>
           <div className="space-y-2">
             <div className="w-10 h-10 rounded-xl bg-[#FF2D8D]/10 text-[#FF2D8D] flex items-center justify-center font-black font-display">3</div>
-            <h4 className="font-display font-bold text-white text-xs uppercase tracking-wider">Análise de Balanço IA</h4>
-            <p className="text-[11px] text-gray-400 leading-relaxed">Nossa calculadora calcula o saldo devedor e te dá as parcelas prontas, ou o seu PIX de troco!</p>
+            <h4 className="font-display font-bold text-gray-900 dark:text-white text-xs uppercase tracking-wider">Análise de Balanço IA</h4>
+            <p className="text-[11px] text-gray-600 dark:text-gray-400 leading-relaxed">Nossa calculadora calcula o saldo devedor e te dá as parcelas prontas, ou o seu PIX de troco!</p>
           </div>
         </div>
       )}
@@ -286,12 +286,12 @@ export default function ComboSimulator({ vehicles, settings, currentUser, onNavi
       {/* Main Grid Layout */}
       <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 items-start">
         {/* Form Panel */}
-        <div className="lg:col-span-7 bg-neutral-950 border border-neutral-900 rounded-3xl p-6 md:p-8 space-y-6">
+        <div className="lg:col-span-7 bg-gray-50 dark:bg-neutral-950 border border-gray-200 dark:border-neutral-900 rounded-3xl p-6 md:p-8 space-y-6">
           <form onSubmit={handleCalculate} className="space-y-6">
             
             {/* Step 1: Select Desired Vehicle */}
             <div className="space-y-3">
-              <label className="text-xs font-black text-gray-300 uppercase tracking-wider flex items-center gap-1.5">
+              <label className="text-xs font-black text-gray-600 dark:text-gray-300 uppercase tracking-wider flex items-center gap-1.5">
                 <Car className="w-4 h-4 text-[#FF2D8D]" />
                 1. Qual carro do nosso estoque você quer?
               </label>
@@ -300,7 +300,7 @@ export default function ComboSimulator({ vehicles, settings, currentUser, onNavi
                 <button
                   type="button"
                   onClick={() => setIsDropdownOpen(!isDropdownOpen)}
-                  className="w-full bg-black border border-neutral-800 hover:border-neutral-700 focus:border-[#FF2D8D] rounded-xl px-4 py-3 text-white text-left transition duration-200 font-sans text-xs flex items-center justify-between cursor-pointer focus:outline-none"
+                  className="w-full bg-white dark:bg-black border border-gray-300 dark:border-gray-200 dark:border-neutral-800 hover:border-gray-400 dark:hover:border-gray-200 dark:border-neutral-700 focus:border-[#FF2D8D] rounded-xl px-4 py-3 text-gray-900 dark:text-white text-left transition duration-200 font-sans text-xs flex items-center justify-between cursor-pointer focus:outline-none"
                 >
                   {selectedDesiredVehicle ? (
                     <div className="flex items-center gap-3">
@@ -308,11 +308,11 @@ export default function ComboSimulator({ vehicles, settings, currentUser, onNavi
                         <img 
                           src={selectedDesiredVehicle.media[0].url} 
                           alt="" 
-                          className="w-8 h-8 rounded-lg object-cover bg-neutral-900 shrink-0 border border-neutral-800"
+                          className="w-8 h-8 rounded-lg object-cover bg-gray-100 dark:bg-neutral-900 shrink-0 border border-gray-200 dark:border-neutral-800"
                         />
                       )}
                       <div>
-                        <span className="font-extrabold text-white block">
+                        <span className="font-extrabold text-gray-900 dark:text-white block">
                           {selectedDesiredVehicle.brand} {selectedDesiredVehicle.model} ({selectedDesiredVehicle.year})
                         </span>
                         <span className="text-[10px] text-[#FF2D8D] font-mono font-bold">
@@ -321,9 +321,9 @@ export default function ComboSimulator({ vehicles, settings, currentUser, onNavi
                       </div>
                     </div>
                   ) : (
-                    <span className="text-gray-500 font-medium">Selecione um carro do showroom...</span>
+                    <span className="text-gray-500 dark:text-gray-400 font-medium">Selecione um carro do showroom...</span>
                   )}
-                  <ChevronDown className={`w-4 h-4 text-gray-500 transition-transform duration-200 ${isDropdownOpen ? 'rotate-180' : ''}`} />
+                  <ChevronDown className={`w-4 h-4 text-gray-500 dark:text-gray-400 transition-transform duration-200 ${isDropdownOpen ? 'rotate-180' : ''}`} />
                 </button>
 
                 {/* Floating custom option list */}
@@ -338,16 +338,16 @@ export default function ComboSimulator({ vehicles, settings, currentUser, onNavi
                       }}
                     />
                     
-                    <div className="absolute left-0 right-0 z-50 mt-2 bg-neutral-950 border border-neutral-800 rounded-2xl shadow-2xl overflow-hidden animate-fade-in max-h-80 flex flex-col">
+                    <div className="absolute left-0 right-0 z-50 mt-2 bg-gray-50 dark:bg-neutral-950 border border-gray-200 dark:border-neutral-800 rounded-2xl shadow-2xl overflow-hidden animate-fade-in max-h-80 flex flex-col">
                       {/* Search box inside dropdown */}
-                      <div className="p-3 border-b border-neutral-900 bg-neutral-950 flex items-center gap-2">
-                        <Search className="w-4 h-4 text-gray-500 shrink-0" />
+                      <div className="p-3 border-b border-gray-200 dark:border-neutral-900 bg-gray-50 dark:bg-neutral-950 flex items-center gap-2">
+                        <Search className="w-4 h-4 text-gray-500 dark:text-gray-400 shrink-0" />
                         <input
                           type="text"
                           placeholder="Digite marca, modelo ou ano..."
                           value={searchTerm}
                           onChange={(e) => setSearchTerm(e.target.value)}
-                          className="w-full bg-transparent text-white outline-none placeholder-gray-600 text-xs py-1"
+                          className="w-full bg-transparent text-gray-900 dark:text-white outline-none placeholder-gray-600 text-xs py-1"
                           onClick={(e) => e.stopPropagation()} // Prevent closing dropdown on input click
                         />
                       </div>
@@ -382,14 +382,14 @@ export default function ComboSimulator({ vehicles, settings, currentUser, onNavi
                                       src={v.media[0].url} 
                                       alt="" 
                                       referrerPolicy="no-referrer"
-                                      className="w-10 h-10 rounded-xl object-cover bg-neutral-900 shrink-0 border border-neutral-900"
+                                      className="w-10 h-10 rounded-xl object-cover bg-gray-100 dark:bg-neutral-900 shrink-0 border border-gray-200 dark:border-neutral-900"
                                     />
                                   )}
                                   <div className="min-w-0">
-                                    <h4 className="font-bold text-white text-xs truncate">
+                                    <h4 className="font-bold text-gray-900 dark:text-white text-xs truncate">
                                       {v.brand} {v.model}
                                     </h4>
-                                    <span className="text-[10px] text-gray-400 block mt-0.5">
+                                    <span className="text-[10px] text-gray-600 dark:text-gray-400 block mt-0.5">
                                       Ano: {v.year} • {v.transmission}
                                     </span>
                                   </div>
@@ -417,7 +417,7 @@ export default function ComboSimulator({ vehicles, settings, currentUser, onNavi
                             v.year.toString().includes(term)
                           );
                         }).length === 0 && (
-                          <div className="p-4 text-center text-xs text-gray-500">
+                          <div className="p-4 text-center text-xs text-gray-500 dark:text-gray-400">
                             Nenhum carro encontrado para "{searchTerm}"
                           </div>
                         )}
@@ -429,74 +429,74 @@ export default function ComboSimulator({ vehicles, settings, currentUser, onNavi
             </div>
 
             {/* Step 2: Current Used Car details */}
-            <div className="space-y-4 pt-4 border-t border-neutral-900">
-              <label className="text-xs font-black text-gray-300 uppercase tracking-wider flex items-center gap-1.5">
+            <div className="space-y-4 pt-4 border-t border-gray-200 dark:border-neutral-900">
+              <label className="text-xs font-black text-gray-600 dark:text-gray-300 uppercase tracking-wider flex items-center gap-1.5">
                 <ArrowRightLeft className="w-4 h-4 text-[#FF2D8D]" />
                 2. Detalhes do seu carro atual (seminovo para troca)
               </label>
 
               <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
                 <div className="space-y-1.5">
-                  <span className="text-[10px] text-gray-400 font-bold uppercase">Marca</span>
+                  <span className="text-[10px] text-gray-600 dark:text-gray-400 font-bold uppercase">Marca</span>
                   <input
                     type="text"
                     required
                     placeholder="Ex: Toyota, Volkswagen"
                     value={usedBrand}
                     onChange={(e) => setUsedBrand(e.target.value)}
-                    className="w-full bg-black border border-neutral-800 rounded-xl px-4 py-2.5 text-xs text-white focus:border-[#FF2D8D] focus:outline-none"
+                    className="w-full bg-white dark:bg-black border border-gray-300 dark:border-gray-200 dark:border-neutral-800 rounded-xl px-4 py-2.5 text-xs text-gray-900 dark:text-white focus:border-[#FF2D8D] focus:outline-none"
                   />
                 </div>
                 <div className="space-y-1.5">
-                  <span className="text-[10px] text-gray-400 font-bold uppercase">Modelo</span>
+                  <span className="text-[10px] text-gray-600 dark:text-gray-400 font-bold uppercase">Modelo</span>
                   <input
                     type="text"
                     required
                     placeholder="Ex: Corolla XEI, Gol 1.6"
                     value={usedModel}
                     onChange={(e) => setUsedModel(e.target.value)}
-                    className="w-full bg-black border border-neutral-800 rounded-xl px-4 py-2.5 text-xs text-white focus:border-[#FF2D8D] focus:outline-none"
+                    className="w-full bg-white dark:bg-black border border-gray-300 dark:border-gray-200 dark:border-neutral-800 rounded-xl px-4 py-2.5 text-xs text-gray-900 dark:text-white focus:border-[#FF2D8D] focus:outline-none"
                   />
                 </div>
               </div>
 
               <div className="grid grid-cols-1 sm:grid-cols-3 gap-4">
                 <div className="space-y-1.5">
-                  <span className="text-[10px] text-gray-400 font-bold uppercase">Ano de Fabricação</span>
+                  <span className="text-[10px] text-gray-600 dark:text-gray-400 font-bold uppercase">Ano de Fabricação</span>
                   <input
                     type="number"
                     required
                     placeholder="Ex: 2019"
                     value={usedYear}
                     onChange={(e) => setUsedYear(e.target.value)}
-                    className="w-full bg-black border border-neutral-800 rounded-xl px-4 py-2.5 text-xs text-white focus:border-[#FF2D8D] focus:outline-none"
+                    className="w-full bg-white dark:bg-black border border-gray-300 dark:border-gray-200 dark:border-neutral-800 rounded-xl px-4 py-2.5 text-xs text-gray-900 dark:text-white focus:border-[#FF2D8D] focus:outline-none"
                   />
                 </div>
                 <div className="space-y-1.5">
-                  <span className="text-[10px] text-gray-400 font-bold uppercase">Quilometragem (KM)</span>
+                  <span className="text-[10px] text-gray-600 dark:text-gray-400 font-bold uppercase">Quilometragem (KM)</span>
                   <input
                     type="number"
                     required
                     placeholder="Ex: 68000"
                     value={usedKm}
                     onChange={(e) => setUsedKm(e.target.value)}
-                    className="w-full bg-black border border-neutral-800 rounded-xl px-4 py-2.5 text-xs text-white focus:border-[#FF2D8D] focus:outline-none"
+                    className="w-full bg-white dark:bg-black border border-gray-300 dark:border-gray-200 dark:border-neutral-800 rounded-xl px-4 py-2.5 text-xs text-gray-900 dark:text-white focus:border-[#FF2D8D] focus:outline-none"
                   />
                 </div>
                 <div className="space-y-1.5">
-                  <span className="text-[10px] text-gray-400 font-bold uppercase">Cor do Veículo</span>
+                  <span className="text-[10px] text-gray-600 dark:text-gray-400 font-bold uppercase">Cor do Veículo</span>
                   <input
                     type="text"
                     placeholder="Ex: Prata, Preto"
                     value={usedColor}
                     onChange={(e) => setUsedColor(e.target.value)}
-                    className="w-full bg-black border border-neutral-800 rounded-xl px-4 py-2.5 text-xs text-white focus:border-[#FF2D8D] focus:outline-none"
+                    className="w-full bg-white dark:bg-black border border-gray-300 dark:border-gray-200 dark:border-neutral-800 rounded-xl px-4 py-2.5 text-xs text-gray-900 dark:text-white focus:border-[#FF2D8D] focus:outline-none"
                   />
                 </div>
               </div>
 
               <div className="space-y-2">
-                <span className="text-[10px] text-gray-400 font-bold uppercase block">Estado Geral de Conservação</span>
+                <span className="text-[10px] text-gray-600 dark:text-gray-400 font-bold uppercase block">Estado Geral de Conservação</span>
                 <div className="grid grid-cols-3 gap-3">
                   {[
                     { value: 'excelente', label: 'Excelente (Sem retoques)' },
@@ -510,7 +510,7 @@ export default function ComboSimulator({ vehicles, settings, currentUser, onNavi
                       className={`py-2 px-3 text-[10px] font-bold rounded-xl border transition cursor-pointer ${
                         usedState === opt.value
                           ? 'bg-[#FF2D8D]/10 text-[#FF2D8D] border-[#FF2D8D]'
-                          : 'bg-black border-neutral-800 text-gray-400 hover:text-white hover:border-neutral-700'
+                          : 'bg-white dark:bg-black border-gray-300 dark:border-gray-200 dark:border-neutral-800 text-gray-600 dark:text-gray-400 hover:text-gray-900 dark:hover:text-gray-900 dark:text-white hover:border-gray-400 dark:hover:border-gray-200 dark:border-neutral-700'
                       }`}
                     >
                       {opt.label}
@@ -520,77 +520,77 @@ export default function ComboSimulator({ vehicles, settings, currentUser, onNavi
               </div>
 
               <div className="space-y-1.5">
-                <span className="text-[10px] text-gray-400 font-bold uppercase">Observações, Opcionais ou Histórico de Revisões</span>
+                <span className="text-[10px] text-gray-600 dark:text-gray-400 font-bold uppercase">Observações, Opcionais ou Histórico de Revisões</span>
                 <textarea
                   placeholder="Ex: Único dono, teto solar, revisões feitas na concessionária..."
                   value={usedNotes}
                   onChange={(e) => setUsedNotes(e.target.value)}
-                  className="w-full bg-black border border-neutral-800 rounded-xl px-4 py-2.5 text-xs text-white h-20 focus:border-[#FF2D8D] focus:outline-none resize-none"
+                  className="w-full bg-white dark:bg-black border border-gray-300 dark:border-gray-200 dark:border-neutral-800 rounded-xl px-4 py-2.5 text-xs text-gray-900 dark:text-white h-20 focus:border-[#FF2D8D] focus:outline-none resize-none"
                 />
               </div>
             </div>
 
             {/* Step 3: Contact details */}
-            <div className="space-y-4 pt-4 border-t border-neutral-900">
-              <label className="text-xs font-black text-gray-300 uppercase tracking-wider flex items-center gap-1.5">
+            <div className="space-y-4 pt-4 border-t border-gray-200 dark:border-neutral-900">
+              <label className="text-xs font-black text-gray-600 dark:text-gray-300 uppercase tracking-wider flex items-center gap-1.5">
                 <Coins className="w-4 h-4 text-[#FF2D8D]" />
                 3. Seus Dados de Contato
               </label>
 
               <div className="grid grid-cols-1 sm:grid-cols-3 gap-4">
                 <div className="space-y-1.5">
-                  <span className="text-[10px] text-gray-400 font-bold uppercase">Seu Nome Completo</span>
+                  <span className="text-[10px] text-gray-600 dark:text-gray-400 font-bold uppercase">Seu Nome Completo</span>
                   <input
                     type="text"
                     required
                     placeholder="Nome"
                     value={clientName}
                     onChange={(e) => setClientName(e.target.value)}
-                    className="w-full bg-black border border-neutral-800 rounded-xl px-4 py-2.5 text-xs text-white focus:border-[#FF2D8D] focus:outline-none"
+                    className="w-full bg-white dark:bg-black border border-gray-300 dark:border-gray-200 dark:border-neutral-800 rounded-xl px-4 py-2.5 text-xs text-gray-900 dark:text-white focus:border-[#FF2D8D] focus:outline-none"
                   />
                 </div>
                 <div className="space-y-1.5">
-                  <span className="text-[10px] text-gray-400 font-bold uppercase">Seu Celular / WhatsApp</span>
+                  <span className="text-[10px] text-gray-600 dark:text-gray-400 font-bold uppercase">Seu Celular / WhatsApp</span>
                   <input
                     type="tel"
                     required
                     placeholder="(11) 99999-9999"
                     value={clientPhone}
                     onChange={(e) => setClientPhone(e.target.value)}
-                    className="w-full bg-black border border-neutral-800 rounded-xl px-4 py-2.5 text-xs text-white focus:border-[#FF2D8D] focus:outline-none"
+                    className="w-full bg-white dark:bg-black border border-gray-300 dark:border-gray-200 dark:border-neutral-800 rounded-xl px-4 py-2.5 text-xs text-gray-900 dark:text-white focus:border-[#FF2D8D] focus:outline-none"
                   />
                 </div>
                 <div className="space-y-1.5">
-                  <span className="text-[10px] text-gray-400 font-bold uppercase">Banco de Preferência</span>
+                  <span className="text-[10px] text-gray-600 dark:text-gray-400 font-bold uppercase">Banco de Preferência</span>
                   <div className="relative">
                     {/* Custom dropdown trigger button */}
                     <button
                       type="button"
                       onClick={() => setIsBankSelectOpen(!isBankSelectOpen)}
-                      className="w-full bg-black border border-neutral-800 hover:border-neutral-700 focus:border-[#FF2D8D] rounded-xl px-4 py-2 text-white text-left transition duration-200 font-sans text-xs flex items-center justify-between cursor-pointer focus:ring-1 focus:ring-[#FF2D8D]/40 min-h-[46px]"
+                      className="w-full bg-white dark:bg-black border border-gray-300 dark:border-gray-200 dark:border-neutral-800 hover:border-gray-400 dark:hover:border-gray-200 dark:border-neutral-700 focus:border-[#FF2D8D] rounded-xl px-4 py-2 text-gray-900 dark:text-white text-left transition duration-200 font-sans text-xs flex items-center justify-between cursor-pointer focus:ring-1 focus:ring-[#FF2D8D]/40 min-h-[46px]"
                     >
                       {(() => {
                         const currentBank = BANKS.find(b => b.id === (selectedBank || 'Santander')) || BANKS[0];
                         return (
                           <div className="flex items-center gap-2.5 min-w-0">
                             <div 
-                              className="w-5 h-5 rounded-full flex items-center justify-center text-[9px] font-black text-white shrink-0 shadow-inner"
+                              className="w-5 h-5 rounded-full flex items-center justify-center text-[9px] font-black text-gray-900 dark:text-white shrink-0 shadow-inner"
                               style={{ backgroundColor: currentBank.color }}
                             >
                               {currentBank.logo}
                             </div>
                             <div className="min-w-0">
-                              <span className="font-extrabold text-white block leading-tight truncate">
+                              <span className="font-extrabold text-gray-900 dark:text-white block leading-tight truncate">
                                 {currentBank.name}
                               </span>
-                              <span className="text-[8px] text-gray-500 block leading-tight truncate">
+                              <span className="text-[8px] text-gray-500 dark:text-gray-400 block leading-tight truncate">
                                 {currentBank.desc}
                               </span>
                             </div>
                           </div>
                         );
                       })()}
-                      <ChevronDown className={`w-4 h-4 text-gray-500 shrink-0 transition-transform duration-200 ${isBankSelectOpen ? 'rotate-180' : ''}`} />
+                      <ChevronDown className={`w-4 h-4 text-gray-500 dark:text-gray-400 shrink-0 transition-transform duration-200 ${isBankSelectOpen ? 'rotate-180' : ''}`} />
                     </button>
 
                     {/* Custom options float list */}
@@ -602,7 +602,7 @@ export default function ComboSimulator({ vehicles, settings, currentUser, onNavi
                           onClick={() => setIsBankSelectOpen(false)}
                         />
                         
-                        <div className="absolute left-0 right-0 bottom-full md:bottom-auto md:top-full z-50 mb-2 md:mb-0 md:mt-2 bg-neutral-950 border border-neutral-800 rounded-2xl shadow-2xl overflow-hidden animate-fade-in max-h-64 flex flex-col">
+                        <div className="absolute left-0 right-0 bottom-full md:bottom-auto md:top-full z-50 mb-2 md:mb-0 md:mt-2 bg-gray-50 dark:bg-neutral-950 border border-gray-200 dark:border-neutral-800 rounded-2xl shadow-2xl overflow-hidden animate-fade-in max-h-64 flex flex-col">
                           {/* Scrollable Items */}
                           <div className="overflow-y-auto max-h-64 p-1.5 space-y-1 divide-y divide-neutral-900/40">
                             {BANKS.map(b => {
@@ -617,22 +617,22 @@ export default function ComboSimulator({ vehicles, settings, currentUser, onNavi
                                   }}
                                   className={`w-full p-2.5 flex items-center justify-between text-left rounded-xl transition duration-150 cursor-pointer ${
                                     isSelected 
-                                      ? 'bg-[#FF2D8D]/5 border border-[#FF2D8D]/30 text-white' 
-                                      : 'hover:bg-neutral-900 border border-transparent text-gray-400 hover:text-white'
+                                      ? 'bg-[#FF2D8D]/5 border border-[#FF2D8D]/30 text-gray-900 dark:text-white' 
+                                      : 'hover:bg-gray-100 dark:bg-neutral-900 border border-transparent text-gray-600 dark:text-gray-400 hover:text-gray-900 dark:hover:text-gray-900 dark:text-white'
                                   }`}
                                 >
                                   <div className="flex items-center gap-2.5 min-w-0">
                                     <div 
-                                      className="w-7 h-7 rounded-full flex items-center justify-center text-[10px] font-black text-white shrink-0 shadow-md"
+                                      className="w-7 h-7 rounded-full flex items-center justify-center text-[10px] font-black text-gray-900 dark:text-white shrink-0 shadow-md"
                                       style={{ backgroundColor: b.color }}
                                     >
                                       {b.logo}
                                     </div>
                                     <div className="min-w-0">
-                                      <h4 className="font-bold text-xs text-white leading-tight">
+                                      <h4 className="font-bold text-xs text-gray-900 dark:text-white leading-tight">
                                         {b.name}
                                       </h4>
-                                      <span className="text-[9px] text-gray-500 block truncate leading-tight mt-0.5">
+                                      <span className="text-[9px] text-gray-500 dark:text-gray-400 block truncate leading-tight mt-0.5">
                                         {b.desc}
                                       </span>
                                     </div>
@@ -640,7 +640,7 @@ export default function ComboSimulator({ vehicles, settings, currentUser, onNavi
                                   <div className="shrink-0 pl-2">
                                     {isSelected ? (
                                       <div className="w-4 h-4 rounded-full bg-[#FF2D8D] flex items-center justify-center">
-                                        <Check className="w-2.5 h-2.5 text-white stroke-[3px]" />
+                                        <Check className="w-2.5 h-2.5 text-gray-900 dark:text-white stroke-[3px]" />
                                       </div>
                                     ) : (
                                       <div className="w-4 h-4 rounded-full border border-neutral-850" />
@@ -662,7 +662,7 @@ export default function ComboSimulator({ vehicles, settings, currentUser, onNavi
             <button
               type="submit"
               disabled={loading}
-              className="w-full py-4 rounded-xl bg-gradient-to-r from-[#FF2D8D] to-[#FF6FB5] hover:opacity-95 text-xs font-black uppercase tracking-wider text-white shadow-lg transition duration-200 flex items-center justify-center gap-2 cursor-pointer disabled:opacity-50"
+              className="w-full py-4 rounded-xl bg-gradient-to-r from-[#FF2D8D] to-[#FF6FB5] hover:opacity-95 text-xs font-black uppercase tracking-wider text-gray-900 dark:text-white shadow-lg transition duration-200 flex items-center justify-center gap-2 cursor-pointer disabled:opacity-50"
             >
               {loading ? (
                 <>
@@ -678,9 +678,9 @@ export default function ComboSimulator({ vehicles, settings, currentUser, onNavi
             </button>
 
             {/* Disclaimer */}
-            <div className="p-3 bg-neutral-900/40 border border-neutral-900 rounded-xl flex items-start gap-2.5">
-              <Info className="w-4 h-4 text-gray-500 shrink-0 mt-0.5" />
-              <p className="text-[10px] text-gray-500 leading-normal">
+            <div className="p-3 bg-gray-100 dark:bg-neutral-900/40 border border-gray-200 dark:border-neutral-900 rounded-xl flex items-start gap-2.5">
+              <Info className="w-4 h-4 text-gray-500 dark:text-gray-400 shrink-0 mt-0.5" />
+              <p className="text-[10px] text-gray-500 dark:text-gray-400 leading-normal">
                 *A simulação é apenas uma estimativa e não representa uma aprovação de crédito.*
               </p>
             </div>
@@ -690,50 +690,50 @@ export default function ComboSimulator({ vehicles, settings, currentUser, onNavi
         {/* Results Sidebar */}
         <div className="lg:col-span-5 space-y-6">
           {simulationResult ? (
-            <div className="bg-neutral-950 border border-neutral-800 rounded-3xl p-6 md:p-8 space-y-6 text-left animate-fade-in relative overflow-hidden">
+            <div className="bg-gray-50 dark:bg-neutral-950 border border-gray-200 dark:border-neutral-800 rounded-3xl p-6 md:p-8 space-y-6 text-left animate-fade-in relative overflow-hidden">
               <div className="absolute right-0 top-0 translate-y-[-20%] translate-x-[20%] w-32 h-32 rounded-full bg-[#FF2D8D]/5 blur-2xl"></div>
 
               <div>
                 <span className="text-[10px] px-2 py-0.5 rounded uppercase tracking-wider bg-[#FF2D8D]/10 text-[#FF6FB5] border border-[#FF2D8D]/20 font-black">
                   Análise Finalizada RaviCar AI
                 </span>
-                <h3 className="font-display font-black text-white text-xl mt-3">Resultado do Balanceamento</h3>
-                <p className="text-[10px] text-gray-500 mt-0.5">Estudo preliminar de crédito e permuta de ativos.</p>
+                <h3 className="font-display font-black text-gray-900 dark:text-white text-xl mt-3">Resultado do Balanceamento</h3>
+                <p className="text-[10px] text-gray-500 dark:text-gray-400 mt-0.5">Estudo preliminar de crédito e permuta de ativos.</p>
               </div>
 
               {/* Vehicle Comparison Cards */}
               <div className="grid grid-cols-2 gap-3">
-                <div className="p-3 bg-black border border-neutral-900 rounded-xl space-y-1 text-center">
-                  <span className="text-[9px] text-gray-500 font-bold uppercase">Carro que Quero</span>
-                  <p className="text-xs text-white font-black truncate">{selectedDesiredVehicle?.brand} {selectedDesiredVehicle?.model}</p>
+                <div className="p-3 bg-white dark:bg-black border border-gray-300 dark:border-gray-200 dark:border-neutral-900 rounded-xl space-y-1 text-center">
+                  <span className="text-[9px] text-gray-500 dark:text-gray-400 font-bold uppercase">Carro que Quero</span>
+                  <p className="text-xs text-gray-900 dark:text-white font-black truncate">{selectedDesiredVehicle?.brand} {selectedDesiredVehicle?.model}</p>
                   <p className="text-xs text-[#FF2D8D] font-extrabold font-mono">R$ {simulationResult.desiredVehiclePrice.toLocaleString('pt-BR')}</p>
                 </div>
 
-                <div className="p-3 bg-black border border-neutral-900 rounded-xl space-y-1 text-center">
-                  <span className="text-[9px] text-gray-500 font-bold uppercase">Seu Carro de Entrada</span>
-                  <p className="text-xs text-white font-black truncate">{usedBrand} {usedModel}</p>
+                <div className="p-3 bg-white dark:bg-black border border-gray-300 dark:border-gray-200 dark:border-neutral-900 rounded-xl space-y-1 text-center">
+                  <span className="text-[9px] text-gray-500 dark:text-gray-400 font-bold uppercase">Seu Carro de Entrada</span>
+                  <p className="text-xs text-gray-900 dark:text-white font-black truncate">{usedBrand} {usedModel}</p>
                   <p className="text-xs text-emerald-400 font-extrabold font-mono">R$ {simulationResult.tradeEvaluationOffer.toLocaleString('pt-BR')}</p>
                 </div>
               </div>
 
               {/* Main Balance Display */}
-              <div className="p-5 bg-black border border-neutral-800 rounded-2xl space-y-2 text-center relative overflow-hidden">
+              <div className="p-5 bg-white dark:bg-black border border-gray-300 dark:border-gray-200 dark:border-neutral-800 rounded-2xl space-y-2 text-center relative overflow-hidden">
                 {simulationResult.isTrocaComTroco ? (
                   <>
                     <div className="absolute right-3 top-3 px-2 py-0.5 rounded text-[8px] font-black uppercase tracking-wider bg-emerald-950 text-emerald-400 border border-emerald-900">
                       Troca com Troco!
                     </div>
-                    <span className="text-[9px] text-gray-500 font-bold uppercase block">Você recebe de volta (PIX):</span>
+                    <span className="text-[9px] text-gray-500 dark:text-gray-400 font-bold uppercase block">Você recebe de volta (PIX):</span>
                     <p className="font-display font-black text-3xl text-emerald-400 font-mono leading-none">R$ {simulationResult.absDifference.toLocaleString('pt-BR')}</p>
-                    <p className="text-[10px] text-gray-400 leading-relaxed pt-2">
+                    <p className="text-[10px] text-gray-600 dark:text-gray-400 leading-relaxed pt-2">
                       Você sai de carro novo e com dinheiro no bolso! A RaviCar deposita esse valor na sua conta bancária na hora.
                     </p>
                   </>
                 ) : (
                   <>
-                    <span className="text-[9px] text-gray-500 font-bold uppercase block">Saldo Restante a Financiar:</span>
+                    <span className="text-[9px] text-gray-500 dark:text-gray-400 font-bold uppercase block">Saldo Restante a Financiar:</span>
                     <p className="font-display font-black text-3xl text-[#FF2D8D] font-mono leading-none">R$ {simulationResult.absDifference.toLocaleString('pt-BR')}</p>
-                    <p className="text-[10px] text-gray-400 leading-relaxed pt-1">
+                    <p className="text-[10px] text-gray-600 dark:text-gray-400 leading-relaxed pt-1">
                       Este saldo é o valor líquido da diferença a ser diluído em parcelas confortáveis.
                     </p>
                   </>
@@ -743,35 +743,35 @@ export default function ComboSimulator({ vehicles, settings, currentUser, onNavi
               {/* Financing simulation plans (Only if not Troca com Troco) */}
               {!simulationResult.isTrocaComTroco && (
                 <div className="space-y-3">
-                  <h4 className="text-xs font-black text-white uppercase tracking-wider flex items-center gap-1">
+                  <h4 className="text-xs font-black text-gray-900 dark:text-white uppercase tracking-wider flex items-center gap-1">
                     <TrendingUp className="w-4 h-4 text-[#FF2D8D]" />
                     Simulação de Parcelas para a Diferença
                   </h4>
                   <div className="grid grid-cols-2 gap-2">
                     {simulationResult.financeOptions.map((opt: any) => (
-                      <div key={opt.term} className="p-3 bg-black border border-neutral-900 rounded-xl flex flex-col justify-center text-center">
-                        <span className="text-[10px] text-gray-500 font-bold uppercase">{opt.term} de</span>
-                        <span className="text-sm text-white font-black font-mono mt-0.5">R$ {opt.pmt.toLocaleString('pt-BR')}</span>
+                      <div key={opt.term} className="p-3 bg-white dark:bg-black border border-gray-300 dark:border-gray-200 dark:border-neutral-900 rounded-xl flex flex-col justify-center text-center">
+                        <span className="text-[10px] text-gray-500 dark:text-gray-400 font-bold uppercase">{opt.term} de</span>
+                        <span className="text-sm text-gray-900 dark:text-white font-black font-mono mt-0.5">R$ {opt.pmt.toLocaleString('pt-BR')}</span>
                       </div>
                     ))}
                   </div>
-                  <p className="text-[9px] text-gray-500 leading-normal text-center">
+                  <p className="text-[9px] text-gray-500 dark:text-gray-400 leading-normal text-center">
                     * Calculado com taxa de {simulationResult.interestRate}% a.m. através das nossas 13 instituições integradas.
                   </p>
                 </div>
               )}
 
               {/* Parecer textual */}
-              <div className="p-4 bg-[#111111] rounded-2xl border border-neutral-900 text-xs text-gray-400 leading-relaxed italic">
+              <div className="p-4 bg-gray-200 dark:bg-[#111111] rounded-2xl border border-gray-200 dark:border-neutral-900 text-xs text-gray-600 dark:text-gray-400 leading-relaxed italic">
                 "{simulationResult.parecer}"
               </div>
 
               {/* Pre-approved next steps and physical visit guarantee */}
-              <div className="p-4 bg-gradient-to-r from-neutral-950 to-neutral-900 border border-[#FF2D8D]/20 rounded-2xl flex items-start gap-3">
+              <div className="p-4 bg-gradient-to-r from-gray-50 to-gray-100 dark:from-neutral-950 dark:to-neutral-900 border border-[#FF2D8D]/20 rounded-2xl flex items-start gap-3">
                 <CheckCircle className="w-5 h-5 text-[#FF2D8D] shrink-0 mt-0.5" />
                 <div className="space-y-1">
-                  <h5 className="font-display font-black text-[11px] text-white uppercase tracking-wider">Como Aprovar o Saldo?</h5>
-                  <p className="text-[10px] text-gray-500 leading-relaxed">
+                  <h5 className="font-display font-black text-[11px] text-gray-900 dark:text-white uppercase tracking-wider">Como Aprovar o Saldo?</h5>
+                  <p className="text-[10px] text-gray-500 dark:text-gray-400 leading-relaxed">
                     Clique no botão do WhatsApp abaixo para enviar os dados para seu perito e agendar a vistoria cautelar na agência RaviCar para assinar o contrato hoje mesmo!
                   </p>
                 </div>
@@ -780,28 +780,28 @@ export default function ComboSimulator({ vehicles, settings, currentUser, onNavi
               {/* Send leads action */}
               <button
                 onClick={handleSendWhatsapp}
-                className="w-full py-3.5 bg-[#25D366] hover:opacity-95 text-white font-black text-xs uppercase tracking-wider rounded-xl transition duration-200 flex items-center justify-center gap-2 cursor-pointer"
+                className="w-full py-3.5 bg-[#25D366] hover:opacity-95 text-gray-900 dark:text-white font-black text-xs uppercase tracking-wider rounded-xl transition duration-200 flex items-center justify-center gap-2 cursor-pointer"
               >
                 <MessageCircle className="w-4 h-4 fill-white text-[#25D366]" />
                 Falar com Perito no WhatsApp
               </button>
 
               {/* Simulation Disclaimer */}
-              <div className="p-3 bg-neutral-900 border border-neutral-800 rounded-xl flex items-start gap-2.5">
-                <Info className="w-4 h-4 text-gray-500 shrink-0 mt-0.5" />
-                <p className="text-[9px] text-gray-500 leading-relaxed">
+              <div className="p-3 bg-gray-100 dark:bg-neutral-900 border border-gray-200 dark:border-neutral-800 rounded-xl flex items-start gap-2.5">
+                <Info className="w-4 h-4 text-gray-500 dark:text-gray-400 shrink-0 mt-0.5" />
+                <p className="text-[9px] text-gray-500 dark:text-gray-400 leading-relaxed">
                   *A simulação é apenas uma estimativa e não representa uma aprovação de crédito.*
                 </p>
               </div>
             </div>
           ) : (
-            <div className="bg-neutral-950 border border-neutral-900 border-dashed rounded-3xl p-8 text-center h-full flex flex-col items-center justify-center space-y-4 py-16">
-              <div className="w-16 h-16 rounded-2xl bg-[#111111] border border-neutral-800 flex items-center justify-center text-gray-600">
-                <ArrowRightLeft className="w-8 h-8 text-gray-500" />
+            <div className="bg-gray-50 dark:bg-neutral-950 border border-gray-200 dark:border-neutral-900 border-dashed rounded-3xl p-8 text-center h-full flex flex-col items-center justify-center space-y-4 py-16">
+              <div className="w-16 h-16 rounded-2xl bg-gray-200 dark:bg-[#111111] border border-gray-200 dark:border-neutral-800 flex items-center justify-center text-gray-600">
+                <ArrowRightLeft className="w-8 h-8 text-gray-500 dark:text-gray-400" />
               </div>
               <div className="space-y-1 max-w-sm">
-                <h3 className="font-display font-bold text-white text-sm">Aguardando Preenchimento</h3>
-                <p className="text-xs text-gray-500 leading-relaxed">
+                <h3 className="font-display font-bold text-gray-900 dark:text-white text-sm">Aguardando Preenchimento</h3>
+                <p className="text-xs text-gray-500 dark:text-gray-400 leading-relaxed">
                   Preencha os dados do veículo desejado e do seu veículo atual para que nossa inteligência de mercado faça o balanceamento instantâneo.
                 </p>
               </div>

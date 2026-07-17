@@ -201,34 +201,34 @@ export function Catalog({ vehicles, onSelectVehicle, currentUser }: CatalogProps
     <div className="max-w-7xl mx-auto px-4 py-8">
       {/* Intro section */}
       <div className="mb-6">
-        <h1 className="font-display font-black text-2xl sm:text-4xl text-white tracking-tight">
+        <h1 className="font-display font-black text-2xl sm:text-4xl text-gray-900 dark:text-white tracking-tight">
           Nosso Showroom de Veículos Seminovos
         </h1>
-        <p className="text-sm text-gray-400 mt-2 max-w-2xl">
+        <p className="text-sm text-gray-600 dark:text-gray-600 dark:text-gray-400 mt-2 max-w-2xl">
           Explore carros periciados, revisados e de alta procedência. Compre à vista, financie em até 60x ou ofereça seu carro como parte do pagamento.
         </p>
       </div>
 
       <div className="flex flex-col gap-6">
         {/* Top Search & Filter Actions */}
-        <div className="bg-[#18181B] border border-neutral-800 rounded-2xl p-4 sm:p-5 flex flex-col gap-4">
+        <div className="bg-gray-50 dark:bg-[#18181B] border border-gray-200 dark:border-neutral-800 rounded-2xl p-4 sm:p-5 flex flex-col gap-4">
           {/* Search Input */}
           <div className="space-y-1.5">
-            <label className="block text-[10px] font-bold text-gray-500 uppercase tracking-widest">Busca Inteligente por Texto</label>
+            <label className="block text-[10px] font-bold text-gray-500 dark:text-gray-400 dark:text-gray-500 uppercase tracking-widest">Busca Inteligente por Texto</label>
             <div className="relative flex items-center">
-              <Search className="absolute left-4 top-1/2 -translate-y-1/2 w-4 h-4 text-gray-500" />
+              <Search className="absolute left-4 top-1/2 -translate-y-1/2 w-4 h-4 text-gray-500 dark:text-gray-400 dark:text-gray-500" />
               <input
                 type="text"
                 value={search}
                 onChange={e => setSearch(e.target.value)}
                 placeholder="Ex: Onix Automático, Flex 2022..."
-                className="w-full bg-[#0B0B0C] border border-neutral-800 focus:border-[var(--brand-color)] rounded-xl pl-11 pr-10 py-3.5 text-sm text-white outline-none transition focus:ring-1 focus:ring-[var(--brand-color)]/30 placeholder-gray-600"
+                className="w-full bg-white dark:bg-[var(--app-dark-bg)] border border-gray-300 dark:border-neutral-800 focus:border-[var(--brand-color)] rounded-xl pl-11 pr-10 py-3.5 text-sm text-gray-900 dark:text-white outline-none transition focus:ring-1 focus:ring-[var(--brand-color)]/30 placeholder-gray-400 dark:placeholder-gray-600"
               />
               {search && (
                 <button
                   type="button"
                   onClick={() => setSearch('')}
-                  className="absolute right-3.5 top-1/2 -translate-y-1/2 text-gray-500 hover:text-white transition cursor-pointer p-1"
+                  className="absolute right-3.5 top-1/2 -translate-y-1/2 text-gray-500 dark:text-gray-400 dark:text-gray-500 hover:text-gray-900 dark:hover:text-gray-900 dark:text-white transition cursor-pointer p-1"
                 >
                   <X className="w-4 h-4" />
                 </button>
@@ -237,14 +237,14 @@ export function Catalog({ vehicles, onSelectVehicle, currentUser }: CatalogProps
           </div>
 
           {/* Filter Actions */}
-          <div className="flex items-center justify-between border-t border-neutral-800/50 pt-4">
+          <div className="flex items-center justify-between border-t border-gray-200 dark:border-neutral-800/50 pt-4">
             <button
               type="button"
               onClick={() => setShowFilters(!showFilters)}
               className="flex items-center gap-2 outline-none focus:outline-none cursor-pointer group hover:opacity-80 transition-opacity"
             >
-              <SlidersHorizontal className="w-4 h-4 text-gray-400 group-hover:text-white" />
-              <span className="font-bold text-xs uppercase tracking-wider text-gray-300 group-hover:text-white">
+              <SlidersHorizontal className="w-4 h-4 text-gray-600 dark:text-gray-400 group-hover:text-gray-900 dark:hover:text-gray-900 dark:text-white" />
+              <span className="font-bold text-xs uppercase tracking-wider text-gray-700 dark:text-gray-300 group-hover:text-gray-900 dark:hover:text-gray-900 dark:text-white">
                 Filtros Avançados
               </span>
               {activeFiltersCount > 0 && (
@@ -256,7 +256,7 @@ export function Catalog({ vehicles, onSelectVehicle, currentUser }: CatalogProps
             
             <button
               onClick={handleClearFilters}
-              className="flex items-center gap-1.5 text-[10px] text-gray-500 hover:text-gray-300 font-bold uppercase tracking-wider transition cursor-pointer"
+              className="flex items-center gap-1.5 text-[10px] text-gray-500 dark:text-gray-400 dark:text-gray-500 hover:text-gray-700 dark:text-gray-300 font-bold uppercase tracking-wider transition cursor-pointer"
             >
               Limpar <ChevronDown className="w-3 h-3 -rotate-90" />
             </button>
@@ -264,22 +264,22 @@ export function Catalog({ vehicles, onSelectVehicle, currentUser }: CatalogProps
           
           {/* Collapsible Filters Section */}
           {showFilters && (
-            <div className="mt-2 grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6 animate-fade-in border-t border-neutral-800/50 pt-4">
+            <div className="mt-2 grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6 animate-fade-in border-t border-gray-200 dark:border-neutral-800/50 pt-4">
 
             {/* Brand Collapsible Filter */}
-            <div className="space-y-2 border-b border-neutral-900/40 pb-3">
+            <div className="space-y-2 border-b border-gray-200 dark:border-neutral-900/40 pb-3">
               <button
                 type="button"
                 onClick={() => toggleFilter('brand')}
                 className="w-full flex items-center justify-between text-left py-1 group/btn outline-none focus:outline-none cursor-pointer"
               >
                 <div className="flex flex-col">
-                  <span className="text-[9px] font-black text-gray-500 uppercase tracking-widest">Filtrar por Marca</span>
+                  <span className="text-[9px] font-black text-gray-500 dark:text-gray-400 dark:text-gray-500 uppercase tracking-widest">Filtrar por Marca</span>
                   <span className="text-[11px] text-[#FF2D8D] font-bold mt-0.5 font-sans">
                     {selectedBrand ? selectedBrand : 'Todas as Marcas'}
                   </span>
                 </div>
-                <ChevronDown className={`w-4 h-4 text-gray-500 group-hover/btn:text-white transition-transform duration-200 ${openFilters.brand ? 'rotate-180 text-[#FF2D8D]' : ''}`} />
+                <ChevronDown className={`w-4 h-4 text-gray-500 dark:text-gray-400 dark:text-gray-500 group-hover/btn:text-gray-900 dark:text-white transition-transform duration-200 ${openFilters.brand ? 'rotate-180 text-[#FF2D8D]' : ''}`} />
               </button>
 
               {openFilters.brand && (
@@ -289,8 +289,8 @@ export function Catalog({ vehicles, onSelectVehicle, currentUser }: CatalogProps
                     onClick={() => setSelectedBrand('')}
                     className={`px-3 py-1.5 rounded-xl text-[10px] font-bold tracking-wide transition-all border ${
                       !selectedBrand
-                        ? 'bg-[#FF2D8D] border-[#FF2D8D] text-white '
-                        : 'bg-black border-neutral-800 text-gray-400 hover:border-neutral-700 hover:text-white'
+                        ? 'bg-[#FF2D8D] border-[#FF2D8D] text-gray-900 dark:text-white '
+                        : 'bg-white dark:bg-black border-gray-300 dark:border-neutral-800 text-gray-600 dark:text-gray-400 hover:border-gray-400 dark:hover:border-gray-200 dark:border-neutral-700 hover:text-gray-900 dark:hover:text-gray-900 dark:text-white'
                     } cursor-pointer`}
                   >
                     Todas
@@ -302,8 +302,8 @@ export function Catalog({ vehicles, onSelectVehicle, currentUser }: CatalogProps
                       onClick={() => setSelectedBrand(selectedBrand === b ? '' : b)}
                       className={`px-3 py-1.5 rounded-xl text-[10px] font-bold tracking-wide transition-all border ${
                         selectedBrand === b
-                          ? 'bg-[#FF2D8D] border-[#FF2D8D] text-white '
-                          : 'bg-black border-neutral-800 text-gray-300 hover:border-neutral-700 hover:text-white'
+                          ? 'bg-[#FF2D8D] border-[#FF2D8D] text-gray-900 dark:text-white '
+                          : 'bg-white dark:bg-black border-gray-300 dark:border-neutral-800 text-gray-700 dark:text-gray-300 hover:border-gray-400 dark:hover:border-gray-200 dark:border-neutral-700 hover:text-gray-900 dark:hover:text-gray-900 dark:text-white'
                       } cursor-pointer`}
                     >
                       {b}
@@ -314,19 +314,19 @@ export function Catalog({ vehicles, onSelectVehicle, currentUser }: CatalogProps
             </div>
 
             {/* Status Collapsible Filter */}
-            <div className="space-y-2 border-b border-neutral-900/40 pb-3">
+            <div className="space-y-2 border-b border-gray-200 dark:border-neutral-900/40 pb-3">
               <button
                 type="button"
                 onClick={() => toggleFilter('status')}
                 className="w-full flex items-center justify-between text-left py-1 group/btn outline-none focus:outline-none cursor-pointer"
               >
                 <div className="flex flex-col">
-                  <span className="text-[9px] font-black text-gray-500 uppercase tracking-widest">Disponibilidade</span>
+                  <span className="text-[9px] font-black text-gray-500 dark:text-gray-400 dark:text-gray-500 uppercase tracking-widest">Disponibilidade</span>
                   <span className="text-[11px] text-[#FF2D8D] font-bold mt-0.5 font-sans">
                     {selectedStatus ? selectedStatus : 'Todos os status'}
                   </span>
                 </div>
-                <ChevronDown className={`w-4 h-4 text-gray-500 group-hover/btn:text-white transition-transform duration-200 ${openFilters.status ? 'rotate-180 text-[#FF2D8D]' : ''}`} />
+                <ChevronDown className={`w-4 h-4 text-gray-500 dark:text-gray-400 dark:text-gray-500 group-hover/btn:text-gray-900 dark:text-white transition-transform duration-200 ${openFilters.status ? 'rotate-180 text-[#FF2D8D]' : ''}`} />
               </button>
 
               {openFilters.status && (
@@ -338,8 +338,8 @@ export function Catalog({ vehicles, onSelectVehicle, currentUser }: CatalogProps
                       onClick={() => setSelectedStatus(status === 'Todos' ? '' : status)}
                       className={`py-2 rounded-xl text-[10px] font-bold tracking-wide text-center transition-all border ${
                         (selectedStatus === status) || (status === 'Todos' && !selectedStatus)
-                          ? 'bg-[#FF2D8D] border-[#FF2D8D] text-white '
-                          : 'bg-black border-neutral-800 text-gray-400 hover:border-neutral-700 hover:text-white'
+                          ? 'bg-[#FF2D8D] border-[#FF2D8D] text-gray-900 dark:text-white '
+                          : 'bg-white dark:bg-black border-gray-300 dark:border-neutral-800 text-gray-600 dark:text-gray-400 hover:border-gray-400 dark:hover:border-gray-200 dark:border-neutral-700 hover:text-gray-900 dark:hover:text-gray-900 dark:text-white'
                       } cursor-pointer`}
                     >
                       {status}
@@ -350,19 +350,19 @@ export function Catalog({ vehicles, onSelectVehicle, currentUser }: CatalogProps
             </div>
 
             {/* Transmission Collapsible Filter */}
-            <div className="space-y-2 border-b border-neutral-900/40 pb-3">
+            <div className="space-y-2 border-b border-gray-200 dark:border-neutral-900/40 pb-3">
               <button
                 type="button"
                 onClick={() => toggleFilter('transmission')}
                 className="w-full flex items-center justify-between text-left py-1 group/btn outline-none focus:outline-none cursor-pointer"
               >
                 <div className="flex flex-col">
-                  <span className="text-[9px] font-black text-gray-500 uppercase tracking-widest">Câmbio</span>
+                  <span className="text-[9px] font-black text-gray-500 dark:text-gray-400 dark:text-gray-500 uppercase tracking-widest">Câmbio</span>
                   <span className="text-[11px] text-[#FF2D8D] font-bold mt-0.5 font-sans">
                     {selectedTransmission ? selectedTransmission : 'Qualquer câmbio'}
                   </span>
                 </div>
-                <ChevronDown className={`w-4 h-4 text-gray-500 group-hover/btn:text-white transition-transform duration-200 ${openFilters.transmission ? 'rotate-180 text-[#FF2D8D]' : ''}`} />
+                <ChevronDown className={`w-4 h-4 text-gray-500 dark:text-gray-400 dark:text-gray-500 group-hover/btn:text-gray-900 dark:text-white transition-transform duration-200 ${openFilters.transmission ? 'rotate-180 text-[#FF2D8D]' : ''}`} />
               </button>
 
               {openFilters.transmission && (
@@ -378,8 +378,8 @@ export function Catalog({ vehicles, onSelectVehicle, currentUser }: CatalogProps
                       onClick={() => setSelectedTransmission(item.value)}
                       className={`py-2 rounded-xl text-[10px] font-bold tracking-wide text-center transition-all border ${
                         selectedTransmission === item.value
-                          ? 'bg-[#FF2D8D] border-[#FF2D8D] text-white '
-                          : 'bg-black border-neutral-800 text-gray-400 hover:border-neutral-700 hover:text-white'
+                          ? 'bg-[#FF2D8D] border-[#FF2D8D] text-gray-900 dark:text-white '
+                          : 'bg-white dark:bg-black border-gray-300 dark:border-neutral-800 text-gray-600 dark:text-gray-400 hover:border-gray-400 dark:hover:border-gray-200 dark:border-neutral-700 hover:text-gray-900 dark:hover:text-gray-900 dark:text-white'
                       } cursor-pointer`}
                     >
                       {item.label}
@@ -390,19 +390,19 @@ export function Catalog({ vehicles, onSelectVehicle, currentUser }: CatalogProps
             </div>
 
             {/* Fuel Collapsible Filter */}
-            <div className="space-y-2 border-b border-neutral-900/40 pb-3">
+            <div className="space-y-2 border-b border-gray-200 dark:border-neutral-900/40 pb-3">
               <button
                 type="button"
                 onClick={() => toggleFilter('fuel')}
                 className="w-full flex items-center justify-between text-left py-1 group/btn outline-none focus:outline-none cursor-pointer"
               >
                 <div className="flex flex-col">
-                  <span className="text-[9px] font-black text-gray-500 uppercase tracking-widest">Combustível</span>
+                  <span className="text-[9px] font-black text-gray-500 dark:text-gray-400 dark:text-gray-500 uppercase tracking-widest">Combustível</span>
                   <span className="text-[11px] text-[#FF2D8D] font-bold mt-0.5 font-sans">
                     {selectedFuel ? selectedFuel : 'Qualquer combustível'}
                   </span>
                 </div>
-                <ChevronDown className={`w-4 h-4 text-gray-500 group-hover/btn:text-white transition-transform duration-200 ${openFilters.fuel ? 'rotate-180 text-[#FF2D8D]' : ''}`} />
+                <ChevronDown className={`w-4 h-4 text-gray-500 dark:text-gray-400 dark:text-gray-500 group-hover/btn:text-gray-900 dark:text-white transition-transform duration-200 ${openFilters.fuel ? 'rotate-180 text-[#FF2D8D]' : ''}`} />
               </button>
 
               {openFilters.fuel && (
@@ -422,8 +422,8 @@ export function Catalog({ vehicles, onSelectVehicle, currentUser }: CatalogProps
                       onClick={() => setSelectedFuel(item.value)}
                       className={`px-3 py-1.5 rounded-xl text-[10px] font-bold tracking-wide transition-all border ${
                         selectedFuel === item.value
-                          ? 'bg-[#FF2D8D] border-[#FF2D8D] text-white '
-                          : 'bg-black border-neutral-800 text-gray-400 hover:border-neutral-700 hover:text-white'
+                          ? 'bg-[#FF2D8D] border-[#FF2D8D] text-gray-900 dark:text-white '
+                          : 'bg-white dark:bg-black border-gray-300 dark:border-neutral-800 text-gray-600 dark:text-gray-400 hover:border-gray-400 dark:hover:border-gray-200 dark:border-neutral-700 hover:text-gray-900 dark:hover:text-gray-900 dark:text-white'
                       } cursor-pointer`}
                     >
                       {item.label}
@@ -441,12 +441,12 @@ export function Catalog({ vehicles, onSelectVehicle, currentUser }: CatalogProps
                 className="w-full flex items-center justify-between text-left py-1 group/btn outline-none focus:outline-none cursor-pointer"
               >
                 <div className="flex flex-col">
-                  <span className="text-[9px] font-black text-gray-500 uppercase tracking-widest">Valor Máximo</span>
+                  <span className="text-[9px] font-black text-gray-500 dark:text-gray-400 dark:text-gray-500 uppercase tracking-widest">Valor Máximo</span>
                   <span className="text-[11px] text-[#FF2D8D] font-bold mt-0.5 font-sans">
                     {maxPrice > 0 ? `Até R$ ${maxPrice.toLocaleString('pt-BR')}` : 'Qualquer valor'}
                   </span>
                 </div>
-                <ChevronDown className={`w-4 h-4 text-gray-500 group-hover/btn:text-white transition-transform duration-200 ${openFilters.price ? 'rotate-180 text-[#FF2D8D]' : ''}`} />
+                <ChevronDown className={`w-4 h-4 text-gray-500 dark:text-gray-400 dark:text-gray-500 group-hover/btn:text-gray-900 dark:text-white transition-transform duration-200 ${openFilters.price ? 'rotate-180 text-[#FF2D8D]' : ''}`} />
               </button>
               
               {openFilters.price && (
@@ -458,9 +458,9 @@ export function Catalog({ vehicles, onSelectVehicle, currentUser }: CatalogProps
                     step={5000}
                     value={maxPrice || maxPossiblePrice}
                     onChange={e => setMaxPrice(Number(e.target.value))}
-                    className="w-full accent-[#FF2D8D] cursor-pointer h-1.5 bg-neutral-900 rounded-lg appearance-none"
+                    className="w-full accent-[#FF2D8D] cursor-pointer h-1.5 bg-white dark:bg-neutral-900 rounded-lg appearance-none"
                   />
-                  <div className="flex justify-between text-[8px] text-gray-500 font-mono">
+                  <div className="flex justify-between text-[8px] text-gray-500 dark:text-gray-400 dark:text-gray-500 font-mono">
                     <span>Min: R$ 20k</span>
                     <span>Max: R$ {(maxPossiblePrice || 250000).toLocaleString('pt-BR')}</span>
                   </div>
@@ -479,8 +479,8 @@ export function Catalog({ vehicles, onSelectVehicle, currentUser }: CatalogProps
                         onClick={() => setMaxPrice(preset.value)}
                         className={`py-2 rounded-xl text-[9px] font-bold tracking-wider text-center uppercase transition-all border ${
                           (preset.value === 0 && !maxPrice) || (maxPrice === preset.value)
-                            ? 'bg-[#FF2D8D]/10 border-[#FF2D8D] text-white'
-                            : 'bg-black border-neutral-800 text-gray-500 hover:border-neutral-700 hover:text-white'
+                            ? 'bg-[#FF2D8D]/10 border-[#FF2D8D] text-gray-900 dark:text-white'
+                            : 'bg-white dark:bg-black border-gray-300 dark:border-neutral-800 text-gray-500 dark:text-gray-400 dark:text-gray-500 hover:border-gray-400 dark:hover:border-gray-200 dark:border-neutral-700 hover:text-gray-900 dark:hover:text-gray-900 dark:text-white'
                         } cursor-pointer`}
                       >
                         {preset.label}
@@ -496,7 +496,7 @@ export function Catalog({ vehicles, onSelectVehicle, currentUser }: CatalogProps
               <button
                 type="button"
                 onClick={handleClearFilters}
-                className="w-full py-3 mt-2 rounded-xl border border-dashed border-[#FF2D8D]/30 hover:border-[#FF2D8D] text-xs text-[#FF6FB5] hover:text-white hover:bg-[#FF2D8D]/5 font-black uppercase tracking-widest transition duration-200 cursor-pointer"
+                className="w-full py-3 mt-2 rounded-xl border border-dashed border-[#FF2D8D]/30 hover:border-[#FF2D8D] text-xs text-[#FF6FB5] hover:text-gray-900 dark:hover:text-white hover:bg-[#FF2D8D]/5 font-black uppercase tracking-widest transition duration-200 cursor-pointer"
               >
                 Limpar Todos os Filtros
               </button>
@@ -508,12 +508,12 @@ export function Catalog({ vehicles, onSelectVehicle, currentUser }: CatalogProps
         {/* Catalog list column */}
         <div className="flex-1">
           {/* Top sorting selection */}
-          <div className="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-3 mb-6 bg-[#18181B] border border-neutral-800 p-3 rounded-2xl">
-            <p className="text-xs text-gray-400 font-medium pl-2">
-              Mostrando <span className="text-white font-bold">{filteredVehicles.length}</span> veículos encontrados
+          <div className="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-3 mb-6 bg-white dark:bg-[#18181B] border border-gray-200 dark:border-neutral-800 p-3 rounded-2xl">
+            <p className="text-xs text-gray-600 dark:text-gray-400 font-medium pl-2">
+              Mostrando <span className="text-gray-900 dark:text-white font-bold">{filteredVehicles.length}</span> veículos encontrados
             </p>
             <div className="flex items-center gap-2 w-full sm:w-auto relative">
-              <span className="text-xs text-gray-500 shrink-0 flex items-center gap-1">
+              <span className="text-xs text-gray-500 dark:text-gray-400 dark:text-gray-500 shrink-0 flex items-center gap-1">
                 <ArrowUpDown className="w-3.5 h-3.5" />
                 Ordenar por:
               </span>
@@ -523,7 +523,7 @@ export function Catalog({ vehicles, onSelectVehicle, currentUser }: CatalogProps
                 <button
                   type="button"
                   onClick={() => setSortDropdownOpen(!sortDropdownOpen)}
-                  className="w-full sm:w-48 flex items-center justify-between gap-2.5 bg-[#0B0B0C] border border-neutral-800 hover:border-[var(--brand-color)]/60 focus:border-[var(--brand-color)] rounded-xl px-4 py-2 text-xs text-white outline-none transition cursor-pointer font-bold"
+                  className="w-full sm:w-48 flex items-center justify-between gap-2.5 bg-white dark:bg-[var(--app-dark-bg)] border border-gray-200 dark:border-neutral-800 hover:border-[var(--brand-color)]/60 focus:border-[var(--brand-color)] rounded-xl px-4 py-2 text-xs text-gray-900 dark:text-white outline-none transition cursor-pointer font-bold"
                 >
                   <span className="truncate">
                     {sortBy === 'newest' && 'Mais Recentes'}
@@ -532,7 +532,7 @@ export function Catalog({ vehicles, onSelectVehicle, currentUser }: CatalogProps
                     {sortBy === 'year_desc' && 'Ano Mais Novo'}
                     {sortBy === 'views_desc' && 'Mais Vistos'}
                   </span>
-                  <ChevronDown className={`w-3.5 h-3.5 text-gray-500 transition-transform duration-200 shrink-0 ${sortDropdownOpen ? 'rotate-180 text-[#FF2D8D]' : ''}`} />
+                  <ChevronDown className={`w-3.5 h-3.5 text-gray-500 dark:text-gray-400 dark:text-gray-500 transition-transform duration-200 shrink-0 ${sortDropdownOpen ? 'rotate-180 text-[#FF2D8D]' : ''}`} />
                 </button>
 
                 {sortDropdownOpen && (
@@ -542,7 +542,7 @@ export function Catalog({ vehicles, onSelectVehicle, currentUser }: CatalogProps
                       className="fixed inset-0 z-40" 
                       onClick={() => setSortDropdownOpen(false)}
                     />
-                    <div className="absolute right-0 left-0 sm:left-auto mt-2 w-full sm:w-48 bg-neutral-950 border border-neutral-900 rounded-2xl p-1.5 shadow-[0_10px_30px_rgba(0,0,0,0.85)] z-50 animate-fade-in divide-y divide-neutral-900/40">
+                    <div className="absolute right-0 left-0 sm:left-auto mt-2 w-full sm:w-48 bg-white dark:bg-neutral-950 border border-gray-200 dark:border-neutral-900 rounded-2xl p-1.5 shadow-[0_10px_30px_rgba(0,0,0,0.85)] z-50 animate-fade-in divide-y divide-neutral-900/40">
                       {[
                         { value: 'newest', label: 'Mais Recentes' },
                         { value: 'price_asc', label: 'Menor Preço' },
@@ -562,7 +562,7 @@ export function Catalog({ vehicles, onSelectVehicle, currentUser }: CatalogProps
                             className={`w-full flex items-center justify-between px-3.5 py-2.5 rounded-xl text-xs font-semibold text-left transition-all cursor-pointer ${
                               isSelected
                                 ? 'bg-[#FF2D8D]/10 text-[#FF2D8D] font-bold border border-[#FF2D8D]/20 '
-                                : 'text-gray-400 hover:text-white hover:bg-neutral-900/60'
+                                : 'text-gray-600 dark:text-gray-400 hover:text-gray-900 dark:hover:text-gray-900 dark:text-white hover:bg-gray-200 dark:bg-neutral-900/60'
                             }`}
                           >
                             <span>{option.label}</span>
@@ -579,13 +579,13 @@ export function Catalog({ vehicles, onSelectVehicle, currentUser }: CatalogProps
 
           {/* Cards Bento-Grid */}
           {filteredVehicles.length === 0 ? (
-            <div className="text-center py-20 bg-neutral-950 border border-neutral-900 rounded-3xl flex flex-col items-center">
+            <div className="text-center py-20 bg-white dark:bg-neutral-950 border border-gray-200 dark:border-neutral-900 rounded-3xl flex flex-col items-center">
               <SlidersHorizontal className="w-12 h-12 text-gray-600 mb-4 animate-pulse" />
-              <h3 className="font-display font-bold text-lg text-white mb-1">Nenhum veículo corresponde à sua busca</h3>
-              <p className="text-xs text-gray-500 max-w-sm">Tente reajustar seus filtros de preço, combustível ou remova o texto da busca livre.</p>
+              <h3 className="font-display font-bold text-lg text-gray-900 dark:text-white mb-1">Nenhum veículo corresponde à sua busca</h3>
+              <p className="text-xs text-gray-500 dark:text-gray-400 dark:text-gray-500 max-w-sm">Tente reajustar seus filtros de preço, combustível ou remova o texto da busca livre.</p>
               <button
                 onClick={handleClearFilters}
-                className="mt-4 px-4 py-2 rounded-xl bg-[#1A1A1A] border border-neutral-800 text-xs text-[#FF2D8D] font-bold hover:bg-neutral-900 transition"
+                className="mt-4 px-4 py-2 rounded-xl bg-white dark:bg-[#1A1A1A] border border-gray-200 dark:border-neutral-800 text-xs text-[#FF2D8D] font-bold hover:bg-white dark:bg-neutral-900 transition"
               >
                 Redefinir Filtros
               </button>

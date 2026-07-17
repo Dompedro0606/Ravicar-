@@ -3,6 +3,7 @@ import { Calendar, Gauge, Wrench, Fuel, Heart, ArrowUpRight } from 'lucide-react
 import { Vehicle } from '../types';
 
 interface VehicleShowcaseCardProps {
+  key?: React.Key;
   vehicle: Vehicle;
   onClick?: () => void;
   onContactClick?: (e: React.MouseEvent) => void;
@@ -25,7 +26,7 @@ export function VehicleShowcaseCard({ vehicle, onClick, onContactClick, isFavori
             className="w-full h-full object-cover object-center group-hover:scale-105 transition-transform duration-700"
           />
         ) : (
-          <div className="w-full h-full flex items-center justify-center bg-gray-100 dark:bg-zinc-900 text-gray-500 dark:text-gray-600">
+          <div className="w-full h-full flex items-center justify-center bg-gray-100 dark:bg-zinc-900 text-gray-500 dark:text-gray-400 dark:text-gray-600">
             Sem Foto
           </div>
         )}
@@ -50,9 +51,9 @@ export function VehicleShowcaseCard({ vehicle, onClick, onContactClick, isFavori
             e.stopPropagation();
             if (onFavoriteToggle) onFavoriteToggle(e);
           }}
-          className="absolute top-3 right-3 z-20 w-8 h-8 rounded-full bg-black/40 backdrop-blur-md border border-white/10 flex items-center justify-center hover:bg-black/60 hover:scale-110 transition-all"
+          className="absolute top-3 right-3 z-20 w-8 h-8 rounded-full bg-gray-100 dark:bg-black/40 backdrop-blur-md border border-white/10 flex items-center justify-center hover:bg-black/60 hover:scale-110 transition-all"
         >
-          <Heart className={`w-4 h-4 transition-colors ${isFavorite ? 'fill-[var(--brand-color)] text-[var(--brand-color)]' : 'text-white'}`} />
+          <Heart className={`w-4 h-4 transition-colors ${isFavorite ? 'fill-[var(--brand-color)] text-[var(--brand-color)]' : 'text-gray-900 dark:text-white'}`} />
         </button>
 
         {/* Tag verde esmeralda translúcida com bolinha pulsante no canto inferior esquerdo */}
@@ -78,7 +79,7 @@ export function VehicleShowcaseCard({ vehicle, onClick, onContactClick, isFavori
       {/* Corpo do card */}
       <div className="p-5 flex flex-col flex-grow">
         {/* Marca em cinza e letras maiúsculas */}
-        <span className="text-gray-500 dark:text-gray-400 text-[10px] font-black uppercase tracking-widest mb-1.5">
+        <span className="text-gray-500 dark:text-gray-400 dark:text-gray-400 text-[10px] font-black uppercase tracking-widest mb-1.5">
           {vehicle.brand}
         </span>
         
@@ -110,7 +111,7 @@ export function VehicleShowcaseCard({ vehicle, onClick, onContactClick, isFavori
         {/* Rodapé do card */}
         <div className="mt-auto flex items-end justify-between border-t border-gray-100 dark:border-gray-800/60 pt-5">
           <div className="flex flex-col gap-0.5">
-            <span className="text-gray-500 text-[9px] font-black uppercase tracking-widest">
+            <span className="text-gray-500 dark:text-gray-400 text-[9px] font-black uppercase tracking-widest">
               VALOR ESPECIAL
             </span>
             <div className="text-gray-900 dark:text-white font-sans font-black text-2xl tracking-tight">
@@ -124,7 +125,7 @@ export function VehicleShowcaseCard({ vehicle, onClick, onContactClick, isFavori
               e.stopPropagation();
               if (onContactClick) onContactClick(e);
             }}
-            className="w-10 h-10 rounded-full bg-gray-50 dark:bg-neutral-900 border border-gray-200 dark:border-gray-800 flex items-center justify-center text-gray-400 group-hover:bg-[#FF2A7A] group-hover:text-white group-hover:border-[#FF2A7A] transition-all duration-300 shadow-sm"
+            className="w-10 h-10 rounded-full bg-gray-50 dark:bg-neutral-900 border border-gray-200 dark:border-gray-800 flex items-center justify-center text-gray-600 dark:text-gray-400 group-hover:bg-[#FF2A7A] group-hover:text-white group-hover:border-[#FF2A7A] transition-all duration-300 shadow-sm"
           >
             <ArrowUpRight className="w-5 h-5" />
           </button>

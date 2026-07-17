@@ -735,18 +735,18 @@ export function AdminPanel({ currentUser, token, vehicles, onRefreshData, settin
       <div className="grid grid-cols-1 lg:grid-cols-12 gap-8">
         
         {/* Navigation Sidebar (3 columns on lg screens) */}
-        <div className="lg:col-span-3 lg:border-r lg:border-neutral-900/60 lg:pr-6 space-y-6">
-          <div className="bg-neutral-950 border border-neutral-900/60 rounded-2xl p-4 md:p-5">
+        <div className="lg:col-span-3 lg:border-r lg:border-gray-200 dark:border-neutral-900/60 lg:pr-6 space-y-6">
+          <div className="bg-gray-50 dark:bg-neutral-950 border border-gray-200 dark:border-neutral-900/60 rounded-2xl p-4 md:p-5">
             <div className="flex items-center gap-2">
-              <h1 className="font-display font-black text-lg md:text-xl text-white tracking-tight">
+              <h1 className="font-display font-black text-lg md:text-xl text-gray-900 dark:text-white tracking-tight">
                 Painel RaviCar
               </h1>
               <span className="px-2 py-0.5 bg-[#FF2D8D]/10 text-[#FF2D8D] rounded-full font-bold text-[8px] tracking-wider uppercase border border-[#FF2D8D]/20">
                 {currentUser.role}
               </span>
             </div>
-            <p className="text-[10px] text-gray-400 mt-1.5 leading-relaxed">
-              Olá, <strong className="text-white">{currentUser.name}</strong>. Bem-vindo de volta!
+            <p className="text-[10px] text-gray-600 dark:text-gray-400 mt-1.5 leading-relaxed">
+              Olá, <strong className="text-gray-900 dark:text-white">{currentUser.name}</strong>. Bem-vindo de volta!
             </p>
           </div>
 
@@ -770,8 +770,8 @@ export function AdminPanel({ currentUser, token, vehicles, onRefreshData, settin
                   onClick={() => setActiveTab(tab.id as any)}
                   className={`flex items-center gap-2.5 px-4 py-3 rounded-xl text-xs font-bold transition-all border shrink-0 text-left lg:w-full cursor-pointer ${
                     isActive 
-                      ? 'bg-[#FF2D8D] border-[#FF2D8D] text-white '
-                      : 'bg-neutral-950/60 border-neutral-900/60 text-gray-400 hover:text-white hover:bg-neutral-900/40 hover:border-neutral-800'
+                      ? 'bg-[#FF2D8D] border-[#FF2D8D] text-gray-900 dark:text-white '
+                      : 'bg-gray-50 dark:bg-neutral-950/60 border-gray-200 dark:border-neutral-900/60 text-gray-600 dark:text-gray-400 hover:text-gray-900 dark:text-white hover:bg-gray-100 dark:bg-neutral-900/40 hover:border-gray-200 dark:border-neutral-800'
                   }`}
                 >
                   <Icon className="w-4 h-4 shrink-0" />
@@ -791,12 +791,12 @@ export function AdminPanel({ currentUser, token, vehicles, onRefreshData, settin
           {/* Bento Stats Rows */}
           <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
             {/* Total Estoque */}
-            <div className="p-5 bg-neutral-950 border border-neutral-900 rounded-2xl relative overflow-hidden group hover:border-neutral-800 transition duration-300">
-              <div className="absolute right-4 top-4 w-9 h-9 bg-neutral-900 border border-neutral-800 rounded-xl flex items-center justify-center text-gray-400 group-hover:text-[#FF2D8D] transition">
+            <div className="p-5 bg-gray-50 dark:bg-neutral-950 border border-gray-200 dark:border-neutral-900 rounded-2xl relative overflow-hidden group hover:border-gray-200 dark:border-neutral-800 transition duration-300">
+              <div className="absolute right-4 top-4 w-9 h-9 bg-gray-100 dark:bg-neutral-900 border border-gray-200 dark:border-neutral-800 rounded-xl flex items-center justify-center text-gray-600 dark:text-gray-400 group-hover:text-[#FF2D8D] transition">
                 <Car className="w-4 h-4" />
               </div>
-              <span className="text-[9px] uppercase tracking-wider text-gray-500 font-extrabold">Total do Estoque</span>
-              <p className="font-display font-black text-3xl text-white mt-2 leading-none">{stats.totalCount}</p>
+              <span className="text-[9px] uppercase tracking-wider text-gray-500 dark:text-gray-400 dark:text-gray-400 font-extrabold">Total do Estoque</span>
+              <p className="font-display font-black text-3xl text-gray-900 dark:text-white mt-2 leading-none">{stats.totalCount}</p>
               <div className="flex items-center gap-2 mt-4 text-[10px]">
                 <span className="text-emerald-400 font-bold">{stats.available} Livres</span>
                 <span className="text-gray-700">•</span>
@@ -805,37 +805,37 @@ export function AdminPanel({ currentUser, token, vehicles, onRefreshData, settin
             </div>
             
             {/* Leads Pendentes */}
-            <div className="p-5 bg-neutral-950 border border-neutral-900 rounded-2xl relative overflow-hidden group hover:border-neutral-800 transition duration-300">
-              <div className="absolute right-4 top-4 w-9 h-9 bg-neutral-900 border border-neutral-800 rounded-xl flex items-center justify-center text-gray-400 group-hover:text-amber-500 transition">
+            <div className="p-5 bg-gray-50 dark:bg-neutral-950 border border-gray-200 dark:border-neutral-900 rounded-2xl relative overflow-hidden group hover:border-gray-200 dark:border-neutral-800 transition duration-300">
+              <div className="absolute right-4 top-4 w-9 h-9 bg-gray-100 dark:bg-neutral-900 border border-gray-200 dark:border-neutral-800 rounded-xl flex items-center justify-center text-gray-600 dark:text-gray-400 group-hover:text-amber-500 transition">
                 <Mail className="w-4 h-4" />
               </div>
-              <span className="text-[9px] uppercase tracking-wider text-gray-500 font-extrabold">Leads Pendentes</span>
+              <span className="text-[9px] uppercase tracking-wider text-gray-500 dark:text-gray-400 dark:text-gray-400 font-extrabold">Leads Pendentes</span>
               <p className="font-display font-black text-3xl text-[#FF2D8D] mt-2 leading-none">{stats.pendingLeads}</p>
-              <p className="text-[10px] text-gray-400 mt-4 leading-normal">
+              <p className="text-[10px] text-gray-600 dark:text-gray-400 mt-4 leading-normal">
                 Retornos e agendamentos pendentes.
               </p>
             </div>
 
             {/* Total Cliques */}
-            <div className="p-5 bg-neutral-950 border border-neutral-900 rounded-2xl relative overflow-hidden group hover:border-neutral-800 transition duration-300">
-              <div className="absolute right-4 top-4 w-9 h-9 bg-neutral-900 border border-neutral-800 rounded-xl flex items-center justify-center text-gray-400 group-hover:text-emerald-500 transition">
+            <div className="p-5 bg-gray-50 dark:bg-neutral-950 border border-gray-200 dark:border-neutral-900 rounded-2xl relative overflow-hidden group hover:border-gray-200 dark:border-neutral-800 transition duration-300">
+              <div className="absolute right-4 top-4 w-9 h-9 bg-gray-100 dark:bg-neutral-900 border border-gray-200 dark:border-neutral-800 rounded-xl flex items-center justify-center text-gray-600 dark:text-gray-400 group-hover:text-emerald-500 transition">
                 <ClipboardList className="w-4 h-4" />
               </div>
-              <span className="text-[9px] uppercase tracking-wider text-gray-500 font-extrabold">Total de Interações</span>
-              <p className="font-display font-black text-3xl text-white mt-2 leading-none">{leadsList.length}</p>
-              <p className="text-[10px] text-gray-400 mt-4 leading-normal">
+              <span className="text-[9px] uppercase tracking-wider text-gray-500 dark:text-gray-400 dark:text-gray-400 font-extrabold">Total de Interações</span>
+              <p className="font-display font-black text-3xl text-gray-900 dark:text-white mt-2 leading-none">{leadsList.length}</p>
+              <p className="text-[10px] text-gray-600 dark:text-gray-400 mt-4 leading-normal">
                 Simulações, cadastros e cliques.
               </p>
             </div>
 
             {/* Visualizações Showroom */}
-            <div className="p-5 bg-neutral-950 border border-neutral-900 rounded-2xl relative overflow-hidden group hover:border-neutral-800 transition duration-300">
-              <div className="absolute right-4 top-4 w-9 h-9 bg-neutral-900 border border-neutral-800 rounded-xl flex items-center justify-center text-gray-400 group-hover:text-blue-500 transition">
+            <div className="p-5 bg-gray-50 dark:bg-neutral-950 border border-gray-200 dark:border-neutral-900 rounded-2xl relative overflow-hidden group hover:border-gray-200 dark:border-neutral-800 transition duration-300">
+              <div className="absolute right-4 top-4 w-9 h-9 bg-gray-100 dark:bg-neutral-900 border border-gray-200 dark:border-neutral-800 rounded-xl flex items-center justify-center text-gray-600 dark:text-gray-400 group-hover:text-blue-500 transition">
                 <Eye className="w-4 h-4" />
               </div>
-              <span className="text-[9px] uppercase tracking-wider text-gray-500 font-extrabold">Cliques no Estoque</span>
+              <span className="text-[9px] uppercase tracking-wider text-gray-500 dark:text-gray-400 dark:text-gray-400 font-extrabold">Cliques no Estoque</span>
               <p className="font-display font-black text-3xl text-[#FF6FB5] mt-2 leading-none">{stats.totalViews}</p>
-              <p className="text-[10px] text-gray-400 mt-4 leading-normal">
+              <p className="text-[10px] text-gray-600 dark:text-gray-400 mt-4 leading-normal">
                 Visualizações nos detalhes de veículos.
               </p>
             </div>
@@ -843,30 +843,30 @@ export function AdminPanel({ currentUser, token, vehicles, onRefreshData, settin
 
           {/* Quick CRM View */}
           <div className="grid grid-cols-1 md:grid-cols-12 gap-6">
-            <div className="md:col-span-8 bg-neutral-950 border border-neutral-900 rounded-2xl p-6">
-              <h3 className="font-display font-bold text-sm text-white mb-4 flex items-center gap-2">
+            <div className="md:col-span-8 bg-gray-50 dark:bg-neutral-950 border border-gray-200 dark:border-neutral-900 rounded-2xl p-6">
+              <h3 className="font-display font-bold text-sm text-gray-900 dark:text-white mb-4 flex items-center gap-2">
                 <Mail className="w-4 h-4 text-[#FF2D8D]" />
                 Inquéritos e Leads de Clientes Recentes (Aguardando Retorno)
               </h3>
               {leadsList.filter(l => l.status === 'Pendente').slice(0, 4).length === 0 ? (
-                <p className="text-xs text-gray-500 text-center py-6">Parabéns! Todos os leads pendentes foram respondidos.</p>
+                <p className="text-xs text-gray-500 dark:text-gray-400 dark:text-gray-400 text-center py-6">Parabéns! Todos os leads pendentes foram respondidos.</p>
               ) : (
                 <div className="space-y-3">
                   {leadsList.filter(l => l.status === 'Pendente').slice(0, 4).map(l => (
-                    <div key={l.id} className="p-3.5 bg-neutral-900 border border-neutral-800/60 rounded-xl flex items-center justify-between">
+                    <div key={l.id} className="p-3.5 bg-gray-100 dark:bg-neutral-900 border border-gray-200 dark:border-neutral-800/60 rounded-xl flex items-center justify-between">
                       <div>
                         <div className="flex items-center gap-2">
                           <span className={`px-2 py-0.5 rounded text-[8px] leading-normal font-extrabold uppercase ${
                             l.type === 'Financiamento' ? 'bg-indigo-950 text-indigo-400 border border-indigo-900' :
                             l.type === 'Avaliação' ? 'bg-emerald-950 text-emerald-400 border border-emerald-900' :
-                            'bg-neutral-800 text-gray-300'
+                            'bg-white dark:bg-neutral-800 text-gray-700 dark:text-gray-300'
                           }`}>
                             {l.type}
                           </span>
-                          <span className="font-bold text-xs text-white">{l.name}</span>
-                          <span className="text-[10px] leading-normal text-gray-500">{l.phone}</span>
+                          <span className="font-bold text-xs text-gray-900 dark:text-white">{l.name}</span>
+                          <span className="text-[10px] leading-normal text-gray-500 dark:text-gray-400 dark:text-gray-400">{l.phone}</span>
                         </div>
-                        <p className="text-[10px] leading-relaxed text-gray-400 mt-1.5 truncate">{l.message}</p>
+                        <p className="text-[10px] leading-relaxed text-gray-600 dark:text-gray-400 mt-1.5 truncate">{l.message}</p>
                       </div>
                       <button
                         onClick={() => handleMarkLeadAtendido(l.id, l.status)}
@@ -881,22 +881,22 @@ export function AdminPanel({ currentUser, token, vehicles, onRefreshData, settin
             </div>
 
             {/* Quick action shortcuts */}
-            <div className="md:col-span-4 bg-neutral-950 border border-neutral-900 rounded-2xl p-6 flex flex-col justify-between">
+            <div className="md:col-span-4 bg-gray-50 dark:bg-neutral-950 border border-gray-200 dark:border-neutral-900 rounded-2xl p-6 flex flex-col justify-between">
               <div>
-                <h3 className="font-display font-bold text-sm text-white mb-2">Ações Administrativas Rápidas</h3>
-                <p className="text-xs text-gray-500 mb-6">Utilize os atalhos abaixo para acelerar as operações no showroom da RaviCar.</p>
+                <h3 className="font-display font-bold text-sm text-gray-900 dark:text-white mb-2">Ações Administrativas Rápidas</h3>
+                <p className="text-xs text-gray-500 dark:text-gray-400 dark:text-gray-400 mb-6">Utilize os atalhos abaixo para acelerar as operações no showroom da RaviCar.</p>
               </div>
               <div className="space-y-3">
                 <button
                   onClick={() => { setActiveTab('vehicles'); setCarFormOpen(true); setAiAnalysis(null); }}
-                  className="w-full py-3 rounded-xl bg-[#1A1A1A] hover:bg-[#FF2D8D] hover:text-white transition text-left px-4 text-xs font-bold text-gray-300 border border-neutral-800 hover:border-transparent flex items-center justify-between"
+                  className="w-full py-3 rounded-xl bg-white dark:bg-[#1A1A1A] hover:bg-[#FF2D8D] hover:text-white transition text-left px-4 text-xs font-bold text-gray-700 dark:text-gray-300 border border-gray-200 dark:border-neutral-800 hover:border-transparent flex items-center justify-between"
                 >
                   <span>Cadastrar Veículo Novo</span>
                   <Plus className="w-4 h-4" />
                 </button>
                 <button
                   onClick={() => { setActiveTab('clients'); setClientFormOpen(true); }}
-                  className="w-full py-3 rounded-xl bg-[#1A1A1A] hover:bg-[#FF6FB5] hover:text-white transition text-left px-4 text-xs font-bold text-gray-300 border border-neutral-800 hover:border-transparent flex items-center justify-between"
+                  className="w-full py-3 rounded-xl bg-white dark:bg-[#1A1A1A] hover:bg-[#FF6FB5] hover:text-white transition text-left px-4 text-xs font-bold text-gray-700 dark:text-gray-300 border border-gray-200 dark:border-neutral-800 hover:border-transparent flex items-center justify-between"
                 >
                   <span>Cadastrar Cliente no CRM</span>
                   <Plus className="w-4 h-4" />
@@ -904,7 +904,7 @@ export function AdminPanel({ currentUser, token, vehicles, onRefreshData, settin
                 {currentUser.role === 'Administrador' && (
                   <button
                     onClick={() => { setActiveTab('users'); setUserFormOpen(true); }}
-                    className="w-full py-3 rounded-xl bg-[#1A1A1A] hover:bg-white hover:text-black transition text-left px-4 text-xs font-bold text-gray-300 border border-neutral-800 hover:border-transparent flex items-center justify-between"
+                    className="w-full py-3 rounded-xl bg-white dark:bg-[#1A1A1A] hover:bg-white hover:text-black transition text-left px-4 text-xs font-bold text-gray-700 dark:text-gray-300 border border-gray-200 dark:border-neutral-800 hover:border-transparent flex items-center justify-between"
                   >
                     <span>Cadastrar Funcionário</span>
                     <UserPlus className="w-4 h-4" />
@@ -915,30 +915,30 @@ export function AdminPanel({ currentUser, token, vehicles, onRefreshData, settin
           </div>
 
           {/* PAINEL DE INTELIGÊNCIA DE MERCADO E AUDITORIA FIPE */}
-          <div className="bg-neutral-950 border border-neutral-900 rounded-2xl p-6 mt-6">
-            <div className="flex flex-col md:flex-row md:items-center justify-between gap-4 mb-6 pb-6 border-b border-neutral-900/80">
+          <div className="bg-gray-50 dark:bg-neutral-950 border border-gray-200 dark:border-neutral-900 rounded-2xl p-6 mt-6">
+            <div className="flex flex-col md:flex-row md:items-center justify-between gap-4 mb-6 pb-6 border-b border-gray-200 dark:border-neutral-900/80">
               <div>
-                <h3 className="font-display font-bold text-sm text-white flex items-center gap-2">
+                <h3 className="font-display font-bold text-sm text-gray-900 dark:text-white flex items-center gap-2">
                   <span className="p-1 bg-[#FF2D8D]/15 rounded-lg text-[#FF2D8D] text-xs">📊</span>
                   Painel de Inteligência de Mercado & Auditoria FIPE (Julho de 2026)
                 </h3>
-                <p className="text-[10px] text-gray-400 mt-1 leading-normal">
+                <p className="text-[10px] text-gray-600 dark:text-gray-400 mt-1 leading-normal">
                   Monitore a competitividade do estoque RaviCar de acordo com a tabela referencial de mercado e gere copys persuasivas automatizadas de alta conversão.
                 </p>
               </div>
 
               {/* Mini dashboard insights */}
               <div className="flex flex-wrap gap-2">
-                <div className="px-3 py-1.5 bg-neutral-900 rounded-xl border border-neutral-800 flex flex-col">
-                  <span className="text-[7px] text-gray-500 uppercase font-black">Capital Ativo</span>
-                  <span className="text-xs font-bold text-white">R$ {stats.totalStockValue.toLocaleString('pt-BR')}</span>
+                <div className="px-3 py-1.5 bg-gray-100 dark:bg-neutral-900 rounded-xl border border-gray-200 dark:border-neutral-800 flex flex-col">
+                  <span className="text-[7px] text-gray-500 dark:text-gray-400 dark:text-gray-400 uppercase font-black">Capital Ativo</span>
+                  <span className="text-xs font-bold text-gray-900 dark:text-white">R$ {stats.totalStockValue.toLocaleString('pt-BR')}</span>
                 </div>
-                <div className="px-3 py-1.5 bg-neutral-900 rounded-xl border border-neutral-800 flex flex-col">
-                  <span className="text-[7px] text-gray-500 uppercase font-black">Ticket Médio</span>
-                  <span className="text-xs font-bold text-white">R$ {stats.avgPrice.toLocaleString('pt-BR', { maximumFractionDigits: 0 })}</span>
+                <div className="px-3 py-1.5 bg-gray-100 dark:bg-neutral-900 rounded-xl border border-gray-200 dark:border-neutral-800 flex flex-col">
+                  <span className="text-[7px] text-gray-500 dark:text-gray-400 dark:text-gray-400 uppercase font-black">Ticket Médio</span>
+                  <span className="text-xs font-bold text-gray-900 dark:text-white">R$ {stats.avgPrice.toLocaleString('pt-BR', { maximumFractionDigits: 0 })}</span>
                 </div>
-                <div className="px-3 py-1.5 bg-neutral-900 rounded-xl border border-neutral-800 flex flex-col">
-                  <span className="text-[7px] text-gray-500 uppercase font-black">Preços Críticos</span>
+                <div className="px-3 py-1.5 bg-gray-100 dark:bg-neutral-900 rounded-xl border border-gray-200 dark:border-neutral-800 flex flex-col">
+                  <span className="text-[7px] text-gray-500 dark:text-gray-400 dark:text-gray-400 uppercase font-black">Preços Críticos</span>
                   <span className={`text-xs font-bold ${stats.adjustmentNeededCount > 0 ? 'text-rose-400' : 'text-emerald-400'}`}>
                     {stats.adjustmentNeededCount} {stats.adjustmentNeededCount === 1 ? 'carro' : 'carros'}
                   </span>
@@ -949,13 +949,13 @@ export function AdminPanel({ currentUser, token, vehicles, onRefreshData, settin
             {/* Filters & Search Row */}
             <div className="flex flex-col md:flex-row items-stretch md:items-center justify-between gap-4 mb-6">
               <div className="relative flex-1 max-w-md">
-                <Search className="w-3.5 h-3.5 text-gray-500 absolute left-3 top-1/2 -translate-y-1/2" />
+                <Search className="w-3.5 h-3.5 text-gray-500 dark:text-gray-400 dark:text-gray-400 absolute left-3 top-1/2 -translate-y-1/2" />
                 <input
                   type="text"
                   placeholder="Filtrar por marca ou modelo na auditoria..."
                   value={auditSearch}
                   onChange={e => setAuditSearch(e.target.value)}
-                  className="w-full bg-neutral-900 border border-neutral-800 rounded-xl pl-9 pr-4 py-2 text-xs text-white outline-none focus:border-[#FF2D8D] transition"
+                  className="w-full bg-gray-100 dark:bg-neutral-900 border border-gray-200 dark:border-neutral-800 rounded-xl pl-9 pr-4 py-2 text-xs text-gray-900 dark:text-white outline-none focus:border-[#FF2D8D] transition"
                 />
               </div>
 
@@ -975,20 +975,20 @@ export function AdminPanel({ currentUser, token, vehicles, onRefreshData, settin
                       onClick={() => setAuditFilter(pill.id as any)}
                       className={`px-3 py-1.5 rounded-lg text-[10px] font-bold transition flex items-center gap-1.5 cursor-pointer ${
                         isActive
-                          ? 'bg-[#FF2D8D] text-white'
+                          ? 'bg-[#FF2D8D] text-gray-900 dark:text-white'
                           : pill.isCritical && pill.count && pill.count > 0
                           ? 'bg-rose-950/40 text-rose-400 border border-rose-900/50 hover:bg-rose-950/60'
-                          : 'bg-neutral-900 text-gray-400 hover:text-white border border-neutral-800'
+                          : 'bg-gray-100 dark:bg-neutral-900 text-gray-600 dark:text-gray-400 hover:text-gray-900 dark:text-white border border-gray-200 dark:border-neutral-800'
                       }`}
                     >
                       <span>{pill.label}</span>
                       {pill.count !== undefined && (
                         <span className={`px-1.5 py-0.2 rounded-full text-[8px] ${
                           isActive 
-                            ? 'bg-white/20 text-white' 
+                            ? 'bg-white/20 text-gray-900 dark:text-white' 
                             : pill.isCritical && pill.count > 0
                             ? 'bg-rose-500/20 text-rose-300'
-                            : 'bg-neutral-800 text-gray-500'
+                            : 'bg-white dark:bg-neutral-800 text-gray-500 dark:text-gray-400 dark:text-gray-400'
                         }`}>
                           {pill.count}
                         </span>
@@ -1001,8 +1001,8 @@ export function AdminPanel({ currentUser, token, vehicles, onRefreshData, settin
 
             {/* Audited Cars List */}
             {auditedVehicles.length === 0 ? (
-              <div className="text-center py-8 bg-neutral-900/20 border border-dashed border-neutral-900 rounded-xl">
-                <p className="text-xs text-gray-500">Nenhum veículo encontrado com os filtros selecionados.</p>
+              <div className="text-center py-8 bg-gray-100 dark:bg-neutral-900/20 border border-dashed border-gray-200 dark:border-neutral-900 rounded-xl">
+                <p className="text-xs text-gray-500 dark:text-gray-400 dark:text-gray-400">Nenhum veículo encontrado com os filtros selecionados.</p>
               </div>
             ) : (
               <div className="space-y-4">
@@ -1046,16 +1046,16 @@ export function AdminPanel({ currentUser, token, vehicles, onRefreshData, settin
                   const isExpanded = expandedSeoCarId === v.id;
 
                   return (
-                    <div key={v.id} className={`p-4 bg-neutral-900/60 border rounded-xl transition duration-300 ${
+                    <div key={v.id} className={`p-4 bg-gray-100 dark:bg-neutral-900/60 border rounded-xl transition duration-300 ${
                       isAdjustmentNeeded 
-                        ? 'border-rose-950/55 hover:border-rose-800/40 bg-neutral-950/40' 
-                        : 'border-neutral-900 hover:border-neutral-800'
+                        ? 'border-rose-950/55 hover:border-rose-800/40 bg-gray-50 dark:bg-neutral-950/40' 
+                        : 'border-gray-200 dark:border-neutral-900 hover:border-gray-200 dark:border-neutral-800'
                     }`}>
                       {/* Grid principal do veículo */}
                       <div className="grid grid-cols-1 md:grid-cols-12 gap-4 items-center">
                         {/* Imagem e Identificação */}
                         <div className="md:col-span-4 flex items-center gap-3">
-                          <div className="w-12 h-12 bg-neutral-950 border border-neutral-900 rounded-lg flex items-center justify-center overflow-hidden shrink-0">
+                          <div className="w-12 h-12 bg-gray-50 dark:bg-neutral-950 border border-gray-200 dark:border-neutral-900 rounded-lg flex items-center justify-center overflow-hidden shrink-0">
                             {v.images && v.images[0] ? (
                               <img src={v.images[0]} alt={v.title} className="w-full h-full object-cover animate-fade-in" referrerPolicy="no-referrer" />
                             ) : (
@@ -1063,9 +1063,9 @@ export function AdminPanel({ currentUser, token, vehicles, onRefreshData, settin
                             )}
                           </div>
                           <div>
-                            <span className="text-[8px] font-extrabold uppercase text-gray-500 tracking-wide">{v.brand}</span>
-                            <h4 className="font-bold text-xs text-white leading-tight mt-0.5">{v.title}</h4>
-                            <div className="flex items-center gap-2 text-[9px] text-gray-400 mt-1">
+                            <span className="text-[8px] font-extrabold uppercase text-gray-500 dark:text-gray-400 dark:text-gray-400 tracking-wide">{v.brand}</span>
+                            <h4 className="font-bold text-xs text-gray-900 dark:text-white leading-tight mt-0.5">{v.title}</h4>
+                            <div className="flex items-center gap-2 text-[9px] text-gray-600 dark:text-gray-400 mt-1">
                               <span>Ano {v.year}</span>
                               <span>•</span>
                               <span>{kmNum.toLocaleString('pt-BR')} Km</span>
@@ -1076,15 +1076,15 @@ export function AdminPanel({ currentUser, token, vehicles, onRefreshData, settin
                         {/* Dados Financeiros */}
                         <div className="md:col-span-4 grid grid-cols-3 gap-2 text-center md:text-left">
                           <div className="flex flex-col">
-                            <span className="text-[7px] text-gray-500 uppercase font-bold">Preço RaviCar</span>
-                            <span className="text-xs font-bold text-white mt-1">R$ {v.price.toLocaleString('pt-BR')}</span>
+                            <span className="text-[7px] text-gray-500 dark:text-gray-400 dark:text-gray-400 uppercase font-bold">Preço RaviCar</span>
+                            <span className="text-xs font-bold text-gray-900 dark:text-white mt-1">R$ {v.price.toLocaleString('pt-BR')}</span>
                           </div>
                           <div className="flex flex-col">
-                            <span className="text-[7px] text-gray-500 uppercase font-bold">Média FIPE</span>
-                            <span className="text-xs font-bold text-gray-300 mt-1">R$ {fipePrice.toLocaleString('pt-BR')}</span>
+                            <span className="text-[7px] text-gray-500 dark:text-gray-400 dark:text-gray-400 uppercase font-bold">Média FIPE</span>
+                            <span className="text-xs font-bold text-gray-700 dark:text-gray-300 mt-1">R$ {fipePrice.toLocaleString('pt-BR')}</span>
                           </div>
                           <div className="flex flex-col items-start">
-                            <span className="text-[7px] text-gray-500 uppercase font-bold">Desvio FIPE</span>
+                            <span className="text-[7px] text-gray-500 dark:text-gray-400 dark:text-gray-400 uppercase font-bold">Desvio FIPE</span>
                             <span className={`px-2 py-0.5 rounded-md text-[10px] font-bold mt-1 inline-flex ${
                               diffPct > 10 ? 'bg-red-900/30 text-red-500 border border-red-900/50' : 
                               diffPct < -10 ? 'bg-indigo-900/30 text-indigo-400 border border-indigo-900/50' : 
@@ -1097,7 +1097,7 @@ export function AdminPanel({ currentUser, token, vehicles, onRefreshData, settin
 
                         {/* Status de Auditoria */}
                         <div className="md:col-span-2 flex flex-col items-center md:items-start gap-1">
-                          <span className="text-[7px] text-gray-500 uppercase font-bold mb-0.5">Status FIPE</span>
+                          <span className="text-[7px] text-gray-500 dark:text-gray-400 dark:text-gray-400 uppercase font-bold mb-0.5">Status FIPE</span>
                           <span className={`px-3 py-1 rounded-full text-xs font-bold uppercase inline-flex whitespace-nowrap border ${
                             diffPct > 10 
                               ? 'bg-red-900/30 text-red-500 border-red-900/50' 
@@ -1112,15 +1112,15 @@ export function AdminPanel({ currentUser, token, vehicles, onRefreshData, settin
                         {/* Score de Qualidade */}
                         <div className="md:col-span-2 flex items-center justify-between md:justify-end gap-3 w-full md:w-auto">
                           <div className="flex flex-col items-end">
-                            <span className="text-[7px] text-gray-500 uppercase font-bold">Score Geral</span>
+                            <span className="text-[7px] text-gray-500 dark:text-gray-400 dark:text-gray-400 uppercase font-bold">Score Geral</span>
                             <div className="flex items-center gap-1.5 mt-1">
-                              <span className="text-xs font-black text-white">{scoreQualidade.toFixed(1)}</span>
-                              <span className="text-[8px] text-gray-500">/10</span>
+                              <span className="text-xs font-black text-gray-900 dark:text-white">{scoreQualidade.toFixed(1)}</span>
+                              <span className="text-[8px] text-gray-500 dark:text-gray-400 dark:text-gray-400">/10</span>
                             </div>
                           </div>
                           
                           {/* Mini progress ring or bar */}
-                          <div className="w-8 h-1.5 bg-neutral-950 border border-neutral-900 rounded-full overflow-hidden shrink-0">
+                          <div className="w-8 h-1.5 bg-gray-50 dark:bg-neutral-950 border border-gray-200 dark:border-neutral-900 rounded-full overflow-hidden shrink-0">
                             <div 
                               className={`h-full rounded-full ${
                                 scoreQualidade >= 9 ? 'bg-emerald-400' : scoreQualidade >= 8 ? 'bg-indigo-400' : 'bg-amber-400'
@@ -1132,11 +1132,11 @@ export function AdminPanel({ currentUser, token, vehicles, onRefreshData, settin
                       </div>
 
                       {/* Ações e expansor de SEO */}
-                      <div className="flex flex-col sm:flex-row items-stretch sm:items-center justify-between gap-3 mt-4 pt-3.5 border-t border-neutral-900/80">
+                      <div className="flex flex-col sm:flex-row items-stretch sm:items-center justify-between gap-3 mt-4 pt-3.5 border-t border-gray-200 dark:border-neutral-900/80">
                         <div className="flex flex-wrap items-center gap-2">
                           <button
                             onClick={() => setExpandedSeoCarId(isExpanded ? null : v.id)}
-                            className="px-3 py-1.5 bg-neutral-950 hover:bg-neutral-900 border border-neutral-800 text-gray-300 hover:text-white rounded-xl text-[10px] font-bold transition flex items-center gap-1.5 cursor-pointer"
+                            className="px-3 py-1.5 bg-gray-50 dark:bg-neutral-950 hover:bg-gray-100 dark:bg-neutral-900 border border-gray-200 dark:border-neutral-800 text-gray-700 dark:text-gray-300 hover:text-gray-900 dark:text-white rounded-xl text-[10px] font-bold transition flex items-center gap-1.5 cursor-pointer"
                           >
                             <FileText className="w-3 h-3 text-[#FF2D8D]" />
                             {isExpanded ? 'Esconder Copys SEO' : 'Visualizar Copys SEO'}
@@ -1147,7 +1147,7 @@ export function AdminPanel({ currentUser, token, vehicles, onRefreshData, settin
                         {isAdjustmentNeeded && (
                           <button
                             onClick={() => handleAutoAdjustPrice(v, fipePrice)}
-                            className="px-3 py-1.5 bg-rose-500/10 hover:bg-rose-600 hover:text-white text-rose-400 border border-rose-500/20 hover:border-transparent rounded-xl text-[10px] font-bold transition flex items-center justify-center gap-1.5 cursor-pointer"
+                            className="px-3 py-1.5 bg-rose-500/10 hover:bg-rose-600 hover:text-gray-900 dark:text-white text-rose-400 border border-rose-500/20 hover:border-transparent rounded-xl text-[10px] font-bold transition flex items-center justify-center gap-1.5 cursor-pointer"
                           >
                             <RefreshCw className="w-3 h-3 shrink-0" />
                             Ajustar para Preço FIPE (R$ {fipePrice.toLocaleString('pt-BR')})
@@ -1157,7 +1157,7 @@ export function AdminPanel({ currentUser, token, vehicles, onRefreshData, settin
 
                       {/* Bloco Expandido de Copys SEO */}
                       {isExpanded && (
-                        <div className="mt-4 p-4 bg-neutral-950 border border-neutral-900 rounded-xl space-y-4">
+                        <div className="mt-4 p-4 bg-gray-50 dark:bg-neutral-950 border border-gray-200 dark:border-neutral-900 rounded-xl space-y-4">
                           <div>
                             <div className="flex items-center justify-between mb-1.5">
                               <span className="text-[8px] font-extrabold uppercase text-emerald-400 tracking-wider">Título Otimizado (SEO)</span>
@@ -1171,7 +1171,7 @@ export function AdminPanel({ currentUser, token, vehicles, onRefreshData, settin
                                 Copiar Título
                               </button>
                             </div>
-                            <p className="p-2.5 bg-neutral-900/60 border border-neutral-900/80 rounded-lg text-[10px] text-white font-mono leading-relaxed select-all">
+                            <p className="p-2.5 bg-gray-100 dark:bg-neutral-900/60 border border-gray-200 dark:border-neutral-900/80 rounded-lg text-[10px] text-gray-900 dark:text-white font-mono leading-relaxed select-all">
                               {seoTitle}
                             </p>
                           </div>
@@ -1189,7 +1189,7 @@ export function AdminPanel({ currentUser, token, vehicles, onRefreshData, settin
                                 Copiar Descrição
                               </button>
                             </div>
-                            <p className="p-2.5 bg-neutral-900/60 border border-neutral-900/80 rounded-lg text-[10px] text-gray-300 leading-relaxed select-all">
+                            <p className="p-2.5 bg-gray-100 dark:bg-neutral-900/60 border border-gray-200 dark:border-neutral-900/80 rounded-lg text-[10px] text-gray-700 dark:text-gray-300 leading-relaxed select-all">
                               {persuasiveDesc}
                             </p>
                           </div>
@@ -1209,21 +1209,21 @@ export function AdminPanel({ currentUser, token, vehicles, onRefreshData, settin
         <div className="space-y-6">
           <div className="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4">
             <div>
-              <h3 className="font-display font-bold text-sm text-white uppercase tracking-wider text-[#FF2D8D]">
+              <h3 className="font-display font-bold text-sm text-gray-900 dark:text-white uppercase tracking-wider text-[#FF2D8D]">
                 Estoque do Showroom ({filteredVehicles.length})
               </h3>
-              <p className="text-[10px] text-gray-500 mt-0.5">Gerencie os veículos seminovos ativos no showroom.</p>
+              <p className="text-[10px] text-gray-500 dark:text-gray-400 dark:text-gray-400 mt-0.5">Gerencie os veículos seminovos ativos no showroom.</p>
             </div>
             
             <div className="flex flex-col sm:flex-row items-stretch sm:items-center gap-3 w-full sm:w-auto">
               <div className="relative w-full sm:w-64">
-                <Search className="w-3.5 h-3.5 text-gray-500 absolute left-3 top-1/2 -translate-y-1/2" />
+                <Search className="w-3.5 h-3.5 text-gray-500 dark:text-gray-400 dark:text-gray-400 absolute left-3 top-1/2 -translate-y-1/2" />
                 <input
                   type="text"
                   placeholder="Buscar carro (marca, modelo, ano...)"
                   value={stockSearch}
                   onChange={e => setStockSearch(e.target.value)}
-                  className="w-full bg-neutral-900 border border-neutral-800 rounded-xl pl-9 pr-4 py-2 text-xs text-white outline-none focus:border-[#FF2D8D] transition"
+                  className="w-full bg-gray-100 dark:bg-neutral-900 border border-gray-200 dark:border-neutral-800 rounded-xl pl-9 pr-4 py-2 text-xs text-gray-900 dark:text-white outline-none focus:border-[#FF2D8D] transition"
                 />
               </div>
               <button
@@ -1237,113 +1237,113 @@ export function AdminPanel({ currentUser, token, vehicles, onRefreshData, settin
 
           {/* Add / Edit Vehicle Form Overlay */}
           {carFormOpen && (
-            <div className="p-6 bg-neutral-950 border border-neutral-900 rounded-2xl shadow-xl">
-              <div className="flex items-center justify-between mb-6 pb-2 border-b border-neutral-900">
-                <h4 className="font-display font-bold text-sm text-white">
+            <div className="p-6 bg-gray-50 dark:bg-neutral-950 border border-gray-200 dark:border-neutral-900 rounded-2xl shadow-xl">
+              <div className="flex items-center justify-between mb-6 pb-2 border-b border-gray-200 dark:border-neutral-900">
+                <h4 className="font-display font-bold text-sm text-gray-900 dark:text-white">
                   {editingCarId ? `Editar Veículo: ${carForm.title}` : 'Cadastrar Novo Veículo Seminovos'}
                 </h4>
                 <button
                   onClick={() => setCarFormOpen(false)}
-                  className="px-3 py-1 bg-neutral-900 text-gray-400 hover:text-white text-xs border border-neutral-800 rounded"
+                  className="px-3 py-1 bg-gray-100 dark:bg-neutral-900 text-gray-600 dark:text-gray-400 hover:text-gray-900 dark:text-white text-xs border border-gray-200 dark:border-neutral-800 rounded"
                 >
                   Cancelar
                 </button>
               </div>
 
-              <form onSubmit={handleSaveVehicle} className="space-y-6 text-xs text-gray-300">
+              <form onSubmit={handleSaveVehicle} className="space-y-6 text-xs text-gray-700 dark:text-gray-300">
                 <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
                   {/* Title */}
                   <div className="md:col-span-2">
-                    <label className="block text-xs font-bold text-gray-500 mb-1">Título do Anúncio *</label>
+                    <label className="block text-xs font-bold text-gray-500 dark:text-gray-400 dark:text-gray-400 mb-1">Título do Anúncio *</label>
                     <input
                       type="text"
                       required
                       value={carForm.title}
                       onChange={e => setCarForm(p => ({ ...p, title: e.target.value }))}
-                      className="w-full bg-neutral-900 border border-neutral-800 rounded-xl px-3.5 py-2.5 text-white outline-none"
+                      className="w-full bg-gray-100 dark:bg-neutral-900 border border-gray-200 dark:border-neutral-800 rounded-xl px-3.5 py-2.5 text-gray-900 dark:text-white outline-none"
                       placeholder="Ex: Toyota Corolla 1.8 Hybrid Altis Premium"
                     />
                   </div>
                   {/* Price */}
                   <div>
-                    <label className="block text-xs font-bold text-gray-500 mb-1">Preço de Venda (R$) *</label>
+                    <label className="block text-xs font-bold text-gray-500 dark:text-gray-400 dark:text-gray-400 mb-1">Preço de Venda (R$) *</label>
                     <input
                       type="number"
                       required
                       value={carForm.price === 0 ? "" : carForm.price}
                       onChange={e => setCarForm(p => ({ ...p, price: e.target.value === "" ? 0 : Number(e.target.value) }))}
-                      className="w-full bg-neutral-900 border border-neutral-800 rounded-xl px-3.5 py-2.5 text-white outline-none"
+                      className="w-full bg-gray-100 dark:bg-neutral-900 border border-gray-200 dark:border-neutral-800 rounded-xl px-3.5 py-2.5 text-gray-900 dark:text-white outline-none"
                       placeholder="Ex: 148900"
                     />
                   </div>
 
                   {/* Brand */}
                   <div>
-                    <label className="block text-xs font-bold text-gray-500 mb-1">Marca *</label>
+                    <label className="block text-xs font-bold text-gray-500 dark:text-gray-400 dark:text-gray-400 mb-1">Marca *</label>
                     <input
                       type="text"
                       required
                       value={carForm.brand}
                       onChange={e => setCarForm(p => ({ ...p, brand: e.target.value }))}
-                      className="w-full bg-neutral-900 border border-neutral-800 rounded-xl px-3.5 py-2.5 text-white outline-none"
+                      className="w-full bg-gray-100 dark:bg-neutral-900 border border-gray-200 dark:border-neutral-800 rounded-xl px-3.5 py-2.5 text-gray-900 dark:text-white outline-none"
                       placeholder="Ex: Toyota"
                     />
                   </div>
                   {/* Model */}
                   <div>
-                    <label className="block text-xs font-bold text-gray-500 mb-1">Modelo *</label>
+                    <label className="block text-xs font-bold text-gray-500 dark:text-gray-400 dark:text-gray-400 mb-1">Modelo *</label>
                     <input
                       type="text"
                       required
                       value={carForm.model}
                       onChange={e => setCarForm(p => ({ ...p, model: e.target.value }))}
-                      className="w-full bg-neutral-900 border border-neutral-800 rounded-xl px-3.5 py-2.5 text-white outline-none"
+                      className="w-full bg-gray-100 dark:bg-neutral-900 border border-gray-200 dark:border-neutral-800 rounded-xl px-3.5 py-2.5 text-gray-900 dark:text-white outline-none"
                       placeholder="Ex: Corolla"
                     />
                   </div>
                   {/* Year */}
                   <div>
-                    <label className="block text-xs font-bold text-gray-500 mb-1">Ano (Fabricação/Modelo) *</label>
+                    <label className="block text-xs font-bold text-gray-500 dark:text-gray-400 dark:text-gray-400 mb-1">Ano (Fabricação/Modelo) *</label>
                     <input
                       type="text"
                       required
                       value={carForm.year}
                       onChange={e => setCarForm(p => ({ ...p, year: e.target.value }))}
-                      className="w-full bg-neutral-900 border border-neutral-800 rounded-xl px-3.5 py-2.5 text-white outline-none"
+                      className="w-full bg-gray-100 dark:bg-neutral-900 border border-gray-200 dark:border-neutral-800 rounded-xl px-3.5 py-2.5 text-gray-900 dark:text-white outline-none"
                       placeholder="Ex: 2022/2023"
                     />
                   </div>
 
                   {/* Mileage */}
                   <div>
-                    <label className="block text-xs font-bold text-gray-500 mb-1">KM (Quilometragem) *</label>
+                    <label className="block text-xs font-bold text-gray-500 dark:text-gray-400 dark:text-gray-400 mb-1">KM (Quilometragem) *</label>
                     <input
                       type="number"
                       required
                       value={carForm.mileage === 0 ? "" : carForm.mileage}
                       onChange={e => setCarForm(p => ({ ...p, mileage: e.target.value === "" ? 0 : Number(e.target.value) }))}
-                      className="w-full bg-neutral-900 border border-neutral-800 rounded-xl px-3.5 py-2.5 text-white outline-none"
+                      className="w-full bg-gray-100 dark:bg-neutral-900 border border-gray-200 dark:border-neutral-800 rounded-xl px-3.5 py-2.5 text-gray-900 dark:text-white outline-none"
                     />
                   </div>
                   {/* Color */}
                   <div>
-                    <label className="block text-xs font-bold text-gray-500 mb-1">Cor Externa *</label>
+                    <label className="block text-xs font-bold text-gray-500 dark:text-gray-400 dark:text-gray-400 mb-1">Cor Externa *</label>
                     <input
                       type="text"
                       required
                       value={carForm.color}
                       onChange={e => setCarForm(p => ({ ...p, color: e.target.value }))}
-                      className="w-full bg-neutral-900 border border-neutral-800 rounded-xl px-3.5 py-2.5 text-white outline-none"
+                      className="w-full bg-gray-100 dark:bg-neutral-900 border border-gray-200 dark:border-neutral-800 rounded-xl px-3.5 py-2.5 text-gray-900 dark:text-white outline-none"
                       placeholder="Ex: Prata, Preto"
                     />
                   </div>
                   {/* Fuel */}
                   <div>
-                    <label className="block text-xs font-bold text-gray-500 mb-1">Combustível *</label>
+                    <label className="block text-xs font-bold text-gray-500 dark:text-gray-400 dark:text-gray-400 mb-1">Combustível *</label>
                     <select
                       value={carForm.fuel}
                       onChange={e => setCarForm(p => ({ ...p, fuel: e.target.value as FuelType }))}
-                      className="w-full bg-neutral-900 border border-neutral-800 rounded-xl px-3.5 py-2.5 text-white outline-none"
+                      className="w-full bg-gray-100 dark:bg-neutral-900 border border-gray-200 dark:border-neutral-800 rounded-xl px-3.5 py-2.5 text-gray-900 dark:text-white outline-none"
                     >
                       <option value="Gasolina">Gasolina</option>
                       <option value="Etanol">Etanol</option>
@@ -1356,11 +1356,11 @@ export function AdminPanel({ currentUser, token, vehicles, onRefreshData, settin
 
                   {/* Transmission */}
                   <div>
-                    <label className="block text-xs font-bold text-gray-500 mb-1">Câmbio *</label>
+                    <label className="block text-xs font-bold text-gray-500 dark:text-gray-400 dark:text-gray-400 mb-1">Câmbio *</label>
                     <select
                       value={carForm.transmission}
                       onChange={e => setCarForm(p => ({ ...p, transmission: e.target.value as TransmissionType }))}
-                      className="w-full bg-neutral-900 border border-neutral-800 rounded-xl px-3.5 py-2.5 text-white outline-none"
+                      className="w-full bg-gray-100 dark:bg-neutral-900 border border-gray-200 dark:border-neutral-800 rounded-xl px-3.5 py-2.5 text-gray-900 dark:text-white outline-none"
                     >
                       <option value="Manual">Manual</option>
                       <option value="Automático">Automático</option>
@@ -1368,40 +1368,40 @@ export function AdminPanel({ currentUser, token, vehicles, onRefreshData, settin
                   </div>
                   {/* Engine */}
                   <div>
-                    <label className="block text-xs font-bold text-gray-500 mb-1">Motorização *</label>
+                    <label className="block text-xs font-bold text-gray-500 dark:text-gray-400 dark:text-gray-400 mb-1">Motorização *</label>
                     <input
                       type="text"
                       required
                       value={carForm.engine}
                       onChange={e => setCarForm(p => ({ ...p, engine: e.target.value }))}
-                      className="w-full bg-neutral-900 border border-neutral-800 rounded-xl px-3.5 py-2.5 text-white outline-none"
+                      className="w-full bg-gray-100 dark:bg-neutral-900 border border-gray-200 dark:border-neutral-800 rounded-xl px-3.5 py-2.5 text-gray-900 dark:text-white outline-none"
                       placeholder="Ex: 1.8 Hybrid, 2.0"
                     />
                   </div>
                   {/* Power */}
                   <div>
-                    <label className="block text-xs font-bold text-gray-500 mb-1">Potência (CV)</label>
+                    <label className="block text-xs font-bold text-gray-500 dark:text-gray-400 dark:text-gray-400 mb-1">Potência (CV)</label>
                     <input
                       type="text"
                       value={carForm.power}
                       onChange={e => setCarForm(p => ({ ...p, power: e.target.value }))}
-                      className="w-full bg-neutral-900 border border-neutral-800 rounded-xl px-3.5 py-2.5 text-white outline-none"
+                      className="w-full bg-gray-100 dark:bg-neutral-900 border border-gray-200 dark:border-neutral-800 rounded-xl px-3.5 py-2.5 text-gray-900 dark:text-white outline-none"
                       placeholder="Ex: 122 cv, 150 cv"
                     />
                   </div>
                 </div>
 
                 {/* Media Manager Block */}
-                <div className="p-4 bg-neutral-900 border border-neutral-800/80 rounded-2xl">
+                <div className="p-4 bg-gray-100 dark:bg-neutral-900 border border-gray-200 dark:border-neutral-800/80 rounded-2xl">
                   <h5 className="font-display font-bold text-xs text-[#FF6FB5] mb-2 flex items-center gap-1">
                     <Upload className="w-4 h-4" />
                     Fotos do Veículo
                   </h5>
-                  <p className="text-[10px] text-gray-500 mb-4">Adicione fotos e vídeos para compor a galeria do carro.</p>
+                  <p className="text-[10px] text-gray-500 dark:text-gray-400 dark:text-gray-400 mb-4">Adicione fotos e vídeos para compor a galeria do carro.</p>
                   
                   <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
                     {/* Dropzone */}
-                    <div className="relative w-full h-40 border-2 border-dashed border-gray-700 hover:border-[#FF2A7A] rounded-2xl flex flex-col items-center justify-center bg-neutral-950 transition-colors group cursor-pointer">
+                    <div className="relative w-full h-40 border-2 border-dashed border-gray-200 dark:border-gray-700 hover:border-[#FF2A7A] rounded-2xl flex flex-col items-center justify-center bg-gray-50 dark:bg-neutral-950 transition-colors group cursor-pointer">
                       <input
                         type="file"
                         multiple
@@ -1409,15 +1409,15 @@ export function AdminPanel({ currentUser, token, vehicles, onRefreshData, settin
                         onChange={handleFileUpload}
                         className="absolute inset-0 w-full h-full opacity-0 cursor-pointer z-10"
                       />
-                      <Upload className="w-8 h-8 text-gray-500 group-hover:text-[#FF2A7A] mb-2 transition-colors" />
-                      <span className="text-gray-400 font-bold text-xs group-hover:text-white transition-colors">Toque para adicionar fotos</span>
+                      <Upload className="w-8 h-8 text-gray-500 dark:text-gray-400 dark:text-gray-400 group-hover:text-[#FF2A7A] mb-2 transition-colors" />
+                      <span className="text-gray-600 dark:text-gray-400 font-bold text-xs group-hover:text-gray-900 dark:text-white transition-colors">Toque para adicionar fotos</span>
                       {loading && <span className="text-xs text-[#FF2A7A] mt-2 animate-pulse font-medium">Enviando...</span>}
                     </div>
 
                     {/* Thumbnail Previews */}
                     <div className="grid grid-cols-3 sm:grid-cols-4 gap-2 h-40 overflow-y-auto pr-2 scrollbar-thin scrollbar-thumb-gray-800 scrollbar-track-transparent">
                       {carForm.media.map((med, idx) => (
-                        <div key={idx} className="relative aspect-square rounded-lg border border-neutral-800 overflow-hidden bg-black flex items-center justify-center group">
+                        <div key={idx} className="relative aspect-square rounded-lg border border-gray-200 dark:border-neutral-800 overflow-hidden bg-white dark:bg-black flex items-center justify-center group">
                           {med.type === 'video' ? (
                             <Video className="w-6 h-6 text-[#FF2A7A]" />
                           ) : (
@@ -1438,43 +1438,43 @@ export function AdminPanel({ currentUser, token, vehicles, onRefreshData, settin
 
                 {/* Optionals list inputs */}
                 <div>
-                  <label className="block text-xs font-bold text-gray-500 mb-1">Opcionais (Separados por vírgula) *</label>
+                  <label className="block text-xs font-bold text-gray-500 dark:text-gray-400 dark:text-gray-400 mb-1">Opcionais (Separados por vírgula) *</label>
                   <input
                     type="text"
                     value={carForm.optionsText}
                     onChange={e => setCarForm(p => ({ ...p, optionsText: e.target.value }))}
-                    className="w-full bg-neutral-900 border border-neutral-800 rounded-xl px-3.5 py-2.5 text-white outline-none"
+                    className="w-full bg-gray-100 dark:bg-neutral-900 border border-gray-200 dark:border-neutral-800 rounded-xl px-3.5 py-2.5 text-gray-900 dark:text-white outline-none"
                     placeholder="Ex: Ar condicionado, Bancos em couro, Teto solar, Câmera de ré"
                   />
                 </div>
 
                 {/* Description */}
                 <div>
-                  <label className="block text-xs font-bold text-gray-500 mb-1">Descrição Comercial Detalhada</label>
+                  <label className="block text-xs font-bold text-gray-500 dark:text-gray-400 dark:text-gray-400 mb-1">Descrição Comercial Detalhada</label>
                   <textarea
                     rows={4}
                     value={carForm.description}
                     onChange={e => setCarForm(p => ({ ...p, description: e.target.value }))}
-                    className="w-full bg-neutral-900 border border-neutral-800 rounded-xl px-3.5 py-2.5 text-white outline-none resize-none"
+                    className="w-full bg-gray-100 dark:bg-neutral-900 border border-gray-200 dark:border-neutral-800 rounded-xl px-3.5 py-2.5 text-gray-900 dark:text-white outline-none resize-none"
                     placeholder="Fale sobre o estado de conservação, histórico, garantias, etc."
                   ></textarea>
                 </div>
 
                 {/* IA Market Intelligence Panel */}
-                <div className="p-5 bg-neutral-900 border border-neutral-800 rounded-2xl space-y-4">
-                  <div className="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-3 pb-2 border-b border-neutral-800">
+                <div className="p-5 bg-gray-100 dark:bg-neutral-900 border border-gray-200 dark:border-neutral-800 rounded-2xl space-y-4">
+                  <div className="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-3 pb-2 border-b border-gray-200 dark:border-neutral-800">
                     <div>
-                      <h5 className="font-display font-black text-xs text-white uppercase tracking-wider flex items-center gap-1.5">
+                      <h5 className="font-display font-black text-xs text-gray-900 dark:text-white uppercase tracking-wider flex items-center gap-1.5">
                         <RefreshCw className={`w-4 h-4 text-[#FF2D8D] ${aiLoading ? 'animate-spin' : ''}`} />
                         Inteligência de Mercado IA (RaviCar)
                       </h5>
-                      <p className="text-[10px] text-gray-500 mt-0.5">Audite o preço do veículo e otimize o título para SEO e descrição com 1 clique.</p>
+                      <p className="text-[10px] text-gray-500 dark:text-gray-400 dark:text-gray-400 mt-0.5">Audite o preço do veículo e otimize o título para SEO e descrição com 1 clique.</p>
                     </div>
                     <button
                       type="button"
                       disabled={aiLoading}
                       onClick={handleTriggerAIAnalysis}
-                      className="px-4 py-2 rounded-xl bg-neutral-800 hover:bg-[#FF2D8D] text-white font-extrabold text-[11px] border border-neutral-700 hover:border-transparent transition flex items-center gap-1.5 disabled:opacity-50 cursor-pointer"
+                      className="px-4 py-2 rounded-xl bg-white dark:bg-neutral-800 hover:bg-[#FF2D8D] text-white font-extrabold text-[11px] border border-gray-200 dark:border-neutral-700 hover:border-transparent transition flex items-center gap-1.5 disabled:opacity-50 cursor-pointer"
                     >
                       {aiLoading ? (
                         <>
@@ -1494,15 +1494,15 @@ export function AdminPanel({ currentUser, token, vehicles, onRefreshData, settin
                       {/* Quality & Price Grid */}
                       <div className="grid grid-cols-1 md:grid-cols-12 gap-4">
                         {/* Quality Score */}
-                        <div className="md:col-span-4 p-4 bg-neutral-950 border border-neutral-800 rounded-xl flex flex-col justify-between">
+                        <div className="md:col-span-4 p-4 bg-gray-50 dark:bg-neutral-950 border border-gray-200 dark:border-neutral-800 rounded-xl flex flex-col justify-between">
                           <div>
-                            <span className="text-[9px] uppercase tracking-wider text-gray-500 font-bold">Score de Qualidade</span>
+                            <span className="text-[9px] uppercase tracking-wider text-gray-500 dark:text-gray-400 dark:text-gray-400 font-bold">Score de Qualidade</span>
                             <div className="flex items-baseline gap-1 mt-2">
-                              <span className="text-3xl font-black text-white">{aiAnalysis.score_qualidade}</span>
+                              <span className="text-3xl font-black text-gray-900 dark:text-white">{aiAnalysis.score_qualidade}</span>
                               <span className="text-gray-600 font-bold">/ 10</span>
                             </div>
                           </div>
-                          <div className="w-full bg-neutral-900 h-1.5 rounded-full mt-3 overflow-hidden">
+                          <div className="w-full bg-gray-100 dark:bg-neutral-900 h-1.5 rounded-full mt-3 overflow-hidden">
                             <div 
                               className="bg-gradient-to-r from-[#FF2D8D] to-[#FF6FB5] h-full rounded-full" 
                               style={{ width: `${aiAnalysis.score_qualidade * 10}%` }}
@@ -1511,9 +1511,9 @@ export function AdminPanel({ currentUser, token, vehicles, onRefreshData, settin
                         </div>
 
                         {/* Price Audit */}
-                        <div className="md:col-span-8 p-4 bg-neutral-950 border border-neutral-800 rounded-xl space-y-3">
+                        <div className="md:col-span-8 p-4 bg-gray-50 dark:bg-neutral-950 border border-gray-200 dark:border-neutral-800 rounded-xl space-y-3">
                           <div className="flex items-center justify-between">
-                            <span className="text-[9px] uppercase tracking-wider text-gray-500 font-bold">Auditoria de Preço (Julho/2026)</span>
+                            <span className="text-[9px] uppercase tracking-wider text-gray-500 dark:text-gray-400 dark:text-gray-400 font-bold">Auditoria de Preço (Julho/2026)</span>
                             <span className={`px-2.5 py-0.5 rounded-full text-[9px] font-black uppercase ${
                               aiAnalysis.analise_preco.status === 'DENTRO_DO_MERCADO' ? 'bg-emerald-950 text-emerald-400 border border-emerald-900' :
                               aiAnalysis.analise_preco.status === 'ABAJO_DO_MERCADO' || aiAnalysis.analise_preco.status === 'ABAIXO_DO_MERCADO' ? 'bg-sky-950 text-sky-400 border border-sky-900' :
@@ -1525,16 +1525,16 @@ export function AdminPanel({ currentUser, token, vehicles, onRefreshData, settin
 
                           <div className="grid grid-cols-2 gap-2 text-xs">
                             <div>
-                              <p className="text-gray-500 text-[10px]">Preço Sugerido (FIPE/Margem):</p>
-                              <p className="font-bold text-white mt-0.5">R$ {aiAnalysis.analise_preco.preco_sugerido.toLocaleString('pt-BR')}</p>
+                              <p className="text-gray-500 dark:text-gray-400 dark:text-gray-400 text-[10px]">Preço Sugerido (FIPE/Margem):</p>
+                              <p className="font-bold text-gray-900 dark:text-white mt-0.5">R$ {aiAnalysis.analise_preco.preco_sugerido.toLocaleString('pt-BR')}</p>
                             </div>
                             <div>
-                              <p className="text-gray-500 text-[10px]">Diferença vs. Mercado:</p>
+                              <p className="text-gray-500 dark:text-gray-400 dark:text-gray-400 text-[10px]">Diferença vs. Mercado:</p>
                               <p className="font-bold text-[#FF2D8D] mt-0.5">{aiAnalysis.analise_preco.diferenca_percentual}</p>
                             </div>
                           </div>
 
-                          <div className="pt-2 border-t border-neutral-900 flex justify-end">
+                          <div className="pt-2 border-t border-gray-200 dark:border-neutral-900 flex justify-end">
                             <button
                               type="button"
                               onClick={() => {
@@ -1552,39 +1552,39 @@ export function AdminPanel({ currentUser, token, vehicles, onRefreshData, settin
                       {/* Content Grid */}
                       <div className="space-y-3">
                         {/* Title SEO */}
-                        <div className="p-4 bg-neutral-950 border border-neutral-800 rounded-xl space-y-2">
+                        <div className="p-4 bg-gray-50 dark:bg-neutral-950 border border-gray-200 dark:border-neutral-800 rounded-xl space-y-2">
                           <div className="flex items-center justify-between">
-                            <span className="text-[9px] uppercase tracking-wider text-gray-500 font-bold">Título Otimizado para SEO</span>
+                            <span className="text-[9px] uppercase tracking-wider text-gray-500 dark:text-gray-400 dark:text-gray-400 font-bold">Título Otimizado para SEO</span>
                             <button
                               type="button"
                               onClick={() => {
                                 setCarForm(prev => ({ ...prev, title: aiAnalysis.conteudo.titulo_seo }));
                                 showToast('Título SEO aplicado!', 'success');
                               }}
-                              className="px-2 py-1 rounded bg-neutral-900 border border-neutral-800 text-gray-300 hover:text-white transition font-bold text-[9px] flex items-center gap-1 cursor-pointer"
+                              className="px-2 py-1 rounded bg-gray-100 dark:bg-neutral-900 border border-gray-200 dark:border-neutral-800 text-gray-700 dark:text-gray-300 hover:text-gray-900 dark:text-white transition font-bold text-[9px] flex items-center gap-1 cursor-pointer"
                             >
                               <Check className="w-2.5 h-2.5" /> Aplicar Título
                             </button>
                           </div>
-                          <p className="text-white font-bold text-xs">{aiAnalysis.conteudo.titulo_seo}</p>
+                          <p className="text-gray-900 dark:text-white font-bold text-xs">{aiAnalysis.conteudo.titulo_seo}</p>
                         </div>
 
                         {/* Description Persuasiva */}
-                        <div className="p-4 bg-neutral-950 border border-neutral-800 rounded-xl space-y-2">
+                        <div className="p-4 bg-gray-50 dark:bg-neutral-950 border border-gray-200 dark:border-neutral-800 rounded-xl space-y-2">
                           <div className="flex items-center justify-between">
-                            <span className="text-[9px] uppercase tracking-wider text-gray-500 font-bold">Descrição Curta & Persuasiva</span>
+                            <span className="text-[9px] uppercase tracking-wider text-gray-500 dark:text-gray-400 dark:text-gray-400 font-bold">Descrição Curta & Persuasiva</span>
                             <button
                               type="button"
                               onClick={() => {
                                 setCarForm(prev => ({ ...prev, description: aiAnalysis.conteudo.descricao_persuasiva }));
                                 showToast('Descrição persuasiva aplicada!', 'success');
                               }}
-                              className="px-2 py-1 rounded bg-neutral-900 border border-neutral-800 text-gray-300 hover:text-white transition font-bold text-[9px] flex items-center gap-1 cursor-pointer"
+                              className="px-2 py-1 rounded bg-gray-100 dark:bg-neutral-900 border border-gray-200 dark:border-neutral-800 text-gray-700 dark:text-gray-300 hover:text-gray-900 dark:text-white transition font-bold text-[9px] flex items-center gap-1 cursor-pointer"
                             >
                               <Check className="w-2.5 h-2.5" /> Aplicar Descrição
                             </button>
                           </div>
-                          <p className="text-gray-300 leading-relaxed text-[11px] italic">"{aiAnalysis.conteudo.descricao_persuasiva}"</p>
+                          <p className="text-gray-700 dark:text-gray-300 leading-relaxed text-[11px] italic">"{aiAnalysis.conteudo.descricao_persuasiva}"</p>
                         </div>
                       </div>
                     </div>
@@ -1592,13 +1592,13 @@ export function AdminPanel({ currentUser, token, vehicles, onRefreshData, settin
                 </div>
 
                 {/* Flags and Status */}
-                <div className="grid grid-cols-1 md:grid-cols-3 gap-4 p-4 bg-neutral-900 border border-neutral-800 rounded-2xl">
+                <div className="grid grid-cols-1 md:grid-cols-3 gap-4 p-4 bg-gray-100 dark:bg-neutral-900 border border-gray-200 dark:border-neutral-800 rounded-2xl">
                   <div>
-                    <label className="block text-xs font-bold text-gray-500 mb-1.5">Status de Disponibilidade</label>
+                    <label className="block text-xs font-bold text-gray-500 dark:text-gray-400 dark:text-gray-400 mb-1.5">Status de Disponibilidade</label>
                     <select
                       value={carForm.status}
                       onChange={e => setCarForm(p => ({ ...p, status: e.target.value as VehicleStatus }))}
-                      className="w-full bg-neutral-900 border border-neutral-800 rounded-xl px-3.5 py-2.5 text-white outline-none"
+                      className="w-full bg-gray-100 dark:bg-neutral-900 border border-gray-200 dark:border-neutral-800 rounded-xl px-3.5 py-2.5 text-gray-900 dark:text-white outline-none"
                     >
                       <option value="Disponível">Disponível</option>
                       <option value="Reservado">Reservado</option>
@@ -1610,36 +1610,36 @@ export function AdminPanel({ currentUser, token, vehicles, onRefreshData, settin
                     <button
                       type="button"
                       onClick={() => setCarForm(p => ({ ...p, featured: !p.featured }))}
-                      className={`relative w-10 h-6 rounded-full transition-colors duration-300 ease-in-out shrink-0 focus:outline-none ${carForm.featured ? 'bg-[#FF2A7A]' : 'bg-gray-700'}`}
+                      className={`relative w-10 h-6 rounded-full transition-colors duration-300 ease-in-out shrink-0 focus:outline-none ${carForm.featured ? 'bg-[#FF2A7A]' : 'bg-gray-300 dark:bg-gray-700'}`}
                     >
                       <span className={`absolute top-1 bg-white w-4 h-4 rounded-full transition-transform duration-300 ease-in-out ${carForm.featured ? 'left-[22px]' : 'left-1'}`} />
                     </button>
-                    <label className="font-bold text-white text-xs cursor-pointer" onClick={() => setCarForm(p => ({ ...p, featured: !p.featured }))}>Anúncio Destaque ⚡</label>
+                    <label className="font-bold text-gray-900 dark:text-white text-xs cursor-pointer" onClick={() => setCarForm(p => ({ ...p, featured: !p.featured }))}>Anúncio Destaque ⚡</label>
                   </div>
 
                   <div className="flex items-center gap-3 pt-6">
                     <button
                       type="button"
                       onClick={() => setCarForm(p => ({ ...p, newlyArrived: !p.newlyArrived }))}
-                      className={`relative w-10 h-6 rounded-full transition-colors duration-300 ease-in-out shrink-0 focus:outline-none ${carForm.newlyArrived ? 'bg-[#FF2A7A]' : 'bg-gray-700'}`}
+                      className={`relative w-10 h-6 rounded-full transition-colors duration-300 ease-in-out shrink-0 focus:outline-none ${carForm.newlyArrived ? 'bg-[#FF2A7A]' : 'bg-gray-300 dark:bg-gray-700'}`}
                     >
                       <span className={`absolute top-1 bg-white w-4 h-4 rounded-full transition-transform duration-300 ease-in-out ${carForm.newlyArrived ? 'left-[22px]' : 'left-1'}`} />
                     </button>
-                    <label className="font-bold text-white text-xs cursor-pointer" onClick={() => setCarForm(p => ({ ...p, newlyArrived: !p.newlyArrived }))}>Novidade no Estoque ✨</label>
+                    <label className="font-bold text-gray-900 dark:text-white text-xs cursor-pointer" onClick={() => setCarForm(p => ({ ...p, newlyArrived: !p.newlyArrived }))}>Novidade no Estoque ✨</label>
                   </div>
                 </div>
 
-                <div className="flex justify-end gap-3 pt-4 border-t border-neutral-900">
+                <div className="flex justify-end gap-3 pt-4 border-t border-gray-200 dark:border-neutral-900">
                   <button
                     type="button"
                     onClick={() => setCarFormOpen(false)}
-                    className="px-5 py-3 rounded-xl bg-neutral-900 border border-neutral-800 font-bold text-gray-400 hover:text-white"
+                    className="px-5 py-3 rounded-xl bg-gray-100 dark:bg-neutral-900 border border-gray-200 dark:border-neutral-800 font-bold text-gray-600 dark:text-gray-400 hover:text-gray-900 dark:text-white"
                   >
                     Descartar Alterações
                   </button>
                   <button
                     type="submit"
-                    className="px-6 py-3 rounded-xl bg-gradient-to-r from-[#FF2D8D] to-[#FF6FB5] text-white font-extrabold shadow-lg hover:glow-pink"
+                    className="px-6 py-3 rounded-xl bg-gradient-to-r from-[#FF2D8D] to-[#FF6FB5] text-gray-900 dark:text-white font-extrabold shadow-lg hover:glow-pink"
                   >
                     {editingCarId ? 'Salvar Edição' : 'Cadastrar Carro'}
                   </button>
@@ -1649,10 +1649,10 @@ export function AdminPanel({ currentUser, token, vehicles, onRefreshData, settin
           )}
 
           {/* Vehicles List */}
-          <div className="bg-neutral-950 border border-neutral-900 rounded-2xl overflow-hidden flex flex-col">
+          <div className="bg-gray-50 dark:bg-neutral-950 border border-gray-200 dark:border-neutral-900 rounded-2xl overflow-hidden flex flex-col">
             {filteredVehicles.map(v => (
-              <div key={v.id} className="p-4 flex flex-row items-center gap-4 border-b border-gray-800 last:border-0 hover:bg-neutral-900/20 transition-colors">
-                <div className="shrink-0 w-20 h-20 bg-neutral-900 rounded-md overflow-hidden border border-neutral-800">
+              <div key={v.id} className="p-4 flex flex-row items-center gap-4 border-b border-gray-200 dark:border-gray-800 last:border-0 hover:bg-gray-100 dark:bg-neutral-900/20 transition-colors">
+                <div className="shrink-0 w-20 h-20 bg-gray-100 dark:bg-neutral-900 rounded-md overflow-hidden border border-gray-200 dark:border-neutral-800">
                   <img
                     src={v.media[0]?.url || 'https://images.unsplash.com/photo-1541899481282-d53bffe3c35d?auto=format&fit=crop&q=80&w=200'}
                     className="w-full h-full object-cover"
@@ -1660,9 +1660,9 @@ export function AdminPanel({ currentUser, token, vehicles, onRefreshData, settin
                   />
                 </div>
                 <div className="flex-grow min-w-0 flex flex-col justify-center">
-                  <h4 className="text-white font-bold truncate line-clamp-1 max-w-full">{v.title}</h4>
+                  <h4 className="text-gray-900 dark:text-white font-bold truncate line-clamp-1 max-w-full">{v.title}</h4>
                   <div className="flex items-center gap-2 mt-1 flex-wrap">
-                    <span className="text-gray-400 text-xs font-medium">{v.year}</span>
+                    <span className="text-gray-600 dark:text-gray-400 text-xs font-medium">{v.year}</span>
                     <span className={`px-2 py-0.5 rounded text-[9px] font-extrabold uppercase ${
                       v.status === 'Disponível' ? 'bg-emerald-950/80 text-emerald-400 border border-emerald-900/50' :
                       v.status === 'Reservado' ? 'bg-amber-950/80 text-amber-400 border border-amber-900/50' :
@@ -1671,7 +1671,7 @@ export function AdminPanel({ currentUser, token, vehicles, onRefreshData, settin
                       {v.status}
                     </span>
                   </div>
-                  <div className="flex items-center gap-2 mt-1.5 font-mono text-gray-500 text-[10px]">
+                  <div className="flex items-center gap-2 mt-1.5 font-mono text-gray-500 dark:text-gray-400 dark:text-gray-400 text-[10px]">
                     <span className="flex items-center gap-1">
                       <Eye className="w-3.5 h-3.5" /> {v.views || 0} views
                     </span>
@@ -1684,14 +1684,14 @@ export function AdminPanel({ currentUser, token, vehicles, onRefreshData, settin
                   <div className="flex items-center gap-2">
                     <button
                       onClick={() => handleEditCarClick(v)}
-                      className="p-1.5 rounded bg-neutral-900 border border-neutral-800 text-[#FF6FB5] hover:bg-[#FF2A7A] hover:text-white transition cursor-pointer flex items-center justify-center w-8 h-8 shrink-0"
+                      className="p-1.5 rounded bg-gray-100 dark:bg-neutral-900 border border-gray-200 dark:border-neutral-800 text-[#FF6FB5] hover:bg-[#FF2A7A] hover:text-white transition cursor-pointer flex items-center justify-center w-8 h-8 shrink-0"
                       title="Editar Veículo"
                     >
                       <Edit className="w-3.5 h-3.5" />
                     </button>
                     <button
                       onClick={() => handleDeleteCar(v.id)}
-                      className="p-1.5 rounded bg-neutral-900 border border-neutral-800 text-red-400 hover:bg-red-600 hover:text-white transition cursor-pointer flex items-center justify-center w-8 h-8 shrink-0"
+                      className="p-1.5 rounded bg-gray-100 dark:bg-neutral-900 border border-gray-200 dark:border-neutral-800 text-red-400 hover:bg-red-600 hover:text-white transition cursor-pointer flex items-center justify-center w-8 h-8 shrink-0"
                       title="Excluir Anúncio"
                     >
                       <Trash className="w-3.5 h-3.5" />
@@ -1706,9 +1706,9 @@ export function AdminPanel({ currentUser, token, vehicles, onRefreshData, settin
       {/* --- LEADS / MESSAGES TAB --- */}
       {activeTab === 'leads' && (
         <div className="space-y-6">
-          <div className="flex flex-col xl:flex-row items-stretch xl:items-center justify-between gap-4 p-4 bg-neutral-950 border border-neutral-900 rounded-2xl">
+          <div className="flex flex-col xl:flex-row items-stretch xl:items-center justify-between gap-4 p-4 bg-gray-50 dark:bg-neutral-950 border border-gray-200 dark:border-neutral-900 rounded-2xl">
             <div className="flex flex-col sm:flex-row sm:items-center gap-3">
-              <span className="text-xs text-gray-400 font-semibold">Tipo:</span>
+              <span className="text-xs text-gray-600 dark:text-gray-400 font-semibold">Tipo:</span>
               <div className="flex flex-wrap gap-1">
                 {['Todos', 'Contato', 'Agendamento', 'Financiamento', 'Avaliação', 'WhatsAppClick'].map(type => (
                   <button
@@ -1716,8 +1716,8 @@ export function AdminPanel({ currentUser, token, vehicles, onRefreshData, settin
                     onClick={() => setLeadsFilter(type as any)}
                     className={`px-2.5 py-1 rounded text-[10px] font-bold cursor-pointer transition ${
                       leadsFilter === type 
-                        ? 'bg-[#FF2D8D] text-white' 
-                        : 'bg-neutral-900 border border-neutral-800 text-gray-400 hover:text-white'
+                        ? 'bg-[#FF2D8D] text-gray-900 dark:text-white' 
+                        : 'bg-gray-100 dark:bg-neutral-900 border border-gray-200 dark:border-neutral-800 text-gray-600 dark:text-gray-400 hover:text-gray-900 dark:text-white'
                     }`}
                   >
                     {type}
@@ -1727,7 +1727,7 @@ export function AdminPanel({ currentUser, token, vehicles, onRefreshData, settin
             </div>
 
             <div className="flex flex-col sm:flex-row sm:items-center gap-3">
-              <span className="text-xs text-gray-400 font-semibold">Status:</span>
+              <span className="text-xs text-gray-600 dark:text-gray-400 font-semibold">Status:</span>
               <div className="flex gap-1">
                 {['Todos', 'Pendente', 'Atendido'].map(st => (
                   <button
@@ -1735,8 +1735,8 @@ export function AdminPanel({ currentUser, token, vehicles, onRefreshData, settin
                     onClick={() => setLeadsStatusFilter(st as any)}
                     className={`px-2.5 py-1 rounded text-[10px] font-bold cursor-pointer transition ${
                       leadsStatusFilter === st 
-                        ? 'bg-[#FF6FB5] text-white' 
-                        : 'bg-neutral-900 border border-neutral-800 text-gray-400 hover:text-white'
+                        ? 'bg-[#FF6FB5] text-gray-900 dark:text-white' 
+                        : 'bg-gray-100 dark:bg-neutral-900 border border-gray-200 dark:border-neutral-800 text-gray-600 dark:text-gray-400 hover:text-gray-900 dark:text-white'
                     }`}
                   >
                     {st}
@@ -1746,40 +1746,40 @@ export function AdminPanel({ currentUser, token, vehicles, onRefreshData, settin
             </div>
 
             <div className="relative w-full xl:w-56">
-              <Search className="w-3.5 h-3.5 text-gray-500 absolute left-3 top-1/2 -translate-y-1/2" />
+              <Search className="w-3.5 h-3.5 text-gray-500 dark:text-gray-400 dark:text-gray-400 absolute left-3 top-1/2 -translate-y-1/2" />
               <input
                 type="text"
                 placeholder="Buscar lead (nome, fone...)"
                 value={leadSearch}
                 onChange={e => setLeadSearch(e.target.value)}
-                className="w-full bg-neutral-900 border border-neutral-800 rounded-xl pl-9 pr-4 py-2 text-xs text-white outline-none focus:border-[#FF2D8D] transition"
+                className="w-full bg-gray-100 dark:bg-neutral-900 border border-gray-200 dark:border-neutral-800 rounded-xl pl-9 pr-4 py-2 text-xs text-gray-900 dark:text-white outline-none focus:border-[#FF2D8D] transition"
               />
             </div>
           </div>
 
           <div className="space-y-4">
             {filteredLeads.length === 0 ? (
-              <div className="text-center py-12 bg-neutral-950 border border-neutral-900 rounded-2xl">
-                <p className="text-xs text-gray-500">Nenhum lead ou formulário preenchido corresponde à busca.</p>
+              <div className="text-center py-12 bg-gray-50 dark:bg-neutral-950 border border-gray-200 dark:border-neutral-900 rounded-2xl">
+                <p className="text-xs text-gray-500 dark:text-gray-400 dark:text-gray-400">Nenhum lead ou formulário preenchido corresponde à busca.</p>
               </div>
             ) : (
               filteredLeads.map(lead => (
-                <div key={lead.id} className="p-5 bg-neutral-950 border border-neutral-900 rounded-2xl space-y-4">
-                  <div className="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-3 pb-3 border-b border-neutral-900">
+                <div key={lead.id} className="p-5 bg-gray-50 dark:bg-neutral-950 border border-gray-200 dark:border-neutral-900 rounded-2xl space-y-4">
+                  <div className="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-3 pb-3 border-b border-gray-200 dark:border-neutral-900">
                     <div className="flex items-center gap-2">
                       <span className={`px-2.5 py-1 rounded text-[9px] font-extrabold uppercase ${
                         lead.type === 'Financiamento' ? 'bg-indigo-950/80 text-indigo-400 border border-indigo-900/50' :
                         lead.type === 'Avaliação' ? 'bg-emerald-950/80 text-emerald-400 border border-emerald-900/50' :
                         lead.type === 'Agendamento' ? 'bg-amber-950/80 text-amber-400 border border-amber-900/50' :
-                        'bg-neutral-800 text-gray-300'
+                        'bg-white dark:bg-neutral-800 text-gray-700 dark:text-gray-300'
                       }`}>
                         {lead.type}
                       </span>
-                      <h4 className="font-display font-bold text-white text-xs">{lead.name}</h4>
+                      <h4 className="font-display font-bold text-gray-900 dark:text-white text-xs">{lead.name}</h4>
                     </div>
 
                     <div className="flex items-center gap-3 text-xs">
-                      <span className="text-gray-500">{new Date(lead.date).toLocaleString('pt-BR')}</span>
+                      <span className="text-gray-500 dark:text-gray-400 dark:text-gray-400">{new Date(lead.date).toLocaleString('pt-BR')}</span>
                       <button
                         onClick={() => handleMarkLeadAtendido(lead.id, lead.status)}
                         className={`flex items-center gap-1.5 px-3 py-1.5 rounded-lg text-[10px] font-black transition-all cursor-pointer active:scale-95 ${
@@ -1793,16 +1793,16 @@ export function AdminPanel({ currentUser, token, vehicles, onRefreshData, settin
                     </div>
                   </div>
 
-                  <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 text-xs text-gray-400">
+                  <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 text-xs text-gray-600 dark:text-gray-400">
                     <div>
-                      <p><strong className="text-white">Celular / WhatsApp:</strong> {lead.phone}</p>
-                      {lead.email && <p><strong className="text-white">E-mail:</strong> {lead.email}</p>}
-                      {lead.vehicleName && <p><strong className="text-white">Veículo de Interesse:</strong> {lead.vehicleName}</p>}
+                      <p><strong className="text-gray-900 dark:text-white">Celular / WhatsApp:</strong> {lead.phone}</p>
+                      {lead.email && <p><strong className="text-gray-900 dark:text-white">E-mail:</strong> {lead.email}</p>}
+                      {lead.vehicleName && <p><strong className="text-gray-900 dark:text-white">Veículo de Interesse:</strong> {lead.vehicleName}</p>}
                     </div>
 
                     {/* Display form specifics if they exist */}
                     {lead.details && (
-                      <div className="p-3 bg-neutral-900 rounded-xl border border-neutral-800">
+                      <div className="p-3 bg-gray-100 dark:bg-neutral-900 rounded-xl border border-gray-200 dark:border-neutral-800">
                         <p className="font-bold text-[#FF6FB5] mb-1">Dados de Qualificação Cadastral:</p>
                         {lead.details.cpf && <p><strong>CPF:</strong> {lead.details.cpf}</p>}
                         {lead.details.birthDate && <p><strong>Nascimento:</strong> {lead.details.birthDate}</p>}
@@ -1815,7 +1815,7 @@ export function AdminPanel({ currentUser, token, vehicles, onRefreshData, settin
                     )}
                   </div>
 
-                  <div className="italic text-gray-300 bg-gray-800/50 p-3 rounded-md border-l-2 border-[#FF2A7A] text-[11px]">
+                  <div className="italic text-gray-700 dark:text-gray-300 bg-gray-800/50 p-3 rounded-md border-l-2 border-[#FF2A7A] text-[11px]">
                     "{lead.message}"
                   </div>
                 </div>
@@ -1830,21 +1830,21 @@ export function AdminPanel({ currentUser, token, vehicles, onRefreshData, settin
         <div className="space-y-6">
           <div className="flex flex-col md:flex-row items-start md:items-center justify-between gap-4">
             <div>
-              <h3 className="font-display font-bold text-sm text-white uppercase tracking-wider text-[#FF2D8D]">
+              <h3 className="font-display font-bold text-sm text-gray-900 dark:text-white uppercase tracking-wider text-[#FF2D8D]">
                 CRM - Gestão de Clientes ({filteredClients.length})
               </h3>
-              <p className="text-[10px] text-gray-500 mt-0.5">Histórico de contatos e negociações de veículos.</p>
+              <p className="text-[10px] text-gray-500 dark:text-gray-400 dark:text-gray-400 mt-0.5">Histórico de contatos e negociações de veículos.</p>
             </div>
             
             <div className="flex flex-col w-full md:w-auto gap-3">
               <div className="relative w-full md:w-64">
-                <Search className="w-3.5 h-3.5 text-gray-500 absolute left-3 top-1/2 -translate-y-1/2" />
+                <Search className="w-3.5 h-3.5 text-gray-500 dark:text-gray-400 dark:text-gray-400 absolute left-3 top-1/2 -translate-y-1/2" />
                 <input
                   type="text"
                   placeholder="Buscar cliente (nome, fone...)"
                   value={clientSearch}
                   onChange={e => setClientSearch(e.target.value)}
-                  className="w-full bg-neutral-900 border border-neutral-800 rounded-xl pl-9 pr-4 py-2 text-xs text-white outline-none focus:border-[#FF2D8D] transition"
+                  className="w-full bg-gray-100 dark:bg-neutral-900 border border-gray-200 dark:border-neutral-800 rounded-xl pl-9 pr-4 py-2 text-xs text-gray-900 dark:text-white outline-none focus:border-[#FF2D8D] transition"
                 />
               </div>
               <button
@@ -1858,48 +1858,48 @@ export function AdminPanel({ currentUser, token, vehicles, onRefreshData, settin
 
           {/* Add/Edit Client Form Overlay */}
           {clientFormOpen && (
-            <form onSubmit={handleSaveClient} className="p-5 bg-neutral-950 border border-neutral-900 rounded-2xl space-y-4">
+            <form onSubmit={handleSaveClient} className="p-5 bg-gray-50 dark:bg-neutral-950 border border-gray-200 dark:border-neutral-900 rounded-2xl space-y-4">
               <h4 className="font-display font-bold text-xs text-[#FF6FB5] uppercase tracking-wide">
                 {editingClientId ? 'Editar Dados do Cliente' : 'Cadastrar Novo Cliente no CRM'}
               </h4>
               <div className="grid grid-cols-1 md:grid-cols-3 gap-4 text-xs">
                 <div>
-                  <label className="block text-gray-400 mb-1">Nome do Cliente *</label>
+                  <label className="block text-gray-600 dark:text-gray-400 mb-1">Nome do Cliente *</label>
                   <input
                     type="text"
                     required
                     value={clientForm.name}
                     onChange={e => setClientForm(p => ({ ...p, name: e.target.value }))}
-                    className="w-full bg-neutral-900 border border-neutral-800 rounded-xl px-3.5 py-2.5 text-white"
+                    className="w-full bg-gray-100 dark:bg-neutral-900 border border-gray-200 dark:border-neutral-800 rounded-xl px-3.5 py-2.5 text-gray-900 dark:text-white"
                   />
                 </div>
                 <div>
-                  <label className="block text-gray-400 mb-1">Telefone / WhatsApp *</label>
+                  <label className="block text-gray-600 dark:text-gray-400 mb-1">Telefone / WhatsApp *</label>
                   <input
                     type="text"
                     required
                     value={clientForm.phone}
                     onChange={e => setClientForm(p => ({ ...p, phone: e.target.value }))}
-                    className="w-full bg-neutral-900 border border-neutral-800 rounded-xl px-3.5 py-2.5 text-white"
+                    className="w-full bg-gray-100 dark:bg-neutral-900 border border-gray-200 dark:border-neutral-800 rounded-xl px-3.5 py-2.5 text-gray-900 dark:text-white"
                   />
                 </div>
                 <div>
-                  <label className="block text-gray-400 mb-1">E-mail</label>
+                  <label className="block text-gray-600 dark:text-gray-400 mb-1">E-mail</label>
                   <input
                     type="email"
                     value={clientForm.email}
                     onChange={e => setClientForm(p => ({ ...p, email: e.target.value }))}
-                    className="w-full bg-neutral-900 border border-neutral-800 rounded-xl px-3.5 py-2.5 text-white"
+                    className="w-full bg-gray-100 dark:bg-neutral-900 border border-gray-200 dark:border-neutral-800 rounded-xl px-3.5 py-2.5 text-gray-900 dark:text-white"
                   />
                 </div>
               </div>
               <div>
-                <label className="block text-xs text-gray-400 mb-1">Anotações e Histórico de Negociação (Carro preferido, limite de valor, etc.)</label>
+                <label className="block text-xs text-gray-600 dark:text-gray-400 mb-1">Anotações e Histórico de Negociação (Carro preferido, limite de valor, etc.)</label>
                 <textarea
                   rows={3}
                   value={clientForm.notes}
                   onChange={e => setClientForm(p => ({ ...p, notes: e.target.value }))}
-                  className="w-full bg-neutral-900 border border-neutral-800 rounded-xl px-3.5 py-2.5 text-white resize-none"
+                  className="w-full bg-gray-100 dark:bg-neutral-900 border border-gray-200 dark:border-neutral-800 rounded-xl px-3.5 py-2.5 text-gray-900 dark:text-white resize-none"
                   placeholder="Ex: Busca SUV preta até R$ 120mil. Tem Onix para dar de troca."
                 ></textarea>
               </div>
@@ -1907,7 +1907,7 @@ export function AdminPanel({ currentUser, token, vehicles, onRefreshData, settin
                 <button
                   type="button"
                   onClick={() => setClientFormOpen(false)}
-                  className="px-4 py-2 bg-neutral-900 rounded-xl border border-neutral-800 text-xs text-gray-400 font-bold"
+                  className="px-4 py-2 bg-gray-100 dark:bg-neutral-900 rounded-xl border border-gray-200 dark:border-neutral-800 text-xs text-gray-600 dark:text-gray-400 font-bold"
                 >
                   Cancelar
                 </button>
@@ -1923,40 +1923,40 @@ export function AdminPanel({ currentUser, token, vehicles, onRefreshData, settin
           {/* Client Cards List */}
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
             {filteredClients.map(c => (
-              <div key={c.id} className="bg-[#18181B] border border-neutral-800/60 rounded-2xl p-5 flex flex-col hover:border-neutral-700 transition-colors">
+              <div key={c.id} className="bg-white dark:bg-[#18181B] border border-gray-200 dark:border-neutral-800/60 rounded-2xl p-5 flex flex-col hover:border-gray-200 dark:border-neutral-700 transition-colors">
                 <div className="flex items-start justify-between mb-3">
-                  <h4 className="font-bold text-white text-sm">{c.name}</h4>
-                  <span className="text-[10px] text-gray-500 shrink-0">{new Date(c.createdAt).toLocaleDateString('pt-BR')}</span>
+                  <h4 className="font-bold text-gray-900 dark:text-white text-sm">{c.name}</h4>
+                  <span className="text-[10px] text-gray-500 dark:text-gray-400 dark:text-gray-400 shrink-0">{new Date(c.createdAt).toLocaleDateString('pt-BR')}</span>
                 </div>
                 <div className="space-y-1.5 mb-4">
-                  <div className="flex items-center gap-2 text-xs text-gray-400">
+                  <div className="flex items-center gap-2 text-xs text-gray-600 dark:text-gray-400">
                     <Phone className="w-3.5 h-3.5" />
                     <span>{c.phone}</span>
                   </div>
                   {c.email && (
-                    <div className="flex items-center gap-2 text-xs text-gray-400">
+                    <div className="flex items-center gap-2 text-xs text-gray-600 dark:text-gray-400">
                       <Mail className="w-3.5 h-3.5" />
                       <span className="truncate">{c.email}</span>
                     </div>
                   )}
                 </div>
                 <div className="bg-gray-800/50 rounded-xl p-3 mb-4 flex-grow">
-                  <p className="text-[11px] text-gray-300 font-medium whitespace-pre-wrap">{c.notes || '-'}</p>
+                  <p className="text-[11px] text-gray-700 dark:text-gray-300 font-medium whitespace-pre-wrap">{c.notes || '-'}</p>
                 </div>
-                <div className="flex items-center gap-2 mt-auto pt-3 border-t border-neutral-800/60">
+                <div className="flex items-center gap-2 mt-auto pt-3 border-t border-gray-200 dark:border-neutral-800/60">
                   <button
                     onClick={() => {
                       setEditingClientId(c.id);
                       setClientForm({ name: c.name, phone: c.phone, email: c.email || '', notes: c.notes || '' });
                       setClientFormOpen(true);
                     }}
-                    className="flex-1 py-2 rounded-xl bg-neutral-900 border border-neutral-800 text-[#FF6FB5] hover:bg-[#FF2D8D] hover:text-white transition font-bold text-[10px] flex items-center justify-center gap-1.5 cursor-pointer"
+                    className="flex-1 py-2 rounded-xl bg-gray-100 dark:bg-neutral-900 border border-gray-200 dark:border-neutral-800 text-[#FF6FB5] hover:bg-[#FF2D8D] hover:text-white transition font-bold text-[10px] flex items-center justify-center gap-1.5 cursor-pointer"
                   >
                     <Edit className="w-3 h-3" /> Editar
                   </button>
                   <button
                     onClick={() => handleDeleteClient(c.id)}
-                    className="flex-1 py-2 rounded-xl bg-neutral-900 border border-neutral-800 text-red-400 hover:bg-red-600 hover:text-white transition font-bold text-[10px] flex items-center justify-center gap-1.5 cursor-pointer"
+                    className="flex-1 py-2 rounded-xl bg-gray-100 dark:bg-neutral-900 border border-gray-200 dark:border-neutral-800 text-red-400 hover:bg-red-600 hover:text-white transition font-bold text-[10px] flex items-center justify-center gap-1.5 cursor-pointer"
                   >
                     <Trash className="w-3 h-3" /> Excluir
                   </button>
@@ -1971,7 +1971,7 @@ export function AdminPanel({ currentUser, token, vehicles, onRefreshData, settin
       {activeTab === 'users' && currentUser.role === 'Administrador' && (
         <div className="space-y-6">
           <div className="flex flex-col md:flex-row items-start md:items-center justify-between gap-4">
-            <h3 className="font-display font-bold text-sm text-white uppercase tracking-wider text-[#FF2D8D]">
+            <h3 className="font-display font-bold text-sm text-gray-900 dark:text-white uppercase tracking-wider text-[#FF2D8D]">
               Gerenciamento de Funcionários ({usersList.length})
             </h3>
             <div className="w-full md:w-auto">
@@ -1984,57 +1984,57 @@ export function AdminPanel({ currentUser, token, vehicles, onRefreshData, settin
             </div>
           </div>
           {userFormOpen && (
-            <form onSubmit={handleCreateUser} className="p-5 bg-neutral-950 border border-neutral-900 rounded-2xl space-y-4 max-w-2xl">
+            <form onSubmit={handleCreateUser} className="p-5 bg-gray-50 dark:bg-neutral-950 border border-gray-200 dark:border-neutral-900 rounded-2xl space-y-4 max-w-2xl">
               <h4 className="font-display font-bold text-xs text-[#FF6FB5] uppercase tracking-wide">
                 Registrar Novo Vendedor / Administrador
               </h4>
               <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 text-xs">
                 <div>
-                  <label className="block text-gray-400 mb-1">Nome Completo *</label>
+                  <label className="block text-gray-600 dark:text-gray-400 mb-1">Nome Completo *</label>
                   <input
                     type="text"
                     required
                     value={userForm.name}
                     onChange={e => setUserForm(p => ({ ...p, name: e.target.value }))}
-                    className="w-full bg-neutral-900 border border-neutral-800 rounded-xl px-3.5 py-2.5 text-white"
+                    className="w-full bg-gray-100 dark:bg-neutral-900 border border-gray-200 dark:border-neutral-800 rounded-xl px-3.5 py-2.5 text-gray-900 dark:text-white"
                   />
                 </div>
                 <div>
-                  <label className="block text-gray-400 mb-1">E-mail Comercial (Acesso) *</label>
+                  <label className="block text-gray-600 dark:text-gray-400 mb-1">E-mail Comercial (Acesso) *</label>
                   <input
                     type="email"
                     required
                     value={userForm.email}
                     onChange={e => setUserForm(p => ({ ...p, email: e.target.value }))}
-                    className="w-full bg-neutral-900 border border-neutral-800 rounded-xl px-3.5 py-2.5 text-white"
+                    className="w-full bg-gray-100 dark:bg-neutral-900 border border-gray-200 dark:border-neutral-800 rounded-xl px-3.5 py-2.5 text-gray-900 dark:text-white"
                   />
                 </div>
                 <div>
-                  <label className="block text-gray-400 mb-1">Senha de Acesso *</label>
+                  <label className="block text-gray-600 dark:text-gray-400 mb-1">Senha de Acesso *</label>
                   <input
                     type="password"
                     required
                     value={userForm.password}
                     onChange={e => setUserForm(p => ({ ...p, password: e.target.value }))}
-                    className="w-full bg-neutral-900 border border-neutral-800 rounded-xl px-3.5 py-2.5 text-white"
+                    className="w-full bg-gray-100 dark:bg-neutral-900 border border-gray-200 dark:border-neutral-800 rounded-xl px-3.5 py-2.5 text-gray-900 dark:text-white"
                     placeholder="Min 6 caracteres"
                   />
                 </div>
                 <div>
-                  <label className="block text-gray-400 mb-1">Telefone Celular</label>
+                  <label className="block text-gray-600 dark:text-gray-400 mb-1">Telefone Celular</label>
                   <input
                     type="text"
                     value={userForm.phone}
                     onChange={e => setUserForm(p => ({ ...p, phone: e.target.value }))}
-                    className="w-full bg-neutral-900 border border-neutral-800 rounded-xl px-3.5 py-2.5 text-white"
+                    className="w-full bg-gray-100 dark:bg-neutral-900 border border-gray-200 dark:border-neutral-800 rounded-xl px-3.5 py-2.5 text-gray-900 dark:text-white"
                   />
                 </div>
                 <div>
-                  <label className="block text-gray-400 mb-1">Cargo / Role *</label>
+                  <label className="block text-gray-600 dark:text-gray-400 mb-1">Cargo / Role *</label>
                   <select
                     value={userForm.role}
                     onChange={e => setUserForm(p => ({ ...p, role: e.target.value as any }))}
-                    className="w-full bg-neutral-900 border border-neutral-800 rounded-xl px-3.5 py-2.5 text-white"
+                    className="w-full bg-gray-100 dark:bg-neutral-900 border border-gray-200 dark:border-neutral-800 rounded-xl px-3.5 py-2.5 text-gray-900 dark:text-white"
                   >
                     <option value="Vendedor">Vendedor (Pode gerenciar apenas estoque/clientes)</option>
                     <option value="Administrador">Administrador (Acesso total)</option>
@@ -2045,7 +2045,7 @@ export function AdminPanel({ currentUser, token, vehicles, onRefreshData, settin
                 <button
                   type="button"
                   onClick={() => setUserFormOpen(false)}
-                  className="px-4 py-2 bg-neutral-900 border border-neutral-800 text-xs text-gray-400 font-bold"
+                  className="px-4 py-2 bg-gray-100 dark:bg-neutral-900 border border-gray-200 dark:border-neutral-800 text-xs text-gray-600 dark:text-gray-400 font-bold"
                 >
                   Cancelar
                 </button>
@@ -2061,30 +2061,30 @@ export function AdminPanel({ currentUser, token, vehicles, onRefreshData, settin
           {/* User Cards List */}
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
             {usersList.map(u => (
-              <div key={u.id} className="bg-[#18181B] border border-neutral-800/60 rounded-2xl p-5 relative hover:border-neutral-700 transition-colors">
+              <div key={u.id} className="bg-white dark:bg-[#18181B] border border-gray-200 dark:border-neutral-800/60 rounded-2xl p-5 relative hover:border-gray-200 dark:border-neutral-700 transition-colors">
                 <div className="absolute top-4 right-4">
                   <span className={`px-2 py-1 rounded text-[10px] font-bold uppercase ${
-                    u.role === 'Administrador' ? 'bg-[#FF2D8D] text-white shadow-md' : 'bg-neutral-800 text-gray-300'
+                    u.role === 'Administrador' ? 'bg-[#FF2D8D] text-gray-900 dark:text-white shadow-md' : 'bg-white dark:bg-neutral-800 text-gray-700 dark:text-gray-300'
                   }`}>
                     {u.role}
                   </span>
                 </div>
                 
-                <h4 className="font-bold text-white text-sm pr-20">{u.name}</h4>
-                <p className="text-xs text-gray-400 font-mono mt-1">{u.email}</p>
+                <h4 className="font-bold text-gray-900 dark:text-white text-sm pr-20">{u.name}</h4>
+                <p className="text-xs text-gray-600 dark:text-gray-400 font-mono mt-1">{u.email}</p>
                 
                 {u.phone && (
-                  <div className="flex items-center gap-2 text-xs text-gray-400 mt-4">
+                  <div className="flex items-center gap-2 text-xs text-gray-600 dark:text-gray-400 mt-4">
                     <Phone className="w-3.5 h-3.5" />
                     <span>{u.phone}</span>
                   </div>
                 )}
                 
-                <div className="mt-5 pt-4 border-t border-neutral-800/60 flex items-center justify-end">
+                <div className="mt-5 pt-4 border-t border-gray-200 dark:border-neutral-800/60 flex items-center justify-end">
                   {u.id !== currentUser.id ? (
                     <button
                       onClick={() => handleDeleteUser(u.id)}
-                      className="flex items-center justify-center gap-1.5 w-full py-2 bg-neutral-900 border border-neutral-800 text-red-400 hover:bg-red-600 hover:text-white transition font-bold text-[10px] rounded-xl cursor-pointer"
+                      className="flex items-center justify-center gap-1.5 w-full py-2 bg-gray-100 dark:bg-neutral-900 border border-gray-200 dark:border-neutral-800 text-red-400 hover:bg-red-600 hover:text-white transition font-bold text-[10px] rounded-xl cursor-pointer"
                     >
                       <Trash className="w-3.5 h-3.5" /> Remover Acesso
                     </button>
@@ -2101,72 +2101,72 @@ export function AdminPanel({ currentUser, token, vehicles, onRefreshData, settin
       {/* --- SITE SETTINGS TAB (Admin only) --- */}
       {activeTab === 'settings' && currentUser.role === 'Administrador' && (
         <div className="space-y-6">
-          <div className="flex items-center justify-between pb-3 border-b border-neutral-900 w-full">
-            <h3 className="font-display font-bold text-sm text-white uppercase tracking-wider text-[#FF2D8D] w-full">
+          <div className="flex items-center justify-between pb-3 border-b border-gray-200 dark:border-neutral-900 w-full">
+            <h3 className="font-display font-bold text-sm text-gray-900 dark:text-white uppercase tracking-wider text-[#FF2D8D] w-full">
               Configurações do Estabelecimento e Chaves PIX
             </h3>
           </div>
 
-          <div className="grid grid-cols-1 lg:grid-cols-3 gap-6 text-xs text-gray-300">
+          <div className="grid grid-cols-1 lg:grid-cols-3 gap-6 text-xs text-gray-700 dark:text-gray-300">
             {/* Contacts & Address Panel */}
-            <div className="p-5 bg-neutral-950 border border-neutral-900 rounded-2xl space-y-4">
+            <div className="p-5 bg-gray-50 dark:bg-neutral-950 border border-gray-200 dark:border-neutral-900 rounded-2xl space-y-4">
               <h4 className="font-display font-bold text-xs text-[#FF6FB5] mb-2 flex items-center gap-1">
                 <Phone className="w-4 h-4" /> Dados de Contato e Localização
               </h4>
               
               <div className="space-y-3">
                 <div>
-                  <label className="block text-gray-400 text-sm mb-1">WhatsApp de Contato Comercial (Com DDD)</label>
+                  <label className="block text-gray-600 dark:text-gray-400 text-sm mb-1">WhatsApp de Contato Comercial (Com DDD)</label>
                   <input
                     type="text"
                     value={siteSettings.whatsapp}
                     onChange={e => setSiteSettings(p => ({ ...p, whatsapp: e.target.value }))}
-                    className="w-full bg-[#0B0B0C] border border-neutral-800 rounded-xl px-3.5 py-2.5 text-white focus:outline-none focus:border-[#FF2A7A] transition-colors"
+                    className="w-full bg-white dark:bg-[var(--app-dark-bg)] border border-gray-200 dark:border-neutral-800 rounded-xl px-3.5 py-2.5 text-gray-900 dark:text-white focus:outline-none focus:border-[#FF2A7A] transition-colors"
                   />
                 </div>
                 <div>
-                  <label className="block text-gray-400 text-sm mb-1">Telefone Fixo / Comercial (Exibido no site)</label>
+                  <label className="block text-gray-600 dark:text-gray-400 text-sm mb-1">Telefone Fixo / Comercial (Exibido no site)</label>
                   <input
                     type="text"
                     value={siteSettings.phone}
                     onChange={e => setSiteSettings(p => ({ ...p, phone: e.target.value }))}
-                    className="w-full bg-[#0B0B0C] border border-neutral-800 rounded-xl px-3.5 py-2.5 text-white focus:outline-none focus:border-[#FF2A7A] transition-colors"
+                    className="w-full bg-white dark:bg-[var(--app-dark-bg)] border border-gray-200 dark:border-neutral-800 rounded-xl px-3.5 py-2.5 text-gray-900 dark:text-white focus:outline-none focus:border-[#FF2A7A] transition-colors"
                   />
                 </div>
                 <div>
-                  <label className="block text-gray-400 text-sm mb-1">E-mail Comercial Oficial</label>
+                  <label className="block text-gray-600 dark:text-gray-400 text-sm mb-1">E-mail Comercial Oficial</label>
                   <input
                     type="email"
                     value={siteSettings.email}
                     onChange={e => setSiteSettings(p => ({ ...p, email: e.target.value }))}
-                    className="w-full bg-[#0B0B0C] border border-neutral-800 rounded-xl px-3.5 py-2.5 text-white focus:outline-none focus:border-[#FF2A7A] transition-colors"
+                    className="w-full bg-white dark:bg-[var(--app-dark-bg)] border border-gray-200 dark:border-neutral-800 rounded-xl px-3.5 py-2.5 text-gray-900 dark:text-white focus:outline-none focus:border-[#FF2A7A] transition-colors"
                   />
                 </div>
                 <div>
-                  <label className="block text-gray-400 text-sm mb-1">Endereço Físico do Showroom</label>
+                  <label className="block text-gray-600 dark:text-gray-400 text-sm mb-1">Endereço Físico do Showroom</label>
                   <input
                     type="text"
                     value={siteSettings.address}
                     onChange={e => setSiteSettings(p => ({ ...p, address: e.target.value }))}
-                    className="w-full bg-[#0B0B0C] border border-neutral-800 rounded-xl px-3.5 py-2.5 text-white focus:outline-none focus:border-[#FF2A7A] transition-colors"
+                    className="w-full bg-white dark:bg-[var(--app-dark-bg)] border border-gray-200 dark:border-neutral-800 rounded-xl px-3.5 py-2.5 text-gray-900 dark:text-white focus:outline-none focus:border-[#FF2A7A] transition-colors"
                   />
                 </div>
                 <div>
-                  <label className="block text-gray-400 text-sm mb-1">Domínio Customizado do Site (ex: www.ravicar.com)</label>
+                  <label className="block text-gray-600 dark:text-gray-400 text-sm mb-1">Domínio Customizado do Site (ex: www.ravicar.com)</label>
                   <input
                     type="text"
                     placeholder="ex: www.ravicar.com"
                     value={siteSettings.customDomain || ''}
                     onChange={e => setSiteSettings(p => ({ ...p, customDomain: e.target.value }))}
-                    className="w-full bg-[#0B0B0C] border border-neutral-800 rounded-xl px-3.5 py-2.5 text-white focus:outline-none focus:border-[#FF2A7A] transition-colors"
+                    className="w-full bg-white dark:bg-[var(--app-dark-bg)] border border-gray-200 dark:border-neutral-800 rounded-xl px-3.5 py-2.5 text-gray-900 dark:text-white focus:outline-none focus:border-[#FF2A7A] transition-colors"
                   />
-                  <p className="text-[10px] text-gray-500 mt-1">Insira seu domínio (sem http/https). Todos os links compartilhados no WhatsApp e copiados do estoque serão gerados automaticamente com este domínio.</p>
+                  <p className="text-[10px] text-gray-500 dark:text-gray-400 dark:text-gray-400 mt-1">Insira seu domínio (sem http/https). Todos os links compartilhados no WhatsApp e copiados do estoque serão gerados automaticamente com este domínio.</p>
                 </div>
               </div>
             </div>
 
             {/* Pix & Financial Info Panel */}
-            <div className="p-5 bg-neutral-950 border border-neutral-900 rounded-2xl space-y-4">
+            <div className="p-5 bg-gray-50 dark:bg-neutral-950 border border-gray-200 dark:border-neutral-900 rounded-2xl space-y-4">
               <h4 className="font-display font-bold text-xs text-emerald-400 mb-2 flex items-center gap-1">
                 <DollarSign className="w-4 h-4" /> Contas e Dados Bancários para Sinal de Reserva (PIX)
               </h4>
@@ -2174,70 +2174,70 @@ export function AdminPanel({ currentUser, token, vehicles, onRefreshData, settin
               <div className="space-y-3">
                 <div className="grid grid-cols-2 gap-3">
                   <div>
-                    <label className="block text-gray-400 text-sm mb-1">CNPJ Pix</label>
+                    <label className="block text-gray-600 dark:text-gray-400 text-sm mb-1">CNPJ Pix</label>
                     <input
                       type="text"
                       value={siteSettings.pixCnpj}
                       onChange={e => setSiteSettings(p => ({ ...p, pixCnpj: e.target.value }))}
-                      className="w-full bg-[#0B0B0C] border border-neutral-800 rounded-xl px-3.5 py-2.5 text-white focus:outline-none focus:border-[#FF2A7A] transition-colors font-mono"
+                      className="w-full bg-white dark:bg-[var(--app-dark-bg)] border border-gray-200 dark:border-neutral-800 rounded-xl px-3.5 py-2.5 text-gray-900 dark:text-white focus:outline-none focus:border-[#FF2A7A] transition-colors font-mono"
                     />
                   </div>
                   <div>
-                    <label className="block text-gray-400 text-sm mb-1">Celular Pix</label>
+                    <label className="block text-gray-600 dark:text-gray-400 text-sm mb-1">Celular Pix</label>
                     <input
                       type="text"
                       value={siteSettings.pixCelular}
                       onChange={e => setSiteSettings(p => ({ ...p, pixCelular: e.target.value }))}
-                      className="w-full bg-[#0B0B0C] border border-neutral-800 rounded-xl px-3.5 py-2.5 text-white focus:outline-none focus:border-[#FF2A7A] transition-colors font-mono"
+                      className="w-full bg-white dark:bg-[var(--app-dark-bg)] border border-gray-200 dark:border-neutral-800 rounded-xl px-3.5 py-2.5 text-gray-900 dark:text-white focus:outline-none focus:border-[#FF2A7A] transition-colors font-mono"
                     />
                   </div>
                 </div>
 
                 <div>
-                  <label className="block text-gray-400 text-sm mb-1">Chave Pix E-mail</label>
+                  <label className="block text-gray-600 dark:text-gray-400 text-sm mb-1">Chave Pix E-mail</label>
                   <input
                     type="text"
                     value={siteSettings.pixEmail}
                     onChange={e => setSiteSettings(p => ({ ...p, pixEmail: e.target.value }))}
-                    className="w-full bg-[#0B0B0C] border border-neutral-800 rounded-xl px-3.5 py-2.5 text-white focus:outline-none focus:border-[#FF2A7A] transition-colors font-mono"
+                    className="w-full bg-white dark:bg-[var(--app-dark-bg)] border border-gray-200 dark:border-neutral-800 rounded-xl px-3.5 py-2.5 text-gray-900 dark:text-white focus:outline-none focus:border-[#FF2A7A] transition-colors font-mono"
                   />
                 </div>
 
-                <div className="grid grid-cols-2 gap-3 pt-2 border-t border-neutral-900">
+                <div className="grid grid-cols-2 gap-3 pt-2 border-t border-gray-200 dark:border-neutral-900">
                   <div>
-                    <label className="block text-gray-400 text-sm mb-1">Santander (CC)</label>
+                    <label className="block text-gray-600 dark:text-gray-400 text-sm mb-1">Santander (CC)</label>
                     <input
                       type="text"
                       value={siteSettings.pixSantander}
                       onChange={e => setSiteSettings(p => ({ ...p, pixSantander: e.target.value }))}
-                      className="w-full bg-[#0B0B0C] border border-neutral-800 rounded-xl px-3.5 py-2.5 text-white focus:outline-none focus:border-[#FF2A7A] transition-colors font-mono"
+                      className="w-full bg-white dark:bg-[var(--app-dark-bg)] border border-gray-200 dark:border-neutral-800 rounded-xl px-3.5 py-2.5 text-gray-900 dark:text-white focus:outline-none focus:border-[#FF2A7A] transition-colors font-mono"
                     />
                   </div>
                   <div>
-                    <label className="block text-gray-400 text-sm mb-1">Bradesco (CC)</label>
+                    <label className="block text-gray-600 dark:text-gray-400 text-sm mb-1">Bradesco (CC)</label>
                     <input
                       type="text"
                       value={siteSettings.pixBradesco}
                       onChange={e => setSiteSettings(p => ({ ...p, pixBradesco: e.target.value }))}
-                      className="w-full bg-[#0B0B0C] border border-neutral-800 rounded-xl px-3.5 py-2.5 text-white focus:outline-none focus:border-[#FF2A7A] transition-colors font-mono"
+                      className="w-full bg-white dark:bg-[var(--app-dark-bg)] border border-gray-200 dark:border-neutral-800 rounded-xl px-3.5 py-2.5 text-gray-900 dark:text-white focus:outline-none focus:border-[#FF2A7A] transition-colors font-mono"
                     />
                   </div>
                   <div>
-                    <label className="block text-gray-400 text-sm mb-1">Itaú (CC)</label>
+                    <label className="block text-gray-600 dark:text-gray-400 text-sm mb-1">Itaú (CC)</label>
                     <input
                       type="text"
                       value={siteSettings.pixItau}
                       onChange={e => setSiteSettings(p => ({ ...p, pixItau: e.target.value }))}
-                      className="w-full bg-[#0B0B0C] border border-neutral-800 rounded-xl px-3.5 py-2.5 text-white focus:outline-none focus:border-[#FF2A7A] transition-colors font-mono"
+                      className="w-full bg-white dark:bg-[var(--app-dark-bg)] border border-gray-200 dark:border-neutral-800 rounded-xl px-3.5 py-2.5 text-gray-900 dark:text-white focus:outline-none focus:border-[#FF2A7A] transition-colors font-mono"
                     />
                   </div>
                   <div>
-                    <label className="block text-gray-400 text-sm mb-1">Banco Inter (CC)</label>
+                    <label className="block text-gray-600 dark:text-gray-400 text-sm mb-1">Banco Inter (CC)</label>
                     <input
                       type="text"
                       value={siteSettings.pixInter}
                       onChange={e => setSiteSettings(p => ({ ...p, pixInter: e.target.value }))}
-                      className="w-full bg-[#0B0B0C] border border-neutral-800 rounded-xl px-3.5 py-2.5 text-white focus:outline-none focus:border-[#FF2A7A] transition-colors font-mono"
+                      className="w-full bg-white dark:bg-[var(--app-dark-bg)] border border-gray-200 dark:border-neutral-800 rounded-xl px-3.5 py-2.5 text-gray-900 dark:text-white focus:outline-none focus:border-[#FF2A7A] transition-colors font-mono"
                     />
                   </div>
                 </div>
@@ -2245,133 +2245,133 @@ export function AdminPanel({ currentUser, token, vehicles, onRefreshData, settin
             </div>
 
             {/* Interest Rates Panel */}
-            <div className="p-5 bg-neutral-950 border border-neutral-900 rounded-2xl space-y-4">
+            <div className="p-5 bg-gray-50 dark:bg-neutral-950 border border-gray-200 dark:border-neutral-900 rounded-2xl space-y-4">
               <h4 className="font-display font-bold text-xs text-[#FF2D8D] mb-2 flex items-center gap-1">
                 <Percent className="w-4 h-4" /> Taxas de Juros Mensais (%)
               </h4>
-              <p className="text-[10px] text-gray-500 leading-normal mb-1">
+              <p className="text-[10px] text-gray-500 dark:text-gray-400 dark:text-gray-400 leading-normal mb-1">
                 Ajuste os juros das simulações de financiamento calculadas para os clientes de acordo com cada banco parceiro.
               </p>
               
               <div className="grid grid-cols-2 gap-3">
                 <div>
-                  <label className="block text-gray-400 text-sm mb-1">Santander</label>
+                  <label className="block text-gray-600 dark:text-gray-400 text-sm mb-1">Santander</label>
                   <input
                     type="number"
                     step="0.01"
                     value={siteSettings.taxaSantander !== undefined ? siteSettings.taxaSantander : 1.39}
                     onChange={e => setSiteSettings(p => ({ ...p, taxaSantander: parseFloat(e.target.value) || 0 }))}
-                    className="w-full bg-[#0B0B0C] border border-neutral-800 rounded-xl px-3.5 py-2 text-white font-mono focus:outline-none focus:border-[#FF2A7A] transition-colors"
+                    className="w-full bg-white dark:bg-[var(--app-dark-bg)] border border-gray-200 dark:border-neutral-800 rounded-xl px-3.5 py-2 text-gray-900 dark:text-white font-mono focus:outline-none focus:border-[#FF2A7A] transition-colors"
                   />
                 </div>
                 <div>
-                  <label className="block text-gray-400 text-sm mb-1">Itaú</label>
+                  <label className="block text-gray-600 dark:text-gray-400 text-sm mb-1">Itaú</label>
                   <input
                     type="number"
                     step="0.01"
                     value={siteSettings.taxaItau !== undefined ? siteSettings.taxaItau : 1.49}
                     onChange={e => setSiteSettings(p => ({ ...p, taxaItau: parseFloat(e.target.value) || 0 }))}
-                    className="w-full bg-[#0B0B0C] border border-neutral-800 rounded-xl px-3.5 py-2 text-white font-mono focus:outline-none focus:border-[#FF2A7A] transition-colors"
+                    className="w-full bg-white dark:bg-[var(--app-dark-bg)] border border-gray-200 dark:border-neutral-800 rounded-xl px-3.5 py-2 text-gray-900 dark:text-white font-mono focus:outline-none focus:border-[#FF2A7A] transition-colors"
                   />
                 </div>
                 <div>
-                  <label className="block text-gray-400 text-sm mb-1">Bradesco</label>
+                  <label className="block text-gray-600 dark:text-gray-400 text-sm mb-1">Bradesco</label>
                   <input
                     type="number"
                     step="0.01"
                     value={siteSettings.taxaBradesco !== undefined ? siteSettings.taxaBradesco : 1.59}
                     onChange={e => setSiteSettings(p => ({ ...p, taxaBradesco: parseFloat(e.target.value) || 0 }))}
-                    className="w-full bg-[#0B0B0C] border border-neutral-800 rounded-xl px-3.5 py-2 text-white font-mono focus:outline-none focus:border-[#FF2A7A] transition-colors"
+                    className="w-full bg-white dark:bg-[var(--app-dark-bg)] border border-gray-200 dark:border-neutral-800 rounded-xl px-3.5 py-2 text-gray-900 dark:text-white font-mono focus:outline-none focus:border-[#FF2A7A] transition-colors"
                   />
                 </div>
                 <div>
-                  <label className="block text-gray-400 text-sm mb-1">BV Financeira</label>
+                  <label className="block text-gray-600 dark:text-gray-400 text-sm mb-1">BV Financeira</label>
                   <input
                     type="number"
                     step="0.01"
                     value={siteSettings.taxaBv !== undefined ? siteSettings.taxaBv : 1.29}
                     onChange={e => setSiteSettings(p => ({ ...p, taxaBv: parseFloat(e.target.value) || 0 }))}
-                    className="w-full bg-[#0B0B0C] border border-neutral-800 rounded-xl px-3.5 py-2 text-white font-mono focus:outline-none focus:border-[#FF2A7A] transition-colors"
+                    className="w-full bg-white dark:bg-[var(--app-dark-bg)] border border-gray-200 dark:border-neutral-800 rounded-xl px-3.5 py-2 text-gray-900 dark:text-white font-mono focus:outline-none focus:border-[#FF2A7A] transition-colors"
                   />
                 </div>
                 <div>
-                  <label className="block text-gray-400 text-sm mb-1">Banco PAN</label>
+                  <label className="block text-gray-600 dark:text-gray-400 text-sm mb-1">Banco PAN</label>
                   <input
                     type="number"
                     step="0.01"
                     value={siteSettings.taxaPan !== undefined ? siteSettings.taxaPan : 1.69}
                     onChange={e => setSiteSettings(p => ({ ...p, taxaPan: parseFloat(e.target.value) || 0 }))}
-                    className="w-full bg-[#0B0B0C] border border-neutral-800 rounded-xl px-3.5 py-2 text-white font-mono focus:outline-none focus:border-[#FF2A7A] transition-colors"
+                    className="w-full bg-white dark:bg-[var(--app-dark-bg)] border border-gray-200 dark:border-neutral-800 rounded-xl px-3.5 py-2 text-gray-900 dark:text-white font-mono focus:outline-none focus:border-[#FF2A7A] transition-colors"
                   />
                 </div>
                 <div>
-                  <label className="block text-gray-400 text-sm mb-1">Banco Safra</label>
+                  <label className="block text-gray-600 dark:text-gray-400 text-sm mb-1">Banco Safra</label>
                   <input
                     type="number"
                     step="0.01"
                     value={siteSettings.taxaSafra !== undefined ? siteSettings.taxaSafra : 1.39}
                     onChange={e => setSiteSettings(p => ({ ...p, taxaSafra: parseFloat(e.target.value) || 0 }))}
-                    className="w-full bg-[#0B0B0C] border border-neutral-800 rounded-xl px-3.5 py-2 text-white font-mono focus:outline-none focus:border-[#FF2A7A] transition-colors"
+                    className="w-full bg-white dark:bg-[var(--app-dark-bg)] border border-gray-200 dark:border-neutral-800 rounded-xl px-3.5 py-2 text-gray-900 dark:text-white font-mono focus:outline-none focus:border-[#FF2A7A] transition-colors"
                   />
                 </div>
                 <div>
-                  <label className="block text-gray-400 text-sm mb-1">C6 Bank</label>
+                  <label className="block text-gray-600 dark:text-gray-400 text-sm mb-1">C6 Bank</label>
                   <input
                     type="number"
                     step="0.01"
                     value={siteSettings.taxaC6 !== undefined ? siteSettings.taxaC6 : 1.59}
                     onChange={e => setSiteSettings(p => ({ ...p, taxaC6: parseFloat(e.target.value) || 0 }))}
-                    className="w-full bg-[#0B0B0C] border border-neutral-800 rounded-xl px-3.5 py-2 text-white font-mono focus:outline-none focus:border-[#FF2A7A] transition-colors"
+                    className="w-full bg-white dark:bg-[var(--app-dark-bg)] border border-gray-200 dark:border-neutral-800 rounded-xl px-3.5 py-2 text-gray-900 dark:text-white font-mono focus:outline-none focus:border-[#FF2A7A] transition-colors"
                   />
                 </div>
                 <div>
-                  <label className="block text-gray-400 text-sm mb-1">Porto Seguro</label>
+                  <label className="block text-gray-600 dark:text-gray-400 text-sm mb-1">Porto Seguro</label>
                   <input
                     type="number"
                     step="0.01"
                     value={siteSettings.taxaPorto !== undefined ? siteSettings.taxaPorto : 1.49}
                     onChange={e => setSiteSettings(p => ({ ...p, taxaPorto: parseFloat(e.target.value) || 0 }))}
-                    className="w-full bg-[#0B0B0C] border border-neutral-800 rounded-xl px-3.5 py-2 text-white font-mono focus:outline-none focus:border-[#FF2A7A] transition-colors"
+                    className="w-full bg-white dark:bg-[var(--app-dark-bg)] border border-gray-200 dark:border-neutral-800 rounded-xl px-3.5 py-2 text-gray-900 dark:text-white font-mono focus:outline-none focus:border-[#FF2A7A] transition-colors"
                   />
                 </div>
                 <div>
-                  <label className="block text-gray-400 text-sm mb-1">Creditas</label>
+                  <label className="block text-gray-600 dark:text-gray-400 text-sm mb-1">Creditas</label>
                   <input
                     type="number"
                     step="0.01"
                     value={siteSettings.taxaCreditas !== undefined ? siteSettings.taxaCreditas : 1.39}
                     onChange={e => setSiteSettings(p => ({ ...p, taxaCreditas: parseFloat(e.target.value) || 0 }))}
-                    className="w-full bg-[#0B0B0C] border border-neutral-800 rounded-xl px-3.5 py-2 text-white font-mono focus:outline-none focus:border-[#FF2A7A] transition-colors"
+                    className="w-full bg-white dark:bg-[var(--app-dark-bg)] border border-gray-200 dark:border-neutral-800 rounded-xl px-3.5 py-2 text-gray-900 dark:text-white font-mono focus:outline-none focus:border-[#FF2A7A] transition-colors"
                   />
                 </div>
                 <div>
-                  <label className="block text-gray-400 text-sm mb-1">Mercado Pago</label>
+                  <label className="block text-gray-600 dark:text-gray-400 text-sm mb-1">Mercado Pago</label>
                   <input
                     type="number"
                     step="0.01"
                     value={siteSettings.taxaMercadoPago !== undefined ? siteSettings.taxaMercadoPago : 1.69}
                     onChange={e => setSiteSettings(p => ({ ...p, taxaMercadoPago: parseFloat(e.target.value) || 0 }))}
-                    className="w-full bg-[#0B0B0C] border border-neutral-800 rounded-xl px-3.5 py-2 text-white font-mono focus:outline-none focus:border-[#FF2A7A] transition-colors"
+                    className="w-full bg-white dark:bg-[var(--app-dark-bg)] border border-gray-200 dark:border-neutral-800 rounded-xl px-3.5 py-2 text-gray-900 dark:text-white font-mono focus:outline-none focus:border-[#FF2A7A] transition-colors"
                   />
                 </div>
                 <div>
-                  <label className="block text-gray-400 text-sm mb-1">Banco Omni</label>
+                  <label className="block text-gray-600 dark:text-gray-400 text-sm mb-1">Banco Omni</label>
                   <input
                     type="number"
                     step="0.01"
                     value={siteSettings.taxaOmni !== undefined ? siteSettings.taxaOmni : 1.89}
                     onChange={e => setSiteSettings(p => ({ ...p, taxaOmni: parseFloat(e.target.value) || 0 }))}
-                    className="w-full bg-[#0B0B0C] border border-neutral-800 rounded-xl px-3.5 py-2 text-white font-mono focus:outline-none focus:border-[#FF2A7A] transition-colors"
+                    className="w-full bg-white dark:bg-[var(--app-dark-bg)] border border-gray-200 dark:border-neutral-800 rounded-xl px-3.5 py-2 text-gray-900 dark:text-white font-mono focus:outline-none focus:border-[#FF2A7A] transition-colors"
                   />
                 </div>
                 <div>
-                  <label className="block text-gray-400 text-sm mb-1">Daycoval</label>
+                  <label className="block text-gray-600 dark:text-gray-400 text-sm mb-1">Daycoval</label>
                   <input
                     type="number"
                     step="0.01"
                     value={siteSettings.taxaDaycoval !== undefined ? siteSettings.taxaDaycoval : 1.79}
                     onChange={e => setSiteSettings(p => ({ ...p, taxaDaycoval: parseFloat(e.target.value) || 0 }))}
-                    className="w-full bg-[#0B0B0C] border border-neutral-800 rounded-xl px-3.5 py-2 text-white font-mono focus:outline-none focus:border-[#FF2A7A] transition-colors"
+                    className="w-full bg-white dark:bg-[var(--app-dark-bg)] border border-gray-200 dark:border-neutral-800 rounded-xl px-3.5 py-2 text-gray-900 dark:text-white font-mono focus:outline-none focus:border-[#FF2A7A] transition-colors"
                   />
                 </div>
               </div>
@@ -2392,7 +2392,7 @@ export function AdminPanel({ currentUser, token, vehicles, onRefreshData, settin
 
       {/* Toast Notification */}
       {toast && (
-        <div className="fixed bottom-5 right-5 z-[100] max-w-sm bg-neutral-900 border border-neutral-800 text-white p-4 rounded-xl shadow-2xl flex items-center gap-3 animate-fade-in-up">
+        <div className="fixed bottom-5 right-5 z-[100] max-w-sm bg-gray-100 dark:bg-neutral-900 border border-gray-200 dark:border-neutral-800 text-gray-900 dark:text-white p-4 rounded-xl shadow-2xl flex items-center gap-3 animate-fade-in-up">
           <div className={`w-2 h-2 rounded-full shrink-0 ${toast.type === 'success' ? 'bg-emerald-500' : toast.type === 'error' ? 'bg-red-500' : 'bg-[#FF2D8D]'}`} />
           <p className="text-xs font-semibold leading-relaxed">{toast.message}</p>
         </div>
@@ -2401,22 +2401,22 @@ export function AdminPanel({ currentUser, token, vehicles, onRefreshData, settin
       {/* Custom Confirmation Modal */}
       {confirmDialog.isOpen && (
         <div className="fixed inset-0 bg-black/80 backdrop-blur-sm flex items-center justify-center p-4 z-[100] animate-fade-in">
-          <div className="bg-neutral-950 border border-neutral-900 rounded-2xl max-w-md w-full overflow-hidden p-6 shadow-2xl">
+          <div className="bg-gray-50 dark:bg-neutral-950 border border-gray-200 dark:border-neutral-900 rounded-2xl max-w-md w-full overflow-hidden p-6 shadow-2xl">
             <div className="flex items-start gap-3 mb-2">
               <ShieldAlert className="w-5 h-5 text-red-500 shrink-0 mt-0.5" />
               <div>
-                <h3 className="text-sm font-bold text-white">
+                <h3 className="text-sm font-bold text-gray-900 dark:text-white">
                   {confirmDialog.title}
                 </h3>
-                <p className="text-xs text-gray-400 mt-1.5 leading-relaxed">
+                <p className="text-xs text-gray-600 dark:text-gray-400 mt-1.5 leading-relaxed">
                   {confirmDialog.message}
                 </p>
               </div>
             </div>
-            <div className="flex items-center justify-end gap-2.5 mt-6 pt-3 border-t border-neutral-900">
+            <div className="flex items-center justify-end gap-2.5 mt-6 pt-3 border-t border-gray-200 dark:border-neutral-900">
               <button
                 onClick={() => setConfirmDialog(prev => ({ ...prev, isOpen: false }))}
-                className="px-3.5 py-2 bg-neutral-900 hover:bg-neutral-850 text-gray-400 hover:text-white rounded-lg text-xs font-bold transition cursor-pointer"
+                className="px-3.5 py-2 bg-gray-100 dark:bg-neutral-900 hover:bg-neutral-850 text-gray-600 dark:text-gray-400 hover:text-gray-900 dark:text-white rounded-lg text-xs font-bold transition cursor-pointer"
               >
                 Cancelar
               </button>
@@ -2432,11 +2432,11 @@ export function AdminPanel({ currentUser, token, vehicles, onRefreshData, settin
       )}
 
       {/* Mobile Bottom Navigation Bar */}
-      <div className="lg:hidden fixed bottom-0 left-0 w-full bg-[#0B0B0C]/90 backdrop-blur-md border-t border-gray-800 z-50">
+      <div className="lg:hidden fixed bottom-0 left-0 w-full bg-white/90 dark:bg-[var(--app-dark-bg-90)] backdrop-blur-md border-t border-gray-200 dark:border-gray-800 z-50">
         <div className="flex items-center justify-between px-6 h-16">
           <button
             onClick={() => setActiveTab('dashboard')}
-            className={`flex flex-col items-center justify-center gap-1 w-full transition-colors ${activeTab === 'dashboard' ? 'text-[#FF2A7A]' : 'text-gray-500'}`}
+            className={`flex flex-col items-center justify-center gap-1 w-full transition-colors ${activeTab === 'dashboard' ? 'text-[#FF2A7A]' : 'text-gray-500 dark:text-gray-400 dark:text-gray-400'}`}
           >
             <ClipboardList className="w-5 h-5" />
             <span className="text-[10px] font-bold uppercase tracking-wider">Dashboard</span>
@@ -2444,7 +2444,7 @@ export function AdminPanel({ currentUser, token, vehicles, onRefreshData, settin
           
           <button
             onClick={() => setActiveTab('vehicles')}
-            className={`flex flex-col items-center justify-center gap-1 w-full transition-colors ${activeTab === 'vehicles' ? 'text-[#FF2A7A]' : 'text-gray-500'}`}
+            className={`flex flex-col items-center justify-center gap-1 w-full transition-colors ${activeTab === 'vehicles' ? 'text-[#FF2A7A]' : 'text-gray-500 dark:text-gray-400 dark:text-gray-400'}`}
           >
             <Car className="w-5 h-5" />
             <span className="text-[10px] font-bold uppercase tracking-wider">Estoque</span>
@@ -2452,7 +2452,7 @@ export function AdminPanel({ currentUser, token, vehicles, onRefreshData, settin
           
           <button
             onClick={() => setActiveTab('leads')}
-            className={`flex flex-col items-center justify-center gap-1 w-full transition-colors ${activeTab === 'leads' ? 'text-[#FF2A7A]' : 'text-gray-500'}`}
+            className={`flex flex-col items-center justify-center gap-1 w-full transition-colors ${activeTab === 'leads' ? 'text-[#FF2A7A]' : 'text-gray-500 dark:text-gray-400 dark:text-gray-400'}`}
           >
             <div className="relative">
               <Mail className="w-5 h-5" />
@@ -2468,7 +2468,7 @@ export function AdminPanel({ currentUser, token, vehicles, onRefreshData, settin
           {currentUser.role === 'Administrador' && (
             <button
               onClick={() => setActiveTab('settings')}
-              className={`flex flex-col items-center justify-center gap-1 w-full transition-colors ${activeTab === 'settings' ? 'text-[#FF2A7A]' : 'text-gray-500'}`}
+              className={`flex flex-col items-center justify-center gap-1 w-full transition-colors ${activeTab === 'settings' ? 'text-[#FF2A7A]' : 'text-gray-500 dark:text-gray-400 dark:text-gray-400'}`}
             >
               <Settings className="w-5 h-5" />
               <span className="text-[10px] font-bold uppercase tracking-wider">Ajustes</span>

@@ -7,7 +7,7 @@ import ravicarLogo from '../assets/images/ravicar_logo_1783395977905.jpg';
 export function Logo({ className = "w-10 h-10", showText = true }: { className?: string; showText?: boolean }) {
   return (
     <div className="flex items-center gap-2.5 cursor-pointer">
-      <div className={`relative bg-neutral-900 flex items-center justify-center rounded-full overflow-hidden border border-[var(--brand-color)]/20 transition-all duration-300 hover:scale-105 ${className}`}>
+      <div className={`relative bg-white dark:bg-neutral-900 flex items-center justify-center rounded-full overflow-hidden border border-[var(--brand-color)]/20 transition-all duration-300 hover:scale-105 ${className}`}>
         <img
           src={ravicarLogo}
           alt="RaviCar Logo"
@@ -17,8 +17,8 @@ export function Logo({ className = "w-10 h-10", showText = true }: { className?:
       </div>
       {showText && (
         <div className="flex items-center justify-center pt-0.5">
-          <span className="font-logo tracking-wide text-3xl leading-none text-white select-none flex items-center" style={{ fontFamily: '"Satisfy", "Playball", "Great Vibes", cursive' }}>
-            Ravi<span className="text-[var(--brand-color)]">Car</span>
+          <span className="font-logo tracking-wide text-3xl leading-none text-gray-900 dark:text-white select-none flex items-center" style={{ fontFamily: '"Satisfy", "Playball", "Great Vibes", cursive' }}>
+            Ravi<span className="text-[#FF2A7A]">Car</span>
           </span>
         </div>
       )}
@@ -58,8 +58,15 @@ export function Header({ currentUser, onLogout, onOpenAuth, onNavigate, currentP
   const themeMenuRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
-    if (activeTheme === 'original') {
-      document.documentElement.removeAttribute('data-theme');
+    // Reset classes and attributes
+    document.documentElement.removeAttribute('data-theme');
+    document.documentElement.classList.remove('dark');
+    
+    if (['original', 'preto', 'azul'].includes(activeTheme)) {
+      document.documentElement.classList.add('dark');
+      if (activeTheme !== 'original') {
+        document.documentElement.setAttribute('data-theme', activeTheme);
+      }
     } else {
       document.documentElement.setAttribute('data-theme', activeTheme);
     }
@@ -322,7 +329,7 @@ export function Header({ currentUser, onLogout, onOpenAuth, onNavigate, currentP
 
   return (
     <>
-      <header id="nav_header" className="sticky top-0 z-50 bg-[#080808]/85 backdrop-blur-xl border-b border-neutral-900/60 h-24 flex items-center px-4 md:px-8 transition-all duration-500">
+      <header id="nav_header" className="sticky top-0 z-50 bg-white dark:bg-[var(--app-dark-bg)] backdrop-blur-xl border-b border-gray-200 dark:border-gray-800 h-24 flex items-center px-4 md:px-8 transition-all duration-500">
         <div className="max-w-7xl mx-auto w-full flex items-center justify-between relative">
           {/* Logo */}
           <div onClick={() => handleNav('home')}>
@@ -333,28 +340,28 @@ export function Header({ currentUser, onLogout, onOpenAuth, onNavigate, currentP
           <nav className="hidden md:flex items-center gap-10 text-[10px] font-mono tracking-[0.2em] uppercase">
             <button 
               onClick={() => handleNav('home')} 
-              className={`group relative transition-all duration-300 cursor-pointer py-2 ${currentPage === 'home' ? (activeTheme === 'original' ? 'text-[#FF2A7A] font-bold' : 'text-[var(--brand-color)] font-bold') : (activeTheme === 'original' ? 'text-gray-500 hover:text-[#FF2A7A]' : 'text-gray-500 hover:text-white')}`}
+              className={`group relative transition-all duration-300 cursor-pointer py-2 ${currentPage === 'home' ? (activeTheme === 'original' ? 'text-[#FF2A7A] font-bold' : 'text-[var(--brand-color)] font-bold') : (activeTheme === 'original' ? 'text-gray-500 dark:text-gray-400 hover:text-[#FF2A7A]' : 'text-gray-500 dark:text-gray-400 hover:text-gray-900 dark:text-white')}`}
             >
               Início
               <span className={`absolute -bottom-2 left-1/2 -translate-x-1/2 w-1 h-1 rounded-full transition-all duration-300 ${currentPage === 'home' ? (activeTheme === 'original' ? 'bg-[#FF2A7A] opacity-100 scale-100' : 'bg-[var(--brand-color)] opacity-100 scale-100') : 'bg-transparent opacity-0 scale-0 group-hover:bg-neutral-600 group-hover:opacity-100 group-hover:scale-100'}`}></span>
             </button>
             <button 
               onClick={() => handleNav('catalogo')} 
-              className={`group relative transition-all duration-300 cursor-pointer py-2 ${currentPage === 'catalogo' ? (activeTheme === 'original' ? 'text-[#FF2A7A] font-bold' : 'text-[var(--brand-color)] font-bold') : (activeTheme === 'original' ? 'text-gray-500 hover:text-[#FF2A7A]' : 'text-gray-500 hover:text-white')}`}
+              className={`group relative transition-all duration-300 cursor-pointer py-2 ${currentPage === 'catalogo' ? (activeTheme === 'original' ? 'text-[#FF2A7A] font-bold' : 'text-[var(--brand-color)] font-bold') : (activeTheme === 'original' ? 'text-gray-500 dark:text-gray-400 hover:text-[#FF2A7A]' : 'text-gray-500 dark:text-gray-400 hover:text-gray-900 dark:text-white')}`}
             >
               Estoque
               <span className={`absolute -bottom-2 left-1/2 -translate-x-1/2 w-1 h-1 rounded-full transition-all duration-300 ${currentPage === 'catalogo' ? (activeTheme === 'original' ? 'bg-[#FF2A7A] opacity-100 scale-100' : 'bg-[var(--brand-color)] opacity-100 scale-100') : 'bg-transparent opacity-0 scale-0 group-hover:bg-neutral-600 group-hover:opacity-100 group-hover:scale-100'}`}></span>
             </button>
             <button 
               onClick={() => handleNav('financiamento')} 
-              className={`group relative transition-all duration-300 cursor-pointer py-2 ${currentPage === 'financiamento' ? (activeTheme === 'original' ? 'text-[#FF2A7A] font-bold' : 'text-[var(--brand-color)] font-bold') : (activeTheme === 'original' ? 'text-gray-500 hover:text-[#FF2A7A]' : 'text-gray-500 hover:text-white')}`}
+              className={`group relative transition-all duration-300 cursor-pointer py-2 ${currentPage === 'financiamento' ? (activeTheme === 'original' ? 'text-[#FF2A7A] font-bold' : 'text-[var(--brand-color)] font-bold') : (activeTheme === 'original' ? 'text-gray-500 dark:text-gray-400 hover:text-[#FF2A7A]' : 'text-gray-500 dark:text-gray-400 hover:text-gray-900 dark:text-white')}`}
             >
               Financiamento
               <span className={`absolute -bottom-2 left-1/2 -translate-x-1/2 w-1 h-1 rounded-full transition-all duration-300 ${currentPage === 'financiamento' ? (activeTheme === 'original' ? 'bg-[#FF2A7A] opacity-100 scale-100' : 'bg-[var(--brand-color)] opacity-100 scale-100') : 'bg-transparent opacity-0 scale-0 group-hover:bg-neutral-600 group-hover:opacity-100 group-hover:scale-100'}`}></span>
             </button>
             <button 
               onClick={() => handleNav('avaliacao')} 
-              className={`group relative transition-all duration-300 cursor-pointer py-2 ${currentPage === 'avaliacao' ? (activeTheme === 'original' ? 'text-[#FF2A7A] font-bold' : 'text-[var(--brand-color)] font-bold') : (activeTheme === 'original' ? 'text-gray-500 hover:text-[#FF2A7A]' : 'text-gray-500 hover:text-white')}`}
+              className={`group relative transition-all duration-300 cursor-pointer py-2 ${currentPage === 'avaliacao' ? (activeTheme === 'original' ? 'text-[#FF2A7A] font-bold' : 'text-[var(--brand-color)] font-bold') : (activeTheme === 'original' ? 'text-gray-500 dark:text-gray-400 hover:text-[#FF2A7A]' : 'text-gray-500 dark:text-gray-400 hover:text-gray-900 dark:text-white')}`}
             >
               Avalie seu Usado
               <span className={`absolute -bottom-2 left-1/2 -translate-x-1/2 w-1 h-1 rounded-full transition-all duration-300 ${currentPage === 'avaliacao' ? (activeTheme === 'original' ? 'bg-[#FF2A7A] opacity-100 scale-100' : 'bg-[var(--brand-color)] opacity-100 scale-100') : 'bg-transparent opacity-0 scale-0 group-hover:bg-neutral-600 group-hover:opacity-100 group-hover:scale-100'}`}></span>
@@ -381,6 +388,7 @@ export function Header({ currentUser, onLogout, onOpenAuth, onNavigate, currentP
                   
                   {/* Theme buttons */}
                   <button
+                    data-theme-btn="original"
                     onClick={() => changeTheme('original')}
                     className={`w-full flex items-center justify-between px-2.5 py-1.5 rounded-lg text-xs transition-all cursor-pointer ${activeTheme === 'original' ? 'bg-[#FF2D8D]/10 text-[#FF2D8D] font-bold' : 'text-[var(--text-secondary)] hover:bg-[var(--bg-card-hover)] hover:text-[var(--text-primary)]'}`}
                   >
@@ -392,6 +400,7 @@ export function Header({ currentUser, onLogout, onOpenAuth, onNavigate, currentP
                   </button>
 
                   <button
+                    data-theme-btn="branco"
                     onClick={() => changeTheme('branco')}
                     className={`w-full flex items-center justify-between px-2.5 py-1.5 rounded-lg text-xs transition-all cursor-pointer ${activeTheme === 'branco' ? 'bg-blue-600/10 text-blue-500 font-bold' : 'text-[var(--text-secondary)] hover:bg-[var(--bg-card-hover)] hover:text-[var(--text-primary)]'}`}
                   >
@@ -403,6 +412,7 @@ export function Header({ currentUser, onLogout, onOpenAuth, onNavigate, currentP
                   </button>
 
                   <button
+                    data-theme-btn="azul"
                     onClick={() => changeTheme('azul')}
                     className={`w-full flex items-center justify-between px-2.5 py-1.5 rounded-lg text-xs transition-all cursor-pointer ${activeTheme === 'azul' ? 'bg-cyan-500/10 text-cyan-400 font-bold' : 'text-[var(--text-secondary)] hover:bg-[var(--bg-card-hover)] hover:text-[var(--text-primary)]'}`}
                   >
@@ -414,17 +424,19 @@ export function Header({ currentUser, onLogout, onOpenAuth, onNavigate, currentP
                   </button>
 
                   <button
+                    data-theme-btn="preto"
                     onClick={() => changeTheme('preto')}
-                    className={`w-full flex items-center justify-between px-2.5 py-1.5 rounded-lg text-xs transition-all cursor-pointer ${activeTheme === 'preto' ? 'bg-neutral-800 text-white font-bold' : 'text-[var(--text-secondary)] hover:bg-[var(--bg-card-hover)] hover:text-[var(--text-primary)]'}`}
+                    className={`w-full flex items-center justify-between px-2.5 py-1.5 rounded-lg text-xs transition-all cursor-pointer ${activeTheme === 'preto' ? 'bg-white dark:bg-neutral-800 text-gray-900 dark:text-white font-bold' : 'text-[var(--text-secondary)] hover:bg-[var(--bg-card-hover)] hover:text-[var(--text-primary)]'}`}
                   >
                     <div className="flex items-center gap-2">
-                      <span className="w-2.5 h-2.5 rounded-full bg-black border border-neutral-700"></span>
+                      <span className="w-2.5 h-2.5 rounded-full bg-white dark:bg-black border border-gray-200 dark:border-neutral-700"></span>
                       <span>Preto Puro</span>
                     </div>
                     {activeTheme === 'preto' && <span className="text-[10px] font-bold">●</span>}
                   </button>
 
                   <button
+                    data-theme-btn="creme"
                     onClick={() => changeTheme('creme')}
                     className={`w-full flex items-center justify-between px-2.5 py-1.5 rounded-lg text-xs transition-all cursor-pointer ${activeTheme === 'creme' ? 'bg-[#a67537]/10 text-[#a67537] font-bold' : 'text-[var(--text-secondary)] hover:bg-[var(--bg-card-hover)] hover:text-[var(--text-primary)]'}`}
                   >
@@ -468,12 +480,12 @@ export function Header({ currentUser, onLogout, onOpenAuth, onNavigate, currentP
                   {currentUser.role === 'Cliente' ? 'Área do Cliente' : `Painel ${currentUser.role}`}
                 </button>
                 <div className="text-right">
-                  <p className="text-xs text-gray-400 font-semibold">{currentUser.name}</p>
+                  <p className="text-xs text-gray-600 dark:text-gray-400 font-semibold">{currentUser.name}</p>
                 </div>
                 <button
                   onClick={onLogout}
                   title="Sair"
-                  className="p-2 rounded-full text-gray-400 hover:text-red-500 hover:bg-[#1A1A1A] transition-all cursor-pointer"
+                  className="p-2 rounded-full text-gray-600 dark:text-gray-400 hover:text-red-500 hover:bg-white dark:bg-[#1A1A1A] transition-all cursor-pointer"
                 >
                   <LogOut className="w-4 h-4" />
                 </button>
@@ -493,7 +505,7 @@ export function Header({ currentUser, onLogout, onOpenAuth, onNavigate, currentP
           <div className="flex md:hidden items-center gap-2">
             <button
               onClick={() => setIsNotifOpen(!isNotifOpen)}
-              className="p-2 rounded-full hover:bg-[var(--bg-card-hover)] relative text-gray-400"
+              className="p-2 rounded-full hover:bg-[var(--bg-card-hover)] relative text-gray-600 dark:text-gray-400"
             >
               <Bell className={`w-4 h-4 ${notifications.some(n => !n.read) ? 'text-[var(--brand-color)]' : ''}`} />
               {notifications.some(n => !n.read) && (
@@ -505,7 +517,7 @@ export function Header({ currentUser, onLogout, onOpenAuth, onNavigate, currentP
 
             <button
               onClick={() => setIsMenuOpen(!isMenuOpen)}
-              className="p-2 rounded-full text-white hover:bg-[#1A1A1A]"
+              className="p-2 rounded-full text-gray-900 dark:text-white hover:bg-white dark:bg-[#1A1A1A]"
             >
               {isMenuOpen ? <X className="w-6 h-6" /> : <Menu className="w-6 h-6" />}
             </button>
@@ -523,7 +535,7 @@ export function Header({ currentUser, onLogout, onOpenAuth, onNavigate, currentP
             ></div>
             
             {/* Sidebar content */}
-            <div className="relative w-[85%] max-w-sm bg-white dark:bg-[#0B0B0C] h-full flex flex-col shadow-2xl animate-slide-in-right">
+            <div className="relative w-[85%] max-w-sm bg-white dark:bg-[var(--app-dark-bg)] h-full flex flex-col shadow-2xl animate-slide-in-right">
               {/* Header */}
               <div className="flex items-center justify-between p-5 border-b border-gray-200 dark:border-neutral-900">
                 <Logo className="w-8 h-8" showText={true} />
@@ -533,16 +545,16 @@ export function Header({ currentUser, onLogout, onOpenAuth, onNavigate, currentP
                       setIsMenuOpen(false);
                       setIsNotifOpen(true);
                     }} 
-                    className="relative p-2 text-gray-400 hover:text-gray-900 dark:hover:text-white transition-colors"
+                    className="relative p-2 text-gray-600 dark:text-gray-400 hover:text-gray-900 dark:hover:text-gray-900 dark:text-white transition-colors"
                   >
                     <Bell className="w-5 h-5" />
                     {notifications.some(n => !n.read) && (
-                      <span className="absolute top-1 right-1 w-2 h-2 bg-[#FF2A7A] rounded-full border border-white dark:border-[#0B0B0C]"></span>
+                      <span className="absolute top-1 right-1 w-2 h-2 bg-[#FF2A7A] rounded-full border border-white dark:border-[var(--app-dark-bg)]"></span>
                     )}
                   </button>
                   <button 
                     onClick={() => setIsMenuOpen(false)} 
-                    className="p-2 text-gray-500 hover:text-gray-900 dark:text-gray-400 dark:hover:text-white transition-colors bg-gray-100 dark:bg-neutral-900 rounded-full"
+                    className="p-2 text-gray-500 dark:text-gray-400 hover:text-gray-900 dark:text-gray-400 dark:hover:text-gray-900 dark:text-white transition-colors bg-gray-100 dark:bg-neutral-900 rounded-full"
                   >
                     <X className="w-5 h-5" />
                   </button>
@@ -556,11 +568,11 @@ export function Header({ currentUser, onLogout, onOpenAuth, onNavigate, currentP
                     <div className="flex flex-col gap-3">
                       <div className="flex items-center gap-3 mb-2">
                         <div className="w-10 h-10 rounded-full bg-gray-200 dark:bg-neutral-800 flex items-center justify-center">
-                          <User className="w-5 h-5 text-gray-400" />
+                          <User className="w-5 h-5 text-gray-600 dark:text-gray-400" />
                         </div>
                         <div>
                           <p className="text-gray-900 dark:text-white font-medium text-sm">{currentUser.name}</p>
-                          <p className="text-[10px] text-gray-500">{currentUser.role === 'Cliente' ? 'Área do Cliente' : 'Painel de Controle'}</p>
+                          <p className="text-[10px] text-gray-500 dark:text-gray-400">{currentUser.role === 'Cliente' ? 'Área do Cliente' : 'Painel de Controle'}</p>
                         </div>
                       </div>
                       <div className="grid grid-cols-2 gap-2">
@@ -572,7 +584,7 @@ export function Header({ currentUser, onLogout, onOpenAuth, onNavigate, currentP
                               currentUser.role === 'Administrador' ? 'admin' : 'vendedor'
                             );
                           }}
-                          className="w-full text-center py-2.5 rounded-lg bg-neutral-800 text-white font-bold text-[10px] uppercase tracking-wide hover:bg-neutral-700 transition-colors"
+                          className="w-full text-center py-2.5 rounded-lg bg-white dark:bg-neutral-800 text-gray-900 dark:text-white font-bold text-[10px] uppercase tracking-wide hover:bg-gray-100 dark:hover:bg-neutral-700 transition-colors"
                         >
                           Painel
                         </button>
@@ -591,7 +603,7 @@ export function Header({ currentUser, onLogout, onOpenAuth, onNavigate, currentP
                 )}
 
                 {!currentUser && (
-                  <div className="p-5 border-b border-neutral-900">
+                  <div className="p-5 border-b border-gray-200 dark:border-neutral-900">
                     <button
                       onClick={() => {
                         setIsMenuOpen(false);
@@ -640,7 +652,7 @@ export function Header({ currentUser, onLogout, onOpenAuth, onNavigate, currentP
                   </button>
                   <button 
                     onClick={() => handleNav('termos')} 
-                    className="text-left px-5 py-4 border-b border-gray-100 dark:border-neutral-900/50 text-gray-500 dark:text-gray-400 font-medium hover:bg-gray-50 dark:hover:bg-neutral-900/30 transition-colors"
+                    className="text-left px-5 py-4 border-b border-gray-100 dark:border-neutral-900/50 text-gray-500 dark:text-gray-400 dark:text-gray-400 font-medium hover:bg-gray-50 dark:hover:bg-neutral-900/30 transition-colors"
                   >
                     Termos de Uso
                   </button>
@@ -648,41 +660,41 @@ export function Header({ currentUser, onLogout, onOpenAuth, onNavigate, currentP
 
                 {/* Theme Selector */}
                 <div className="p-5 mt-auto">
-                  <span className="text-[10px] uppercase tracking-wider font-bold text-gray-500 mb-4 block">
+                  <span className="text-[10px] uppercase tracking-wider font-bold text-gray-500 dark:text-gray-400 mb-4 block">
                     Tema do App
                   </span>
                   <div className="flex items-center gap-3 overflow-x-auto pb-4 hide-scrollbar">
                     <button
                       onClick={() => changeTheme('original')}
-                      className={`flex flex-col items-center justify-center gap-2 min-w-[70px] min-h-[70px] rounded-xl transition-all cursor-pointer border ${activeTheme === 'original' ? 'border-[#FF2A7A] bg-[#FF2A7A]/5 dark:bg-[#FF2A7A]/10' : 'border-gray-200 dark:border-neutral-800 hover:bg-gray-50 dark:hover:bg-neutral-900'}`}
+                      className={`flex flex-col items-center justify-center gap-2 min-w-[70px] min-h-[70px] rounded-xl transition-all cursor-pointer border ${activeTheme === 'original' ? 'border-[#FF2A7A] bg-[#FF2A7A]/5 dark:bg-[#FF2A7A]/10' : 'border-gray-200 dark:border-neutral-800 hover:bg-gray-50 dark:hover:bg-white dark:bg-neutral-900'}`}
                     >
                       <span className="w-6 h-6 rounded-full bg-[#FF2A7A] shadow-sm"></span>
                       <span className={`text-[10px] font-medium ${activeTheme === 'original' ? 'text-[#FF2A7A]' : 'text-gray-600 dark:text-gray-400'}`}>Rosa</span>
                     </button>
                     <button
                       onClick={() => changeTheme('branco')}
-                      className={`flex flex-col items-center justify-center gap-2 min-w-[70px] min-h-[70px] rounded-xl transition-all cursor-pointer border ${activeTheme === 'branco' ? 'border-gray-400 dark:border-gray-500 bg-gray-100 dark:bg-neutral-800' : 'border-gray-200 dark:border-neutral-800 hover:bg-gray-50 dark:hover:bg-neutral-900'}`}
+                      className={`flex flex-col items-center justify-center gap-2 min-w-[70px] min-h-[70px] rounded-xl transition-all cursor-pointer border ${activeTheme === 'branco' ? 'border-gray-400 dark:border-gray-500 bg-gray-100 dark:bg-neutral-800' : 'border-gray-200 dark:border-neutral-800 hover:bg-gray-50 dark:hover:bg-white dark:bg-neutral-900'}`}
                     >
                       <span className="w-6 h-6 rounded-full bg-white border border-gray-300 shadow-sm"></span>
                       <span className={`text-[10px] font-medium ${activeTheme === 'branco' ? 'text-gray-900 dark:text-white' : 'text-gray-600 dark:text-gray-400'}`}>Branco</span>
                     </button>
                     <button
                       onClick={() => changeTheme('azul')}
-                      className={`flex flex-col items-center justify-center gap-2 min-w-[70px] min-h-[70px] rounded-xl transition-all cursor-pointer border ${activeTheme === 'azul' ? 'border-blue-500 bg-blue-500/5 dark:bg-blue-500/10' : 'border-gray-200 dark:border-neutral-800 hover:bg-gray-50 dark:hover:bg-neutral-900'}`}
+                      className={`flex flex-col items-center justify-center gap-2 min-w-[70px] min-h-[70px] rounded-xl transition-all cursor-pointer border ${activeTheme === 'azul' ? 'border-blue-500 bg-blue-500/5 dark:bg-blue-500/10' : 'border-gray-200 dark:border-neutral-800 hover:bg-gray-50 dark:hover:bg-white dark:bg-neutral-900'}`}
                     >
                       <span className="w-6 h-6 rounded-full bg-blue-500 shadow-sm"></span>
                       <span className={`text-[10px] font-medium ${activeTheme === 'azul' ? 'text-blue-500' : 'text-gray-600 dark:text-gray-400'}`}>Azul</span>
                     </button>
                     <button
                       onClick={() => changeTheme('preto')}
-                      className={`flex flex-col items-center justify-center gap-2 min-w-[70px] min-h-[70px] rounded-xl transition-all cursor-pointer border ${activeTheme === 'preto' ? 'border-black dark:border-white bg-black/5 dark:bg-white/10' : 'border-gray-200 dark:border-neutral-800 hover:bg-gray-50 dark:hover:bg-neutral-900'}`}
+                      className={`flex flex-col items-center justify-center gap-2 min-w-[70px] min-h-[70px] rounded-xl transition-all cursor-pointer border ${activeTheme === 'preto' ? 'border-black dark:border-white bg-black/5 dark:bg-white/10' : 'border-gray-200 dark:border-neutral-800 hover:bg-gray-50 dark:hover:bg-white dark:bg-neutral-900'}`}
                     >
-                      <span className="w-6 h-6 rounded-full bg-black border border-neutral-700 shadow-sm"></span>
+                      <span className="w-6 h-6 rounded-full bg-white dark:bg-black border border-gray-200 dark:border-neutral-700 shadow-sm"></span>
                       <span className={`text-[10px] font-medium ${activeTheme === 'preto' ? 'text-black dark:text-white' : 'text-gray-600 dark:text-gray-400'}`}>Preto</span>
                     </button>
                     <button
                       onClick={() => changeTheme('creme')}
-                      className={`flex flex-col items-center justify-center gap-2 min-w-[70px] min-h-[70px] rounded-xl transition-all cursor-pointer border ${activeTheme === 'creme' ? 'border-[#a67537] bg-[#a67537]/5 dark:bg-[#a67537]/10' : 'border-gray-200 dark:border-neutral-800 hover:bg-gray-50 dark:hover:bg-neutral-900'}`}
+                      className={`flex flex-col items-center justify-center gap-2 min-w-[70px] min-h-[70px] rounded-xl transition-all cursor-pointer border ${activeTheme === 'creme' ? 'border-[#a67537] bg-[#a67537]/5 dark:bg-[#a67537]/10' : 'border-gray-200 dark:border-neutral-800 hover:bg-gray-50 dark:hover:bg-white dark:bg-neutral-900'}`}
                     >
                       <span className="w-6 h-6 rounded-full bg-[#faf4e8] border border-[#a67537] shadow-sm"></span>
                       <span className={`text-[10px] font-medium ${activeTheme === 'creme' ? 'text-[#a67537]' : 'text-gray-600 dark:text-gray-400'}`}>Creme</span>
@@ -696,21 +708,21 @@ export function Header({ currentUser, onLogout, onOpenAuth, onNavigate, currentP
 
       {/* Notification Perm banner */}
       {showNotifBanner && (
-        <div className="bg-[#1A1A1A] border-b border-[var(--brand-color)]/30 py-3 px-4 transition-all duration-500">
+        <div className="bg-white dark:bg-[#1A1A1A] border-b border-[var(--brand-color)]/30 py-3 px-4 transition-all duration-500">
           <div className="max-w-7xl mx-auto flex flex-col sm:flex-row items-center justify-between gap-3 text-center sm:text-left">
             <div className="flex items-center gap-3">
               <div className="p-2 rounded-full bg-[var(--brand-color)]/10 text-[var(--brand-color)]">
                 <Bell className="w-5 h-5" />
               </div>
               <div>
-                <p className="font-semibold text-sm text-white">RaviCar quer te avisar!</p>
-                <p className="text-xs text-gray-400">Receba notificações limpas no navegador sempre que um novo veículo chegar ao estoque.</p>
+                <p className="font-semibold text-sm text-gray-900 dark:text-white">RaviCar quer te avisar!</p>
+                <p className="text-xs text-gray-600 dark:text-gray-400">Receba notificações limpas no navegador sempre que um novo veículo chegar ao estoque.</p>
               </div>
             </div>
             <div className="flex gap-2">
               <button
                 onClick={handleDeclinePermission}
-                className="px-3 py-1.5 rounded-md hover:bg-black/30 text-gray-400 text-xs transition"
+                className="px-3 py-1.5 rounded-md hover:bg-black/30 text-gray-600 dark:text-gray-400 text-xs transition"
               >
                 Agora não
               </button>
@@ -736,11 +748,11 @@ export function Header({ currentUser, onLogout, onOpenAuth, onNavigate, currentP
             <div className="p-4 border-b border-[var(--border-color)] flex items-center justify-between bg-[var(--bg-main)]">
               <div className="flex items-center gap-2">
                 <Bell className="w-5 h-5 text-[var(--brand-color)]" />
-                <h3 className="font-display font-bold text-white text-base">Central de Notificações</h3>
+                <h3 className="font-display font-bold text-gray-900 dark:text-white text-base">Central de Notificações</h3>
               </div>
               <button 
                 onClick={() => setIsNotifOpen(false)}
-                className="p-1 rounded-full hover:bg-neutral-800 text-gray-400 hover:text-white transition cursor-pointer"
+                className="p-1 rounded-full hover:bg-white dark:bg-neutral-800 text-gray-600 dark:text-gray-400 hover:text-gray-900 dark:text-white transition cursor-pointer"
               >
                 <X className="w-5 h-5" />
               </button>
@@ -755,8 +767,8 @@ export function Header({ currentUser, onLogout, onOpenAuth, onNavigate, currentP
                     <Bell className="w-4 h-4" />
                   </div>
                   <div>
-                    <h4 className="text-xs font-bold text-white">Alertas no Celular / Navegador</h4>
-                    <p className="text-[11px] text-gray-400 mt-0.5 leading-relaxed">
+                    <h4 className="text-xs font-bold text-gray-900 dark:text-white">Alertas no Celular / Navegador</h4>
+                    <p className="text-[11px] text-gray-600 dark:text-gray-400 mt-0.5 leading-relaxed">
                       Ative o recebimento nativo no seu celular para receber os alertas em tempo real na sua barra de notificações do celular.
                     </p>
                     
@@ -769,7 +781,7 @@ export function Header({ currentUser, onLogout, onOpenAuth, onNavigate, currentP
                       ) : browserPermission === 'denied' ? (
                         <span className="text-red-400 bg-red-500/10 px-2 py-0.5 rounded-md border border-red-500/20 flex flex-col gap-1 w-fit leading-normal">
                           <span>● Navegador Bloqueado</span>
-                          <span className="font-normal text-gray-400 normal-case">Clique no ícone de cadeado na barra de endereços para permitir!</span>
+                          <span className="font-normal text-gray-600 dark:text-gray-400 normal-case">Clique no ícone de cadeado na barra de endereços para permitir!</span>
                         </span>
                       ) : (
                         <span className="text-amber-400 bg-amber-500/10 px-2 py-0.5 rounded-md border border-amber-500/20 flex items-center gap-1 w-fit">
@@ -780,7 +792,7 @@ export function Header({ currentUser, onLogout, onOpenAuth, onNavigate, currentP
                   </div>
                 </div>
                 
-                <div className="flex items-center justify-between border-t border-neutral-800/60 pt-2.5 mt-0.5">
+                <div className="flex items-center justify-between border-t border-gray-200 dark:border-neutral-800/60 pt-2.5 mt-0.5">
                   <button
                     onClick={handleRequestPermission}
                     className="text-[10px] font-bold uppercase tracking-wider text-[var(--brand-color)] hover:opacity-85 transition cursor-pointer"
@@ -791,10 +803,10 @@ export function Header({ currentUser, onLogout, onOpenAuth, onNavigate, currentP
               </div>
 
               {notifications.filter(n => n.type === 'push').length === 0 ? (
-                <div className="flex-1 flex flex-col items-center justify-center py-12 text-center text-gray-500 gap-2">
+                <div className="flex-1 flex flex-col items-center justify-center py-12 text-center text-gray-500 dark:text-gray-400 gap-2">
                   <BellOff className="w-10 h-10 text-neutral-800" />
-                  <p className="text-xs font-bold text-white">Nenhuma notificação</p>
-                  <p className="text-[11px] text-gray-400 max-w-[240px] mx-auto">Cadastre um novo veículo no Painel Administrativo para ver o alerta celular em tempo real!</p>
+                  <p className="text-xs font-bold text-gray-900 dark:text-white">Nenhuma notificação</p>
+                  <p className="text-[11px] text-gray-600 dark:text-gray-400 max-w-[240px] mx-auto">Cadastre um novo veículo no Painel Administrativo para ver o alerta celular em tempo real!</p>
                 </div>
               ) : (
                 notifications
@@ -802,15 +814,15 @@ export function Header({ currentUser, onLogout, onOpenAuth, onNavigate, currentP
                   .map((notif: any) => (
                     <div 
                       key={notif.id}
-                      className="p-3.5 rounded-xl bg-neutral-900/50 border border-neutral-800 flex flex-col gap-2 hover:border-neutral-700 transition"
+                      className="p-3.5 rounded-xl bg-gray-100 dark:bg-neutral-900/50 border border-gray-200 dark:border-neutral-800 flex flex-col gap-2 hover:border-gray-200 dark:border-neutral-700 transition"
                     >
                       <div className="flex justify-between items-start">
-                        <span className="text-[9px] text-gray-500 font-mono">
+                        <span className="text-[9px] text-gray-500 dark:text-gray-400 font-mono">
                           {new Date(notif.createdAt).toLocaleTimeString('pt-BR', { hour: '2-digit', minute: '2-digit' })} - {new Date(notif.createdAt).toLocaleDateString('pt-BR')}
                         </span>
                       </div>
-                      <h4 className="text-xs font-bold text-white">{notif.title}</h4>
-                      <p className="text-xs text-gray-400 leading-relaxed">{notif.message}</p>
+                      <h4 className="text-xs font-bold text-gray-900 dark:text-white">{notif.title}</h4>
+                      <p className="text-xs text-gray-600 dark:text-gray-400 leading-relaxed">{notif.message}</p>
                       
                       {notif.actionUrl && (
                         <button
@@ -829,8 +841,8 @@ export function Header({ currentUser, onLogout, onOpenAuth, onNavigate, currentP
             </div>
 
             {/* Footer */}
-            <div className="p-3 border-t border-neutral-800 bg-neutral-950 flex justify-between gap-2 items-center">
-              <span className="text-[10px] text-gray-500">Destinatário Admin: {settings.email}</span>
+            <div className="p-3 border-t border-gray-200 dark:border-neutral-800 bg-white dark:bg-neutral-950 flex justify-between gap-2 items-center">
+              <span className="text-[10px] text-gray-500 dark:text-gray-400">Destinatário Admin: {settings.email}</span>
               {notifications.length > 0 && (
                 <button
                   onClick={async () => {
@@ -862,9 +874,9 @@ export function Header({ currentUser, onLogout, onOpenAuth, onNavigate, currentP
             }
             setActiveToast(null);
           }}
-          className="fixed top-4 left-4 right-4 md:top-24 md:left-auto md:right-8 z-[9999] max-w-sm bg-black/95 backdrop-blur-md border border-neutral-800 rounded-xl shadow-lg p-4 flex gap-3.5 border-l-4 border-l-[var(--brand-color)] cursor-pointer hover:border-neutral-700 transition-all duration-300 animate-slide-in-right"
+          className="fixed top-4 left-4 right-4 md:top-24 md:left-auto md:right-8 z-[9999] max-w-sm bg-black/95 backdrop-blur-md border border-gray-200 dark:border-neutral-800 rounded-xl shadow-lg p-4 flex gap-3.5 border-l-4 border-l-[var(--brand-color)] cursor-pointer hover:border-gray-200 dark:border-neutral-700 transition-all duration-300 animate-slide-in-right"
         >
-          <div className="w-11 h-11 shrink-0 bg-neutral-900 border border-[var(--brand-color)]/25 rounded-full flex items-center justify-center overflow-hidden">
+          <div className="w-11 h-11 shrink-0 bg-white dark:bg-neutral-900 border border-[var(--brand-color)]/25 rounded-full flex items-center justify-center overflow-hidden">
             <img src={ravicarLogo} alt="RaviCar" className="w-full h-full object-cover" />
           </div>
           <div className="flex-1 min-w-0">
@@ -880,15 +892,15 @@ export function Header({ currentUser, onLogout, onOpenAuth, onNavigate, currentP
                   e.stopPropagation();
                   setActiveToast(null);
                 }}
-                className="text-gray-400 hover:text-white transition p-1 hover:bg-neutral-800 rounded-full cursor-pointer"
+                className="text-gray-600 dark:text-gray-400 hover:text-gray-900 dark:text-white transition p-1 hover:bg-white dark:bg-neutral-800 rounded-full cursor-pointer"
               >
                 <X className="w-3.5 h-3.5" />
               </button>
             </div>
-            <h4 className="text-xs font-bold text-white mt-1 leading-snug">{activeToast.title}</h4>
-            <p className="text-[11px] text-gray-400 mt-1 leading-relaxed line-clamp-2">{activeToast.message}</p>
+            <h4 className="text-xs font-bold text-gray-900 dark:text-white mt-1 leading-snug">{activeToast.title}</h4>
+            <p className="text-[11px] text-gray-600 dark:text-gray-400 mt-1 leading-relaxed line-clamp-2">{activeToast.message}</p>
             <div className="mt-2.5 flex justify-between items-center">
-              <span className="text-[9px] text-gray-500">Agora mesmo</span>
+              <span className="text-[9px] text-gray-500 dark:text-gray-400">Agora mesmo</span>
               <span className="text-[10px] font-bold text-[var(--brand-color)] hover:underline uppercase tracking-wider flex items-center gap-1">
                 Ver Estoque ➔
               </span>

@@ -15,7 +15,7 @@ export function Footer({ onNavigate, settings }: FooterProps) {
   };
 
   return (
-    <footer className="bg-[#050505] border-t border-neutral-900/60 text-gray-400 text-sm relative overflow-hidden">
+    <footer className="bg-white dark:bg-[#050505] border-t border-gray-200 dark:border-neutral-900/60 text-gray-600 dark:text-gray-400 text-sm relative overflow-hidden">
       {/* Decorative Blur */}
       <div className="absolute top-0 left-1/2 -translate-x-1/2 w-full max-w-3xl h-px bg-gradient-to-r from-transparent via-[var(--brand-color)]/20 to-transparent"></div>
       
@@ -25,7 +25,7 @@ export function Footer({ onNavigate, settings }: FooterProps) {
         {/* Brand column */}
         <div className="flex flex-col gap-4">
           <Logo />
-          <p className="text-[11px] text-gray-500 leading-relaxed mt-2 font-medium">
+          <p className="text-[11px] text-gray-500 dark:text-gray-400 leading-relaxed mt-2 font-medium">
             A RaviCar redefine a experiência de compra automotiva. Curadoria de excelência, transparência total e condições exclusivas de mercado.
           </p>
           
@@ -35,7 +35,7 @@ export function Footer({ onNavigate, settings }: FooterProps) {
               href={settings.instagram} 
               target="_blank" 
               rel="noopener noreferrer" 
-              className="w-10 h-10 rounded-full border border-neutral-800 bg-neutral-900/50 flex items-center justify-center hover:bg-[var(--brand-color)] hover:border-[var(--brand-color)] hover:text-white text-gray-400 transition-all duration-300"
+              className="w-10 h-10 rounded-full border border-gray-200 dark:border-neutral-800 bg-gray-100 dark:bg-neutral-900/50 flex items-center justify-center hover:bg-[var(--brand-color)] hover:border-[var(--brand-color)] hover:text-white text-gray-600 dark:text-gray-400 transition-all duration-300"
             >
               <Instagram className="w-4 h-4" />
             </a>
@@ -44,7 +44,7 @@ export function Footer({ onNavigate, settings }: FooterProps) {
 
         {/* Quick Links */}
         <div>
-          <h3 className="font-mono text-[10px] tracking-widest uppercase font-bold text-gray-300 mb-6">
+          <h3 className="font-mono text-[10px] tracking-widest uppercase font-bold text-gray-600 dark:text-gray-300 mb-6">
             // Navegação
           </h3>
           <ul className="flex flex-col gap-3">
@@ -80,7 +80,7 @@ export function Footer({ onNavigate, settings }: FooterProps) {
               </button>
             </li>
             <li>
-              <button onClick={() => handleNav('reserva')} className="hover:text-[var(--brand-color)] transition text-xs cursor-pointer text-emerald-400">
+              <button onClick={() => handleNav('reserva')} className="hover:text-[var(--brand-color)] transition text-xs cursor-pointer text-emerald-600 dark:text-emerald-400">
                 Certificado de Reserva
               </button>
             </li>
@@ -89,22 +89,22 @@ export function Footer({ onNavigate, settings }: FooterProps) {
 
         {/* Working Hours */}
         <div>
-          <h3 className="font-display font-bold text-white text-base mb-4 border-b border-[#1A1A1A] pb-2">
+          <h3 className="font-display font-bold text-gray-900 dark:text-white text-base mb-4 border-b border-gray-200 dark:border-[#1A1A1A] pb-2">
             Horário de Atendimento
           </h3>
-          <ul className="flex flex-col gap-3 text-xs text-gray-400">
+          <ul className="flex flex-col gap-3 text-xs text-gray-600 dark:text-gray-400">
             <li className="flex items-start gap-2">
               <Clock className="w-4 h-4 text-[var(--brand-color)] shrink-0 mt-0.5" />
               <div>
-                <p className="font-semibold text-white">Segunda a Sexta-feira</p>
-                <p className="text-gray-500">{settings.hoursWeekday}</p>
+                <p className="font-semibold text-gray-900 dark:text-white">Segunda a Sexta-feira</p>
+                <p className="text-gray-500 dark:text-gray-400">{settings.hoursWeekday}</p>
               </div>
             </li>
             <li className="flex items-start gap-2">
               <Clock className="w-4 h-4 text-[var(--brand-color)] shrink-0 mt-0.5" />
               <div>
-                <p className="font-semibold text-white">Sábados</p>
-                <p className="text-gray-500">{settings.hoursSaturday}</p>
+                <p className="font-semibold text-gray-900 dark:text-white">Sábados</p>
+                <p className="text-gray-500 dark:text-gray-400">{settings.hoursSaturday}</p>
               </div>
             </li>
           </ul>
@@ -112,30 +112,30 @@ export function Footer({ onNavigate, settings }: FooterProps) {
 
         {/* Physical Contact Info */}
         <div>
-          <h3 className="font-display font-bold text-white text-base mb-4 border-b border-[#1A1A1A] pb-2">
+          <h3 className="font-display font-bold text-gray-900 dark:text-white text-base mb-4 border-b border-gray-200 dark:border-[#1A1A1A] pb-2">
             Onde Estamos
           </h3>
-          <ul className="flex flex-col gap-3 text-xs text-gray-400">
+          <ul className="flex flex-col gap-3 text-xs text-gray-600 dark:text-gray-400">
             <li className="flex items-start gap-2">
               <MapPin className="w-4 h-4 text-[var(--brand-color)] shrink-0 mt-0.5" />
-              <span className="leading-relaxed text-gray-500">
+              <span className="leading-relaxed text-gray-500 dark:text-gray-400">
                 {settings.address}
               </span>
             </li>
             <li className="flex items-center gap-2">
               <Phone className="w-4 h-4 text-[var(--brand-color)] shrink-0" />
-              <span className="text-gray-500">{settings.phone}</span>
+              <span className="text-gray-500 dark:text-gray-400">{settings.phone}</span>
             </li>
             <li className="flex items-center gap-2">
               <Mail className="w-4 h-4 text-[var(--brand-color)] shrink-0" />
-              <span className="text-gray-500 truncate">{settings.email}</span>
+              <span className="text-gray-500 dark:text-gray-400 truncate">{settings.email}</span>
             </li>
           </ul>
         </div>
       </div>
 
       {/* Bottom Footer */}
-      <div className="bg-[#020202] py-6 border-t border-[#111]">
+      <div className="bg-gray-50 dark:bg-[#020202] py-6 border-t border-gray-200 dark:border-[#111]">
         <div className="max-w-7xl mx-auto px-4 flex flex-col sm:flex-row items-center justify-between gap-4 text-xs text-gray-600">
           <p>© 2026 RaviCar Veículos LTDA. Todos os direitos reservados. CNPJ: {settings.pixCnpj}.</p>
           <div className="flex items-center gap-1 text-[var(--brand-color)]/60">

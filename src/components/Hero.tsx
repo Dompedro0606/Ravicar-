@@ -51,10 +51,10 @@ export function Hero({ onNavigate, settings }: HeroProps) {
         setIsHovered(false);
         setMousePosition({ x: 50, y: 50 });
       }}
-      className="relative min-h-[75vh] py-24 md:py-32 flex items-center justify-center bg-white dark:bg-[#0B0B0C] overflow-hidden select-none group/hero"
+      className="relative min-h-[75vh] py-6 flex items-center justify-center bg-white dark:bg-[var(--app-dark-bg)] overflow-hidden select-none group/hero"
     >
       {/* Background with luxury premium sports car and dark gradient overlay */}
-      <div className="absolute inset-0 z-0 pointer-events-none select-none bg-white dark:bg-[#0B0B0C]">
+      <div className="absolute inset-0 z-0 pointer-events-none select-none bg-white dark:bg-[var(--app-dark-bg)]">
         <video 
           key="hero-video"
           src="/hero-video.mp4"
@@ -67,15 +67,15 @@ export function Hero({ onNavigate, settings }: HeroProps) {
       </div>
 
         {/* Main Content container */}
-        <div className="relative z-10 w-full max-w-5xl mx-auto px-4 flex flex-col items-center mt-12 md:mt-0">
-          {/* Coordinates Badge */}
-          <div className="mb-8 inline-flex items-center gap-1.5 px-3 py-1.5 rounded-full border border-gray-200 dark:border-neutral-800 bg-gray-50 dark:bg-[#18181B] text-[10px] font-mono tracking-widest text-gray-500 dark:text-gray-400 select-none shadow-sm dark:shadow-lg">
-            <MapPin className="w-3 h-3 text-[#FF2A7A]" />
-            <span>SÃO MIGUEL PAULISTA, SP | 23.5015° S, 46.4013° W</span>
+        <div className="relative z-10 w-full max-w-5xl mx-auto px-4 flex flex-col items-center mt-6 md:mt-0">
+          {/* Location Badge */}
+          <div className="mb-6 inline-flex items-center gap-1.5 px-3 py-1.5 rounded-full border border-gray-200 dark:border-neutral-800 bg-gray-50 dark:bg-[#18181B] text-[11px] font-medium tracking-wide text-gray-500 dark:text-gray-400 dark:text-gray-400 select-none shadow-sm dark:shadow-lg">
+            <MapPin className="w-3.5 h-3.5 text-[#FF2A7A]" />
+            <span>Showroom em São Miguel Paulista, SP</span>
           </div>
 
           {/* Heading */}
-          <h1 className="font-sans font-black text-4xl sm:text-5xl md:text-6xl text-gray-900 dark:text-white tracking-tight leading-[1.1] mb-5 text-center animate-fade-in-up">
+          <h1 className="font-sans font-black text-4xl sm:text-5xl md:text-6xl text-gray-900 dark:text-white tracking-tight leading-[1.1] mb-4 text-center animate-fade-in-up">
             Encontre o carro ideal <br />
             <span className="text-[#FF2A7A]">
               para você.
@@ -83,22 +83,22 @@ export function Hero({ onNavigate, settings }: HeroProps) {
           </h1>
 
           {/* Subtitle */}
-          <p className="max-w-2xl text-sm sm:text-base text-gray-600 dark:text-gray-300 font-medium leading-relaxed mb-10 text-center px-4">
+          <p className="max-w-2xl text-sm sm:text-base text-gray-600 dark:text-gray-300 font-medium leading-relaxed mb-8 text-center px-4">
             Veículos periciados, revisados de para-choque a para-choque, com o selo de procedência RaviCar e financiamento facilitado.
           </p>
 
           {/* Call-to-actions (Stacked & Full Width on mobile) */}
-          <div className="flex flex-col gap-3 w-full max-w-sm mx-auto mb-16">
+          <div className="flex flex-col gap-3 w-full max-w-sm mx-auto mb-10">
             <button
               onClick={() => onNavigate('catalogo')}
-              className="w-full px-6 py-4 rounded-lg bg-[#FF2A7A] hover:bg-[#D61F62] text-white font-bold text-sm tracking-wide uppercase transition-colors duration-300 flex items-center justify-center gap-2"
+              className="w-full px-6 py-4 rounded-lg bg-[#FF2A7A] hover:bg-[#D61F62] text-white font-bold text-sm tracking-wide uppercase transition-colors duration-300 flex items-center justify-center gap-2 shadow-lg"
             >
               VER VEÍCULOS &gt;
             </button>
             
             <button
               onClick={handleWhatsappClick}
-              className="w-full px-6 py-4 rounded-lg bg-[#128C7E] hover:bg-[#075E54] text-white font-bold text-sm tracking-wide uppercase transition-colors duration-300 flex items-center justify-center gap-2"
+              className="w-full px-6 py-4 rounded-lg bg-transparent border border-emerald-500 hover:bg-emerald-500/10 text-emerald-500 font-bold text-sm tracking-wide uppercase transition-colors duration-300 flex items-center justify-center gap-2"
             >
               <MessageCircle className="w-5 h-5" />
               FALAR NO WHATSAPP
@@ -107,21 +107,21 @@ export function Hero({ onNavigate, settings }: HeroProps) {
 
           {/* Highlights Banner Underneath (2x2 Grid) */}
           <div className="grid grid-cols-2 gap-3 w-full max-w-md mx-auto">
-            <div className="p-5 rounded-xl bg-gray-50 dark:bg-[#18181B] border border-gray-200 dark:border-neutral-800 text-center flex flex-col items-center justify-center">
+            <div className="p-5 rounded-xl bg-gray-100 dark:bg-[#18181B] border border-gray-200 dark:border-neutral-800 text-center flex flex-col items-center justify-center">
               <h4 className="font-sans font-black text-gray-900 dark:text-white text-2xl mb-1">26K+</h4>
-              <p className="text-[9px] text-gray-600 dark:text-gray-500 font-bold uppercase tracking-widest">Seguidores no Insta</p>
+              <p className="text-[9px] text-gray-500 dark:text-gray-400 dark:text-gray-400 font-medium uppercase tracking-wider">Seguidores no Insta</p>
             </div>
-            <div className="p-5 rounded-xl bg-gray-50 dark:bg-[#18181B] border border-gray-200 dark:border-neutral-800 text-center flex flex-col items-center justify-center">
+            <div className="p-5 rounded-xl bg-gray-100 dark:bg-[#18181B] border border-gray-200 dark:border-neutral-800 text-center flex flex-col items-center justify-center">
               <h4 className="font-sans font-black text-gray-900 dark:text-white text-2xl mb-1">100%</h4>
-              <p className="text-[9px] text-gray-600 dark:text-gray-500 font-bold uppercase tracking-widest">Laudo Aprovado</p>
+              <p className="text-[9px] text-gray-500 dark:text-gray-400 dark:text-gray-400 font-medium uppercase tracking-wider">Laudo Aprovado</p>
             </div>
-            <div className="p-5 rounded-xl bg-gray-50 dark:bg-[#18181B] border border-gray-200 dark:border-neutral-800 text-center flex flex-col items-center justify-center">
+            <div className="p-5 rounded-xl bg-gray-100 dark:bg-[#18181B] border border-gray-200 dark:border-neutral-800 text-center flex flex-col items-center justify-center">
               <h4 className="font-sans font-black text-gray-900 dark:text-white text-2xl mb-1">13+</h4>
-              <p className="text-[9px] text-gray-600 dark:text-gray-500 font-bold uppercase tracking-widest">Bancos Parceiros</p>
+              <p className="text-[9px] text-gray-500 dark:text-gray-400 dark:text-gray-400 font-medium uppercase tracking-wider">Bancos Parceiros</p>
             </div>
-            <div className="p-5 rounded-xl bg-gray-50 dark:bg-[#18181B] border border-gray-200 dark:border-neutral-800 text-center flex flex-col items-center justify-center">
+            <div className="p-5 rounded-xl bg-gray-100 dark:bg-[#18181B] border border-gray-200 dark:border-neutral-800 text-center flex flex-col items-center justify-center">
               <h4 className="font-sans font-black text-[#FF2A7A] text-2xl mb-1">+50</h4>
-              <p className="text-[9px] text-gray-600 dark:text-gray-500 font-bold uppercase tracking-widest">Carros em Estoque</p>
+              <p className="text-[9px] text-gray-500 dark:text-gray-400 dark:text-gray-400 font-medium uppercase tracking-wider">Carros em Estoque</p>
             </div>
           </div>
         </div>

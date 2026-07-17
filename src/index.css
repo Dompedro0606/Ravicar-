@@ -1,9 +1,32 @@
 @import "tailwindcss";
 
+@custom-variant dark (&:is(.dark *));
+
 @theme {
   --font-sans: "Montserrat", "Inter", ui-sans-serif, system-ui, sans-serif;
   --font-display: "Montserrat", sans-serif;
   --font-logo: "Satisfy", "Playball", "Great Vibes", cursive;
+}
+
+
+@layer base {
+  :root {
+    --app-dark-bg: #0B0B0C;
+    --app-dark-bg-90: rgba(11, 11, 12, 0.9);
+    --app-dark-section: #0B1528;
+    --app-dark-border: #15274d;
+    --app-dark-btn: #111e38;
+  }
+  
+  html.dark:not([data-theme]),
+  html.dark[data-theme="original"],
+  html.dark[data-theme="azul"] {
+    --app-dark-bg: #000000;
+    --app-dark-bg-90: rgba(0, 0, 0, 0.9);
+    --app-dark-section: #000000;
+    --app-dark-border: #1a1a1a;
+    --app-dark-btn: #111111;
+  }
 }
 
 @layer base {
@@ -164,232 +187,6 @@
 }
 
 /* GLOBAL THEME CLASS OVERRIDES */
-[data-theme] {
-  background-color: var(--bg-main) !important;
-  color: var(--text-primary) !important;
-}
-
-/* Page wrapper and general body backgrounds */
-[data-theme] body,
-[data-theme] html,
-[data-theme] .bg-black,
-[data-theme] .bg-\[\#0a0a0a\],
-[data-theme] .bg-\[\#080808\],
-[data-theme] .bg-\[\#040404\],
-[data-theme] .bg-\[\#030303\],
-[data-theme] .bg-\[\#020202\],
-[data-theme] .bg-zinc-950 {
-  background-color: var(--bg-main) !important;
-}
-
-/* Semi-transparent navbar & overlay backgrounds */
-[data-theme] .bg-black\/80,
-[data-theme] .bg-black\/85,
-[data-theme] .bg-black\/75,
-[data-theme] .bg-black\/60,
-[data-theme] .bg-black\/95,
-[data-theme] .bg-black\/40,
-[data-theme] .bg-black\/50,
-[data-theme] .bg-black\/90,
-[data-theme] .bg-neutral-950\/80,
-[data-theme] .bg-neutral-950\/50,
-[data-theme] .bg-neutral-950\/90,
-[data-theme] .bg-neutral-950\/95,
-[data-theme] .bg-zinc-950\/80,
-[data-theme] .bg-zinc-950\/50 {
-  background-color: rgba(var(--bg-card-rgb), 0.85) !important;
-}
-
-/* Container and Card overrides */
-[data-theme] .bg-neutral-900,
-[data-theme] .bg-zinc-900,
-[data-theme] .bg-neutral-950,
-[data-theme] .bg-zinc-950,
-[data-theme] .bg-\[\#121212\],
-[data-theme] .bg-\[\#050505\],
-[data-theme] .bg-neutral-800,
-[data-theme] .bg-zinc-800 {
-  background-color: var(--bg-card) !important;
-}
-
-/* Semi-transparent card/container backgrounds */
-[data-theme] .bg-neutral-900\/50,
-[data-theme] .bg-neutral-900\/80,
-[data-theme] .bg-neutral-900\/90,
-[data-theme] .bg-neutral-900\/95,
-[data-theme] .bg-zinc-900\/50,
-[data-theme] .bg-neutral-800\/50,
-[data-theme] .bg-neutral-800\/30,
-[data-theme] .bg-neutral-900\/30,
-[data-theme] .bg-neutral-900\/40 {
-  background-color: rgba(var(--bg-card-rgb), 0.85) !important;
-}
-
-/* Specific small dark background badges or controls (e.g. bg-[#111]) */
-[data-theme] .bg-\[\#111\],
-[data-theme] .bg-\[\#111111\],
-[data-theme] .bg-\[\#1a1a1a\],
-[data-theme] .bg-\[\#1A1A1A\],
-[data-theme] .bg-\[\#222\] {
-  background-color: var(--bg-card-hover) !important;
-}
-
-/* Hover overrides */
-[data-theme] .hover\:bg-neutral-800:hover,
-[data-theme] .hover\:bg-neutral-900:hover,
-[data-theme] .hover\:bg-zinc-900:hover,
-[data-theme] .hover\:bg-neutral-950:hover,
-[data-theme] .hover\:bg-black:hover,
-[data-theme] .hover\:bg-neutral-800\/80:hover {
-  background-color: var(--bg-card-hover) !important;
-}
-
-/* Flatten only dark background gradients, preserving colorful, status, or brand gradients */
-[data-theme] .bg-gradient-to-b.from-neutral-950,
-[data-theme] .bg-gradient-to-r.from-neutral-950,
-[data-theme] .bg-gradient-to-br.from-neutral-950,
-[data-theme] .bg-gradient-to-b.from-neutral-900,
-[data-theme] .bg-gradient-to-r.from-neutral-900,
-[data-theme] .bg-gradient-to-br.from-neutral-900,
-[data-theme] .bg-gradient-to-b.from-black,
-[data-theme] .bg-gradient-to-r.from-black,
-[data-theme] .bg-gradient-to-br.from-black,
-[data-theme] .bg-gradient-to-b.from-zinc-950,
-[data-theme] .bg-gradient-to-r.from-zinc-950,
-[data-theme] .bg-gradient-to-br.from-zinc-950,
-[data-theme] .bg-gradient-to-b.from-zinc-900,
-[data-theme] .bg-gradient-to-r.from-zinc-900,
-[data-theme] .bg-gradient-to-br.from-zinc-900,
-[data-theme] .bg-gradient-to-b.from-\[\#121212\] {
-  background-image: none !important;
-  background-color: var(--bg-card) !important;
-}
-
-/* Brand backgrounds */
-[data-theme] .bg-\[\#FF2D8D\],
-[data-theme] .bg-\[\#FF2D8D\]\/90,
-[data-theme] .bg-gradient-to-r.from-\[\#FF2D8D\].to-\[\#FF6FB5\],
-[data-theme] .hover\:bg-\[\#FF2D8D\]:hover,
-[data-theme] .hover\:bg-\[\#FF6FB5\]:hover,
-[data-theme] .hover\:bg-\[\#FF2D8D\]\/90:hover {
-  background-color: var(--brand-color) !important;
-  background-image: none !important;
-}
-
-[data-theme] .bg-\[\#FF2D8D\]\/5 {
-  background-color: rgba(var(--brand-color-rgb), 0.05) !important;
-}
-[data-theme] .bg-\[\#FF2D8D\]\/10 {
-  background-color: rgba(var(--brand-color-rgb), 0.1) !important;
-}
-[data-theme] .bg-\[\#FF2D8D\]\/15 {
-  background-color: rgba(var(--brand-color-rgb), 0.15) !important;
-}
-[data-theme] .bg-\[\#FF2D8D\]\/20 {
-  background-color: rgba(var(--brand-color-rgb), 0.2) !important;
-}
-[data-theme] .bg-\[\#FF2D8D\]\/25 {
-  background-color: rgba(var(--brand-color-rgb), 0.25) !important;
-}
-
-/* Text overrides */
-[data-theme] .text-white,
-[data-theme] .text-neutral-50,
-[data-theme] .text-zinc-50,
-[data-theme] .text-neutral-100,
-[data-theme] .text-gray-100,
-[data-theme] .text-gray-200,
-[data-theme] .text-neutral-200,
-[data-theme] .text-zinc-100,
-[data-theme] .text-zinc-200 {
-  color: var(--text-primary) !important;
-}
-
-[data-theme] .text-gray-400,
-[data-theme] .text-neutral-400,
-[data-theme] .text-zinc-400,
-[data-theme] .text-gray-300,
-[data-theme] .text-neutral-300,
-[data-theme] .text-zinc-300,
-[data-theme] .text-gray-500,
-[data-theme] .text-neutral-500 {
-  color: var(--text-secondary) !important;
-}
-
-/* Brand text overrides */
-[data-theme] .text-\[\#FF2D8D\],
-[data-theme] .text-\[\#FF6FB5\],
-[data-theme] .hover\:text-\[\#FF2D8D\]:hover,
-[data-theme] .hover\:text-\[\#FF6FB5\]:hover,
-[data-theme] .group-hover\:text-\[\#FF2D8D\]:hover {
-  color: var(--brand-color) !important;
-}
-
-/* Preserve emerald, red, and amber colors for status, badges and warnings */
-[data-theme] .text-emerald-400,
-[data-theme] .text-emerald-500,
-[data-theme] .text-green-400,
-[data-theme] .text-green-500 {
-  color: #10b981 !important;
-}
-[data-theme] .text-red-400,
-[data-theme] .text-red-500 {
-  color: #ef4444 !important;
-}
-[data-theme] .text-amber-400,
-[data-theme] .text-amber-500 {
-  color: #f59e0b !important;
-}
-
-/* Border overrides */
-[data-theme] .border-neutral-800,
-[data-theme] .border-neutral-900,
-[data-theme] .border-zinc-800,
-[data-theme] .border-zinc-900,
-[data-theme] .border-\[\#1A1A1A\],
-[data-theme] .border-\[\#111\],
-[data-theme] .border-\[\#111111\],
-[data-theme] .border-\[\#1a1a1a\],
-[data-theme] .border-white\/10,
-[data-theme] .border-neutral-800\/60,
-[data-theme] .border-neutral-800\/50,
-[data-theme] .border-neutral-700,
-[data-theme] .border-neutral-900\/60 {
-  border-color: var(--border-color) !important;
-}
-
-[data-theme] .border-\[\#FF2D8D\],
-[data-theme] .border-\[\#FF2D8D\]\/20,
-[data-theme] .border-\[\#FF2D8D\]\/25,
-[data-theme] .border-\[\#FF2D8D\]\/30,
-[data-theme] .border-\[\#FF2D8D\]\/40 {
-  border-color: var(--brand-color) !important;
-}
-
-/* Maintain crisp white text on solid colored backgrounds, buttons, and brand gradients */
-[data-theme] .bg-\[\#FF2D8D\] .text-white,
-[data-theme] .bg-\[\#FF2D8D\] span,
-[data-theme] .bg-\[\#FF2D8D\] svg,
-[data-theme] .bg-\[\#FF2D8D\] p,
-[data-theme] .bg-\[\#FF2D8D\],
-[data-theme] .bg-\[\#FF2D8D\] *,
-[data-theme] .bg-\[\#FF6FB5\] *,
-[data-theme] .bg-gradient-to-r.from-\[\#FF2D8D\] *,
-[data-theme] .bg-gradient-to-r.from-\[\#FF2D8D\],
-[data-theme] .bg-\[\#25D366\] *,
-[data-theme] .bg-\[\#25D366\],
-[data-theme] .bg-emerald-500 *,
-[data-theme] .bg-emerald-600 *,
-[data-theme] .bg-green-500 *,
-[data-theme] .bg-green-600 *,
-[data-theme] .bg-red-500 *,
-[data-theme] .bg-red-600 *,
-[data-theme] .bg-blue-600 *,
-[data-theme] .bg-blue-500 *,
-[data-theme] .bg-indigo-600 * {
-  color: #ffffff !important;
-}
-
 @keyframes slideInRight {
   0% {
     transform: translateX(100%);
@@ -510,3 +307,24 @@
 }
 
 
+
+/* Fix Chrome autofill background in light mode when OS is dark */
+input:-webkit-autofill,
+input:-webkit-autofill:hover, 
+input:-webkit-autofill:focus, 
+input:-webkit-autofill:active{
+    -webkit-box-shadow: 0 0 0 1000px white inset !important;
+    -webkit-text-fill-color: #000000 !important;
+}
+
+[data-theme="preto"] input:-webkit-autofill,
+[data-theme="preto"] input:-webkit-autofill:hover, 
+[data-theme="preto"] input:-webkit-autofill:focus, 
+[data-theme="preto"] input:-webkit-autofill:active,
+.dark input:-webkit-autofill,
+.dark input:-webkit-autofill:hover, 
+.dark input:-webkit-autofill:focus, 
+.dark input:-webkit-autofill:active {
+    -webkit-box-shadow: 0 0 0 1000px #0a0a0a inset !important;
+    -webkit-text-fill-color: #ffffff !important;
+}

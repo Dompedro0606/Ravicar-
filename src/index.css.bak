@@ -1,0 +1,514 @@
+@import "tailwindcss";
+
+@custom-variant dark (&:is(.dark *));
+
+@theme {
+  --font-sans: "Montserrat", "Inter", ui-sans-serif, system-ui, sans-serif;
+  --font-display: "Montserrat", sans-serif;
+  --font-logo: "Satisfy", "Playball", "Great Vibes", cursive;
+}
+
+@layer base {
+  html {
+    text-rendering: optimizeLegibility;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+    -webkit-text-size-adjust: 100%;
+    -webkit-tap-highlight-color: transparent !important;
+    overflow-x: hidden;
+    width: 100%;
+    max-width: 100%;
+  }
+
+  * {
+    -webkit-tap-highlight-color: transparent !important;
+  }
+
+  body {
+    font-family: var(--font-sans);
+    text-rendering: optimizeLegibility;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+    overflow-x: hidden;
+    width: 100%;
+    max-width: 100%;
+  }
+  
+  h1, h2, h3, h4, h5, h6 {
+    font-family: var(--font-display);
+    font-weight: 800;
+  }
+
+  /* Prevent text blurring/drop in resolution during transforms, transitions, and hover effects */
+  .transition,
+  .transition-all,
+  .transform,
+  .group,
+  [class*="transition"],
+  [class*="duration-"],
+  [class*="hover:-translate"] {
+    -webkit-backface-visibility: hidden;
+    backface-visibility: hidden;
+    -webkit-transform-style: preserve-3d;
+    transform-style: preserve-3d;
+    /* Force high precision rendering */
+    -webkit-perspective: 1000;
+    perspective: 1000;
+  }
+}
+
+/* Custom hide scrollbar */
+.no-scrollbar::-webkit-scrollbar {
+  display: none;
+}
+.no-scrollbar {
+  -ms-overflow-style: none;
+  scrollbar-width: none;
+}
+
+/* Global text selection (highlighting) colors */
+::selection {
+  background-color: var(--brand-color);
+  color: #ffffff;
+}
+
+::-moz-selection {
+  background-color: var(--brand-color);
+  color: #ffffff;
+}
+
+[data-theme="preto"] ::selection {
+  background-color: var(--brand-color);
+  color: #000000;
+}
+
+[data-theme="preto"] ::-moz-selection {
+  background-color: var(--brand-color);
+  color: #000000;
+}
+
+/* Premium gradient borders and pink glowing shadows */
+:root {
+  --brand-color-rgb: 255, 45, 141;
+  --brand-color: #FF2D8D;
+  --bg-main-rgb: 10, 10, 10;
+  --bg-main: #0a0a0a;
+  --bg-card-rgb: 18, 18, 18;
+  --bg-card: #121212;
+  --bg-card-hover: #1c1c1c;
+  --border-color: #262626;
+  --text-primary: #ffffff;
+  --text-secondary: #a3a3a3;
+}
+
+[data-theme="branco"] {
+  --brand-color-rgb: 37, 99, 235;  /* Premium Royal Blue RGB */
+  --brand-color: #2563eb;          /* Premium Royal Blue Hex */
+  --bg-main-rgb: 248, 250, 252;   /* Slate 50 - clean, premium modern light gray */
+  --bg-main: #f8fafc;
+  --bg-card-rgb: 255, 255, 255;   /* Pure White for cards/containers */
+  --bg-card: #ffffff;
+  --bg-card-hover: #f1f5f9;       /* Slate 100 hover */
+  --border-color: #cbd5e1;        /* Slate 300 - more distinct border for light background */
+  --text-primary: #0f172a;        /* Slate 900 primary text */
+  --text-secondary: #475569;      /* Slate 600 secondary text */
+}
+
+[data-theme="azul"] {
+  --brand-color-rgb: 6, 182, 212;
+  --brand-color: #06b6d4; /* Vivid Cyan */
+  --bg-main-rgb: 3, 7, 18;
+  --bg-main: #030712; /* Rich dark blue-black */
+  --bg-card-rgb: 11, 21, 40;
+  --bg-card: #0b1528; /* Midnight Blue Card */
+  --bg-card-hover: #111e38; /* Midnight hover */
+  --border-color: #1e293b; /* Slate 800 */
+  --text-primary: #f8fafc; /* Slate 50 */
+  --text-secondary: #94a3b8; /* Slate 400 */
+}
+
+[data-theme="preto"] {
+  --brand-color-rgb: 244, 244, 245;
+  --brand-color: #f4f4f5; /* Ice silver/white */
+  --bg-main-rgb: 0, 0, 0;
+  --bg-main: #000000; /* Pitch Black */
+  --bg-card-rgb: 12, 12, 14;
+  --bg-card: #0c0c0e; /* Obsidian Black Card */
+  --bg-card-hover: #141416; /* Obsidian hover */
+  --border-color: #1e1e21; /* Charcoal Gray border */
+  --text-primary: #ffffff; /* Pure White */
+  --text-secondary: #a1a1aa; /* Zinc 400 */
+}
+
+[data-theme="creme"] {
+  --brand-color-rgb: 166, 117, 55;  /* Elegant Gold Cognac */
+  --brand-color: #a67537;          /* Gold Cognac */
+  --bg-main-rgb: 243, 236, 219;    /* Rich Warm Cream */
+  --bg-main: #f3ecdb;
+  --bg-card-rgb: 250, 244, 232;    /* Elegant Cream Card */
+  --bg-card: #faf4e8;
+  --bg-card-hover: #ebdcb9;        /* Warm Ivory Soft Hover */
+  --border-color: #dbcaaa;        /* Soft Warm Golden Beige Border */
+  --text-primary: #2d2820;        /* Espresso Charcoal */
+  --text-secondary: #6f6351;      /* Deep Golden/Amber Gray */
+}
+
+.glow-pink {
+  box-shadow: 0 0 15px rgba(var(--brand-color-rgb), 0.4);
+}
+
+.glow-pink-strong {
+  box-shadow: 0 0 25px rgba(var(--brand-color-rgb), 0.7);
+}
+
+.text-glow-pink {
+  text-shadow: 0 0 10px rgba(var(--brand-color-rgb), 0.5);
+}
+
+/* GLOBAL THEME CLASS OVERRIDES */
+[data-theme] {
+  background-color: var(--bg-main) !important;
+  color: var(--text-primary) !important;
+}
+
+/* Page wrapper and general body backgrounds */
+[data-theme] body,
+[data-theme] html,
+[data-theme] .bg-black,
+[data-theme] .bg-\[\#0a0a0a\],
+[data-theme] .bg-\[\#080808\],
+[data-theme] .bg-\[\#040404\],
+[data-theme] .bg-\[\#030303\],
+[data-theme] .bg-\[\#020202\],
+[data-theme] .bg-zinc-950 {
+  background-color: var(--bg-main) !important;
+}
+
+/* Semi-transparent navbar & overlay backgrounds */
+[data-theme] .bg-black\/80,
+[data-theme] .bg-black\/85,
+[data-theme] .bg-black\/75,
+[data-theme] .bg-black\/60,
+[data-theme] .bg-black\/95,
+[data-theme] .bg-black\/40,
+[data-theme] .bg-black\/50,
+[data-theme] .bg-black\/90,
+[data-theme] .bg-neutral-950\/80,
+[data-theme] .bg-neutral-950\/50,
+[data-theme] .bg-neutral-950\/90,
+[data-theme] .bg-neutral-950\/95,
+[data-theme] .bg-zinc-950\/80,
+[data-theme] .bg-zinc-950\/50 {
+  background-color: rgba(var(--bg-card-rgb), 0.85) !important;
+}
+
+/* Container and Card overrides */
+[data-theme] .bg-neutral-900,
+[data-theme] .bg-zinc-900,
+[data-theme] .bg-neutral-950,
+[data-theme] .bg-zinc-950,
+[data-theme] .bg-\[\#121212\],
+[data-theme] .bg-\[\#050505\],
+[data-theme] .bg-neutral-800,
+[data-theme] .bg-zinc-800 {
+  background-color: var(--bg-card) !important;
+}
+
+/* Semi-transparent card/container backgrounds */
+[data-theme] .bg-neutral-900\/50,
+[data-theme] .bg-neutral-900\/80,
+[data-theme] .bg-neutral-900\/90,
+[data-theme] .bg-neutral-900\/95,
+[data-theme] .bg-zinc-900\/50,
+[data-theme] .bg-neutral-800\/50,
+[data-theme] .bg-neutral-800\/30,
+[data-theme] .bg-neutral-900\/30,
+[data-theme] .bg-neutral-900\/40 {
+  background-color: rgba(var(--bg-card-rgb), 0.85) !important;
+}
+
+/* Specific small dark background badges or controls (e.g. bg-[#111]) */
+[data-theme] .bg-\[\#111\],
+[data-theme] .bg-\[\#111111\],
+[data-theme] .bg-\[\#1a1a1a\],
+[data-theme] .bg-\[\#1A1A1A\],
+[data-theme] .bg-\[\#222\] {
+  background-color: var(--bg-card-hover) !important;
+}
+
+/* Hover overrides */
+[data-theme] .hover\:bg-neutral-800:hover,
+[data-theme] .hover\:bg-neutral-900:hover,
+[data-theme] .hover\:bg-zinc-900:hover,
+[data-theme] .hover\:bg-neutral-950:hover,
+[data-theme] .hover\:bg-black:hover,
+[data-theme] .hover\:bg-neutral-800\/80:hover {
+  background-color: var(--bg-card-hover) !important;
+}
+
+/* Flatten only dark background gradients, preserving colorful, status, or brand gradients */
+[data-theme] .bg-gradient-to-b.from-neutral-950,
+[data-theme] .bg-gradient-to-r.from-neutral-950,
+[data-theme] .bg-gradient-to-br.from-neutral-950,
+[data-theme] .bg-gradient-to-b.from-neutral-900,
+[data-theme] .bg-gradient-to-r.from-neutral-900,
+[data-theme] .bg-gradient-to-br.from-neutral-900,
+[data-theme] .bg-gradient-to-b.from-black,
+[data-theme] .bg-gradient-to-r.from-black,
+[data-theme] .bg-gradient-to-br.from-black,
+[data-theme] .bg-gradient-to-b.from-zinc-950,
+[data-theme] .bg-gradient-to-r.from-zinc-950,
+[data-theme] .bg-gradient-to-br.from-zinc-950,
+[data-theme] .bg-gradient-to-b.from-zinc-900,
+[data-theme] .bg-gradient-to-r.from-zinc-900,
+[data-theme] .bg-gradient-to-br.from-zinc-900,
+[data-theme] .bg-gradient-to-b.from-\[\#121212\] {
+  background-image: none !important;
+  background-color: var(--bg-card) !important;
+}
+
+/* Brand backgrounds */
+[data-theme] .bg-\[\#FF2D8D\],
+[data-theme] .bg-\[\#FF2D8D\]\/90,
+[data-theme] .bg-gradient-to-r.from-\[\#FF2D8D\].to-\[\#FF6FB5\],
+[data-theme] .hover\:bg-\[\#FF2D8D\]:hover,
+[data-theme] .hover\:bg-\[\#FF6FB5\]:hover,
+[data-theme] .hover\:bg-\[\#FF2D8D\]\/90:hover {
+  background-color: var(--brand-color) !important;
+  background-image: none !important;
+}
+
+[data-theme] .bg-\[\#FF2D8D\]\/5 {
+  background-color: rgba(var(--brand-color-rgb), 0.05) !important;
+}
+[data-theme] .bg-\[\#FF2D8D\]\/10 {
+  background-color: rgba(var(--brand-color-rgb), 0.1) !important;
+}
+[data-theme] .bg-\[\#FF2D8D\]\/15 {
+  background-color: rgba(var(--brand-color-rgb), 0.15) !important;
+}
+[data-theme] .bg-\[\#FF2D8D\]\/20 {
+  background-color: rgba(var(--brand-color-rgb), 0.2) !important;
+}
+[data-theme] .bg-\[\#FF2D8D\]\/25 {
+  background-color: rgba(var(--brand-color-rgb), 0.25) !important;
+}
+
+/* Text overrides */
+[data-theme] .text-white,
+[data-theme] .text-neutral-50,
+[data-theme] .text-zinc-50,
+[data-theme] .text-neutral-100,
+[data-theme] .text-gray-100,
+[data-theme] .text-gray-200,
+[data-theme] .text-neutral-200,
+[data-theme] .text-zinc-100,
+[data-theme] .text-zinc-200 {
+  color: var(--text-primary) !important;
+}
+
+[data-theme] .text-gray-400,
+[data-theme] .text-neutral-400,
+[data-theme] .text-zinc-400,
+[data-theme] .text-gray-300,
+[data-theme] .text-neutral-300,
+[data-theme] .text-zinc-300,
+[data-theme] .text-gray-500,
+[data-theme] .text-neutral-500 {
+  color: var(--text-secondary) !important;
+}
+
+/* Brand text overrides */
+[data-theme] .text-\[\#FF2D8D\],
+[data-theme] .text-\[\#FF6FB5\],
+[data-theme] .hover\:text-\[\#FF2D8D\]:hover,
+[data-theme] .hover\:text-\[\#FF6FB5\]:hover,
+[data-theme] .group-hover\:text-\[\#FF2D8D\]:hover {
+  color: var(--brand-color) !important;
+}
+
+/* Preserve emerald, red, and amber colors for status, badges and warnings */
+[data-theme] .text-emerald-400,
+[data-theme] .text-emerald-500,
+[data-theme] .text-green-400,
+[data-theme] .text-green-500 {
+  color: #10b981 !important;
+}
+[data-theme] .text-red-400,
+[data-theme] .text-red-500 {
+  color: #ef4444 !important;
+}
+[data-theme] .text-amber-400,
+[data-theme] .text-amber-500 {
+  color: #f59e0b !important;
+}
+
+/* Border overrides */
+[data-theme] .border-neutral-800,
+[data-theme] .border-neutral-900,
+[data-theme] .border-zinc-800,
+[data-theme] .border-zinc-900,
+[data-theme] .border-\[\#1A1A1A\],
+[data-theme] .border-\[\#111\],
+[data-theme] .border-\[\#111111\],
+[data-theme] .border-\[\#1a1a1a\],
+[data-theme] .border-white\/10,
+[data-theme] .border-neutral-800\/60,
+[data-theme] .border-neutral-800\/50,
+[data-theme] .border-neutral-700,
+[data-theme] .border-neutral-900\/60 {
+  border-color: var(--border-color) !important;
+}
+
+[data-theme] .border-\[\#FF2D8D\],
+[data-theme] .border-\[\#FF2D8D\]\/20,
+[data-theme] .border-\[\#FF2D8D\]\/25,
+[data-theme] .border-\[\#FF2D8D\]\/30,
+[data-theme] .border-\[\#FF2D8D\]\/40 {
+  border-color: var(--brand-color) !important;
+}
+
+/* Maintain crisp white text on solid colored backgrounds, buttons, and brand gradients */
+[data-theme] .bg-\[\#FF2D8D\] .text-white,
+[data-theme] .bg-\[\#FF2D8D\] span,
+[data-theme] .bg-\[\#FF2D8D\] svg,
+[data-theme] .bg-\[\#FF2D8D\] p,
+[data-theme] .bg-\[\#FF2D8D\],
+[data-theme] .bg-\[\#FF2D8D\] *,
+[data-theme] .bg-\[\#FF6FB5\] *,
+[data-theme] .bg-gradient-to-r.from-\[\#FF2D8D\] *,
+[data-theme] .bg-gradient-to-r.from-\[\#FF2D8D\],
+[data-theme] .bg-\[\#25D366\] *,
+[data-theme] .bg-\[\#25D366\],
+[data-theme] .bg-emerald-500 *,
+[data-theme] .bg-emerald-600 *,
+[data-theme] .bg-green-500 *,
+[data-theme] .bg-green-600 *,
+[data-theme] .bg-red-500 *,
+[data-theme] .bg-red-600 *,
+[data-theme] .bg-blue-600 *,
+[data-theme] .bg-blue-500 *,
+[data-theme] .bg-indigo-600 * {
+  color: #ffffff !important;
+}
+
+@keyframes slideInRight {
+  0% {
+    transform: translateX(100%);
+    opacity: 0;
+  }
+  60% {
+    transform: translateX(-10px);
+  }
+  100% {
+    transform: translateX(0);
+    opacity: 1;
+  }
+}
+
+@keyframes slideDown {
+  0% {
+    transform: translateY(-12px);
+    opacity: 0;
+  }
+  100% {
+    transform: translateY(0);
+    opacity: 1;
+  }
+}
+
+.animate-slide-down {
+  animation: slideDown 0.28s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+}
+
+.animate-slide-in-right {
+  animation: slideInRight 0.4s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+}
+
+@keyframes fadeInUp {
+  0% {
+    transform: translateY(15px);
+    opacity: 0;
+  }
+  100% {
+    transform: translateY(0);
+    opacity: 1;
+  }
+}
+
+@keyframes fadeIn {
+  0% {
+    opacity: 0;
+  }
+  100% {
+    opacity: 1;
+  }
+}
+
+@keyframes zoomIn {
+  0% {
+    transform: scale(0.95);
+    opacity: 0;
+  }
+  100% {
+    transform: scale(1);
+    opacity: 1;
+  }
+}
+
+.animate-fade-in-up {
+  animation: fadeInUp 0.5s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+}
+
+.animate-fade-in {
+  animation: fadeIn 0.4s ease-out forwards;
+}
+
+.animate-zoom-in {
+  animation: zoomIn 0.3s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+}
+
+.hover-lift {
+  transition: transform 0.25s cubic-bezier(0.16, 1, 0.3, 1), box-shadow 0.25s ease, border-color 0.25s ease;
+}
+.hover-lift:hover {
+  transform: translateY(-4px);
+}
+
+/* APPLE-STYLE LUXURY ADDITIONS */
+.apple-text-gradient {
+  background: linear-gradient(135deg, #ffffff 0%, #a3a3a3 50%, rgba(255, 45, 141, 0.8) 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+
+/* Shimmer shine animation on premium components */
+@keyframes luxuryShine {
+  0% {
+    background-position: -200% center;
+  }
+  100% {
+    background-position: 200% center;
+  }
+}
+
+.premium-shimmer {
+  background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.08) 30%, rgba(255, 45, 141, 0.15) 50%, rgba(255, 255, 255, 0.08) 70%, transparent);
+  background-size: 200% auto;
+  animation: luxuryShine 6s linear infinite;
+}
+
+/* Smooth reveal class on scroll */
+.reveal-on-scroll {
+  opacity: 0;
+  transform: translateY(30px);
+  transition: opacity 0.8s cubic-bezier(0.16, 1, 0.3, 1), transform 0.8s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.reveal-on-scroll.revealed {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+

@@ -14,42 +14,42 @@ export function TermsOfUse({ settings }: TermsOfUseProps) {
         <div className="p-3.5 rounded-full bg-[#FF2D8D]/10 text-[#FF2D8D] mb-4">
           <FileText className="w-8 h-8" />
         </div>
-        <h1 className="font-display font-black text-3xl md:text-4xl text-white mb-2">Termos de Uso e Política de Privacidade</h1>
-        <p className="text-xs text-gray-500 max-w-md">
+        <h1 className="font-display font-black text-3xl md:text-4xl text-gray-900 dark:text-white mb-2">Termos de Uso e Política de Privacidade</h1>
+        <p className="text-xs text-gray-500 dark:text-gray-400 max-w-md">
           Estes termos regulam a utilização do site RaviCar, serviços de consultas, simulações de financiamento e agendamentos de visitas.
         </p>
       </div>
 
       <div className="grid grid-cols-1 md:grid-cols-3 gap-6 mb-10">
-        <div className="bg-neutral-950 border border-neutral-900 rounded-2xl p-5 flex flex-col items-center text-center">
+        <div className="bg-white dark:bg-neutral-950 border border-gray-200 dark:border-neutral-900 rounded-2xl p-5 flex flex-col items-center text-center">
           <Shield className="w-6 h-6 text-[#FF2D8D] mb-3" />
-          <h4 className="font-display font-bold text-white text-xs mb-1.5 uppercase tracking-wide">100% Protegido (LGPD)</h4>
-          <p className="text-[10px] text-gray-500 leading-relaxed">
+          <h4 className="font-display font-bold text-gray-900 dark:text-white text-xs mb-1.5 uppercase tracking-wide">100% Protegido (LGPD)</h4>
+          <p className="text-[10px] text-gray-500 dark:text-gray-400 leading-relaxed">
             Seus dados são armazenados de forma criptografada em nosso servidor local e jamais são comercializados ou compartilhados com terceiros sem consentimento.
           </p>
         </div>
-        <div className="bg-neutral-950 border border-neutral-900 rounded-2xl p-5 flex flex-col items-center text-center">
+        <div className="bg-white dark:bg-neutral-950 border border-gray-200 dark:border-neutral-900 rounded-2xl p-5 flex flex-col items-center text-center">
           <UserCheck className="w-6 h-6 text-[#FF6FB5] mb-3" />
-          <h4 className="font-display font-bold text-white text-xs mb-1.5 uppercase tracking-wide">Análise Transparente</h4>
-          <p className="text-[10px] text-gray-500 leading-relaxed">
+          <h4 className="font-display font-bold text-gray-900 dark:text-white text-xs mb-1.5 uppercase tracking-wide">Análise Transparente</h4>
+          <p className="text-[10px] text-gray-500 dark:text-gray-400 leading-relaxed">
             As simulações de financiamento são enviadas diretamente às mais de 13 financeiras credenciadas sob o respaldo de correspondentes bancários autorizados do Banco Central.
           </p>
         </div>
-        <div className="bg-neutral-950 border border-neutral-900 rounded-2xl p-5 flex flex-col items-center text-center">
-          <EyeOff className="w-6 h-6 text-gray-400 mb-3" />
-          <h4 className="font-display font-bold text-white text-xs mb-1.5 uppercase tracking-wide">Direito de Exclusão</h4>
-          <p className="text-[10px] text-gray-500 leading-relaxed">
+        <div className="bg-white dark:bg-neutral-950 border border-gray-200 dark:border-neutral-900 rounded-2xl p-5 flex flex-col items-center text-center">
+          <EyeOff className="w-6 h-6 text-gray-600 dark:text-gray-400 mb-3" />
+          <h4 className="font-display font-bold text-gray-900 dark:text-white text-xs mb-1.5 uppercase tracking-wide">Direito de Exclusão</h4>
+          <p className="text-[10px] text-gray-500 dark:text-gray-400 leading-relaxed">
             A qualquer momento, o usuário pode solicitar a exclusão integral do seu cadastro, de suas mensagens e de seus contatos de nossas bases de dados via e-mail ou WhatsApp.
           </p>
         </div>
       </div>
 
       {/* Main Terms text panels */}
-      <div className="space-y-8 text-xs text-gray-400 leading-relaxed bg-neutral-950 border border-neutral-900 rounded-2xl p-6 md:p-8">
+      <div className="space-y-8 text-xs text-gray-600 dark:text-gray-400 leading-relaxed bg-white dark:bg-neutral-950 border border-gray-200 dark:border-neutral-900 rounded-2xl p-6 md:p-8">
         
         {/* Intro */}
         <div>
-          <h2 className="font-display font-bold text-white text-sm mb-3 border-b border-neutral-900 pb-2 uppercase tracking-wider text-[#FF2D8D]">
+          <h2 className="font-display font-bold text-gray-900 dark:text-white text-sm mb-3 border-b border-gray-200 dark:border-neutral-900 pb-2 uppercase tracking-wider text-[#FF2D8D]">
             1. Aceitação dos Termos
           </h2>
           <p className="mb-2">
@@ -62,7 +62,7 @@ export function TermsOfUse({ settings }: TermsOfUseProps) {
 
         {/* 2. LGPD & Dados Pessoais */}
         <div>
-          <h2 className="font-display font-bold text-white text-sm mb-3 border-b border-neutral-900 pb-2 uppercase tracking-wider text-[#FF2D8D]">
+          <h2 className="font-display font-bold text-gray-900 dark:text-white text-sm mb-3 border-b border-gray-200 dark:border-neutral-900 pb-2 uppercase tracking-wider text-[#FF2D8D]">
             2. LGPD - Política de Privacidade e Proteção de Dados
           </h2>
           <p className="mb-2">
@@ -77,7 +77,7 @@ export function TermsOfUse({ settings }: TermsOfUseProps) {
 
         {/* 3. Simulação de Crédito */}
         <div>
-          <h2 className="font-display font-bold text-white text-sm mb-3 border-b border-neutral-900 pb-2 uppercase tracking-wider text-[#FF2D8D]">
+          <h2 className="font-display font-bold text-gray-900 dark:text-white text-sm mb-3 border-b border-gray-200 dark:border-neutral-900 pb-2 uppercase tracking-wider text-[#FF2D8D]">
             3. Simulações de Financiamento e Propostas de Crédito
           </h2>
           <p className="mb-2">
@@ -91,7 +91,7 @@ export function TermsOfUse({ settings }: TermsOfUseProps) {
 
         {/* 4. Negociação e WhatsApp */}
         <div>
-          <h2 className="font-display font-bold text-white text-sm mb-3 border-b border-neutral-900 pb-2 uppercase tracking-wider text-[#FF2D8D]">
+          <h2 className="font-display font-bold text-gray-900 dark:text-white text-sm mb-3 border-b border-gray-200 dark:border-neutral-900 pb-2 uppercase tracking-wider text-[#FF2D8D]">
             4. Processo de Venda via WhatsApp
           </h2>
           <p className="mb-2">
@@ -104,7 +104,7 @@ export function TermsOfUse({ settings }: TermsOfUseProps) {
 
         {/* 5. Contato Encarregado */}
         <div>
-          <h2 className="font-display font-bold text-white text-sm mb-3 border-b border-neutral-900 pb-2 uppercase tracking-wider text-[#FF2D8D]">
+          <h2 className="font-display font-bold text-gray-900 dark:text-white text-sm mb-3 border-b border-gray-200 dark:border-neutral-900 pb-2 uppercase tracking-wider text-[#FF2D8D]">
             5. Canal de Atendimento ao Titular dos Dados (Encarregado DPO)
           </h2>
           <p>

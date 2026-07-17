@@ -103,25 +103,25 @@ export function AuthModal({ onClose, onLoginSuccess, initialTab = 'cliente' }: A
 
   return (
     <div className="fixed inset-0 z-[100] flex items-center justify-center bg-black/80 backdrop-blur-sm p-4">
-      <div className="relative w-full max-w-md bg-neutral-950 border border-neutral-900 rounded-2xl shadow-2xl p-6 md:p-8">
+      <div className="relative w-full max-w-md bg-white dark:bg-neutral-950 border border-gray-200 dark:border-neutral-900 rounded-2xl shadow-2xl p-6 md:p-8">
         
         {/* Close Button */}
         <button
           onClick={onClose}
-          className="absolute top-3 right-3 md:top-4 md:right-4 z-50 p-2.5 md:p-2 rounded-full bg-neutral-900/80 hover:bg-neutral-800 text-gray-400 hover:text-white transition-all cursor-pointer flex items-center justify-center"
+          className="absolute top-3 right-3 md:top-4 md:right-4 z-50 p-2.5 md:p-2 rounded-full bg-gray-200 dark:bg-neutral-900/80 hover:bg-white dark:bg-neutral-800 text-gray-600 dark:text-gray-400 hover:text-gray-900 dark:text-white transition-all cursor-pointer flex items-center justify-center"
         >
           <X className="w-5 h-5" />
         </button>
 
         {/* Tab Selection */}
-        <div className="flex border-b border-neutral-900 mb-6 mt-8 md:mt-2">
+        <div className="flex border-b border-gray-200 dark:border-neutral-900 mb-6 mt-8 md:mt-2">
           <button
             onClick={() => {
               setActiveTab('cliente');
               setIsRegistering(false);
               setError(null);
             }}
-            className={`flex-1 pb-3 text-xs uppercase font-extrabold tracking-wider transition-all duration-300 border-b-2 cursor-pointer ${activeTab === 'cliente' ? 'text-[#FF2D8D] border-[#FF2D8D]' : 'text-gray-500 border-transparent hover:text-gray-300'}`}
+            className={`flex-1 pb-3 text-xs uppercase font-extrabold tracking-wider transition-all duration-300 border-b-2 cursor-pointer ${activeTab === 'cliente' ? 'text-[#FF2D8D] border-[#FF2D8D]' : 'text-gray-500 dark:text-gray-400 border-transparent hover:text-gray-600 dark:text-gray-300'}`}
           >
             Área do Cliente
           </button>
@@ -131,7 +131,7 @@ export function AuthModal({ onClose, onLoginSuccess, initialTab = 'cliente' }: A
               setIsRegistering(false);
               setError(null);
             }}
-            className={`flex-1 pb-3 text-xs uppercase font-extrabold tracking-wider transition-all duration-300 border-b-2 cursor-pointer ${activeTab === 'staff' ? 'text-[#FF2D8D] border-[#FF2D8D]' : 'text-gray-500 border-transparent hover:text-gray-300'}`}
+            className={`flex-1 pb-3 text-xs uppercase font-extrabold tracking-wider transition-all duration-300 border-b-2 cursor-pointer ${activeTab === 'staff' ? 'text-[#FF2D8D] border-[#FF2D8D]' : 'text-gray-500 dark:text-gray-400 border-transparent hover:text-gray-600 dark:text-gray-300'}`}
           >
             Acesso Colaborador
           </button>
@@ -148,7 +148,7 @@ export function AuthModal({ onClose, onLoginSuccess, initialTab = 'cliente' }: A
               <User className="w-7 h-7" />
             )}
           </div>
-          <h2 className="font-display font-black text-lg text-white">
+          <h2 className="font-display font-black text-lg text-gray-900 dark:text-white">
             {activeTab === 'staff' 
               ? 'Acesso Restrito RaviCar' 
               : isRegistering 
@@ -156,7 +156,7 @@ export function AuthModal({ onClose, onLoginSuccess, initialTab = 'cliente' }: A
                 : 'Portal do Cliente RaviCar'
             }
           </h2>
-          <p className="text-xs text-gray-500 mt-1 max-w-[280px] mx-auto">
+          <p className="text-xs text-gray-500 dark:text-gray-400 mt-1 max-w-[280px] mx-auto">
             {activeTab === 'staff'
               ? 'Insira suas credenciais corporativas autorizadas.'
               : isRegistering
@@ -177,25 +177,25 @@ export function AuthModal({ onClose, onLoginSuccess, initialTab = 'cliente' }: A
           {activeTab === 'cliente' && isRegistering && (
             <>
               <div>
-                <label className="block text-gray-400 font-semibold mb-1.5">Nome Completo</label>
+                <label className="block text-gray-600 dark:text-gray-400 font-semibold mb-1.5">Nome Completo</label>
                 <input
                   type="text"
                   required
                   value={name}
                   onChange={e => setName(e.target.value)}
-                  className="w-full bg-neutral-900 border border-neutral-800 focus:border-[#FF2D8D] rounded-xl px-4 py-3 text-white outline-none transition"
+                  className="w-full bg-white dark:bg-neutral-900 border border-gray-200 dark:border-neutral-800 focus:border-[#FF2D8D] rounded-xl px-4 py-3 text-gray-900 dark:text-white outline-none transition"
                   placeholder="Seu nome"
                 />
               </div>
               
               <div>
-                <label className="block text-gray-400 font-semibold mb-1.5">WhatsApp / Celular</label>
+                <label className="block text-gray-600 dark:text-gray-400 font-semibold mb-1.5">WhatsApp / Celular</label>
                 <input
                   type="text"
                   required
                   value={phone}
                   onChange={e => setPhone(e.target.value)}
-                  className="w-full bg-neutral-900 border border-neutral-800 focus:border-[#FF2D8D] rounded-xl px-4 py-3 text-white outline-none transition"
+                  className="w-full bg-white dark:bg-neutral-900 border border-gray-200 dark:border-neutral-800 focus:border-[#FF2D8D] rounded-xl px-4 py-3 text-gray-900 dark:text-white outline-none transition"
                   placeholder="(11) 99999-9999"
                 />
               </div>
@@ -203,7 +203,7 @@ export function AuthModal({ onClose, onLoginSuccess, initialTab = 'cliente' }: A
           )}
 
           <div>
-            <label className="block text-gray-400 font-semibold mb-1.5">
+            <label className="block text-gray-600 dark:text-gray-400 font-semibold mb-1.5">
               {activeTab === 'staff' ? 'E-mail Corporativo' : 'E-mail de Login'}
             </label>
             <input
@@ -211,13 +211,13 @@ export function AuthModal({ onClose, onLoginSuccess, initialTab = 'cliente' }: A
               required
               value={email}
               onChange={e => setEmail(e.target.value)}
-              className="w-full bg-neutral-900 border border-neutral-800 focus:border-[#FF2D8D] rounded-xl px-4 py-3 text-white outline-none transition"
+              className="w-full bg-white dark:bg-neutral-900 border border-gray-200 dark:border-neutral-800 focus:border-[#FF2D8D] rounded-xl px-4 py-3 text-gray-900 dark:text-white outline-none transition"
               placeholder={activeTab === 'staff' ? 'seu_nome@ravicar.com' : 'seu_email@provedor.com'}
             />
           </div>
 
           <div>
-            <label className="block text-gray-400 font-semibold mb-1.5">
+            <label className="block text-gray-600 dark:text-gray-400 font-semibold mb-1.5">
               {activeTab === 'staff' ? 'Senha Operacional' : 'Sua Senha'}
             </label>
             <input
@@ -225,7 +225,7 @@ export function AuthModal({ onClose, onLoginSuccess, initialTab = 'cliente' }: A
               required
               value={password}
               onChange={e => setPassword(e.target.value)}
-              className="w-full bg-neutral-900 border border-neutral-800 focus:border-[#FF2D8D] rounded-xl px-4 py-3 text-white outline-none transition"
+              className="w-full bg-white dark:bg-neutral-900 border border-gray-200 dark:border-neutral-800 focus:border-[#FF2D8D] rounded-xl px-4 py-3 text-gray-900 dark:text-white outline-none transition"
               placeholder="••••••"
             />
           </div>
@@ -233,7 +233,7 @@ export function AuthModal({ onClose, onLoginSuccess, initialTab = 'cliente' }: A
           <button
             type="submit"
             disabled={loading}
-            className="w-full py-3.5 rounded-xl bg-gradient-to-r from-[#FF2D8D] to-[#FF6FB5] hover:glow-pink font-bold text-white uppercase tracking-wider transition flex items-center justify-center gap-2 cursor-pointer mt-2"
+            className="w-full py-3.5 rounded-xl bg-gradient-to-r from-[#FF2D8D] to-[#FF6FB5] hover:glow-pink font-bold text-gray-900 dark:text-white uppercase tracking-wider transition flex items-center justify-center gap-2 cursor-pointer mt-2"
           >
             {loading 
               ? 'Aguarde...' 
@@ -266,7 +266,7 @@ export function AuthModal({ onClose, onLoginSuccess, initialTab = 'cliente' }: A
         )}
 
         {/* Info Footnote */}
-        <div className="mt-6 pt-4 border-t border-neutral-900 text-center text-[10px] text-gray-500 leading-relaxed">
+        <div className="mt-6 pt-4 border-t border-gray-200 dark:border-neutral-900 text-center text-[10px] text-gray-500 dark:text-gray-400 leading-relaxed">
           {activeTab === 'staff'
             ? 'Para solicitar novas contas operacionais (Vendedor ou Admin), fale com o TI.'
             : 'Seus dados pessoais estão protegidos de acordo com as diretrizes da LGPD.'

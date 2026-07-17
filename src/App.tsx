@@ -342,7 +342,7 @@ export default function App() {
   }, [vehicles, selectedVehicleId]);
 
   return (
-    <div className="flex flex-col min-h-screen bg-black text-white overflow-x-hidden">
+    <div className="flex flex-col min-h-screen bg-white text-gray-900 dark:bg-[var(--app-dark-bg)] dark:text-white overflow-x-hidden">
       <CustomCursor />
       {/* Dynamic Header */}
       <Header 
@@ -371,18 +371,18 @@ export default function App() {
             <Hero onNavigate={handleNavigate} settings={settings} />
 
             {/* Featured Cars Section */}
-            <section className="bg-[#0B0B0C] py-20 border-y border-neutral-900/40 reveal-on-scroll">
+            <section className="bg-white dark:bg-[var(--app-dark-section)] py-20 border-y border-gray-100 dark:border-[var(--app-dark-border)] reveal-on-scroll">
               <div className="max-w-7xl mx-auto px-4">
                 <div className="flex flex-col sm:flex-row items-start sm:items-center justify-between mb-10 gap-3">
                   <div>
                     <span className="text-[10px] font-mono tracking-widest text-[#FF2A7A] uppercase">// SHOWROOM</span>
-                    <h2 className="font-display font-black text-2xl md:text-3xl text-white mt-1">
+                    <h2 className="font-display font-black text-2xl md:text-3xl text-gray-900 dark:text-white mt-1">
                       Veículos em Destaque
                     </h2>
                   </div>
                   <button
                     onClick={() => handleNavigate('catalogo')}
-                    className="px-5 py-2.5 rounded-xl border border-neutral-800 hover:border-[#FF2A7A]/30 bg-[#18181B] text-xs font-bold text-gray-300 hover:text-[#FF2A7A] transition duration-300 flex items-center gap-1 cursor-pointer"
+                    className="px-5 py-2.5 rounded-xl border border-blue-900/40 hover:border-[#FF2A7A]/30 bg-white dark:bg-[var(--app-dark-btn)] text-xs font-bold text-gray-600 dark:text-gray-300 hover:text-[#FF2A7A] transition duration-300 flex items-center gap-1 cursor-pointer"
                   >
                     Ver Estoque Completo
                     <ChevronRight className="w-4 h-4" />
@@ -391,7 +391,7 @@ export default function App() {
                 
                 {/* Grid of featured vehicles */}
                 {featuredVehicles.length === 0 ? (
-                  <p className="text-xs text-gray-500 py-10 text-center">Nenhum veículo em destaque no momento.</p>
+                  <p className="text-xs text-gray-500 dark:text-gray-400 py-10 text-center">Nenhum veículo em destaque no momento.</p>
                 ) : (
                   <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
                     {featuredVehicles.map(v => (
@@ -412,24 +412,24 @@ export default function App() {
             </section>
 
             {/* Quick action buttons with high fidelity illustrations and links */}
-            <section className="bg-neutral-950 border-y border-neutral-900/60 py-16 reveal-on-scroll">
+            <section className="bg-white dark:bg-neutral-950 border-y border-gray-200 dark:border-neutral-900/60 py-16 reveal-on-scroll">
               <div className="max-w-7xl mx-auto px-4">
                 <div className="mb-10 text-center md:text-left">
                   <span className="text-[10px] font-mono tracking-widest text-[var(--brand-color)] uppercase">// SOLUÇÕES INTEGRADAS</span>
-                  <h2 className="font-display font-extrabold text-2xl md:text-3xl text-white mt-2">Facilidades Exclusivas RaviCar</h2>
-                  <p className="text-xs text-gray-500 mt-1 max-w-xl">Do crédito à entrega, cuidamos de toda a jornada para que sua única preocupação seja aproveitar a estrada.</p>
+                  <h2 className="font-display font-extrabold text-2xl md:text-3xl text-gray-900 dark:text-white mt-2">Facilidades Exclusivas RaviCar</h2>
+                  <p className="text-xs text-gray-500 dark:text-gray-400 mt-1 max-w-xl">Do crédito à entrega, cuidamos de toda a jornada para que sua única preocupação seja aproveitar a estrada.</p>
                 </div>
 
                 <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
                   {/* Action 1 */}
-                  <div className="group p-8 rounded-2xl bg-black border border-neutral-900/80 hover:border-[var(--brand-color)]/30 transition-all duration-300 flex flex-col justify-between hover-lift relative overflow-hidden">
+                  <div className="group p-8 rounded-2xl bg-white dark:bg-black border border-gray-200 dark:border-neutral-900/80 hover:border-[var(--brand-color)]/30 transition-all duration-300 flex flex-col justify-between hover-lift relative overflow-hidden">
                     <div className="absolute top-6 right-6 text-xs font-mono text-neutral-800 group-hover:text-[var(--brand-color)]/20 transition-colors">// 01</div>
                     <div>
                       <div className="h-12 w-12 rounded-xl bg-[var(--brand-color)]/5 flex items-center justify-center border border-[var(--brand-color)]/10 text-[var(--brand-color)] mb-6">
                         <Landmark className="w-5 h-5" />
                       </div>
-                      <h3 className="font-display font-extrabold text-white text-base mb-2">Simular Financiamento</h3>
-                      <p className="text-xs text-gray-400 leading-relaxed">Parcerias estratégicas com 13 bancos líderes para garantir as menores taxas do mercado nacional em até 60x.</p>
+                      <h3 className="font-display font-extrabold text-gray-900 dark:text-white text-base mb-2">Simular Financiamento</h3>
+                      <p className="text-xs text-gray-600 dark:text-gray-400 leading-relaxed">Parcerias estratégicas com 13 bancos líderes para garantir as menores taxas do mercado nacional em até 60x.</p>
                     </div>
                     <button onClick={() => handleNavigate('financiamento')} className="mt-8 text-xs font-extrabold text-[var(--brand-color)] flex items-center gap-1 hover:gap-2 transition-all cursor-pointer">
                       Iniciar Simulação de Crédito <ChevronRight className="w-4 h-4" />
@@ -437,14 +437,14 @@ export default function App() {
                   </div>
 
                   {/* Action 2 */}
-                  <div className="group p-8 rounded-2xl bg-black border border-neutral-900/80 hover:border-[var(--brand-color)]/30 transition-all duration-300 flex flex-col justify-between hover-lift relative overflow-hidden">
+                  <div className="group p-8 rounded-2xl bg-white dark:bg-black border border-gray-200 dark:border-neutral-900/80 hover:border-[var(--brand-color)]/30 transition-all duration-300 flex flex-col justify-between hover-lift relative overflow-hidden">
                     <div className="absolute top-6 right-6 text-xs font-mono text-neutral-800 group-hover:text-[var(--brand-color)]/20 transition-colors">// 02</div>
                     <div>
                       <div className="h-12 w-12 rounded-xl bg-[var(--brand-color)]/5 flex items-center justify-center border border-[var(--brand-color)]/10 text-[var(--brand-color)] mb-6">
                         <Sparkles className="w-5 h-5" />
                       </div>
-                      <h3 className="font-display font-extrabold text-white text-base mb-2">Avaliar Veículo Usado</h3>
-                      <p className="text-xs text-gray-400 leading-relaxed">Tenha a avaliação mais justa e transparente do mercado utilizando inteligência de dados para dar de entrada na troca.</p>
+                      <h3 className="font-display font-extrabold text-gray-900 dark:text-white text-base mb-2">Avaliar Veículo Usado</h3>
+                      <p className="text-xs text-gray-600 dark:text-gray-400 leading-relaxed">Tenha a avaliação mais justa e transparente do mercado utilizando inteligência de dados para dar de entrada na troca.</p>
                     </div>
                     <button onClick={() => handleNavigate('avaliacao')} className="mt-8 text-xs font-extrabold text-[var(--brand-color)] flex items-center gap-1 hover:gap-2 transition-all cursor-pointer">
                       Solicitar Avaliação Física <ChevronRight className="w-4 h-4" />
@@ -452,14 +452,14 @@ export default function App() {
                   </div>
 
                   {/* Action 3 */}
-                  <div className="group p-8 rounded-2xl bg-black border border-neutral-900/80 hover:border-[var(--brand-color)]/30 transition-all duration-300 flex flex-col justify-between hover-lift relative overflow-hidden">
+                  <div className="group p-8 rounded-2xl bg-white dark:bg-black border border-gray-200 dark:border-neutral-900/80 hover:border-[var(--brand-color)]/30 transition-all duration-300 flex flex-col justify-between hover-lift relative overflow-hidden">
                     <div className="absolute top-6 right-6 text-xs font-mono text-neutral-800 group-hover:text-[var(--brand-color)]/20 transition-colors">// 03</div>
                     <div>
                       <div className="h-12 w-12 rounded-xl bg-emerald-500/5 flex items-center justify-center border border-emerald-500/10 text-emerald-400 mb-6">
                         <Calendar className="w-5 h-5" />
                       </div>
-                      <h3 className="font-display font-extrabold text-white text-base mb-2">Agendar Test Drive</h3>
-                      <p className="text-xs text-gray-400 leading-relaxed">Escolha o melhor dia e horário para testar seu carro dos sonhos com atendimento premium e personalizado.</p>
+                      <h3 className="font-display font-extrabold text-gray-900 dark:text-white text-base mb-2">Agendar Test Drive</h3>
+                      <p className="text-xs text-gray-600 dark:text-gray-400 leading-relaxed">Escolha o melhor dia e horário para testar seu carro dos sonhos com atendimento premium e personalizado.</p>
                     </div>
                     <button onClick={() => handleNavigate('catalogo')} className="mt-8 text-xs font-extrabold text-[var(--brand-color)] flex items-center gap-1 hover:gap-2 transition-all cursor-pointer">
                       Ver Veículos Disponíveis <ChevronRight className="w-4 h-4" />
@@ -472,11 +472,11 @@ export default function App() {
             {/* Testimonials section */}
             <section className="max-w-7xl mx-auto px-4 reveal-on-scroll">
               <div className="text-center max-w-xl mx-auto mb-12">
-                <div className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-neutral-950 border border-neutral-900 text-[10px] font-mono tracking-widest text-[var(--brand-color)] uppercase mb-3">
+                <div className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-white dark:bg-neutral-950 border border-gray-200 dark:border-neutral-900 text-[10px] font-mono tracking-widest text-[var(--brand-color)] uppercase mb-3">
                   <Star className="w-3 h-3 fill-[var(--brand-color)]" /> Depoimentos Reais
                 </div>
-                <h2 className="font-display font-extrabold text-2xl md:text-3xl text-white">Experiências RaviCar</h2>
-                <p className="text-xs text-gray-500 mt-1">A melhor métrica do nosso trabalho é a satisfação de quem confia em nossa curadoria.</p>
+                <h2 className="font-display font-extrabold text-2xl md:text-3xl text-gray-900 dark:text-white">Experiências RaviCar</h2>
+                <p className="text-xs text-gray-500 dark:text-gray-400 mt-1">A melhor métrica do nosso trabalho é a satisfação de quem confia em nossa curadoria.</p>
               </div>
 
               <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
@@ -488,7 +488,7 @@ export default function App() {
                   // Generate initials for luxury avatar
                   const initials = t.name ? t.name.split(' ').map(n => n[0]).join('').slice(0, 2).toUpperCase() : 'C';
                   return (
-                    <div key={t.id || idx} className="p-8 rounded-2xl bg-[#080808] border border-neutral-900/60 relative hover:border-[var(--brand-color)]/25 transition-all duration-500 flex flex-col justify-between group overflow-hidden hover-lift">
+                    <div key={t.id || idx} className="p-8 rounded-2xl bg-white dark:bg-[#080808] border border-gray-200 dark:border-neutral-900/60 relative hover:border-[var(--brand-color)]/25 transition-all duration-500 flex flex-col justify-between group overflow-hidden hover-lift">
                       {/* Quote mark watermark */}
                       <span className="absolute top-2 right-4 text-7xl font-serif text-neutral-900/30 select-none pointer-events-none group-hover:text-[var(--brand-color)]/5 transition-colors">“</span>
                       
@@ -498,16 +498,16 @@ export default function App() {
                             <Star key={i} className="w-3.5 h-3.5 fill-[var(--brand-color)] text-[var(--brand-color)]" />
                           ))}
                         </div>
-                        <p className="text-xs text-gray-300 leading-relaxed font-medium italic mb-6">"{t.text}"</p>
+                        <p className="text-xs text-gray-600 dark:text-gray-300 leading-relaxed font-medium italic mb-6">"{t.text}"</p>
                       </div>
 
-                      <div className="flex items-center gap-3 pt-4 border-t border-neutral-900/40 relative z-10">
-                        <div className="w-9 h-9 rounded-full bg-neutral-900 border border-neutral-800 flex items-center justify-center text-xs font-mono font-bold text-gray-400 group-hover:border-[var(--brand-color)]/30 group-hover:text-[var(--brand-color)] transition-colors">
+                      <div className="flex items-center gap-3 pt-4 border-t border-gray-200 dark:border-neutral-900/40 relative z-10">
+                        <div className="w-9 h-9 rounded-full bg-white dark:bg-neutral-900 border border-gray-200 dark:border-neutral-800 flex items-center justify-center text-xs font-mono font-bold text-gray-600 dark:text-gray-400 group-hover:border-[var(--brand-color)]/30 group-hover:text-[var(--brand-color)] transition-colors">
                           {initials}
                         </div>
                         <div>
-                          <h4 className="font-display font-extrabold text-white text-xs">{t.name}</h4>
-                          <p className="text-[10px] text-gray-500 font-mono mt-0.5 uppercase tracking-wide">{t.role}</p>
+                          <h4 className="font-display font-extrabold text-gray-900 dark:text-white text-xs">{t.name}</h4>
+                          <p className="text-[10px] text-gray-500 dark:text-gray-400 font-mono mt-0.5 uppercase tracking-wide">{t.role}</p>
                         </div>
                       </div>
                     </div>
@@ -518,20 +518,20 @@ export default function App() {
 
             {/* PIX RESERVA OPTIONS BANNER */}
             <section className="max-w-4xl mx-auto px-4 reveal-on-scroll">
-              <div className="relative overflow-hidden bg-neutral-950 border border-neutral-900 rounded-3xl p-8 md:p-10 shadow-2xl">
+              <div className="relative overflow-hidden bg-white dark:bg-neutral-950 border border-gray-200 dark:border-neutral-900 rounded-3xl p-8 md:p-10 shadow-2xl">
                 {/* Visual Accent Glow */}
                 <div className="absolute right-0 top-0 -translate-y-1/3 translate-x-1/3 w-96 h-96 bg-[var(--brand-color)]/5 rounded-full blur-3xl pointer-events-none"></div>
                 <div className="absolute left-0 bottom-0 translate-y-1/3 -translate-x-1/3 w-96 h-96 bg-emerald-500/5 rounded-full blur-3xl pointer-events-none"></div>
 
                 <div className="relative z-10">
-                  <div className="flex flex-col md:flex-row md:items-center justify-between gap-6 pb-6 border-b border-neutral-900/60">
+                  <div className="flex flex-col md:flex-row md:items-center justify-between gap-6 pb-6 border-b border-gray-200 dark:border-neutral-900/60">
                     <div className="flex items-center gap-4">
                       <div className="h-12 w-12 rounded-2xl bg-[var(--brand-color)]/10 flex items-center justify-center border border-[var(--brand-color)]/20 text-[var(--brand-color)]">
                         <DollarSign className="w-5 h-5" />
                       </div>
                       <div>
-                        <h3 className="font-display font-extrabold text-xl text-white">Certificado de Reserva e Sinal</h3>
-                        <p className="text-xs text-gray-500 mt-0.5">Garanta a exclusividade imediata do seu veículo de forma ágil e segura.</p>
+                        <h3 className="font-display font-extrabold text-xl text-gray-900 dark:text-white">Certificado de Reserva e Sinal</h3>
+                        <p className="text-xs text-gray-500 dark:text-gray-400 mt-0.5">Garanta a exclusividade imediata do seu veículo de forma ágil e segura.</p>
                       </div>
                     </div>
                     <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-emerald-500/10 border border-emerald-500/20 text-[10px] font-mono uppercase tracking-wider text-emerald-400 self-start md:self-center">
@@ -544,33 +544,33 @@ export default function App() {
                     {/* Left Column: Pix Keys */}
                     <div className="space-y-4">
                       <span className="text-[10px] font-mono tracking-widest text-[var(--brand-color)] uppercase">// CHAVES PIX OFICIAIS</span>
-                      <div className="space-y-3 bg-black/40 border border-neutral-900/80 rounded-2xl p-5">
+                      <div className="space-y-3 bg-gray-100 dark:bg-black/40 border border-gray-200 dark:border-neutral-900/80 rounded-2xl p-5">
                         <div 
-                          className="flex justify-between items-center text-xs py-1.5 border-b border-neutral-900/30 group cursor-pointer hover:bg-neutral-900/20 px-2 rounded -mx-2 transition-colors"
+                          className="flex justify-between items-center text-xs py-1.5 border-b border-gray-200 dark:border-neutral-900/30 group cursor-pointer hover:bg-gray-100 dark:bg-neutral-900/20 px-2 rounded -mx-2 transition-colors"
                           onClick={() => handleCopy(settings.pixCnpj, 'cnpj')}
                         >
-                          <span className="text-gray-500">CNPJ RaviCar</span>
-                          <span className="text-white font-mono font-bold flex items-center gap-2">
+                          <span className="text-gray-500 dark:text-gray-400">CNPJ RaviCar</span>
+                          <span className="text-gray-900 dark:text-white font-mono font-bold flex items-center gap-2">
                             {settings.pixCnpj}
                             {copiedKey === 'cnpj' ? <Check className="w-3.5 h-3.5 text-emerald-500" /> : <Copy className="w-3.5 h-3.5 text-neutral-600 group-hover:text-[var(--brand-color)] transition-colors" />}
                           </span>
                         </div>
                         <div 
-                          className="flex justify-between items-center text-xs py-1.5 border-b border-neutral-900/30 group cursor-pointer hover:bg-neutral-900/20 px-2 rounded -mx-2 transition-colors"
+                          className="flex justify-between items-center text-xs py-1.5 border-b border-gray-200 dark:border-neutral-900/30 group cursor-pointer hover:bg-gray-100 dark:bg-neutral-900/20 px-2 rounded -mx-2 transition-colors"
                           onClick={() => handleCopy(settings.pixCelular, 'celular')}
                         >
-                          <span className="text-gray-500">Pix Celular</span>
-                          <span className="text-white font-mono font-bold flex items-center gap-2">
+                          <span className="text-gray-500 dark:text-gray-400">Pix Celular</span>
+                          <span className="text-gray-900 dark:text-white font-mono font-bold flex items-center gap-2">
                             {settings.pixCelular}
                             {copiedKey === 'celular' ? <Check className="w-3.5 h-3.5 text-emerald-500" /> : <Copy className="w-3.5 h-3.5 text-neutral-600 group-hover:text-[var(--brand-color)] transition-colors" />}
                           </span>
                         </div>
                         <div 
-                          className="flex justify-between items-center text-xs py-1.5 group cursor-pointer hover:bg-neutral-900/20 px-2 rounded -mx-2 transition-colors"
+                          className="flex justify-between items-center text-xs py-1.5 group cursor-pointer hover:bg-gray-100 dark:bg-neutral-900/20 px-2 rounded -mx-2 transition-colors"
                           onClick={() => handleCopy(settings.pixEmail, 'email')}
                         >
-                          <span className="text-gray-500">Pix E-mail</span>
-                          <span className="text-white font-mono font-bold flex items-center gap-2 truncate max-w-[200px]">
+                          <span className="text-gray-500 dark:text-gray-400">Pix E-mail</span>
+                          <span className="text-gray-900 dark:text-white font-mono font-bold flex items-center gap-2 truncate max-w-[200px]">
                             {settings.pixEmail}
                             {copiedKey === 'email' ? <Check className="w-3.5 h-3.5 text-emerald-500 shrink-0" /> : <Copy className="w-3.5 h-3.5 text-neutral-600 group-hover:text-[var(--brand-color)] transition-colors shrink-0" />}
                           </span>
@@ -581,45 +581,45 @@ export default function App() {
                     {/* Right Column: Bank details */}
                     <div className="space-y-4">
                       <span className="text-[10px] font-mono tracking-widest text-neutral-500 uppercase">// TRANSFERÊNCIA DIRETA</span>
-                      <div className="space-y-3 bg-black/40 border border-neutral-900/80 rounded-2xl p-5">
+                      <div className="space-y-3 bg-gray-100 dark:bg-black/40 border border-gray-200 dark:border-neutral-900/80 rounded-2xl p-5">
                         <div className="grid grid-cols-2 gap-x-6 gap-y-2 text-[11px] leading-relaxed">
                           <div 
-                            className="py-1.5 border-b border-neutral-900/30 group cursor-pointer hover:bg-neutral-900/20 px-2 rounded -mx-2 transition-colors flex justify-between items-center"
+                            className="py-1.5 border-b border-gray-200 dark:border-neutral-900/30 group cursor-pointer hover:bg-gray-100 dark:bg-neutral-900/20 px-2 rounded -mx-2 transition-colors flex justify-between items-center"
                             onClick={() => handleCopy(settings.pixSantander, 'santander')}
                           >
                             <div>
-                              <span className="text-gray-500 block text-[9px] uppercase font-mono mb-0.5">SANTANDER</span>
-                              <span className="text-gray-300 font-bold font-mono">{settings.pixSantander}</span>
+                              <span className="text-gray-500 dark:text-gray-400 block text-[9px] uppercase font-mono mb-0.5">SANTANDER</span>
+                              <span className="text-gray-600 dark:text-gray-300 font-bold font-mono">{settings.pixSantander}</span>
                             </div>
                             {copiedKey === 'santander' ? <Check className="w-3.5 h-3.5 text-emerald-500" /> : <Copy className="w-3.5 h-3.5 text-neutral-600 group-hover:text-[var(--brand-color)] transition-colors opacity-0 group-hover:opacity-100" />}
                           </div>
                           <div 
-                            className="py-1.5 border-b border-neutral-900/30 group cursor-pointer hover:bg-neutral-900/20 px-2 rounded -mx-2 transition-colors flex justify-between items-center"
+                            className="py-1.5 border-b border-gray-200 dark:border-neutral-900/30 group cursor-pointer hover:bg-gray-100 dark:bg-neutral-900/20 px-2 rounded -mx-2 transition-colors flex justify-between items-center"
                             onClick={() => handleCopy(settings.pixBradesco, 'bradesco')}
                           >
                             <div>
-                              <span className="text-gray-500 block text-[9px] uppercase font-mono mb-0.5">BRADESCO</span>
-                              <span className="text-gray-300 font-bold font-mono">{settings.pixBradesco}</span>
+                              <span className="text-gray-500 dark:text-gray-400 block text-[9px] uppercase font-mono mb-0.5">BRADESCO</span>
+                              <span className="text-gray-600 dark:text-gray-300 font-bold font-mono">{settings.pixBradesco}</span>
                             </div>
                             {copiedKey === 'bradesco' ? <Check className="w-3.5 h-3.5 text-emerald-500" /> : <Copy className="w-3.5 h-3.5 text-neutral-600 group-hover:text-[var(--brand-color)] transition-colors opacity-0 group-hover:opacity-100" />}
                           </div>
                           <div 
-                            className="py-1.5 group cursor-pointer hover:bg-neutral-900/20 px-2 rounded -mx-2 transition-colors flex justify-between items-center"
+                            className="py-1.5 group cursor-pointer hover:bg-gray-100 dark:bg-neutral-900/20 px-2 rounded -mx-2 transition-colors flex justify-between items-center"
                             onClick={() => handleCopy(settings.pixItau, 'itau')}
                           >
                             <div>
-                              <span className="text-gray-500 block text-[9px] uppercase font-mono mb-0.5">ITAÚ</span>
-                              <span className="text-gray-300 font-bold font-mono">{settings.pixItau}</span>
+                              <span className="text-gray-500 dark:text-gray-400 block text-[9px] uppercase font-mono mb-0.5">ITAÚ</span>
+                              <span className="text-gray-600 dark:text-gray-300 font-bold font-mono">{settings.pixItau}</span>
                             </div>
                             {copiedKey === 'itau' ? <Check className="w-3.5 h-3.5 text-emerald-500" /> : <Copy className="w-3.5 h-3.5 text-neutral-600 group-hover:text-[var(--brand-color)] transition-colors opacity-0 group-hover:opacity-100" />}
                           </div>
                           <div 
-                            className="py-1.5 group cursor-pointer hover:bg-neutral-900/20 px-2 rounded -mx-2 transition-colors flex justify-between items-center"
+                            className="py-1.5 group cursor-pointer hover:bg-gray-100 dark:bg-neutral-900/20 px-2 rounded -mx-2 transition-colors flex justify-between items-center"
                             onClick={() => handleCopy(settings.pixInter, 'inter')}
                           >
                             <div>
-                              <span className="text-gray-500 block text-[9px] uppercase font-mono mb-0.5">BANCO INTER</span>
-                              <span className="text-gray-300 font-bold font-mono">{settings.pixInter}</span>
+                              <span className="text-gray-500 dark:text-gray-400 block text-[9px] uppercase font-mono mb-0.5">BANCO INTER</span>
+                              <span className="text-gray-600 dark:text-gray-300 font-bold font-mono">{settings.pixInter}</span>
                             </div>
                             {copiedKey === 'inter' ? <Check className="w-3.5 h-3.5 text-emerald-500" /> : <Copy className="w-3.5 h-3.5 text-neutral-600 group-hover:text-[var(--brand-color)] transition-colors opacity-0 group-hover:opacity-100" />}
                           </div>
@@ -628,8 +628,8 @@ export default function App() {
                     </div>
                   </div>
 
-                  <div className="mt-8 pt-6 border-t border-neutral-900/40 flex flex-col sm:flex-row sm:items-center justify-between gap-4">
-                    <p className="text-[10px] text-gray-500 italic max-w-xl">
+                  <div className="mt-8 pt-6 border-t border-gray-200 dark:border-neutral-900/40 flex flex-col sm:flex-row sm:items-center justify-between gap-4">
+                    <p className="text-[10px] text-gray-500 dark:text-gray-400 italic max-w-xl">
                       * Após concluir o sinal de reserva, envie imediatamente o comprovante ao seu consultor de vendas RaviCar para emitirmos seu termo de reserva legalizado.
                     </p>
                     <button 
@@ -639,7 +639,7 @@ export default function App() {
                         const whatsappNumber = cleanWhatsapp.startsWith('55') && cleanWhatsapp.length >= 12 ? cleanWhatsapp : `55${cleanWhatsapp}`;
                         window.open(`https://wa.me/${whatsappNumber}?text=${messageText}`, '_blank');
                       }}
-                      className="px-5 py-2.5 rounded-xl bg-neutral-900 hover:bg-[var(--brand-color)] border border-neutral-800 hover:border-transparent text-xs font-bold text-gray-300 hover:text-white transition-all duration-300 shrink-0 cursor-pointer text-center"
+                      className="px-5 py-2.5 rounded-xl bg-white dark:bg-neutral-900 hover:bg-[var(--brand-color)] border border-gray-200 dark:border-neutral-800 hover:border-transparent text-xs font-bold text-gray-600 dark:text-gray-300 hover:text-white transition-all duration-300 shrink-0 cursor-pointer text-center"
                     >
                       Enviar Comprovante de Reserva
                     </button>
@@ -649,50 +649,50 @@ export default function App() {
             </section>
 
             {/* Visit card & working hours */}
-            <section id="location_section" className="max-w-7xl mx-auto px-4 grid grid-cols-1 lg:grid-cols-12 gap-8 items-center pt-12 border-t border-neutral-900/60">
-              <div className="lg:col-span-5 space-y-5 text-xs text-gray-400">
+            <section id="location_section" className="max-w-7xl mx-auto px-4 grid grid-cols-1 lg:grid-cols-12 gap-8 items-center pt-12 border-t border-gray-200 dark:border-neutral-900/60">
+              <div className="lg:col-span-5 space-y-5 text-xs text-gray-600 dark:text-gray-400">
                 <div className="inline-flex items-center gap-1.5 px-3 py-1 bg-[var(--brand-color)]/10 border border-[var(--brand-color)]/20 text-[var(--brand-color)] rounded-full text-[10px] font-extrabold uppercase tracking-widest">
                   <span className="w-1.5 h-1.5 rounded-full bg-[var(--brand-color)]"></span>
                   Showroom Físico
                 </div>
-                <h3 className="font-display font-black text-2xl md:text-3xl text-white tracking-tight">
+                <h3 className="font-display font-black text-2xl md:text-3xl text-gray-900 dark:text-white tracking-tight">
                   Venha nos Visitar
                 </h3>
-                <p className="leading-relaxed text-gray-400 text-sm">
+                <p className="leading-relaxed text-gray-600 dark:text-gray-400 text-sm">
                   Venha conhecer pessoalmente o nosso showroom luxuoso! Oferecemos um ambiente seguro, totalmente climatizado, com café espresso gourmet e estacionamento exclusivo e gratuito para clientes.
                 </p>
                 
                 <div className="space-y-3.5 pt-2">
                   <div className="flex items-start gap-3">
-                    <div className="p-2 bg-neutral-900 border border-neutral-800 rounded-xl text-[var(--brand-color)]">
+                    <div className="p-2 bg-white dark:bg-neutral-900 border border-gray-200 dark:border-neutral-800 rounded-xl text-[var(--brand-color)]">
                       <MapPin className="w-4 h-4 shrink-0" />
                     </div>
                     <div>
-                      <p className="font-bold text-white mb-0.5">Endereço</p>
-                      <p className="text-gray-500 leading-normal">{settings.address}</p>
+                      <p className="font-bold text-gray-900 dark:text-white mb-0.5">Endereço</p>
+                      <p className="text-gray-500 dark:text-gray-400 leading-normal">{settings.address}</p>
                     </div>
                   </div>
                   
                   <div className="flex items-start gap-3">
-                    <div className="p-2 bg-neutral-900 border border-neutral-800 rounded-xl text-[var(--brand-color)]">
+                    <div className="p-2 bg-white dark:bg-neutral-900 border border-gray-200 dark:border-neutral-800 rounded-xl text-[var(--brand-color)]">
                       <Clock className="w-4 h-4 shrink-0" />
                     </div>
                     <div>
-                      <p className="font-bold text-white mb-0.5">Horário de Funcionamento</p>
-                      <p className="text-gray-500 leading-normal">
-                        Segunda a Sexta: <span className="text-gray-300 font-semibold">{settings.hoursWeekday}</span> <br />
-                        Sábados: <span className="text-gray-300 font-semibold">{settings.hoursSaturday}</span>
+                      <p className="font-bold text-gray-900 dark:text-white mb-0.5">Horário de Funcionamento</p>
+                      <p className="text-gray-500 dark:text-gray-400 leading-normal">
+                        Segunda a Sexta: <span className="text-gray-600 dark:text-gray-300 font-semibold">{settings.hoursWeekday}</span> <br />
+                        Sábados: <span className="text-gray-600 dark:text-gray-300 font-semibold">{settings.hoursSaturday}</span>
                       </p>
                     </div>
                   </div>
 
                   <div className="flex items-start gap-3">
-                    <div className="p-2 bg-neutral-900 border border-neutral-800 rounded-xl text-[var(--brand-color)]">
+                    <div className="p-2 bg-white dark:bg-neutral-900 border border-gray-200 dark:border-neutral-800 rounded-xl text-[var(--brand-color)]">
                       <Phone className="w-4 h-4 shrink-0" />
                     </div>
                     <div>
-                      <p className="font-bold text-white mb-0.5">Telefone Comercial</p>
-                      <p className="text-gray-300 font-semibold text-sm">{settings.phone}</p>
+                      <p className="font-bold text-gray-900 dark:text-white mb-0.5">Telefone Comercial</p>
+                      <p className="text-gray-600 dark:text-gray-300 font-semibold text-sm">{settings.phone}</p>
                     </div>
                   </div>
                 </div>
@@ -705,7 +705,7 @@ export default function App() {
                       const whatsappNumber = cleanWhatsapp.startsWith('55') && cleanWhatsapp.length >= 12 ? cleanWhatsapp : `55${cleanWhatsapp}`;
                       window.open(`https://wa.me/${whatsappNumber}?text=${text}`, '_blank');
                     }}
-                    className="w-full sm:w-auto flex items-center justify-center gap-2.5 px-6 py-3.5 bg-[#25D366] text-white font-bold rounded-xl hover:bg-[#20ba59] transition-all shadow-lg hover:shadow-[#25D366]/20 cursor-pointer text-xs uppercase tracking-wider"
+                    className="w-full sm:w-auto flex items-center justify-center gap-2.5 px-6 py-3.5 bg-[#25D366] text-gray-900 dark:text-white font-bold rounded-xl hover:bg-[#20ba59] transition-all shadow-lg hover:shadow-[#25D366]/20 cursor-pointer text-xs uppercase tracking-wider"
                   >
                     <MessageCircle className="w-4.5 h-4.5 fill-white text-[#25D366]" />
                     Conversar via WhatsApp
@@ -714,7 +714,7 @@ export default function App() {
               </div>
 
               {/* Physical Map (Real Google Maps with dark elegant theme and controls) */}
-              <div className="lg:col-span-7 h-80 md:h-[400px] bg-neutral-950 border border-neutral-900 rounded-3xl overflow-hidden relative shadow-2xl group">
+              <div className="lg:col-span-7 h-80 md:h-[400px] bg-white dark:bg-neutral-950 border border-gray-200 dark:border-neutral-900 rounded-3xl overflow-hidden relative shadow-2xl group">
                 <iframe
                   title="Showroom RaviCar Localização"
                   src={`https://maps.google.com/maps?q=${encodeURIComponent(settings.address || 'Avenida Marechal Tito, 2188, São Paulo - SP')}&t=&z=16&ie=UTF8&iwloc=&output=embed`}
@@ -725,14 +725,14 @@ export default function App() {
                 ></iframe>
 
                 {/* Glassmorphism Navigation Overlay Card */}
-                <div className="absolute top-4 left-4 right-4 bg-black/85 backdrop-blur-md p-4 rounded-2xl border border-neutral-800/80 text-xs flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4 shadow-2xl">
+                <div className="absolute top-4 left-4 right-4 bg-white/85 dark:bg-black/85 backdrop-blur-md p-4 rounded-2xl border border-gray-200 dark:border-neutral-800/80 text-xs flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4 shadow-2xl">
                   <div className="flex items-center gap-3">
                     <div className="p-2.5 bg-[var(--brand-color)]/15 text-[var(--brand-color)] rounded-xl shrink-0 border border-[var(--brand-color)]/20">
                       <MapPin className="w-4.5 h-4.5" />
                     </div>
                     <div>
-                      <p className="font-display font-black text-white text-sm">Showroom RaviCar</p>
-                      <p className="text-[10px] text-gray-400 mt-1 leading-tight">{settings.address}</p>
+                      <p className="font-display font-black text-gray-900 dark:text-white text-sm">Showroom RaviCar</p>
+                      <p className="text-[10px] text-gray-600 dark:text-gray-400 mt-1 leading-tight">{settings.address}</p>
                     </div>
                   </div>
 
@@ -749,7 +749,7 @@ export default function App() {
                       href={`https://waze.com/ul?q=${encodeURIComponent(settings.address)}`}
                       target="_blank"
                       rel="noopener noreferrer"
-                      className="flex-1 sm:flex-initial text-center px-4 py-2 bg-neutral-900 hover:bg-neutral-800 border border-neutral-800 text-gray-300 hover:text-white font-black text-[10px] rounded-xl shadow-lg transition uppercase tracking-wider cursor-pointer"
+                      className="flex-1 sm:flex-initial text-center px-4 py-2 bg-white dark:bg-neutral-900 hover:bg-white dark:bg-neutral-800 border border-gray-200 dark:border-neutral-800 text-gray-600 dark:text-gray-300 hover:text-gray-900 dark:text-white font-black text-[10px] rounded-xl shadow-lg transition uppercase tracking-wider cursor-pointer"
                     >
                       Waze
                     </a>
